@@ -10,10 +10,6 @@
     "client:test": "cd ./src/client && react-scripts test",
     "client:eject": "cd ./src/client && react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.trendyol.com:discovery/mobile-web/services/perfanalytics.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
