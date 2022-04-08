@@ -1,0 +1,219 @@
+@import "./variables.scss";
+
+.data-table {
+  .row {
+    display: flex;
+    align-items: center;
+
+    .cell {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+  .ReactVirtualized__Table__headerColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.entry-table {
+  margin-top: 20px;
+  .ant-table-wrapper {
+    .delete-button {
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      transition-duration: 0.3s;
+
+      &:hover {
+        color: $red;
+        cursor: pointer;
+      }
+    }
+
+    .device-container {
+      display: flex;
+      justify-content: center;
+      &.desktop {
+        font-size: 18px;
+      }
+      &.mobile {
+        font-size: 22px;
+      }
+    }
+    .report-button {
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      transition-duration: 0.3s;
+
+      a {
+        color: #262626;
+        &:hover {
+          color: #1991ff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.ux-chart {
+  .title {
+    font-size: 30px;
+  }
+
+  .select-box {
+    margin: 20px 0;
+  }
+  #wrapper {
+    margin: auto;
+    width: 100%;
+    .grid-container {
+      display: grid;
+      grid-template-rows: 40px;
+      grid-template-areas: ". . .";
+      margin-bottom: 16px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .box-Good {
+      background-color: hsl(118, 41%, 49%);
+    }
+    .box-Needs-Improvement {
+      background-color: hsl(31, 78%, 53%);
+    }
+    .box-Poor {
+      background-color: hsl(359, 80%, 50%);
+    }
+  }
+}
+
+.ant-page-header {
+  padding: 32px 32px;
+  width: 100%;
+  height: 100%;
+  .ant-page-header-heading {
+    .ant-page-header-heading-left {
+      .ant-page-header-heading-title {
+        color: $orange;
+        font-size: 1.8rem;
+      }
+    }
+  }
+  .ant-page-header-content {
+    height: 96%;
+  }
+}
+
+.layout {
+  width: 100vw;
+  display: flex;
+}
+
+.sidebar {
+  position: fixed;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #f0f0f0;
+
+  .footer {
+    padding: 6px 12px;
+
+    svg {
+      color: $red;
+    }
+  }
+  .header-area {
+    margin: 3px 0px 50px 0px;
+    display: flex;
+    justify-content: center;
+
+    .title {
+      font-size: $title;
+      font-weight: 700;
+      color: $orange;
+    }
+  }
+}
+
+.ant-menu {
+  border: none;
+}
+
+.ant-divider-horizontal {
+  margin: 10px 0px;
+}
+
+.ant-modal {
+  .ant-modal-body {
+    height: 700px;
+    overflow: auto;
+  }
+  .modal-container {
+    font-size: 14px;
+
+    .title {
+      font-weight: bold;
+    }
+
+    > .tag-section {
+      margin-top: 20px;
+    }
+
+    > .slack-section {
+      margin-top: 20px;
+      .alert-header {
+        padding: 10px 0px 8px 8px;
+        font-size: 14px;
+
+        svg {
+          margin-left: 6px;
+        }
+      }
+      .alerts {
+        padding-left: 8px;
+        .ant-slider {
+          flex-grow: 1;
+        }
+        .slider-container {
+          display: flex;
+        }
+      }
+
+      .reports-header {
+        padding: 10px 0px 0px 8px;
+        font-size: 14px;
+
+        svg {
+          margin-left: 6px;
+        }
+
+        .checkbox-container {
+          padding-top: 10px;
+        }
+      }
+    }
+    > .delete-section {
+      margin-top: 40px;
+      .ant-btn {
+        margin-right: 12px;
+      }
+    }
+  }
+}
+
+.divider {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  height: 1px;
+  width: 100%;
+  background-color: #ddd;
+}

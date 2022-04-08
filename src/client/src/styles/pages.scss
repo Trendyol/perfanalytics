@@ -1,0 +1,132 @@
+@import "./variables.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+#app {
+  width: 100%;
+  min-height: 100%;
+}
+
+.page {
+  margin-left: 256px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+#home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    color: $orange;
+  }
+  .main-area {
+    > .validation-error {
+      font-size: 0.8rem;
+      margin: 6px 0px 0px 2px;
+      color: $red;
+    }
+    > .ant-input-group-wrapper {
+      .ant-btn-primary {
+        color: white;
+        background-color: $orange;
+      }
+    }
+    .device-select {
+      width: 100px;
+    }
+  }
+}
+
+#report-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .main-area {
+    .dates-container {
+      margin-left: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .settings-button {
+        margin-right: 50px;
+      }
+    }
+
+    .url-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      margin-top: 14px;
+
+      .link-device-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row-reverse;
+        .url {
+          margin: 0px 10px;
+          font-size: 1.2rem;
+        }
+        .device-icon {
+          margin-bottom: 10px;
+        }
+      }
+      svg {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+
+    > .statistic-container {
+      display: flex;
+      align-items: center;
+      padding: 6px 16px 0px 16px;
+      margin: 0px 0px;
+      flex-wrap: wrap;
+      .ant-statistic {
+        border: 1px solid #eee;
+        padding: 8px;
+        margin: 12px 12px 0px 0px;
+        border-radius: 10px;
+      }
+      .ant-statistic-content {
+        min-width: 120px;
+        height: 36px;
+
+        .ant-statistic-content-prefix{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+#detail-page {
+  .iframe-container {
+    width: 100%;
+    height: 100%;
+    background: url(https://cdn.dsmcdn.com/mweb/production/trendyol-logo.svg) center center no-repeat;
+    background-size: 300px 100px;
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+}

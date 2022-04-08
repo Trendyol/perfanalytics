@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6", "es5", "dom", "es2017"],
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+    "rootDir": "./",
+    "outDir": "../../dist/server",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "listEmittedFiles": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["."],
+  "exclude": ["*/**/node_modules", "!node_modules/@types"],
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true
+}

@@ -1,0 +1,1 @@
+CREATE PRIMARY INDEX `#primary` on `Perfanalytics`

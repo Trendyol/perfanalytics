@@ -1,0 +1,18 @@
+{
+  "name": "perfanalytics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.ts",
+    "build": "tsc",
+    "postbuild": "cp -r lh_results ../../dist/server/lh_results"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.trendyol.com:discovery/mobile-web/services/perfanalytics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
