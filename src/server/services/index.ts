@@ -1,2 +1,2 @@
-export * from './slackService';
-export * from './uxService';
+export * from "./uxService";
+export * from "./slackService";

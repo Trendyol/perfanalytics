@@ -1,5 +1,6 @@
 class Queue {
-  private queue: any[];  
+  private queue: any[];
+
   private isWorking: boolean;
 
   constructor() {
@@ -7,7 +8,7 @@ class Queue {
     this.isWorking = false;
   }
 
-  public enqueue(el:any): void {
+  public enqueue(el: any): void {
     this.queue.unshift(el);
     this.run();
   }
@@ -16,21 +17,19 @@ class Queue {
     return this.queue.pop();
   }
 
-  private async run(): Promise<any> {
-    // console.log("Queue length:",this.queue.length);
+  private async run(): Promise<void> {
     if (this.isWorking || !this.queue.length) return;
 
     this.isWorking = true;
     const job = this.dequeue();
 
-    if(!job) return;
-    const result = await job()
+    if (!job) return;
+    await job();
 
-    // console.log(result);
     this.isWorking = false;
-    return this.run();
+    this.run();
   }
 }
 
 const queue = new Queue();
-export { queue };
+export default queue;

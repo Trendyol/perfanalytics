@@ -1,13 +1,13 @@
 import express from "express";
 import { createEntry, getEntries, getEntry, deleteEntry, updateEntry, getEntryTags } from "../controllers";
 
-const router = express.Router();
+const entryRouter = express.Router();
 
-router.post("/", createEntry);
-router.get("/", getEntries);
-router.get("/tags", getEntryTags);
-router.get("/:entryKey", getEntry);
-router.put("/:entryKey", updateEntry);
-router.delete("/:entryKey", deleteEntry);
+entryRouter.post("/", createEntry);
+entryRouter.get("/", getEntries);
+entryRouter.get("/tags", getEntryTags);
+entryRouter.get("/:entryKey", getEntry);
+entryRouter.put("/:entryKey", updateEntry);
+entryRouter.delete("/:entryKey", deleteEntry);
 
-export { router as entryRouter };
+export default entryRouter;

@@ -6,7 +6,6 @@ import AWS from "aws-sdk";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage";
 import { BlobServiceClient } from "@azure/storage-blob";
-import { DefaultAzureCredential } from "@azure/identity";
 
 const uploadCdn = async (sourcePath: string, file: any, lhKey: string) => {
   const environment = process.env.CDN_ENV || "perfanalytics";
@@ -35,8 +34,8 @@ const uploadIpfs = async (sourcePath: string, file: any, lhKey: string) => {
 
   fs.writeFileSync(sourcePath, file);
 
-  const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
-  let data = new FormData() as any;
+  const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+  const data = new FormData() as any;
   data.append("file", fs.createReadStream(sourcePath));
 
   const pinataOptions = JSON.stringify({
@@ -46,8 +45,9 @@ const uploadIpfs = async (sourcePath: string, file: any, lhKey: string) => {
   data.append("pinataOptions", pinataOptions);
 
   const result = await axios.post(url, data, {
-    maxBodyLength: "Infinity", //this is needed to prevent axios from erroring out with large files
+    maxBodyLength: "Infinity", // this is needed to prevent axios from erroring out with large files
     headers: {
+      // eslint-disable-next-line no-underscore-dangle
       "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
       pinata_api_key: pinataApiKey,
       pinata_secret_api_key: pinataSecretApiKey,
@@ -114,6 +114,8 @@ const uploadAzure = async (sourcePath: string, file: any, lhKey: string) => {
 };
 
 const uploadConfig = process.env.UPLOAD_CONFIG;
+
+// eslint-disable-next-line import/no-mutable-exports
 let uploadFunction;
 
 switch (uploadConfig) {
@@ -132,6 +134,8 @@ switch (uploadConfig) {
   case "azure":
     uploadFunction = uploadAzure;
     break;
+  default:
+    uploadFunction = uploadCdn;
 }
 
 export default uploadFunction;

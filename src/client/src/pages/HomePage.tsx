@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { PageHeader, Input, Select, Tag, Tooltip } from "antd";
 import { Helmet } from "react-helmet";
 import { Link, withRouter } from "react-router-dom";
-import queryString from 'query-string';
+import queryString from "query-string";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDesktop, faMobileAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import validator from "validator";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import axios from "../utils/axiosInstance";
 import { DEVICE, STATUS } from "../constants";
 import EntryTable from "../components/EntryTable";
@@ -19,14 +20,17 @@ const { Option } = Select;
 interface Props {
   location: any;
 }
-const HomePage: React.FC<Props> = (props) => {
-  const params = queryString.parse(props.location.search)
+const HomePage: React.FC<Props> = (props: Props) => {
+  const { location } = props;
+
   const [device, setDevice] = useState<DEVICE>(DEVICE.DESKTOP);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [searchValue, setSearchValue] = useState("https://");
   const [addEntryLoading, setAddEntryLoading] = useState(false);
   const [getEntriesLoading, setGetEntriesLoading] = useState(false);
   const [validationError, setValidationError] = useState("");
+
+  const params = queryString.parse(location.search);
 
   useEffect(() => {
     getEntries();
@@ -35,7 +39,7 @@ const HomePage: React.FC<Props> = (props) => {
   const getEntries = () => {
     setGetEntriesLoading(true);
     axios
-      .get(`/entry`,{ params: params })
+      .get("/entry", { params })
       .then((res: any) => {
         setEntries(res.data);
       })
@@ -49,15 +53,17 @@ const HomePage: React.FC<Props> = (props) => {
 
   const addEntry = () => {
     if (validator.isURL(searchValue) === false) {
-      return setValidationError("URL is not valid.");
+      setValidationError("URL is not valid.");
+      return;
     }
 
     setAddEntryLoading(true);
     setValidationError("");
+
     axios
       .post("/entry", {
         url: searchValue,
-        device: device,
+        device,
       })
       .then((res: any) => {
         const newEntry = res.data;
@@ -81,11 +87,11 @@ const HomePage: React.FC<Props> = (props) => {
       dataIndex: "id",
       key: "id",
       width: 80,
-      align: "center" as "center",
+      align: "center" as const,
       render: (e: any) => (
         <div className="report-button">
           <Link to={`report/${e}`}>
-            <FontAwesomeIcon icon={faSearch} />
+            <FontAwesomeIcon icon={faSearch as IconProp} />
           </Link>
         </div>
       ),
@@ -106,12 +112,12 @@ const HomePage: React.FC<Props> = (props) => {
       title: "Device",
       dataIndex: "device",
       key: "device",
-      align: "center" as "center",
+      align: "center" as const,
       width: 100,
       sorter: (a: any, b: any) => a.device - b.device,
       render: (e: any) => (
-        <div className={"device-container " + (e === DEVICE.DESKTOP ? "desktop" : "mobile")}>
-          <FontAwesomeIcon icon={e === DEVICE.DESKTOP ? faDesktop : faMobileAlt} />
+        <div className={`device-container ${e === DEVICE.DESKTOP ? "desktop" : "mobile"}`}>
+          <FontAwesomeIcon icon={(e === DEVICE.DESKTOP ? faDesktop : faMobileAlt) as IconProp} />
         </div>
       ),
     },
@@ -119,11 +125,11 @@ const HomePage: React.FC<Props> = (props) => {
       title: "Tag",
       dataIndex: "tag",
       key: "-",
-      align: "center" as "center",
+      align: "center" as const,
       width: 100,
       render: (e: any) =>
         e && (
-          <Tag color={"default"} key={"tag"}>
+          <Tag color="default" key="tag">
             {`${e.toUpperCase()}`}
           </Tag>
         ),
@@ -132,11 +138,11 @@ const HomePage: React.FC<Props> = (props) => {
       title: "Channel",
       dataIndex: "slackChannel",
       key: "-",
-      align: "center" as "center",
+      align: "center" as const,
       width: 100,
       render: (e: any) =>
         e && (
-          <Tag color={"default"} key={"tag"}>
+          <Tag color="default" key="tag">
             {`#${e}`}
           </Tag>
         ),
@@ -145,7 +151,7 @@ const HomePage: React.FC<Props> = (props) => {
       title: "Status",
       dataIndex: "status",
       key: "status  ",
-      align: "center" as "center",
+      align: "center" as const,
 
       render: (e: any) =>
         e === STATUS.FAIL ? (
@@ -154,11 +160,11 @@ const HomePage: React.FC<Props> = (props) => {
             title="This URL is erroneous. It is either redirecting to another website or giving a 404 Error. You may consider changing this URL."
           >
             <div>
-              <Indicator score={e}></Indicator>
+              <Indicator score={e} />
             </div>
           </Tooltip>
         ) : (
-          <Indicator score={e}></Indicator>
+          <Indicator score={e} />
         ),
 
       width: 100,
@@ -188,7 +194,7 @@ const HomePage: React.FC<Props> = (props) => {
             onSearch={() => addEntry()}
           />
           <div className="validation-error">{validationError}</div>
-          <EntryTable data={entries} columns={columns} loading={getEntriesLoading} height={"75vh"} />
+          <EntryTable data={entries} columns={columns} loading={getEntriesLoading} height="75vh" />
         </div>
       </PageHeader>
     </div>

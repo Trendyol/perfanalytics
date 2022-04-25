@@ -1,3 +1,5 @@
-export * from './Entry'
-export * from './Lighthouse'
-export * from './Ux'
+import UxInstance from "./Ux";
+import LighthouseInstance from "./Lighthouse";
+import EntryInstance from "./Entry";
+
+export { UxInstance, LighthouseInstance, EntryInstance };

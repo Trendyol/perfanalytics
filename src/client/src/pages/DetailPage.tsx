@@ -28,7 +28,7 @@ const DetailPage: React.FC = () => {
       .finally(() => {
         setLighthouseReportLoading(false);
       });
-  }
+  };
 
   return (
     <div id="detail-page" className="page">
@@ -37,7 +37,7 @@ const DetailPage: React.FC = () => {
       </Helmet>
       <PageHeader onBack={() => history.goBack()} className="site-page-header-responsive" title="Details">
         <div className="iframe-container">
-          {!lighthouseReportLoading && <iframe title="lighthouse" src={lighthouseReport} allowFullScreen={true} />}
+          {!lighthouseReportLoading && <iframe title="lighthouse" src={lighthouseReport} allowFullScreen />}
         </div>
       </PageHeader>
     </div>

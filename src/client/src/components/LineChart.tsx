@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import Chart from "react-apexcharts";
 
 interface Props {
-  data: Number[];
-  height?: Number;
-  loadChartData: Function;
-  setSelectedDate: Function;
+  data: number[];
+  height?: number;
+  loadChartData: (startDate: number, endDate?: number, update?: boolean) => void;
+  setSelectedDate: (state: number) => void;
 }
 
 const parseData = (data: any, index: any) => {
@@ -64,16 +64,16 @@ const LineChart: React.FC<Props> = (props) => {
         enabled: true,
       },
       events: {
-        beforeZoom: function (chartContext: any, { xaxis }: any) {
-          setSelectedDate("");
+        beforeZoom(chartContext: any, { xaxis }: any) {
+          setSelectedDate(0);
           loadChartData(xaxis.min, xaxis.max);
           return { xaxis };
         },
         // We might need this events to handle table interactions.
-        mounted: function () {
+        mounted() {
           series.map((e) => (e.name !== "Overall Performance" ? chartRef.current.chart.hideSeries(e.name) : null));
         },
-        legendClick: function (chartContext: unknown, seriesIndex: number) {
+        legendClick(chartContext: unknown, seriesIndex: number) {
           const { name } = series[seriesIndex];
           chartRef.current.chart.resetSeries(true, false);
           chartRef.current.chart.showSeries(name);

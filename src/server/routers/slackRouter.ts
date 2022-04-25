@@ -1,8 +1,8 @@
 import express from "express";
-import { scheduledReport} from "../controllers";
+import { scheduledReport } from "../controllers";
 
-const router = express.Router();
+const slackRouter = express.Router();
 
-router.get("/:scheduleTime", scheduledReport);
+slackRouter.get("/:scheduleTime", scheduledReport);
 
-export { router as slackRouter };
+export default slackRouter;

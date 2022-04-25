@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faDesktop, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import { useHistory, useParams } from "react-router-dom";
 
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import UxChart from "../components/UxChart";
 import LineChart from "../components/LineChart";
 import DataTable from "../components/DataTable";
@@ -16,7 +17,7 @@ import { Entry, LhStatistic, LighthouseResult, Tag } from "../interfaces";
 
 interface Props {
   tags: Tag[];
-  getTags: Function;
+  getTags: () => void;
 }
 
 const ReportPage: React.FC<Props> = (props) => {
@@ -38,11 +39,11 @@ const ReportPage: React.FC<Props> = (props) => {
   useEffect(() => {
     getEntryResult();
 
-    if (statistics == null) {
+    if (statistics === null) {
       getStatistics(selectedDate);
     }
     const today = new Date();
-    let startDate = new Date();
+    const startDate = new Date();
     startDate.setDate(startDate.getDate() - selectedDate);
     getLhResults(startDate.getTime());
     getUxResults(`${today.getFullYear()}.${today.getMonth() + 1}.${today.getDate()}`);
@@ -84,16 +85,20 @@ const ReportPage: React.FC<Props> = (props) => {
 
   const getLhResults = (startDate = 0, endDate?: number, update?: boolean) => {
     fetchResultsWithInterval(startDate, endDate);
-    !update && setGetLhResultsLoading(true);
+
+    if (!update) {
+      setGetLhResultsLoading(true);
+    }
+
     axios
       .get(`/lighthouse/${id}/${startDate}/${endDate || new Date().getTime()}`)
       .then((res) => {
         const result = res.data || [];
-        const chartData = [] as any;
+        const data = [] as any;
         result
           ?.filter((row: any) => row.status === STATUS.DONE)
           .forEach((e: any) => {
-            chartData.push([
+            data.push([
               e.date,
               e.prf.toFixed(0),
               e.fcp.toFixed(0),
@@ -107,7 +112,7 @@ const ReportPage: React.FC<Props> = (props) => {
           });
 
         setTableData(result);
-        setChartData(chartData);
+        setChartData(data);
       })
       .catch((err) => {
         console.log(err);
@@ -132,8 +137,8 @@ const ReportPage: React.FC<Props> = (props) => {
     setSelectedDate(value);
     getStatistics(value);
 
-    if (typeof value == "number") {
-      let startDate = new Date();
+    if (typeof value === "number") {
+      const startDate = new Date();
       startDate.setDate(startDate.getDate() - value);
       return getLhResults(startDate.getTime());
     }
@@ -173,7 +178,6 @@ const ReportPage: React.FC<Props> = (props) => {
       <Helmet>
         <title>Perfanalytics | Report</title>
       </Helmet>
-      {console.log(statistics)}
       <PageHeader className="site-page-header-responsive" onBack={() => history.goBack()} title="Reports">
         <div className="main-area">
           <div className="url-container">
@@ -187,7 +191,7 @@ const ReportPage: React.FC<Props> = (props) => {
                   <FontAwesomeIcon
                     className="device-icon"
                     viewBox="0 0 200 300"
-                    icon={entry.device === DEVICE.DESKTOP ? faDesktop : faMobileAlt}
+                    icon={(entry.device === DEVICE.DESKTOP ? faDesktop : faMobileAlt) as IconProp}
                   />
                 </>
               )}
@@ -206,37 +210,35 @@ const ReportPage: React.FC<Props> = (props) => {
               <Radio.Button value={DATES.ALL}>ALL</Radio.Button>
             </Radio.Group>
             <Button className="settings-button" onClick={() => setShowSettingsModal(true)} shape="circle" size="large">
-              <FontAwesomeIcon icon={faCog} />
+              <FontAwesomeIcon icon={faCog as IconProp} />
             </Button>
           </div>
           <div className="statistic-container">
             {statistics ? (
-              statistics.map((statistic: any) => {
-                return (
-                  <Statistic
-                    key={statistic.name}
-                    title={statistic.name.toUpperCase()}
-                    value={statistic.percentDiff}
-                    precision={1}
-                    valueStyle={{ color: statistic.percentDiff < 0 ? COLOR.RED : COLOR.GREEN }}
-                    prefix={(statistic.score ? statistic.score.toFixed(1) : "-") + " /"}
-                    suffix={"%"}
-                  />
-                );
-              })
+              statistics.map((statistic: any) => (
+                <Statistic
+                  key={statistic.name}
+                  title={statistic.name.toUpperCase()}
+                  value={statistic.percentDiff}
+                  precision={1}
+                  valueStyle={{ color: statistic.percentDiff < 0 ? COLOR.RED : COLOR.GREEN }}
+                  prefix={`${statistic.score ? statistic.score.toFixed(1) : "-"} /`}
+                  suffix="%"
+                />
+              ))
             ) : (
               <Spin />
             )}
           </div>
           <LineChart
-            key={"report-chart"}
+            key="report-chart"
             data={chartData}
             height={240}
             loadChartData={getLhResults}
             setSelectedDate={setSelectedDate}
           />
           <DataTable data={tableData} loading={getLhResultsLoading} />
-          <div className="divider"></div>
+          <div className="divider" />
           <UxChart metrics={uxMetrics} uxDates={uxDates} getUxResults={getUxResults} />
         </div>
       </PageHeader>
@@ -249,7 +251,6 @@ const ReportPage: React.FC<Props> = (props) => {
           clearResults={clearResults}
           setEntry={setEntry}
           getTags={getTags}
-          tags={tags}
         />
       )}
     </div>

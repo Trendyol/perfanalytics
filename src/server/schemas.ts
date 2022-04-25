@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const validSchemaTextRegex = new RegExp(/^[\w-]+(?:\s+\w+)*$/);
+const validSchemaTextRegex = /^[\w-]+(?:\s+\w+)*$/;
 
 export const createEntrySchema = Joi.object().keys({
   url: Joi.string().uri().required(),

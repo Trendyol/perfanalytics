@@ -79,25 +79,25 @@ export enum MetricNames {
 }
 
 export interface EntryDB {
-  createEntry(entryKey: string, document: {}): Promise<void>;
+  createEntry(entryKey: string, document: object): Promise<void>;
   getEntries(): Promise<any>;
   getEntriesBySlackPreferences(scheduleTime: string): Promise<any>;
   getEntry(entryKey: string): Promise<any>;
-  updateEntry(entryKey: string, updateObject: string): Promise<any>;
+  updateEntry(entryKey: string, updateObject: object): Promise<any>;
   deleteEntry(entryKey: string): Promise<any>;
   getEntryTags(): Promise<any>;
 }
 
 export interface LighthouseDB {
-  createLighthouse(lighthouseKey: string, document: {}): Promise<void>;
+  createLighthouse(lighthouseKey: string, document: object): Promise<void>;
   getByEntry(entryKey: string, startDate: string, endDate: string): Promise<any>;
-  updateLighthouse(lighthouse: string, updateObject: string): Promise<any>;
+  updateLighthouse(lighthouse: string, updateObject: object): Promise<any>;
   getStatistics(entryKey: string, startDate: number, endDate: number): Promise<any>;
   clearResults(entryKey: string): Promise<any>;
 }
 
 export interface UxDB {
-  createUx(uxKey: string, document: {}): Promise<void>;
+  createUx(uxKey: string, document: object): Promise<void>;
   getUxByEntry(entryKey: string, date: string): Promise<any>;
   getUxDates(entryKey: string): Promise<any>;
 }
