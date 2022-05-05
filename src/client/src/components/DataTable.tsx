@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Column, Table } from "react-virtualized";
-import { tableColumns } from "../utils/AppData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import Indicator from "../components/Indicator";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Spin } from "antd";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import Indicator from "./Indicator";
+import { tableColumns } from "../utils/AppData";
 import { LighthouseResult } from "../interfaces";
 
 interface Props {
@@ -15,32 +16,36 @@ interface Props {
 }
 
 const DataTable: React.FC<Props> = ({ data, loading }) => {
-  const rowRenderer = ({ rowData, style }: { rowData: any; style: {} }) => {
-    return (
-      <div style={style} className="row">
-        {tableColumns.map((field) => {
-          const value = rowData[field.id];
-          return (
-            <div className="cell">
-              {field.id === "id" ? (
-                <div className="report-button">
-                  <Link to={`/detail/${value}`}>
-                    <FontAwesomeIcon icon={faSearch} />
-                  </Link>
-                </div>
-              ) : field.id === "date" ? (
-                moment(value).format("h:mm:ss MM/DD/YY")
-              ) : field.id === "status" ? (
-                <Indicator score={value} />
-              ) : (
-                <div className="cell">{value ? <Indicator score={parseFloat(value.toFixed(0))} /> : "-"}</div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
+  const renderCell = (field: { id: string }, value: number) => {
+    if (field.id === "id") {
+      return (
+        <div className="report-button">
+          <Link to={`/detail/${value}`}>
+            <FontAwesomeIcon icon={faSearch as IconProp} />
+          </Link>
+        </div>
+      );
+    }
+
+    if (field.id === "date") {
+      return moment(value).format("h:mm:ss MM/DD/YY");
+    }
+
+    if (field.id === "status") {
+      return <Indicator score={value} />;
+    }
+
+    return <div className="cell">{value ? <Indicator score={parseFloat(value.toFixed(0))} /> : "-"}</div>;
   };
+
+  const rowRenderer = ({ rowData, style }: { rowData: any; style: object }) => (
+    <div style={style} className="row">
+      {tableColumns.map((field) => {
+        const value = rowData[field.id];
+        return renderCell(field, value);
+      })}
+    </div>
+  );
 
   return (
     <div className="data-table">
@@ -54,9 +59,9 @@ const DataTable: React.FC<Props> = ({ data, loading }) => {
           rowGetter={({ index }) => data[index]}
           rowRenderer={rowRenderer}
         >
-          {tableColumns.map((column: any) => {
-            return <Column label={column.short} dataKey={column.id} width={100} />;
-          })}
+          {tableColumns.map((column: any) => (
+            <Column label={column.short} dataKey={column.id} width={100} />
+          ))}
         </Table>
       </Spin>
     </div>

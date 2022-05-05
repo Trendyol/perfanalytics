@@ -1,13 +1,13 @@
-const { WebClient } = require("@slack/web-api");
-const { SLACK_TOKEN, DOMAIN } = process.env;
+import { WebClient } from "@slack/web-api";
 import { MetricNames } from "../types";
+
+const { SLACK_TOKEN, DOMAIN } = process.env;
 
 export const findChannel = async (channel: string) => {
   const web = new WebClient(SLACK_TOKEN);
 
-  return channel;
   const channelList = await web.conversations.list();
-  const channelId = channelList.channels.find((c) => c.name == channel).id;
+  const channelId = channelList.channels.find((c) => c.name === channel).id;
 
   return channelId;
 };
@@ -41,14 +41,14 @@ export const postMessage = async (channel: string, message: any) => {
 
 export const checkMetrics = async (entry: any, metrics: any, entryKey: string) => {
   let shouldPostMessage = false;
-  let slackMessage2 = `${entry.url} Metrics below threshold --> `;
+  // let slackMessage2 = `${entry.url} Metrics below threshold --> `;
 
-  for (const [key, value] of Object.entries(metrics)) {
+  Object.entries(metrics).forEach(([key, value]) => {
     if (value < entry[`slack_${key}`]) {
       shouldPostMessage = true;
-      slackMessage2 += ` ${key}: ${(value as number).toFixed(0)}`;
+      // slackMessage2 += ` ${key}: ${(value as number).toFixed(0)}`;
     }
-  }
+  });
 
   const slackMessage = buildAlertBlocks(entry, metrics, entryKey);
 
@@ -57,23 +57,20 @@ export const checkMetrics = async (entry: any, metrics: any, entryKey: string) =
   }
 };
 
-export const titleCase = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-};
+export const titleCase = (string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
 export const getNumber = (number) => {
   if (number > 0) {
-    return "+" + number;
-  } else {
-    return number.toString();
+    return `+${number}`;
   }
+  return number.toString();
 };
 
 export const buildAlertBlocks = (entry, metrics, entryKey) => {
   const { url, device } = entry;
   const slackAlertFields = [];
 
-  for (const [key, value] of Object.entries(metrics)) {
+  Object.entries(metrics).forEach(([key, value]) => {
     const threshold = entry[`slack_${key}`];
     const status = value >= entry[`slack_${key}`];
 
@@ -83,7 +80,7 @@ export const buildAlertBlocks = (entry, metrics, entryKey) => {
         0
       )} / ${threshold}*`,
     });
-  }
+  });
 
   const messageBase = [
     {
@@ -123,14 +120,12 @@ export const buildReportBlocks = (scheduleTime, entry, scores: { name; score; pe
   const { url, device } = entry.Perfanalytics;
   const { id } = entry;
 
-  const slackMetricFields = scores.map((score) => {
-    return {
-      type: "mrkdwn",
-      text: `*${score.percentDiff < 0 ? ":red_circle:" : ":large_green_circle:"} ${score.name}: ${score.score.toFixed(
-        1
-      )} ${typeof score.percentDiff == "number" ? `/ ${getNumber(score.percentDiff.toFixed(1))}% ` : ""}*`,
-    };
-  });
+  const slackMetricFields = scores.map((score) => ({
+    type: "mrkdwn",
+    text: `*${score.percentDiff < 0 ? ":red_circle:" : ":large_green_circle:"} ${score.name}: ${score.score.toFixed(
+      1
+    )} ${typeof score.percentDiff === "number" ? `/ ${getNumber(score.percentDiff.toFixed(1))}% ` : ""}*`,
+  }));
 
   const messageBase = [
     {

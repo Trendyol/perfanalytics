@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Divider, Button, Popconfirm, Input, Slider, Tooltip, InputNumber, Checkbox } from "antd";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import axios from "../utils/axiosInstance";
 
 import { metrics, timeOptions } from "../utils/AppData";
-import { useEffect } from "react";
-import { Entry, SlackMetrics, Tag } from "../interfaces";
+import { Entry, SlackMetrics } from "../interfaces";
 
 interface Props {
   id: string;
   entry: Entry;
   show: boolean;
-  tags: Tag[];
   hide: () => void;
-  clearResults: Function;
-  setEntry: Function;
-  getTags: Function;
+  clearResults: () => void;
+  setEntry: (state: any) => void;
+  getTags: () => void;
 }
 
 const SettingsModal: React.FC<Props> = (props) => {
@@ -41,11 +40,10 @@ const SettingsModal: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (entry !== null && initComponent) {
-      const { slackChannel, url, tag } = entry;
       setAlertMetrics({ ...(entry as SlackMetrics) });
-      setSlackChannel(slackChannel);
-      setTag(tag);
-      setUrl(url);
+      setSlackChannel(entry.slackChannel);
+      setTag(entry.tag);
+      setUrl(entry.url);
 
       const times: string[] = [];
       timeOptions.forEach((time) => {
@@ -61,22 +59,22 @@ const SettingsModal: React.FC<Props> = (props) => {
 
   const history = useHistory();
 
-  const removeEntry = (id: string) => {
+  const removeEntry = (_id: string) => {
     axios
-      .delete(`/entry/${id}`)
-      .then((res) => {
+      .delete(`/entry/${_id}`)
+      .then(() => {
         history.replace("/");
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
 
-  const clearLhResults = (id: string) => {
+  const clearLhResults = (_id: string) => {
     axios
-      .delete(`/lighthouse/${id}`)
-      .then((res) => {
+      .delete(`/lighthouse/${_id}`)
+      .then(() => {
         clearResults();
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
 
   const handleAlertMetrics = (short: string, e: number) => {
@@ -84,21 +82,21 @@ const SettingsModal: React.FC<Props> = (props) => {
   };
 
   const updateEntry = () => {
-    const times: {}[] = [];
+    const times: object[] = [];
 
     timeOptions.forEach((t) => {
       times.push({
         [t.value]: checkedTimes.some((c) => c === t.value),
       });
     });
-    let timesObject = Object.assign({}, ...times);
+    const timesObject = Object.assign({}, ...times);
 
     axios
       .put(`/entry/${id}`, {
         ...alertMetrics,
         ...timesObject,
-        slackChannel: slackChannel,
-        url: url,
+        slackChannel,
+        url,
         tag: tag ? tag.toUpperCase() : "",
       })
       .then(() => {
@@ -112,7 +110,7 @@ const SettingsModal: React.FC<Props> = (props) => {
   return (
     <Modal
       centered
-      title={"Settings"}
+      title="Settings"
       visible={show}
       onCancel={hide}
       footer={[
@@ -133,13 +131,13 @@ const SettingsModal: React.FC<Props> = (props) => {
         <div className="tag-section">
           <div className="title">Tag Configuration</div>
           <Divider />
-          <Input value={tag} onChange={(e) => setTag(e.target.value)} placeholder="Tag" />
+          <Input value={tag} onChange={(e: any) => setTag(e.target.value)} placeholder="Tag" />
         </div>
         <div className="slack-section">
           <div className="title">Slack Configuration</div>
           <Divider />
           <Input
-            prefix={"#"}
+            prefix="#"
             value={slackChannel}
             onChange={(e) => setSlackChannel(e.target.value)}
             placeholder="Slack Channel"
@@ -150,32 +148,30 @@ const SettingsModal: React.FC<Props> = (props) => {
               placement="top"
               title="Perfanalytics Bot will send an alert to your channel if the scores are less than the thresholds you adjust below."
             >
-              <FontAwesomeIcon icon={faInfoCircle} />
+              <FontAwesomeIcon icon={faInfoCircle as IconProp} />
             </Tooltip>
           </div>
           <div className="alerts">
-            {metrics.map((metric: { name: string; short: string }) => {
-              return (
-                <div key={metric.short}>
-                  <div>{metric.name}</div>
-                  <div className="slider-container">
-                    <Slider
-                      value={alertMetrics[metric.short as keyof SlackMetrics]}
-                      min={0}
-                      max={100}
-                      onChange={(e) => handleAlertMetrics(metric.short, e)}
-                    />
-                    <InputNumber
-                      min={0}
-                      max={100}
-                      style={{ margin: "0 16px" }}
-                      value={alertMetrics[metric.short as keyof SlackMetrics]}
-                      onChange={(e) => handleAlertMetrics(metric.short, e)}
-                    />
-                  </div>
+            {metrics.map((metric: { name: string; short: string }) => (
+              <div key={metric.short}>
+                <div>{metric.name}</div>
+                <div className="slider-container">
+                  <Slider
+                    value={alertMetrics[metric.short as keyof SlackMetrics]}
+                    min={0}
+                    max={100}
+                    onChange={(e) => handleAlertMetrics(metric.short, e)}
+                  />
+                  <InputNumber
+                    min={0}
+                    max={100}
+                    style={{ margin: "0 16px" }}
+                    value={alertMetrics[metric.short as keyof SlackMetrics]}
+                    onChange={(e) => handleAlertMetrics(metric.short, e)}
+                  />
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
           <div className="reports-header">
             Reports
@@ -183,7 +179,7 @@ const SettingsModal: React.FC<Props> = (props) => {
               placement="top"
               title="Perfanalytics Bot will send reports to the channel on the time basis you provide below."
             >
-              <FontAwesomeIcon icon={faInfoCircle} />
+              <FontAwesomeIcon icon={faInfoCircle as IconProp} />
             </Tooltip>
             <div className="checkbox-container">
               <Checkbox.Group options={timeOptions} value={checkedTimes} onChange={(e: any) => setCheckedTimes(e)} />
@@ -195,7 +191,7 @@ const SettingsModal: React.FC<Props> = (props) => {
           <Divider />
           <Popconfirm
             placement="top"
-            title={" Are you sure to clear all Lighthouse results for this entry?"}
+            title=" Are you sure to clear all Lighthouse results for this entry?"
             onConfirm={() => {
               clearLhResults(id);
             }}
@@ -206,7 +202,7 @@ const SettingsModal: React.FC<Props> = (props) => {
           </Popconfirm>
           <Popconfirm
             placement="top"
-            title={"Are you sure to delete this entry? "}
+            title="Are you sure to delete this entry? "
             onConfirm={() => {
               removeEntry(id);
             }}

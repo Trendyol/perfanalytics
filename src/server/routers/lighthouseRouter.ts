@@ -1,13 +1,13 @@
 import express from "express";
-import { runByEntry,getByEntry, runAllEntries,getStatistics,clearResults, getLighthouse } from "../controllers";
+import { runByEntry, getByEntry, runAllEntries, getStatistics, clearResults, getLighthouse } from "../controllers";
 
-const router = express.Router();
+const lighthouseRouter = express.Router();
 
-router.get("/run", runAllEntries);
-router.get("/:lighthouseKey", getLighthouse);
-router.get("/run/:entryKey", runByEntry);
-router.get("/:entryKey/:startDate/:endDate", getByEntry);
-router.get("/statistics/:entryKey", getStatistics);
-router.delete("/:entryKey", clearResults)
+lighthouseRouter.get("/run", runAllEntries);
+lighthouseRouter.get("/:lighthouseKey", getLighthouse);
+lighthouseRouter.get("/run/:entryKey", runByEntry);
+lighthouseRouter.get("/:entryKey/:startDate/:endDate", getByEntry);
+lighthouseRouter.get("/statistics/:entryKey", getStatistics);
+lighthouseRouter.delete("/:entryKey", clearResults);
 
-export { router as lighthouseRouter };
+export default lighthouseRouter;

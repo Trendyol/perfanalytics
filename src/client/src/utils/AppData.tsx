@@ -111,4 +111,4 @@ export const metrics = [
       label: "Monthly",
       value: "slack_monthly"
     }
-]
+];

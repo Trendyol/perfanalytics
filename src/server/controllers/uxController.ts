@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+import { v4 as uuidv4 } from "uuid";
 import Database from "../database";
 import { collectUx } from "../services";
-import { v4 as uuidv4 } from "uuid";
 import { UXDEVICE } from "../types";
 import { entryKeySchema, uxTimeSchema } from "../schemas";
 
@@ -12,24 +12,24 @@ export const collectByEntry = async (req: Request, res: Response, next: NextFunc
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      return next({ message: validation.error.message });
+      next({ message: validation.error.message });
     }
 
-    const { content } = await Database.Entry.getEntry(entryKey);
+    const { content } = await Database.EntryInstance.getEntry(entryKey);
 
     const uxResult = await collectUx(content.url, UXDEVICE[content.device]);
 
     const uxKey = uuidv4();
     const uxDocument = {
       type: "ux",
-      entryKey: entryKey,
+      entryKey,
       date: new Date().getTime(),
       metrics: { ...uxResult },
     };
 
-    await Database.Ux.createUx(uxKey, uxDocument);
+    await Database.UxInstance.createUx(uxKey, uxDocument);
 
-    return res.json(uxDocument);
+    res.json(uxDocument);
   } catch (error) {
     next(error);
   }
@@ -37,7 +37,7 @@ export const collectByEntry = async (req: Request, res: Response, next: NextFunc
 
 export const collectAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const entries = await Database.Entry.getEntries();
+    const entries = await Database.EntryInstance.getEntries();
 
     entries.map(async (entry) => {
       try {
@@ -52,12 +52,12 @@ export const collectAll = async (req: Request, res: Response, next: NextFunction
           metrics: { ...uxResult },
         };
 
-        await Database.Ux.createUx(uxKey, uxDocument);
+        await Database.UxInstance.createUx(uxKey, uxDocument);
       } catch (error) {
         console.log(error);
       }
     });
-    return res.json(entries);
+    res.json(entries);
   } catch (error) {
     console.log(error);
   }
@@ -69,10 +69,10 @@ export const getUxByEntry = async (req: Request, res: Response, next: NextFuncti
   const validation = uxTimeSchema.validate({ entryKey, date });
 
   if (validation.error) {
-    return next({ message: validation.error.message });
+    next({ message: validation.error.message });
   }
 
-  let uxResult = await Database.Ux.getUxByEntry(entryKey, date);
+  const uxResult = await Database.UxInstance.getUxByEntry(entryKey, date);
 
   res.json(uxResult[0]?.Perfanalytics);
 };
@@ -80,7 +80,7 @@ export const getUxByEntry = async (req: Request, res: Response, next: NextFuncti
 export const getUxDates = async (req: Request, res: Response, next: NextFunction) => {
   const { entryKey } = req.params;
 
-  let firstDate = await Database.Ux.getUxDates(entryKey);
+  const firstDate = await Database.UxInstance.getUxDates(entryKey);
   let months = [];
 
   const today = new Date();
@@ -88,18 +88,16 @@ export const getUxDates = async (req: Request, res: Response, next: NextFunction
   dayBefore.setDate(28);
 
   while (dayBefore < today) {
-    let newDayBefore = new Date(dayBefore);
+    const newDayBefore = new Date(dayBefore);
     months.push(newDayBefore);
     dayBefore = new Date(dayBefore.setMonth(dayBefore.getMonth() + 1));
     dayBefore.setDate(29);
   }
 
-  months = months.map((month: Date) => {
-    return {
-      value: `${month.getFullYear()}.${month.getMonth() + 1}`,
-      label: `${month.toLocaleString("default", { month: "long", year: "numeric" })}`,
-    };
-  });
+  months = months.map((month: Date) => ({
+    value: `${month.getFullYear()}.${month.getMonth() + 1}`,
+    label: `${month.toLocaleString("default", { month: "long", year: "numeric" })}`,
+  }));
 
   res.json(months);
 };

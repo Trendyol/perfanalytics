@@ -1,27 +1,29 @@
+/* eslint-disable testing-library/no-await-sync-query */
 import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-const path = require("path");
-const lighthouse = require("lighthouse");
-const constants = require("../lighthouseconstants");
+import path from "path";
+import lighthouse from "lighthouse";
 import { checkMetrics } from "../services";
-import { chromeInstance } from "../helpers/chrome";
+import chromeInstance from "../helpers/chrome";
 
 import { EntryDto, STATUS, DEVICE } from "../types";
 import cdnUploader from "../helpers/cdnUploader";
 import Database from "../database";
-import { queue } from "../helpers/queue";
+import queue from "../helpers/queue";
 import { entryKeySchema, getLighthouseSchema } from "../schemas";
+
+import * as constants from "../lighthouseconstants";
 
 export const runByEntry = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { entryKey } = req.params;
-    const { content } = await Database.Entry.getEntry(entryKey);
+    const { content } = await Database.EntryInstance.getEntry(entryKey);
 
     const initalLhResult = await initLighthouseResult(entryKey);
     const saveFunc = () => saveLighthouseResult(content, initalLhResult.id, entryKey);
     queue.enqueue(saveFunc);
 
-    return res.json(initalLhResult);
+    res.json(initalLhResult);
   } catch (error) {
     next(error);
   }
@@ -31,9 +33,9 @@ export const getLighthouse = async (req: Request, res: Response, next: NextFunct
   try {
     const { lighthouseKey } = req.params;
 
-    const document = await Database.Lighthouse.getLighthouse(lighthouseKey);
+    const document = await Database.LighthouseInstance.getLighthouse(lighthouseKey);
 
-    return res.json(document);
+    res.json(document);
   } catch (error) {
     next(error);
   }
@@ -59,7 +61,7 @@ const runLighthouse = async (entry: any, lhKey: string) => {
       emulatedUserAgent: constants.userAgents.desktop,
     },
   };
-  if (entry.device == DEVICE.MOBILE) {
+  if (entry.device === DEVICE.MOBILE) {
     config = {
       extends: "lighthouse:default",
       settings: {
@@ -94,12 +96,12 @@ export const getByEntry = async (req: Request, res: Response, next: NextFunction
     const validation = getLighthouseSchema.validate({ entryKey, startDate, endDate });
 
     if (validation.error) {
-      return next({ message: validation.error.message });
+      next({ message: validation.error.message });
     }
 
     const result = [];
 
-    let entries = await Database.Lighthouse.getByEntry(entryKey, startDate, endDate);
+    const entries = await Database.LighthouseInstance.getByEntry(entryKey, startDate, endDate);
 
     entries.forEach((doc: any) => {
       const lhDto = {
@@ -109,11 +111,11 @@ export const getByEntry = async (req: Request, res: Response, next: NextFunction
       result.push(lhDto);
     });
 
-    if (result.length == 0) {
-      return res.send().status(404);
+    if (result.length === 0) {
+      res.send().status(404);
     }
 
-    return res.json(result);
+    res.json(result);
   } catch (error) {
     next(error);
   }
@@ -121,7 +123,7 @@ export const getByEntry = async (req: Request, res: Response, next: NextFunction
 
 export const runAllEntries = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const entries = await Database.Entry.getEntries();
+    const entries = await Database.EntryInstance.getEntries();
     const result = [];
 
     const promises = new Promise((resolve, reject) => {
@@ -138,11 +140,11 @@ export const runAllEntries = async (req: Request, res: Response, next: NextFunct
         }
       });
     });
-    promises.then((res) => {
+    promises.then(() => {
       runRecursively(result);
     });
 
-    return res.send("Process started.");
+    res.send("Process started.");
   } catch (error) {
     next(error);
   }
@@ -156,23 +158,23 @@ const runRecursively = async (result: EntryDto[]) => {
   const saveFunc = () => saveLighthouseResult(entry, entry.lhId, entry.id);
   queue.enqueue(saveFunc);
 
-  if (result.length == 0) {
+  if (result.length === 0) {
     return;
   }
 
-  return runRecursively(result);
+  runRecursively(result);
 };
 
 const saveLighthouseResult = async (entry: any, lhKey: string, entryKey: string) => {
   console.log("Started:", entry.url);
-  await Database.Lighthouse.updateLighthouse(lhKey, { status: STATUS.RUNNING });
+  await Database.LighthouseInstance.updateLighthouse(lhKey, { status: STATUS.RUNNING });
 
   try {
     const runnerResult = await runLighthouse(entry, lhKey);
 
     const { html } = runnerResult;
 
-    const audits = runnerResult.lhr.audits;
+    const { audits } = runnerResult.lhr;
     const prf = runnerResult.lhr.categories.performance.score * 100;
 
     const fcp = audits["first-contentful-paint"].score * 100;
@@ -181,7 +183,7 @@ const saveLighthouseResult = async (entry: any, lhKey: string, entryKey: string)
     const fmp = audits["first-meaningful-paint"].score * 100;
     const tbt = audits["total-blocking-time"].score * 100;
     const cls = audits["cumulative-layout-shift"].score * 100;
-    const tti = audits["interactive"].score * 100;
+    const tti = audits.interactive.score * 100;
 
     const hasRuntimeError = typeof runnerResult.lhr.runtimeError !== "undefined";
 
@@ -189,13 +191,13 @@ const saveLighthouseResult = async (entry: any, lhKey: string, entryKey: string)
       throw runnerResult.lhr.runtimeError.code;
     }
 
-    const isRedirected = audits["redirects"].details?.items?.length > 0;
+    const isRedirected = audits.redirects.details?.items?.length > 0;
 
     if (isRedirected) {
-      throw "Redirected";
+      throw new Error("Redirected");
     }
 
-    await Database.Lighthouse.updateLighthouse(lhKey, {
+    await Database.LighthouseInstance.updateLighthouse(lhKey, {
       status: STATUS.DONE,
       prf,
       fcp,
@@ -207,15 +209,15 @@ const saveLighthouseResult = async (entry: any, lhKey: string, entryKey: string)
       tti,
       html,
     });
-    await Database.Entry.updateEntry(entryKey, { status: STATUS.DONE });
+    await Database.EntryInstance.updateEntry(entryKey, { status: STATUS.DONE });
 
     if (entry.slackChannel !== null) {
       checkMetrics(entry, { fcp, si, lcp, fmp, tbt, cls, tti, prf }, entryKey);
     }
   } catch (error) {
     console.log(error);
-    await Database.Lighthouse.updateLighthouse(lhKey, { status: STATUS.FAIL });
-    await Database.Entry.updateEntry(entryKey, { status: STATUS.FAIL });
+    await Database.LighthouseInstance.updateLighthouse(lhKey, { status: STATUS.FAIL });
+    await Database.EntryInstance.updateEntry(entryKey, { status: STATUS.FAIL });
   }
 };
 
@@ -224,7 +226,7 @@ const initLighthouseResult = async (entryKey: string) => {
 
   const lhDocument = {
     type: "lighthouse",
-    entryKey: entryKey,
+    entryKey,
     date: new Date().getTime(),
     status: `${STATUS.PENDING}`,
     prf: null,
@@ -237,7 +239,7 @@ const initLighthouseResult = async (entryKey: string) => {
     tti: null,
   };
 
-  await Database.Lighthouse.createLighthouse(lhKey, lhDocument);
+  await Database.LighthouseInstance.createLighthouse(lhKey, lhDocument);
 
   return {
     id: lhKey,
@@ -247,18 +249,18 @@ const initLighthouseResult = async (entryKey: string) => {
 
 export const getStatistics = async (req: Request, res: Response, next: NextFunction) => {
   const { entryKey } = req.params;
-  let { day } = req.query as any;
+  const { day } = req.query as any;
 
   const validation = entryKeySchema.validate({ entryKey });
 
   if (validation.error) {
-    return next({ message: validation.error.message });
+    next({ message: validation.error.message });
   }
 
   const metricsList = ["fcp", "si", "lcp", "tti", "tbt", "cls", "fmp", "prf"];
 
-  if (day == "ALL") {
-    const metrics = (await Database.Lighthouse.getStatistics(entryKey, 0, Date.now(), metricsList)) as any;
+  if (day === "ALL") {
+    const metrics = (await Database.LighthouseInstance.getStatistics(entryKey, 0, Date.now(), metricsList)) as any;
     const scores = metricsList.map((metric) => {
       const score = metrics[metric];
       return {
@@ -267,39 +269,38 @@ export const getStatistics = async (req: Request, res: Response, next: NextFunct
         percentDiff: "-",
       };
     });
-    return res.json(scores);
-  } else {
-    let nowTime = new Date().getTime();
-
-    let limit = new Date();
-    limit.setDate(limit.getDate() - day);
-    const limitTime = limit.getTime();
-
-    let limitBefore = new Date();
-    limitBefore.setDate(limitBefore.getDate() - day * 2);
-    const limitBeforeTime = limitBefore.getTime();
-
-    let metrics = (await Database.Lighthouse.getStatistics(entryKey, limitTime, nowTime, metricsList)) as any;
-    let oldMetrics = (await Database.Lighthouse.getStatistics(
-      entryKey,
-      limitBeforeTime,
-      limitTime,
-      metricsList
-    )) as any;
-
-    const scores = metricsList.map((metric) => {
-      const score = metrics?.[metric] || 0;
-      const oldScore = oldMetrics?.[metric] || 0;
-      const percentDiff = oldScore > 0 && score > 0 ? ((score - oldScore) / oldScore) * 100 : "-";
-      return {
-        name: metric,
-        score,
-        percentDiff,
-      };
-    });
-
-    return res.json(scores);
+    res.json(scores);
   }
+  const nowTime = new Date().getTime();
+
+  const limit = new Date();
+  limit.setDate(limit.getDate() - day);
+  const limitTime = limit.getTime();
+
+  const limitBefore = new Date();
+  limitBefore.setDate(limitBefore.getDate() - day * 2);
+  const limitBeforeTime = limitBefore.getTime();
+
+  const metrics = (await Database.LighthouseInstance.getStatistics(entryKey, limitTime, nowTime, metricsList)) as any;
+  const oldMetrics = (await Database.LighthouseInstance.getStatistics(
+    entryKey,
+    limitBeforeTime,
+    limitTime,
+    metricsList
+  )) as any;
+
+  const scores = metricsList.map((metric) => {
+    const score = metrics?.[metric] || 0;
+    const oldScore = oldMetrics?.[metric] || 0;
+    const percentDiff = oldScore > 0 && score > 0 ? ((score - oldScore) / oldScore) * 100 : "-";
+    return {
+      name: metric,
+      score,
+      percentDiff,
+    };
+  });
+
+  res.json(scores);
 };
 
 export const clearResults = async (req: Request, res: Response, next: NextFunction) => {
@@ -309,12 +310,12 @@ export const clearResults = async (req: Request, res: Response, next: NextFuncti
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      return next({ message: validation.error.message });
+      next({ message: validation.error.message });
     }
 
-    const document = await Database.Lighthouse.clearResults(entryKey);
+    const document = await Database.LighthouseInstance.clearResults(entryKey);
 
-    return res.send("OK").status(200);
+    res.send("OK").status(200);
   } catch (error) {
     next(error);
   }

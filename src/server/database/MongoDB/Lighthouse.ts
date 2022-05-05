@@ -1,7 +1,7 @@
 import { LighthouseDB } from "../../types";
 import LighthouseModel from "./models/LighthouseModel";
 
-class _Lighthouse implements LighthouseDB {
+class Lighthouse implements LighthouseDB {
   clearResults = async (entryKey: string) => {
     await LighthouseModel.deleteMany({ "Perfanalytics.entryKey": entryKey });
   };
@@ -29,7 +29,7 @@ class _Lighthouse implements LighthouseDB {
               entryKey: `${entryKey}`,
             },
           },
-          ...formattedMetrics
+          ...formattedMetrics,
         },
       },
     ]);
@@ -37,17 +37,19 @@ class _Lighthouse implements LighthouseDB {
     return result[0];
   };
 
-  createLighthouse = async (lighthouseKey: string, document: {}) => {
+  createLighthouse = async (lighthouseKey: string, document: object) => {
     const lighthouse = new LighthouseModel({ id: lighthouseKey, Perfanalytics: document });
     await lighthouse.save();
   };
 
-  updateLighthouse = async (lighthouseKey: string, updateObject: string) => {
-    let modifiedUpdateObject = {};
-    for (let [key, value] of Object.entries(updateObject)) {
-      const modifiedKey = "Perfanalytics." + key;
+  updateLighthouse = async (lighthouseKey: string, updateObject: object) => {
+    const modifiedUpdateObject = {};
+
+    Object.entries(updateObject).forEach(([key, value]) => {
+      const modifiedKey = `Perfanalytics.${key}`;
       modifiedUpdateObject[modifiedKey] = value;
-    }
+    });
+
     const result = await LighthouseModel.updateOne({ id: lighthouseKey }, { $set: modifiedUpdateObject });
 
     return result;
@@ -75,4 +77,6 @@ class _Lighthouse implements LighthouseDB {
   };
 }
 
-export const Lighthouse = new _Lighthouse();
+const LighthouseInstance = new Lighthouse();
+
+export default LighthouseInstance;

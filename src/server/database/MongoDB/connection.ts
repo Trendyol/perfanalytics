@@ -1,10 +1,11 @@
-require("dotenv").config();
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const { MONGODB_CONNECTION_URL } = process.env;
 
 class MongodbConnection {
-
   public init() {
     return this.connect()
       .then(() => {
@@ -20,4 +21,4 @@ class MongodbConnection {
 
 const mongodbConnection = new MongodbConnection();
 
-export { mongodbConnection };
+export default mongodbConnection;

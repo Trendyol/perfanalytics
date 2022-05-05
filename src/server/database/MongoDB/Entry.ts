@@ -1,14 +1,12 @@
 import { EntryDB } from "../../types";
 import EntryModel from "./models/EntryModel";
 
-class _Entry implements EntryDB {
+class Entry implements EntryDB {
   getEntryTags = async () => {
     const result = await EntryModel.find().distinct("Perfanalytics.tag");
-    const tags = result.map((tag) => {
-      return {
-        tag,
-      };
-    });
+    const tags = result.map((tag) => ({
+      tag,
+    }));
     return tags;
   };
 
@@ -22,7 +20,7 @@ class _Entry implements EntryDB {
     return result;
   };
 
-  createEntry = async (entryKey: string, document: {}) => {
+  createEntry = async (entryKey: string, document: object) => {
     const entry = new EntryModel({ id: entryKey, Perfanalytics: document });
     await entry.save();
   };
@@ -45,13 +43,13 @@ class _Entry implements EntryDB {
     } as any;
   };
 
-  updateEntry = async (entryKey: string, updateObject: string) => {
-    let modifiedUpdateObject = {};
+  updateEntry = async (entryKey: string, updateObject: object) => {
+    const modifiedUpdateObject = {};
 
-    for (let [key, value] of Object.entries(updateObject)) {
-      const modifiedKey = "Perfanalytics." + key;
+    Object.entries(updateObject).forEach(([key, value]) => {
+      const modifiedKey = `Perfanalytics.${key}`;
       modifiedUpdateObject[modifiedKey] = value;
-    }
+    });
 
     const result = await EntryModel.updateOne({ id: entryKey }, { $set: modifiedUpdateObject });
 
@@ -64,4 +62,6 @@ class _Entry implements EntryDB {
   };
 }
 
-export const Entry = new _Entry();
+const EntryInstance = new Entry();
+
+export default EntryInstance;

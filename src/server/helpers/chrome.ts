@@ -1,4 +1,4 @@
-const chromeLauncher = require("chrome-launcher");
+import chromeLauncher from "chrome-launcher";
 
 class Chrome {
   public chrome: any;
@@ -18,4 +18,4 @@ class Chrome {
 
 const chromeInstance = new Chrome();
 
-export { chromeInstance };
+export default chromeInstance;

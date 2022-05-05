@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Select } from "antd";
+
 interface Props {
   metrics: any;
   uxDates: any;
@@ -21,13 +22,11 @@ const labelMetricData = (metrics: any) => {
     const standardBinLabels = ["Good", "Needs Improvement", "Poor"];
     const metricBins = (metricData as any).histogram;
 
-    const labeledBins = metricBins.map((bin: any, i: any) => {
-      return {
-        label: standardBinLabels[i],
-        percentage: bin.density * 100,
-        ...bin,
-      };
-    });
+    const labeledBins = metricBins.map((bin: any, i: any) => ({
+      label: standardBinLabels[i],
+      percentage: bin.density * 100,
+      ...bin,
+    }));
 
     return {
       acronym: nameToAcronymMap[metricName],
@@ -41,16 +40,17 @@ const createDescriptionAndBars = (labeledBins: any) => {
   const descEl = document.createElement("p");
   descEl.textContent = labeledBins.map((bin: any) => `${bin.label}: ${bin.percentage.toFixed(2)}%`).join(", ");
 
-  let barsEl = document.createElement("div");
+  const barsEl = document.createElement("div");
 
-  for (const bin of labeledBins) {
+  labeledBins.forEach((bin: any) => {
     const barEl = document.createElement("div");
     barEl.classList.add(`box-${bin.label.replace(" ", "-")}`);
     barEl.title = `bin start: ${bin.start}, bin end: ${bin.end}`;
     barsEl.append(barEl);
-  }
+  });
+
   barsEl.style.gridTemplateColumns = labeledBins.map((bin: any) => `${bin.percentage}%`).join(" ");
-  barsEl.classList.add(`grid-container`);
+  barsEl.classList.add("grid-container");
 
   return [descEl, barsEl];
 };
@@ -65,7 +65,7 @@ const UxChart: React.FC<Props> = ({ metrics, uxDates, getUxResults }) => {
       }
       const labeledMetrics = labelMetricData(metrics);
 
-      for (const metric of labeledMetrics) {
+      labeledMetrics.forEach((metric) => {
         const metricEl = document.createElement("section");
 
         const titleEl = document.createElement("h2");
@@ -75,7 +75,7 @@ const UxChart: React.FC<Props> = ({ metrics, uxDates, getUxResults }) => {
 
         metricEl.append(titleEl, descEl, barsEl);
         wrapperElement?.append(metricEl);
-      }
+      });
     }
   }, [metrics, uxDates]);
 
@@ -105,11 +105,9 @@ const UxChart: React.FC<Props> = ({ metrics, uxDates, getUxResults }) => {
         </Select>
       )}
       {metrics ? (
-        <>
-          <div id="wrapper">
-            <div></div>
-          </div>
-        </>
+        <div id="wrapper">
+          <div />
+        </div>
       ) : (
         <div> No results</div>
       )}
