@@ -9,6 +9,7 @@
     "client:build": "cd ./src/client && npm run build",
     "client:test": "cd ./src/client && react-scripts test",
     "client:eject": "cd ./src/client && react-scripts eject",
+    "prepare": "husky install",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -68,8 +69,8 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
+    "@commitlint/cli": "^16.2.4",
+    "@commitlint/config-conventional": "^16.2.4",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/react-helmet": "^6.1.5",
