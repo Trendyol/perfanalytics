@@ -52,15 +52,11 @@ module.exports = {
       2,
       { unnamedComponents: "arrow-function", namedComponents: "arrow-function" },
     ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        devDependencies: false,
-        optionalDependencies: false,
-        peerDependencies: false,
-        packageDir: __dirname,
-      },
-    ],
+    "import/no-extraneous-dependencies": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/dot-notation": "off",
+    "@typescript-eslint/no-implied-eval": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/return-await": "off"
   },
 };
