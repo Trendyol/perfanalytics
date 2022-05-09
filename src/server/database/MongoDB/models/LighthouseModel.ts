@@ -15,7 +15,7 @@ const lighthouseSchema = new mongoose.Schema({
     si: Number,
     tbt: Number,
     tti: Number,
-    html: String
+    html: String,
   },
 });
 

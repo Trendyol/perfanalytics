@@ -9,8 +9,12 @@
     "client:build": "cd ./src/client && npm run build",
     "client:test": "cd ./src/client && react-scripts test",
     "client:eject": "cd ./src/client && react-scripts eject",
-    "prepare": "husky install",
-    "lint": "eslint ."
+    "prettier": "prettier . --ignore-path .gitignore",
+    "format:check": "npm run prettier -- --check",
+    "format:fix": "npm run prettier -- --write",
+    "lint": "eslint --ext .tsx,.ts .",
+    "validate": "run-p lint format:check",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -86,9 +90,17 @@
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-security": "^1.5.0",
     "eslint-plugin-testing-library": "^5.3.1",
     "husky": "^7.0.4",
+    "lint-staged": "^12.4.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.2",
     "ts-node": "^10.0.0",
     "typescript": "^4.6.4"
+  },
+  "lint-staged": {
+    "*.{tsx,ts}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
