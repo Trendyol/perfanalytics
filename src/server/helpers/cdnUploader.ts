@@ -8,8 +8,8 @@ import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage"
 import { BlobServiceClient } from "@azure/storage-blob";
 
 const uploadCdn = async (sourcePath: string, file: any, lhKey: string) => {
-  const environment = process.env.CDN_ENV || "perfanalytics";
-  const team = process.env.CDN_TEAM || "mweb";
+  const environment = process.env.CDN_ENV;
+  const team = process.env.CDN_TEAM;
   const secret = process.env.CDN_SECRET;
 
   await cdn.authorize(secret);
