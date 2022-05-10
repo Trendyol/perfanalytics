@@ -1,2 +1,2 @@
-- [Home](/)
-- [Guide](guide/README.md "The greatest guide in the world")
+- [Home](/README.md "Perfanalytics")
+- [Getting Started](getting-started/README.md "Perfanalytics")
