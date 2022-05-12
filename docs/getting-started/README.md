@@ -25,8 +25,6 @@ npm run server:start
 npm run client:start
 ```
 
-## Quick Start
-  TODO:
 
 ## Environment Values
 
