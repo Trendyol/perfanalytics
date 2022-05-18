@@ -23,9 +23,9 @@ export const runByEntry = async (req: Request, res: Response, next: NextFunction
     const saveFunc = () => saveLighthouseResult(content, initalLhResult.id, entryKey);
     queue.enqueue(saveFunc);
 
-    res.json(initalLhResult);
+    return res.json(initalLhResult);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -35,9 +35,9 @@ export const getLighthouse = async (req: Request, res: Response, next: NextFunct
 
     const document = await Database.LighthouseInstance.getLighthouse(lighthouseKey);
 
-    res.json(document);
+    return res.json(document);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -96,7 +96,7 @@ export const getByEntry = async (req: Request, res: Response, next: NextFunction
     const validation = getLighthouseSchema.validate({ entryKey, startDate, endDate });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const result = [];
@@ -115,9 +115,9 @@ export const getByEntry = async (req: Request, res: Response, next: NextFunction
       res.send().status(404);
     }
 
-    res.json(result);
+    return res.json(result);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -144,9 +144,9 @@ export const runAllEntries = async (req: Request, res: Response, next: NextFunct
       runRecursively(result);
     });
 
-    res.send("Process started.");
+    return res.send("Process started.");
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -254,7 +254,7 @@ export const getStatistics = async (req: Request, res: Response, next: NextFunct
   const validation = entryKeySchema.validate({ entryKey });
 
   if (validation.error) {
-    next({ message: validation.error.message });
+    return next({ message: validation.error.message });
   }
 
   const metricsList = ["fcp", "si", "lcp", "tti", "tbt", "cls", "fmp", "prf"];
@@ -269,7 +269,7 @@ export const getStatistics = async (req: Request, res: Response, next: NextFunct
         percentDiff: "-",
       };
     });
-    res.json(scores);
+    return res.json(scores);
   }
   const nowTime = new Date().getTime();
 
@@ -300,7 +300,7 @@ export const getStatistics = async (req: Request, res: Response, next: NextFunct
     };
   });
 
-  res.json(scores);
+  return res.json(scores);
 };
 
 export const clearResults = async (req: Request, res: Response, next: NextFunction) => {
@@ -310,13 +310,13 @@ export const clearResults = async (req: Request, res: Response, next: NextFuncti
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const document = await Database.LighthouseInstance.clearResults(entryKey);
 
-    res.send("OK").status(200);
+    return res.send("OK").status(200);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

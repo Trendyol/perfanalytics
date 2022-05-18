@@ -1,4 +1,5 @@
-import chromeLauncher from "chrome-launcher";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const chromeLauncher = require("chrome-launcher");
 
 class Chrome {
   public chrome: any;

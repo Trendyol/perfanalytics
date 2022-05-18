@@ -12,7 +12,7 @@ export const collectByEntry = async (req: Request, res: Response, next: NextFunc
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const { content } = await Database.EntryInstance.getEntry(entryKey);
@@ -29,9 +29,9 @@ export const collectByEntry = async (req: Request, res: Response, next: NextFunc
 
     await Database.UxInstance.createUx(uxKey, uxDocument);
 
-    res.json(uxDocument);
+    return res.json(uxDocument);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -52,14 +52,14 @@ export const collectAll = async (req: Request, res: Response, next: NextFunction
           metrics: { ...uxResult },
         };
 
-        await Database.UxInstance.createUx(uxKey, uxDocument);
+        return await Database.UxInstance.createUx(uxKey, uxDocument);
       } catch (error) {
-        console.log(error);
+        return console.log(error);
       }
     });
-    res.json(entries);
+    return res.json(entries);
   } catch (error) {
-    console.log(error);
+    return console.log(error);
   }
 };
 
@@ -69,12 +69,12 @@ export const getUxByEntry = async (req: Request, res: Response, next: NextFuncti
   const validation = uxTimeSchema.validate({ entryKey, date });
 
   if (validation.error) {
-    next({ message: validation.error.message });
+    return next({ message: validation.error.message });
   }
 
   const uxResult = await Database.UxInstance.getUxByEntry(entryKey, date);
 
-  res.json(uxResult[0]?.Perfanalytics);
+  return res.json(uxResult[0]?.Perfanalytics);
 };
 
 export const getUxDates = async (req: Request, res: Response, next: NextFunction) => {
@@ -99,5 +99,5 @@ export const getUxDates = async (req: Request, res: Response, next: NextFunction
     label: `${month.toLocaleString("default", { month: "long", year: "numeric" })}`,
   }));
 
-  res.json(months);
+  return res.json(months);
 };

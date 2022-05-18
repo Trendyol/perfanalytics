@@ -12,7 +12,7 @@ export const createEntry = async (req: Request, res: Response, next: NextFunctio
     const validation = createEntrySchema.validate({ url, device });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const docKey = uuidv4();
@@ -31,9 +31,9 @@ export const createEntry = async (req: Request, res: Response, next: NextFunctio
       ...document,
     };
 
-    res.json(entryDto).status(201);
+    return res.json(entryDto).status(201);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -44,7 +44,7 @@ export const getEntries = async (req: Request, res: Response, next: NextFunction
     const validation = tagSchema.validate({ tag });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const entries = await Database.EntryInstance.getEntries(tag);
@@ -58,9 +58,9 @@ export const getEntries = async (req: Request, res: Response, next: NextFunction
       result.push(entryDto);
     });
 
-    res.json(result);
+    return res.json(result);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -71,14 +71,14 @@ export const getEntry = async (req: Request, res: Response, next: NextFunction) 
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const document = await Database.EntryInstance.getEntry(entryKey);
 
-    res.json(document);
+    return res.json(document);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -90,7 +90,7 @@ export const updateEntry = async (req: Request, res: Response, next: NextFunctio
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const result = await Database.EntryInstance.updateEntry(entryKey, newEntryFields);
@@ -104,9 +104,9 @@ export const updateEntry = async (req: Request, res: Response, next: NextFunctio
       }
     }
 
-    res.json(result);
+    return res.json(result);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -117,14 +117,14 @@ export const deleteEntry = async (req: Request, res: Response, next: NextFunctio
     const validation = entryKeySchema.validate({ entryKey });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const result = await Database.EntryInstance.deleteEntry(entryKey);
 
-    res.json(result);
+    return res.json(result);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -132,8 +132,8 @@ export const getEntryTags = async (req: Request, res: Response, next: NextFuncti
   try {
     const result = await Database.EntryInstance.getEntryTags();
 
-    res.json(result);
+    return res.json(result);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

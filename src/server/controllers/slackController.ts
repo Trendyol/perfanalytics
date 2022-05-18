@@ -22,9 +22,9 @@ export const healthCheck = async (req: Request, res: Response, next: NextFunctio
       text: "Slack test message",
     });
 
-    res.send("OK");
+    return res.send("OK");
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -35,7 +35,7 @@ export const scheduledReport = async (req: Request, res: Response, next: NextFun
     const validation = scheduleTimeSchema.validate({ scheduleTime });
 
     if (validation.error) {
-      next({ message: validation.error.message });
+      return next({ message: validation.error.message });
     }
 
     const nowTime = new Date().getTime();
@@ -78,8 +78,8 @@ export const scheduledReport = async (req: Request, res: Response, next: NextFun
       await postMessage(entry.Perfanalytics.slackChannel, slackMessage);
     });
 
-    res.json(entries);
+    return res.json(entries);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

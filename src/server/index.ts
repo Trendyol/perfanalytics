@@ -50,7 +50,7 @@ app.use("/lh/:lhKey", (req, res) => {
 
 const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
   console.log("Error", error.message);
-  res.json({ error: error.message }).status(500);
+  return res.json({ error: error.message }).status(500);
 };
 
 app.use(errorHandler);

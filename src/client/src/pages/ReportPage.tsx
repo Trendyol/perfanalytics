@@ -26,7 +26,7 @@ const ReportPage: React.FC<Props> = (props) => {
   const [selectedDate, setSelectedDate] = useState<number>(DATES.D1);
   const [uxMetrics, setUxMetrics] = useState<any>(null);
   const [uxDates, setUxDates] = useState<any>(null);
-  const [statistics, setStatistics] = useState<LhStatistic[]>();
+  const [statistics, setStatistics] = useState<LhStatistic[] | null>(null);
   const [chartData, setChartData] = useState<[]>([]);
   const [tableData, setTableData] = useState<LighthouseResult[]>([]);
   const [entry, setEntry] = useState<Entry>();
