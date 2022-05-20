@@ -39,7 +39,7 @@ module.exports = {
     "airbnb/hooks",
     "prettier",
   ],
-  plugins: ["react", "@typescript-eslint", "jsx-a11y", "import", "jest"],
+  plugins: ["react", "@typescript-eslint", "jsx-a11y", "import", "jest", "react-hooks"],
   rules: {
     "no-unused-vars": "off",
     semi: ["error", "always"],
