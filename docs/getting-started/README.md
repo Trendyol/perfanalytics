@@ -51,3 +51,10 @@ Perfanalytics can send reports and alerts to desired slack channel <br>
 
 Perfanalytics can store and visualize monthly chrome user experience report <br>
 `UX_API_KEY: <UX_API_KEY>` <br>
+
+#### KEEP CHROME INSTANCE (optional)
+
+Perfanalytics can use a single chrome instance for all the audits.
+Although, it might be unstable for the audits that set custom headers like cookies.
+It can be activated by setting the `KEEP_CHROME_INSTANCE` variable to `true`.
+(default value is `false`)
