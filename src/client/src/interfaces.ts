@@ -7,6 +7,7 @@ export interface Entry {
   url: string;
   slackChannel: string;
   tag: string;
+  cookie: string;
   slack_daily: boolean;
   slack_weekly: boolean;
   slack_monthly: boolean;

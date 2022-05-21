@@ -35,6 +35,7 @@ const SettingsModal: React.FC<Props> = (props) => {
   const [slackChannel, setSlackChannel] = useState("");
   const [url, setUrl] = useState("");
   const [tag, setTag] = useState("");
+  const [cookie, setCookie] = useState("");
   const [checkedTimes, setCheckedTimes] = useState<string[]>([]);
   const [initComponent, setInitComponent] = useState(true);
 
@@ -44,6 +45,7 @@ const SettingsModal: React.FC<Props> = (props) => {
       setSlackChannel(entry.slackChannel);
       setTag(entry.tag);
       setUrl(entry.url);
+      setCookie(entry.cookie);
 
       const times: string[] = [];
       timeOptions.forEach((time) => {
@@ -98,6 +100,7 @@ const SettingsModal: React.FC<Props> = (props) => {
         slackChannel,
         url,
         tag: tag ? tag.toUpperCase() : "",
+        cookie,
       })
       .then(() => {
         hide();
@@ -131,7 +134,12 @@ const SettingsModal: React.FC<Props> = (props) => {
         <div className="tag-section">
           <div className="title">Tag Configuration</div>
           <Divider />
-          <Input value={tag} onChange={(e: any) => setTag(e.target.value)} placeholder="Tag" />
+          <Input value={tag} onChange={(e) => setTag(e.target.value)} placeholder="Tag" />
+        </div>
+        <div className="cookie-section">
+          <div className="title">Cookie Configuration</div>
+          <Divider />
+          <Input value={cookie} onChange={(e) => setCookie(e.target.value)} placeholder="Cookie string" />
         </div>
         <div className="slack-section">
           <div className="title">Slack Configuration</div>

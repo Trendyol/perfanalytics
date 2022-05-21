@@ -75,6 +75,10 @@ const runLighthouse = async (entry: any, lhKey: string) => {
     };
   }
 
+  config.settings.extraHeaders = {
+    cookie: entry.cookie,
+  };
+
   const runnerResult = await lighthouse(entry.url, options, config);
 
   try {
