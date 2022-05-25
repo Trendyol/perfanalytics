@@ -54,7 +54,7 @@
     "mongoose": "^6.1.6",
     "morgan": "^1.10.0",
     "node-fetch": "^3.0.0",
-    "node-sass": "^6.0.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^2.0.7",
     "p-queue": "6.6.2",
     "query-string": "^7.0.1",
