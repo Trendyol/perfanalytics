@@ -1,2 +1,0 @@
-- [Home](/README.md "Perfanalytics")
-- [Getting Started](getting-started/README.md "Perfanalytics")

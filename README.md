@@ -1,51 +1,34 @@
-# Perfanalytics
-
-Performance tracking and monitoring tool, based on [Lighthouse](https://web.dev/measure).
-
-![Perfanalytics](https://github.com/Trendyol/perfanalytics/blob/main/perfanalytics.gif)
-
-## Introduction
-
-:rocket: **Perfanalytics** was created to measure and monitor web applications' performance in one place. Also **Perfanalytics** can be used to report unexpected performance incidents.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-Install and start using **Perfanalytics** project instantly:
-
-#### ⏳ Installation
+First, run the development server:
 
 ```bash
-git clone https://github.com/Trendyol/perfanalytics.git
+npm run dev
+# or
+yarn dev
 ```
 
-Once the project is cloned, `cd` into its folder and run `npm install` to download all of the project's dependencies:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-cd perfanalytics && npm install
-```
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-When the project dependencies are installed, fill the environment values that you need as shown in the `.example.env` file. <br />
-After you make sure environment values are filled correctly, run the commands below in seperate terminals:
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-```bash
-npm run server:start
-npm run client:start
-```
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-Enjoy 🎉
+## Learn More
 
-## Features
+To learn more about Next.js, take a look at the following resources:
 
-- Register urls by devices ( Mobile / Desktop )
-- Categorize urls by tags
-- Show eight key performance metrics with tables and charts
-- Show average statistics and changes over time by url
-- Run lighthouse for a single url or all the registered urls
-- Show detailed lighthouse output
-- Add slack configuration with channel name
-  - set performance thresholds and get alert messages
-  - get daily/weekly/monthly performance reports
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## License
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-[Apache License 2.0](https://github.com/Trendyol/perfanalytics/blob/main/LICENSE).
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
