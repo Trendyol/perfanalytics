@@ -5,6 +5,8 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { validate } from '@core/config/validation';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { config } from '@config';
 
 @Module({
   imports: [
@@ -13,6 +15,11 @@ import { ConfigModule } from '@nestjs/config';
       limit: 30,
     }),
     ConfigModule.forRoot({ validate }),
+    MongooseModule.forRoot(config.mongo.uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      family: 4,
+    }),
   ],
   controllers: [AppController],
   providers: [
