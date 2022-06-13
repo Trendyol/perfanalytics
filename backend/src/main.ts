@@ -9,6 +9,7 @@ import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as morgan from 'morgan';
 import { Logger } from '@nestjs/common';
+import { config } from '@config';
 
 const logger = new Logger('Main');
 
@@ -25,7 +26,7 @@ async function bootstrap() {
 
   await registerHelmet(app);
 
-  await app.listen(4000);
+  await app.listen(config.port, '0.0.0.0');
 }
 
 function initializeValidationPipe(app: NestFastifyApplication) {
@@ -43,7 +44,7 @@ function initializeSwagger(app: NestFastifyApplication) {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Perfanalytics API')
     .setDescription('Lighthouse tests on cutting edge.')
-    .setVersion('0.5.0')
+    .setVersion(config.version)
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig, {
@@ -92,4 +93,4 @@ async function registerHelmet(app: NestFastifyApplication) {
   });
 }
 
-bootstrap().then(() => logger.log(`Server is running on port 4000.`));
+bootstrap().then(() => logger.log(`Server is running on port ${config.port}.`));

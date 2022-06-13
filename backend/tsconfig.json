@@ -16,6 +16,38 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      // Core
+      "@core/*": [
+        "src/core/*"
+      ],
+      "@config": [
+        "src/core/config"
+      ],
+      "@guards/*": [
+        "src/core/guards/*"
+      ],
+      "@enums/*": [
+        "src/core/enums/*"
+      ],
+      "@decorators/*": [
+        "src/core/decorators/*"
+      ],
+      "@strategies/*": [
+        "src/core/strategies/*"
+      ],
+
+      // Modules
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@session/*": [
+        "src/modules/session/*"
+      ],
+      "@user/*": [
+        "src/modules/user/*"
+      ]
+    }
   }
 }
