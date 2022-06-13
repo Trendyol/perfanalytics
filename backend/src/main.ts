@@ -18,6 +18,7 @@ async function bootstrap() {
   initializeValidationPipe(app);
   initializeSwagger(app);
   initializeMorgan(app);
+  enableCors(app);
 
   await registerHelmet(app);
 
@@ -54,6 +55,17 @@ function initializeMorgan(app: NestFastifyApplication) {
   app.use(
     morgan(':remote-addr :url :method :req[origin] :status :response-time ms'),
   );
+}
+
+function enableCors(app: NestFastifyApplication) {
+  app.enableCors({
+    origin: '*',
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
 }
 
 async function registerHelmet(app: NestFastifyApplication) {
