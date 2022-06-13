@@ -5,7 +5,8 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import helmet from '@fastify/helmet';
+import helmet from 'fastify-helmet';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,7 +15,7 @@ async function bootstrap() {
   );
 
   initializeValidationPipe(app);
-
+  initializeSwagger(app);
 
   await registerHelmet(app);
 
@@ -30,6 +31,21 @@ function initializeValidationPipe(app: NestFastifyApplication) {
       forbidUnknownValues: true,
     }),
   );
+}
+
+function initializeSwagger(app: NestFastifyApplication) {
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Perfanalytics API')
+    .setDescription('Lighthouse tests on cutting edge.')
+    .setVersion('0.5.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, swaggerConfig, {
+    deepScanRoutes: true,
+  });
+  SwaggerModule.setup('docs', app, document, {
+    explorer: true,
+  });
 }
 
 async function registerHelmet(app: NestFastifyApplication) {
