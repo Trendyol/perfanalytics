@@ -8,6 +8,9 @@ import {
 import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as morgan from 'morgan';
+import { Logger } from '@nestjs/common';
+
+const logger = new Logger('Main');
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -52,8 +55,16 @@ function initializeSwagger(app: NestFastifyApplication) {
 }
 
 function initializeMorgan(app: NestFastifyApplication) {
+  const logger = new Logger('Morgan');
   app.use(
-    morgan(':remote-addr :url :method :req[origin] :status :response-time ms'),
+    morgan(':remote-addr :url :method :req[origin] :status :response-time ms', {
+      stream: {
+        write: (message: string) => {
+          logger.log(message.replace('\n', ''));
+          return true;
+        },
+      },
+    }),
   );
 }
 
@@ -81,4 +92,4 @@ async function registerHelmet(app: NestFastifyApplication) {
   });
 }
 
-bootstrap();
+bootstrap().then(() => logger.log(`Server is running on port 4000.`));
