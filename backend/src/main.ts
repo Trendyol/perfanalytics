@@ -7,6 +7,7 @@ import {
 } from '@nestjs/platform-fastify';
 import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as morgan from 'morgan';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -16,6 +17,7 @@ async function bootstrap() {
 
   initializeValidationPipe(app);
   initializeSwagger(app);
+  initializeMorgan(app);
 
   await registerHelmet(app);
 
@@ -46,6 +48,12 @@ function initializeSwagger(app: NestFastifyApplication) {
   SwaggerModule.setup('docs', app, document, {
     explorer: true,
   });
+}
+
+function initializeMorgan(app: NestFastifyApplication) {
+  app.use(
+    morgan(':remote-addr :url :method :req[origin] :status :response-time ms'),
+  );
 }
 
 async function registerHelmet(app: NestFastifyApplication) {
