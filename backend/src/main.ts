@@ -5,6 +5,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import helmet from '@fastify/helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,6 +14,9 @@ async function bootstrap() {
   );
 
   initializeValidationPipe(app);
+
+
+  await registerHelmet(app);
 
   await app.listen(4000);
 }
@@ -27,4 +31,18 @@ function initializeValidationPipe(app: NestFastifyApplication) {
     }),
   );
 }
+
+async function registerHelmet(app: NestFastifyApplication) {
+  await app.register(helmet, {
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [`'self'`],
+        styleSrc: [`'self'`, `'unsafe-inline'`],
+        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+      },
+    },
+  });
+}
+
 bootstrap();
