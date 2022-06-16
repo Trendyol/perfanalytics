@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from '@modules/user/etc/user.schema';
 import { UserService } from '@user/user.service';
 import { CreateSessionDTO } from './etc/create-session.dto';
@@ -63,7 +59,6 @@ export class SessionService {
       name: user.name,
       email: user.email,
       emailVerified: user.emailVerified,
-    }
-    );
+    });
   }
 }
