@@ -15,9 +15,9 @@ import { UpdateMeDTO } from './etc/update-me.dto';
 import { RoleType } from '@enums/role.enum';
 import { UserService } from './user.service';
 import { JwtGuard } from '@guards/jwt.guard';
-import { AuthSkip } from '@guards/auth-skip.guard';
 import { RoleGuard } from '@guards/role.guard';
 import { Role } from '@decorators/role.decorator';
+import { AuthSkip } from '@decorators/auth-skip.decorator';
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -28,7 +28,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Throttle(1, 60 * 10)
-  @UseGuards(AuthSkip)
+  @AuthSkip()
   @Post()
   async create(@Body() createDTO: CreateUserDTO) {
     return await this.userService.create(createDTO);

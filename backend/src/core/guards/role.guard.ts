@@ -12,6 +12,13 @@ export class RoleGuard implements CanActivate {
       context.getHandler(),
     );
 
+    const authSkip = this.reflector.get<boolean>(
+      'authSkip',
+      context.getHandler(),
+    );
+
+    if (authSkip) return true;
+
     if (!requiredRole) requiredRole = RoleType.SUPER_ADMIN;
 
     const request = context.switchToHttp().getRequest();
