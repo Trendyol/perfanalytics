@@ -1,0 +1,10 @@
+{
+  "locales": ["en", "tr"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["home"]
+  },
+  "defaultNS": "common",
+  "logBuild": false
+}
