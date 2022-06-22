@@ -1,3 +1,5 @@
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx}",
@@ -5,7 +7,15 @@ module.exports = {
     "./src/modules/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#F27A1A',
+        accent: '#2c58bd'
+      },
+      backgroundImage: (theme) => ({
+        'login-bg': "url(/assets/blob-scene-haikei.svg)",
+      }),
+    },
     screens: {
       xl: { max: "1279px" },
       // => @media (max-width: 1279px) { ... }
