@@ -3,7 +3,8 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/": ["home"]
+    "/": ["home"],
+    "/login": ["login"]
   },
   "defaultNS": "common",
   "logBuild": false
