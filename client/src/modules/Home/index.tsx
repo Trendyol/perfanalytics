@@ -5,7 +5,11 @@ interface HomeProps {}
 
 const Home = (props: HomeProps) => {
   const { t } = useTranslation("home");
-  return <main data-testid="home">{t('home')}</main>;
+  return (
+    <main data-testid="home" className="font-bold underline text-3xl md:text-2xl">
+      {t("home")}
+    </main>
+  );
 };
 
 export default Home;
