@@ -5,8 +5,8 @@ import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { FC } from "react";
 
-const Login: FC = () => {
-  const { t } = useTranslation("login");
+const Register: FC = () => {
+  const { t } = useTranslation("register");
 
   return (
     <main className="flex flex-row h-screen overflow-hidden bg-center bg-cover">
@@ -22,40 +22,27 @@ const Login: FC = () => {
         >
           <div id="header">
             <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">
-              {t("hello_again")}
+              {t("sign_up")}
             </h1>
             <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">
-              {t("welcome_to_dashboard")}
-            </p>
-            <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">
-              {t("please_login")}
+              {t("see_what_capable_of")}
             </p>
           </div>
           <div id="content" className="flex flex-col">
+            <TextField type="email" placeholder={t("name")} />
             <TextField type="email" placeholder={t("email")} />
             <TextField type="password" placeholder={t("password")} />
-            <div className="flex justify-between sm:text-sm">
-              <span className="flex items-center">
-                <Checkbox />
-                <button className="ml-1 text-gray-500 text-sm sm:text-xs">
-                  {t("remember_me")}
-                </button>
-              </span>
-              <Link href="/">
-                <span className="text-primary cursor-pointer text-sm sm:text-xs">
-                  {t("recover_password")}
-                </span>
-              </Link>
-            </div>
           </div>
           <div id="actions">
-            <Button>{t("login")}</Button>
+            <Button>{t("register")}</Button>
           </div>
         </div>
         <div className="fixed bottom-4 w-full flex justify-center items-center">
-          <span className="text-gray-500">{t("dont_have_account")}</span>
-          <Link href="/register">
-            <span className="ml-1 text-primary cursor-pointer">{t("sign_up")}</span>
+          <span className="text-gray-500">{t("already_have_account")}</span>
+          <Link href="/login">
+            <span className="ml-1 text-primary cursor-pointer">
+              {t("sign_in")}
+            </span>
           </Link>
         </div>
       </div>
@@ -63,4 +50,4 @@ const Login: FC = () => {
   );
 };
 
-export default Login;
+export default Register;

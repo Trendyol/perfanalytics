@@ -1,4 +1,4 @@
-import { FC, InputHTMLAttributes } from "react";
+import { FC } from "react";
 import classnames from "classnames";
 
 const COLORS = {
