@@ -15,14 +15,12 @@ import { UpdateMeDTO } from './etc/update-me.dto';
 import { RoleType } from '@enums/role.enum';
 import { UserService } from './user.service';
 import { JwtGuard } from '@guards/jwt.guard';
-import { RoleGuard } from '@guards/role.guard';
 import { Role } from '@decorators/role.decorator';
 import { AuthSkip } from '@decorators/auth-skip.decorator';
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('User')
-@UseGuards(JwtGuard, RoleGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -34,18 +32,21 @@ export class UserController {
     return await this.userService.create(createDTO);
   }
 
+  @UseGuards(JwtGuard)
   @Role(RoleType.USER)
   @Get('@me')
   async getMe(@User() user) {
     return await this.userService.getMe(user);
   }
 
+  @UseGuards(JwtGuard)
   @Role(RoleType.USER)
   @Put('@me')
   async updateMe(@User() user, @Body() updateDTO: UpdateMeDTO) {
     return await this.userService.updateMe(user._id, updateDTO);
   }
 
+  @UseGuards(JwtGuard)
   @Role(RoleType.USER)
   @Put('@me/password')
   async updateMyPassword(@User() user, @Body() updateDTO: UpdatePasswordDTO) {

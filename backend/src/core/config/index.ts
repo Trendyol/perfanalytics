@@ -26,6 +26,7 @@ export const config = {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
+  secret: process.env.SECRET,
 };
 
 export default config as Config;

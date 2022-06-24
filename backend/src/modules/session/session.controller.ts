@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { SessionService } from './session.service';
 import { CreateSessionDTO } from './etc/create-session.dto';
 import { RoleGuard } from '@guards/role.guard';
@@ -13,8 +13,13 @@ export class SessionController {
 
   @Throttle(3, 60)
   @Post()
-  async createSession(@Body() createDTO: CreateSessionDTO) {
-    return await this.service.create(createDTO);
+  async createSession(
+    @Body() createDTO: CreateSessionDTO,
+    @Res({ passthrough: true }) response,
+  ) {
+    const token = await this.service.create(createDTO);
+    response.setCookie('auth-cookie', token);
+    return;
   }
 
   @UseGuards(JwtGuard, RoleGuard)

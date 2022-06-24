@@ -10,6 +10,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as morgan from 'morgan';
 import { Logger } from '@nestjs/common';
 import { config } from '@config';
+import fastifyCookie from 'fastify-cookie';
 
 const logger = new Logger('Main');
 
@@ -25,6 +26,7 @@ async function bootstrap() {
   enableCors(app);
 
   await registerHelmet(app);
+  await registerFastifyCookie(app);
 
   await app.listen(config.port, '0.0.0.0');
 }
@@ -90,6 +92,13 @@ async function registerHelmet(app: NestFastifyApplication) {
         scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
       },
     },
+  });
+}
+
+async function registerFastifyCookie(app: NestFastifyApplication) {
+  await app.register(fastifyCookie, {
+    secret: config.secret,
+    parseOptions: { httpOnly: true },
   });
 }
 

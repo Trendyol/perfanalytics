@@ -39,6 +39,7 @@ export class SessionService {
 
     if (timeDiff <= 0) throw new UnauthorizedException();
 
+    // We might consider removing this for verification
     const user = await this.userService.getByID(iss);
 
     if (!user) throw new UnauthorizedException();
