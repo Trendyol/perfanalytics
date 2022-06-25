@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { config } from '@config';
 import { UserModule } from '@user/user.module';
 import { SessionModule } from '@session/session.module';
+import { PageModule } from '@modules/page/page.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SessionModule } from '@session/session.module';
     }),
     UserModule,
     SessionModule,
+    PageModule,
   ],
   controllers: [AppController],
   providers: [
