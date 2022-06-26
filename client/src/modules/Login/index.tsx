@@ -1,9 +1,9 @@
+import { FC } from "react";
 import Button from "@components/shared/Form/Button";
 import Checkbox from "@components/shared/Form/Checkbox";
 import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { FC } from "react";
 
 const Login: FC = () => {
   const { t } = useTranslation("login");
@@ -49,7 +49,9 @@ const Login: FC = () => {
             </div>
           </div>
           <div id="actions">
-            <Button>{t("login")}</Button>
+            <Button size="large">
+              {t("login")}
+            </Button>
           </div>
         </div>
         <div className="fixed bottom-4 w-full flex justify-center items-center">

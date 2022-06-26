@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
+import classnames from "classnames";
 
 interface ActiveLink {
   children: React.ReactNode;
@@ -12,9 +13,9 @@ const ActiveLink = ({ children, href }: ActiveLink) => {
   return (
     <Link href={href}>
       <a
-        className={`text-[#9D9D9D] hover:text-[#727272] ${
-          router.asPath === href ? "text-primary font-medium" : ""
-        }`}
+        className={classnames("text-[#9D9D9D] hover:text-[#727272]", {
+          "text-primary font-medium": router.asPath === href,
+        })}
       >
         {children}
       </a>

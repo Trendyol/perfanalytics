@@ -34,7 +34,7 @@ const Register: FC = () => {
             <TextField type="password" placeholder={t("password")} />
           </div>
           <div id="actions">
-            <Button>{t("register")}</Button>
+            <Button size="large">{t("register")}</Button>
           </div>
         </div>
         <div className="fixed bottom-4 w-full flex justify-center items-center">

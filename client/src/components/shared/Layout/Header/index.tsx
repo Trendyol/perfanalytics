@@ -6,6 +6,7 @@ import ActiveLink from "@components/shared/Layout/ActiveLink";
 import trendyolLogo from "@assets/images/trendyol.svg";
 import userIcon from "@assets/images/user.svg";
 import { HEADER_ROUTES } from "src/constants";
+import Button from "@components/shared/Form/Button";
 
 const Header = () => {
   const { t } = useTranslation("layout");
@@ -41,11 +42,9 @@ const Header = () => {
             <p>Easter Egg!</p>
           </>
         ) : (
-          <Link href="/login">
-            <a className="text-sm py-1 px-3 bg-primary text-white rounded-md">
-              {t("login")}
-            </a>
-          </Link>
+          <Button>
+            <Link href="/login">{t("login")}</Link>
+          </Button>
         )}
       </div>
     </header>

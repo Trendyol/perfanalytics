@@ -6,16 +6,28 @@ const COLORS = {
   accent: "bg-accent",
 };
 
+const SIZES = {
+  large: "py-4 px-12 text-md rounded-xl",
+  medium: "py-2 px-6 text-sm rounded-xl",
+};
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: keyof typeof COLORS;
+  size?: keyof typeof SIZES;
 }
 
-const Button: FC<ButtonProps> = ({ children, color = "primary", ...rest }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  color = "primary",
+  size = "medium",
+  ...rest
+}) => {
   return (
     <button
       className={classnames(
-        "rounded-2xl sm:rounded-md w-full h-16 sm:h-12 text-white text-md",
-        COLORS[color]
+        "w-full text-white",
+        COLORS[color],
+        SIZES[size]
       )}
       {...rest}
     >
