@@ -4,7 +4,7 @@ import Home from "@modules/Home";
 
 const HomePage: NextPage = () => {
   return (
-    <div>
+    <>
       <Head>
         <title>Home</title>
         <meta name="description" content="..." />
@@ -12,9 +12,7 @@ const HomePage: NextPage = () => {
       </Head>
 
       <Home />
-
-      <footer></footer>
-    </div>
+    </>
   );
 };
 

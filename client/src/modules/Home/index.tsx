@@ -6,9 +6,9 @@ interface HomeProps {}
 const Home = (props: HomeProps) => {
   const { t } = useTranslation("home");
   return (
-    <main data-testid="home" className="font-bold underline text-3xl md:text-2xl">
+    <div className="flex justify-center items-center text-4xl font-bold min-h-full">
       {t("home")}
-    </main>
+    </div>
   );
 };
 
