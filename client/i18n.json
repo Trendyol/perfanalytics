@@ -1,0 +1,12 @@
+{
+  "locales": ["en", "tr"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common", "layout"],
+    "/": ["home"],
+    "/login": ["login"],
+    "/register": ["register"]
+  },
+  "defaultNS": "common",
+  "logBuild": false
+}
