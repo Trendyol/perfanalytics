@@ -11,10 +11,8 @@ import { UpdateMeDTO } from './etc/update-me.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { RoleType } from '@enums/role.enum';
 import * as bcrypt from 'bcryptjs';
-import * as _ from 'lodash';
 import { User } from '@user/etc/user.schema';
 
-// noinspection DuplicatedCode
 @Injectable()
 export class UserService {
   constructor(
@@ -104,7 +102,7 @@ export class UserService {
       );
   }
 
-  async getMe(user: User): Promise<any> {
-    return _.pick<User>(user, ['_id', 'name', 'email', 'role']);
+  async getMe(user: User) {
+    return user;
   }
 }

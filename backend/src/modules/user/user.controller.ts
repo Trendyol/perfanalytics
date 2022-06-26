@@ -19,6 +19,8 @@ import { Role } from '@decorators/role.decorator';
 import { AuthSkip } from '@decorators/auth-skip.decorator';
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
+import { plainToInstance } from 'class-transformer';
+import { UserDTO } from './etc/user.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -36,7 +38,11 @@ export class UserController {
   @Role(RoleType.USER)
   @Get('@me')
   async getMe(@User() user) {
-    return await this.userService.getMe(user);
+    const userData = await this.userService.getMe(user);
+    const userDTO = plainToInstance(UserDTO, userData, {
+      excludeExtraneousValues: true,
+    });
+    return userDTO;
   }
 
   @UseGuards(JwtGuard)

@@ -15,6 +15,8 @@ import { CreatePageDTO } from './etc/create-page.dto';
 import { JwtGuard } from '@core/guards/jwt.guard';
 import { PageService } from './page.service';
 import { UpdatePageDTO } from './etc/update.page.dto';
+import { PageDTO } from './etc/page.dto';
+import { plainToInstance } from 'class-transformer';
 
 @ApiTags('Page')
 @Controller('page')
@@ -25,7 +27,11 @@ export class PageController {
   @UseGuards(JwtGuard)
   @Post()
   async create(@User() user, @Body() createPageDTO: CreatePageDTO) {
-    this.pageService.create(user, createPageDTO);
+    const pageData = await this.pageService.create(user, createPageDTO);
+    const pageDTO = plainToInstance(PageDTO, pageData, {
+      excludeExtraneousValues: true,
+    });
+    return pageDTO;
   }
 
   @Get()
