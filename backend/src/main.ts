@@ -11,6 +11,7 @@ import * as morgan from 'morgan';
 import { Logger } from '@nestjs/common';
 import { config } from '@config';
 import fastifyCookie from 'fastify-cookie';
+import compression from 'fastify-compress';
 
 const logger = new Logger('Main');
 
@@ -27,6 +28,7 @@ async function bootstrap() {
 
   await registerHelmet(app);
   await registerFastifyCookie(app);
+  await registerCompression(app);
 
   await app.listen(config.port, '0.0.0.0');
 }
@@ -93,6 +95,10 @@ async function registerHelmet(app: NestFastifyApplication) {
       },
     },
   });
+}
+
+async function registerCompression(app: NestFastifyApplication) {
+  await app.register(compression, { encodings: ['gzip', 'deflate'] });
 }
 
 async function registerFastifyCookie(app: NestFastifyApplication) {
