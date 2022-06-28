@@ -1,12 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const chromeLauncher = require("chrome-launcher");
 
+const { KEEP_CHROME_INSTANCE } = process.env;
+
 class Chrome {
   public chrome: any;
 
   public async runChrome() {
     if (this.chrome) {
-      return this;
+      if (KEEP_CHROME_INSTANCE === "true") {
+        return this;
+      }
+
+      await this.chrome.kill();
     }
 
     this.chrome = await chromeLauncher.launch({

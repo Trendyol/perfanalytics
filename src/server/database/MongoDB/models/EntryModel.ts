@@ -20,6 +20,7 @@ const entrySchema = new mongoose.Schema({
     slack_tbt: Number,
     slack_tti: Number,
     tag: String,
+    cookie: String,
   },
 });
 
