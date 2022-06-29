@@ -5,11 +5,7 @@ FROM $RUNTIME_IMAGE
 
 WORKDIR /usr/src/app
 
-COPY ./dist ./dist
-COPY ./package.json ./package.json
-
 RUN apk update && apk add python3 make g++
-RUN npm install
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
     && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
@@ -27,6 +23,11 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositorie
     wqy-zenhei \
     && rm -rf /var/cache/* \
     && mkdir /var/cache/apk
+
+COPY ./package.json ./package.json
+RUN npm install --only=production
+
+COPY ./dist ./dist
 
 EXPOSE $PORT
 
