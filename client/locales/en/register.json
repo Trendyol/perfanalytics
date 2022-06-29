@@ -7,5 +7,9 @@
   "name": "Name",
   "email": "Email",
   "password": "Password",
-  "sign_up": "Sign Up"
+  "sign_up": "Sign Up",
+  "password_short": "Password must be at least 8 characters long",
+  "password_long": "Password can't be longer than 50 characters",
+  "field_required": "Required",
+  "invalid_email": "Invalid email"
 }

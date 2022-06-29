@@ -9,5 +9,9 @@
   "dont_have_account": "Don't have an account yet?",
   "sign_up": "Sign Up",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "password_short": "Password must be at least 8 characters long",
+  "password_long": "Password can't be longer than 50 characters",
+  "field_required": "Required",
+  "invalid_email": "Invalid email"
 }

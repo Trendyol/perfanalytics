@@ -23,7 +23,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@assets/*": ["public/*"],
       "@constants": ["src/constants.ts"],
-      "@enums": ["src/constants.ts"],
+      "@enums": ["src/enums.ts"],
+      "@schemas": ["src/schemas.ts"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js"],

@@ -27,7 +27,7 @@ import { UserDTO } from './etc/user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Throttle(1, 60 * 10)
+  @Throttle(5, 60 * 10)
   @AuthSkip()
   @Post()
   async create(@Body() createDTO: CreateUserDTO) {
