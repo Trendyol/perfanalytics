@@ -19,9 +19,11 @@
       "@components/*": ["src/components/*"],
       "@modules/*": ["src/modules/*"],
       "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@assets/*": ["public/*"],
       "@constants": ["src/constants.ts"],
-      "@enums": ["src/constants.ts"]
+      "@enums": ["src/constants.ts"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js"],

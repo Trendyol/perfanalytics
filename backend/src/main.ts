@@ -77,7 +77,6 @@ function enableCors(app: NestFastifyApplication) {
   app.enableCors({
     origin: '*',
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
-    preflightContinue: false,
     optionsSuccessStatus: 204,
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
