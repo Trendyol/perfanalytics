@@ -1,12 +1,40 @@
 import Button from "@components/shared/Form/Button";
-import Checkbox from "@components/shared/Form/Checkbox";
 import TextField from "@components/shared/Form/TextField";
+import { USER_KEY, useUser } from "@hooks/useUser";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { FC } from "react";
+import { useRouter } from "next/router";
+import { FC, useEffect, useState } from "react";
+import { createSession, createUser } from "src/services/userService";
+import { mutate } from "swr";
 
 const Register: FC = () => {
   const { t } = useTranslation("register");
+  const { data: user } = useUser(true);
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [router, user]);
+
+  const handleSignUp = async () => {
+    try {
+      await createUser({ name, email, password });
+      try {
+        await createSession({ email, password });
+        mutate(USER_KEY);
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <main className="flex flex-row h-screen overflow-hidden bg-center bg-cover">
@@ -29,12 +57,12 @@ const Register: FC = () => {
             </p>
           </div>
           <div id="content" className="flex flex-col">
-            <TextField type="email" placeholder={t("name")} />
-            <TextField type="email" placeholder={t("email")} />
-            <TextField type="password" placeholder={t("password")} />
+            <TextField type="text" placeholder={t("name")} onChange={e => setName(e.target.value)} />
+            <TextField type="email" placeholder={t("email")} onChange={e => setEmail(e.target.value)} />
+            <TextField type="password" placeholder={t("password")} onChange={e => setPassword(e.target.value)} />
           </div>
           <div id="actions">
-            <Button size="large">{t("register")}</Button>
+            <Button size="large" onClick={() => handleSignUp()}>{t("register")}</Button>
           </div>
         </div>
         <div className="fixed bottom-4 w-full flex justify-center items-center">

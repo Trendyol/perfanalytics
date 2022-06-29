@@ -1,9 +1,28 @@
 import { axiosInstance } from "@utils/fetcher";
 
-export const createSession = () => {
+interface CreateSession {
+  email: string;
+  password: string;
+}
+
+interface CreateUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export const createSession = ({ email, password }: CreateSession) => {
   return axiosInstance.post("/session", {
-    email: "ddenizakpinar2@gmail.com",
-    password: "12345678",
+    email: email,
+    password: password,
+  });
+};
+
+export const createUser = ({ name, email, password }: CreateUser) => {
+  return axiosInstance.post("/user", {
+    name: name,
+    email: email,
+    password: password,
   });
 };
 

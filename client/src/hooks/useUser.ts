@@ -3,8 +3,13 @@ import useSWR from "swr";
 
 export const USER_KEY = "/user/@me";
 
+interface User {
+  name?: string;
+  email?: string;
+}
+
 export const useUser = (shouldCallApi?: boolean) => {
-  const { data, error, mutate } = useSWR(
+  const { data, error } = useSWR<User>(
     shouldCallApi ? USER_KEY : null,
     fetcher,
     {
@@ -19,7 +24,6 @@ export const useUser = (shouldCallApi?: boolean) => {
   );
   return {
     data,
-    mutate,
     isLoading: !error && !data,
     isError: error?.statusText,
   };
