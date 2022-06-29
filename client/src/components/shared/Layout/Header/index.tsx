@@ -52,7 +52,7 @@ const Header = () => {
                 });
               }}
             >
-              Easter Egg!
+              {user.name}
             </p>
           </>
         ) : (
