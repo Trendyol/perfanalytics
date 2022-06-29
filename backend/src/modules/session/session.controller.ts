@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { SessionService } from './session.service';
 import { CreateSessionDTO } from './etc/create-session.dto';
 import { RoleGuard } from '@guards/role.guard';
@@ -19,6 +27,12 @@ export class SessionController {
   ) {
     const token = await this.service.create(createDTO);
     response.setCookie('auth-cookie', token);
+    return;
+  }
+
+  @Delete()
+  async deleteSession(@Res({ passthrough: true }) response) {
+    response.clearCookie('auth-cookie');
     return;
   }
 
