@@ -14,10 +14,9 @@ import { mutate } from "swr";
 const Header = () => {
   const { data: user, isLoading } = useUser(true);
   const { t } = useTranslation("layout");
-  console.log(user);
 
   return (
-    <header className="flex justify-between px-12 py-4 bg-[#F6F6F6] border-b border-[#E6E6E6]">
+    <header className="flex justify-between px-12 py-4 bg-[#F6F6F6] border-b border-[#E6E6E6] h-[70px]">
       <Link href="/">
         <a className="flex items-center">
           <Image src={trendyolLogo} alt="Trendyol logo" />
