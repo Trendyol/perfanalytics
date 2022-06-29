@@ -10,9 +10,13 @@ export const useUser = (shouldCallApi?: boolean) => {
     {
       revalidateOnFocus: false,
       revalidateIfStale: false,
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        if (error.request.status === 401) {
+          return;
+        }
+      },
     }
   );
-
   return {
     data,
     mutate,
