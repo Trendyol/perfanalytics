@@ -11,16 +11,7 @@ interface User {
 export const useUser = (shouldCallApi?: boolean) => {
   const { data, error } = useSWR<User>(
     shouldCallApi ? USER_KEY : null,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateIfStale: false,
-      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-        if (error.status === 401) {
-          return;
-        }
-      },
-    }
+    fetcher
   );
   return {
     data,
