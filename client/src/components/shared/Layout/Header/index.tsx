@@ -32,9 +32,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        {isLoading ? (
-          <div>Loading</div>
-        ) : user ? (
+        {user ? (
           <>
             <div className="rounded-full bg-[#D9D9D9] p-2 w-8 h-8 flex justify-center items-center">
               <Image
@@ -56,7 +54,7 @@ const Header = () => {
             </p>
           </>
         ) : (
-          <Button>
+          <Button loading={isLoading}>
             <Link href="/login">{t("login")}</Link>
           </Button>
         )}

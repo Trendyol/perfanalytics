@@ -2,32 +2,37 @@ import { FC } from "react";
 import classnames from "classnames";
 
 const COLORS = {
-  primary: "bg-primary",
+  primary: "btn-primary",
   accent: "bg-accent",
 };
 
 const SIZES = {
-  large: "py-4 px-12 text-md rounded-xl",
-  medium: "py-2 px-6 text-sm rounded-xl",
+  large: "btn-md h-[45px]",
+  medium: "btn-sm h-[36px]",
 };
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: keyof typeof COLORS;
   size?: keyof typeof SIZES;
+  loading?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
   children,
   color = "primary",
   size = "medium",
+  loading = false,
   ...rest
 }) => {
   return (
     <button
       className={classnames(
-        "w-full text-white",
+        "btn w-full text-white no-animation",
         COLORS[color],
-        SIZES[size]
+        SIZES[size],
+        {
+          loading: loading,
+        }
       )}
       {...rest}
     >

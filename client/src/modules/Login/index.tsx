@@ -24,6 +24,7 @@ const Login: FC = () => {
     initialValues: {
       email: "",
       password: "",
+      remember: false,
     },
     validateOnChange: false,
     validationSchema: () => loginSchema(t),
@@ -75,12 +76,13 @@ const Login: FC = () => {
               value={formik.values.password}
               error={formik.touched.password && formik.errors.password}
             />
-            <div className="flex justify-between sm:text-sm">
+            <div className="flex justify-between sm:text-sm flex items-center">
               <span className="flex items-center">
-                <Checkbox />
-                <span className="ml-1 text-gray-500 text-sm sm:text-xs">
-                  {t("remember_me")}
-                </span>
+                <Checkbox
+                  name="remember"
+                  label={t("remember_me")}
+                  onChange={formik.handleChange}
+                />
               </span>
               <Link href="/">
                 <span className="text-primary cursor-pointer text-sm sm:text-xs">
