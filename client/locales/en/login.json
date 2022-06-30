@@ -13,5 +13,6 @@
   "password_short": "Password must be at least 8 characters long",
   "password_long": "Password can't be longer than 50 characters",
   "field_required": "Required",
-  "invalid_email": "Invalid email"
+  "invalid_email": "Invalid email",
+  "credential_error": "Error while validating credentials"
 }

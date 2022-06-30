@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { createSession, createUser } from "src/services/userService";
 import { useFormik } from "formik";
 import { registerSchema } from "@schemas";
+import { toast } from "react-toastify";
 
 const Register: FC = () => {
   const { t } = useTranslation("register");
@@ -22,8 +23,12 @@ const Register: FC = () => {
       try {
         await createSession(values);
         router.push("/");
-      } catch (error) {}
-    } catch (error) {}
+      } catch (error) {
+        toast.error(t("registration_error"));
+      }
+    } catch (error) {
+      toast.error(t("registration_error"));
+    }
   };
 
   const formik = useFormik({

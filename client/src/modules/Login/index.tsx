@@ -7,6 +7,7 @@ import Link from "next/link";
 import { createSession } from "src/services/userService";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import { loginSchema } from "@schemas";
 
 const Login: FC = () => {
@@ -17,7 +18,9 @@ const Login: FC = () => {
     try {
       await createSession(values);
       router.push("/");
-    } catch (error) {}
+    } catch (error) {
+      toast.error(t("credential_error"));
+    }
   };
 
   const formik = useFormik({
