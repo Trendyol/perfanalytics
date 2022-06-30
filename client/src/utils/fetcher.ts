@@ -5,5 +5,15 @@ export const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-export const fetcher = (url: any) => axiosInstance.get(url).then((res) => res.data);
+axiosInstance.interceptors.response.use(
+  function (response) {
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error.response.data);
+  }
+);
 
+export const fetcher = (url: any) =>
+  axiosInstance.get(url).then((res) => res.data);
