@@ -9,6 +9,8 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { loginSchema } from "@schemas";
+import { USER_KEY } from "@hooks/useUser";
+import { mutate } from "swr";
 
 const Login: FC = () => {
   const { t } = useTranslation("login");
@@ -17,6 +19,7 @@ const Login: FC = () => {
   const handleSession = async (values: { email: string; password: string }) => {
     try {
       await createSession(values);
+      mutate(USER_KEY);
       router.push("/");
     } catch (error) {
       toast.error(t("credential_error"));

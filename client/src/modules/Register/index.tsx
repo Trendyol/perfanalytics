@@ -8,6 +8,8 @@ import { createSession, createUser } from "src/services/userService";
 import { useFormik } from "formik";
 import { registerSchema } from "@schemas";
 import { toast } from "react-toastify";
+import { mutate } from "swr";
+import { USER_KEY } from "@hooks/useUser";
 
 const Register: FC = () => {
   const { t } = useTranslation("register");
@@ -22,6 +24,7 @@ const Register: FC = () => {
       await createUser(values);
       try {
         await createSession(values);
+        mutate(USER_KEY);
         router.push("/");
       } catch (error) {
         toast.error(t("registration_error"));
