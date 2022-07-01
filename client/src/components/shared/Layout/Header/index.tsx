@@ -4,15 +4,10 @@ import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import ActiveLink from "@components/shared/Layout/ActiveLink";
 import trendyolLogo from "@assets/images/trendyol.svg";
-import userIcon from "@assets/images/user.svg";
 import { HEADER_ROUTES } from "src/constants";
-import Button from "@components/shared/Form/Button";
-import { USER_KEY, useUser } from "@hooks/useUser";
-import { deleteSession } from "src/services/userService";
-import { mutate } from "swr";
+import UserSection from "./UserSection";
 
 const Header = () => {
-  const { data: user, isLoading } = useUser(true);
   const { t } = useTranslation("layout");
 
   return (
@@ -31,34 +26,7 @@ const Header = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center gap-3">
-        {user ? (
-          <>
-            <div className="rounded-full bg-[#D9D9D9] p-2 w-8 h-8 flex justify-center items-center">
-              <Image
-                src={userIcon}
-                alt="Trendyol logo"
-                width={16}
-                height={16}
-              />
-            </div>
-            <p
-              onClick={async () => {
-                mutate(USER_KEY, async () => {
-                  await deleteSession();
-                  return null;
-                });
-              }}
-            >
-              {user.name}
-            </p>
-          </>
-        ) : (
-          <Button loading={isLoading}>
-            <Link href="/login">{t("login")}</Link>
-          </Button>
-        )}
-      </div>
+      <UserSection />
     </header>
   );
 };
