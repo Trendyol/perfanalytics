@@ -98,7 +98,7 @@ const Login: FC = () => {
             </div>
           </div>
           <div id="actions">
-            <Button type="submit" size="large">
+            <Button full type="submit" size="large">
               {t("login")}
             </Button>
           </div>

@@ -98,7 +98,7 @@ const Register: FC = () => {
             />
           </div>
           <div id="actions">
-            <Button type="submit" size="large">
+            <Button full type="submit" size="large">
               {t("register")}
             </Button>
           </div>
