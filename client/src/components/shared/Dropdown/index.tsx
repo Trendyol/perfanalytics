@@ -29,12 +29,14 @@ interface ItemProps {
 const Item: FC<ItemProps> = ({ children, onClick }) => {
   return (
     <li>
-      <a onClick={onClick}>{children}</a>
+      <div onClick={onClick}>{children}</div>
     </li>
   );
 };
 
-export default {
-  Content,  
+const Dropdown = {
+  Content,
   Item,
 };
+
+export default Dropdown;
