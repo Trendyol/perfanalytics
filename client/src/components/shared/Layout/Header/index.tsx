@@ -17,15 +17,6 @@ const Header = () => {
           <Image src={trendyolLogo} alt="Trendyol logo" />
         </a>
       </Link>
-      <div className="flex items-center">
-        <div className="flex gap-5">
-          {HEADER_ROUTES.map((route) => (
-            <ActiveLink key={route} href={`/${route}`}>
-              {t(route)}
-            </ActiveLink>
-          ))}
-        </div>
-      </div>
       <UserSection />
     </header>
   );
