@@ -3,7 +3,7 @@ import classnames from "classnames";
 
 const COLORS = {
   primary: "btn-primary text-white",
-  accent: "bg-accent text-white",
+  secondary: "bg-secondary text-white",
   transparent: "text-black",
 };
 
@@ -34,7 +34,8 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={classnames(
-        "btn no-animation",
+        "btn no-animation rounded-md",
+
         COLORS[color],
         SIZES[size],
         {

@@ -18,7 +18,9 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@modules/*": ["src/modules/*"],
+      "@layouts/*": ["src/layouts/*"],
       "@styles/*": ["src/styles/*"],
+      "@services/*": ["src/services/*"],
       "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
       "@assets/*": ["public/*"],

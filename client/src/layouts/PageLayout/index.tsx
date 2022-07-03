@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import Header from "@components/shared/Layout/Header";
-import Footer from "@components/shared/Layout/Footer";
+import Header from "@components/layout/Header";
+import Footer from "@components/layout/Footer";
 
 interface PageLayout {
   children: React.ReactNode;

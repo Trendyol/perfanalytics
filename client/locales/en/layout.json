@@ -7,5 +7,11 @@
   "blog": "Blog",
   "login": "Login",
   "settings": "Settings",
-  "logout": "Logout"
+  "logout": "Logout",
+  "error": "Something went wrong",
+  "update": "Update",
+  "field_required": "Required",
+  "name": "Name",
+  "update_name": "Update Name",
+  "update_password": "Update Password"
 }

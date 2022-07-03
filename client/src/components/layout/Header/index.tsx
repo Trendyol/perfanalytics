@@ -2,9 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
-import ActiveLink from "@components/shared/Layout/ActiveLink";
 import trendyolLogo from "@assets/images/trendyol.svg";
-import { HEADER_ROUTES } from "src/constants";
 import UserSection from "./UserSection";
 
 const Header = () => {

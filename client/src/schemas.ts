@@ -20,3 +20,9 @@ export const registerSchema = (t: any) => {
       .required(t("field_required")),
   });
 };
+
+export const nameUpdateSchema = (t: any) => {
+  return Yup.object().shape({
+    name: Yup.string().required(t("field_required")),
+  });
+};

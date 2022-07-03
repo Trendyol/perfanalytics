@@ -4,12 +4,12 @@ import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { createSession, createUser } from "src/services/userService";
 import { useFormik } from "formik";
 import { registerSchema } from "@schemas";
 import { toast } from "react-toastify";
 import { mutate } from "swr";
 import { USER_KEY } from "@hooks/useUser";
+import { createSession, createUser } from "@services/userService";
 
 const Register: FC = () => {
   const { t } = useTranslation("register");

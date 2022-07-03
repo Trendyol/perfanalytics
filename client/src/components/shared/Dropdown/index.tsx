@@ -29,7 +29,9 @@ interface ItemProps {
 const Item: FC<ItemProps> = ({ children, onClick }) => {
   return (
     <li>
-      <div onClick={onClick}>{children}</div>
+      <div className="active:bg-gray-100" onClick={onClick}>
+        {children}
+      </div>
     </li>
   );
 };

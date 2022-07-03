@@ -11,6 +11,10 @@ interface CreateUser {
   password: string;
 }
 
+interface UpdateName {
+  name: string;
+}
+
 export const createSession = ({ email, password }: CreateSession) => {
   return axiosInstance.post("/session", {
     email: email,
@@ -28,4 +32,8 @@ export const createUser = ({ name, email, password }: CreateUser) => {
 
 export const deleteSession = () => {
   return axiosInstance.delete("/session");
+};
+
+export const updateUsername = ({ name }: UpdateName) => {
+  return axiosInstance.put("/user/@me", { name });
 };

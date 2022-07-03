@@ -1,16 +1,16 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import Button from "@components/shared/Form/Button";
 import Checkbox from "@components/shared/Form/Checkbox";
 import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { createSession } from "src/services/userService";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { loginSchema } from "@schemas";
 import { USER_KEY } from "@hooks/useUser";
 import { mutate } from "swr";
+import { createSession } from "@services/userService";
 
 const Login: FC = () => {
   const { t } = useTranslation("login");

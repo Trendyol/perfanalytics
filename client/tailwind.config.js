@@ -5,12 +5,13 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/modules/**/*.{js,ts,jsx,tsx}",
+    "./src/layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#F27A1A",
-        accent: "#2c58bd",
+        primary: "#f27a1a",
+        secondary: "#1890ff",
       },
     },
     screens: {
@@ -41,8 +42,7 @@ module.exports = {
       {
         light: {
           primary: "#f27a1a",
-          secondary: "#2c58bd",
-          accent: "#2c58bd",
+          secondary: "#1890ff",
           neutral: "#ffffff",
           "base-100": "#ffffff",
 

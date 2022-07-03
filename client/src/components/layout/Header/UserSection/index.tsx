@@ -2,18 +2,28 @@ import Dropdown from "@components/shared/Dropdown";
 import Button from "@components/shared/Form/Button";
 import { USER_KEY, useUser } from "@hooks/useUser";
 import Image from "next/image";
-import { FC } from "react";
-import { deleteSession } from "src/services/userService";
+import { FC, useState } from "react";
 import { mutate } from "swr";
 import userIcon from "@assets/images/user.svg";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
+import { deleteSession } from "@services/userService";
+import SettingsModal from "./SettingsModal";
 
 interface UserSectionProps {}
 
 const UserSection: FC<UserSectionProps> = () => {
   const { t } = useTranslation("layout");
   const { data: user, isLoading } = useUser(true);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+
+  const handleShowSettingsModal = () => {
+    setShowSettingsModal(true);
+  };
+
+  const handleCloseSettingsModal = () => {
+    setShowSettingsModal(false);
+  };
 
   const logout = async () => {
     mutate(USER_KEY, async () => {
@@ -40,7 +50,9 @@ const UserSection: FC<UserSectionProps> = () => {
             </div>
           }
         >
-          <Dropdown.Item>{t("settings")}</Dropdown.Item>
+          <Dropdown.Item onClick={handleShowSettingsModal}>
+            {t("settings")}
+          </Dropdown.Item>
           <Dropdown.Item onClick={logout}>{t("logout")}</Dropdown.Item>
         </Dropdown.Content>
       ) : (
@@ -48,6 +60,11 @@ const UserSection: FC<UserSectionProps> = () => {
           <Link href="/login">{t("login")}</Link>
         </Button>
       )}
+
+      <SettingsModal
+        show={showSettingsModal}
+        onClose={handleCloseSettingsModal}
+      />
     </div>
   );
 };

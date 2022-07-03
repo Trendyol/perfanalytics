@@ -6,9 +6,9 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const TextField: FC<TextFieldProps> = ({ error, ...rest }) => {
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <input
-        className="input w-full max-w-xs input-primary bg-gray-50 border-none"
+        className="input w-full input-primary bg-gray-50 border-none"
         {...rest}
       />
       {error && <div className="text-sm text-red-600 mt-1">{error}</div>}
