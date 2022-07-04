@@ -4,7 +4,7 @@ import classnames from "classnames";
 const COLORS = {
   primary: "btn-primary text-white",
   secondary: "bg-secondary text-white",
-  transparent: "text-black",
+  transparent: "bg-transparent border-none text-black",
 };
 
 const SIZES = {
