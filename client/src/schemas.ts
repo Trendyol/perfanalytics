@@ -26,3 +26,13 @@ export const nameUpdateSchema = (t: any) => {
     name: Yup.string().required(t("field_required")),
   });
 };
+
+export const passwordUpdateSchema = (t: any) => {
+  return Yup.object().shape({
+    oldPassword: Yup.string().required(t("field_required")),
+    newPassword: Yup.string().required(t("field_required")),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword"), null], t("password_mismatch"))
+      .required(t("field_required")),
+  });
+};

@@ -13,5 +13,10 @@
   "field_required": "Required",
   "name": "Name",
   "update_name": "Update Name",
-  "update_password": "Update Password"
+  "update_password": "Update Password",
+  "current_password": "Current Password",
+  "new_password": "New Password",
+  "confirm_password": "Confirm Password",
+  "password_mismatch": "Password mismatch",
+  "success": "Success!"
 }
