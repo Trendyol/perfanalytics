@@ -82,7 +82,7 @@ const Login: FC = () => {
               value={formik.values.password}
               error={formik.touched.password && formik.errors.password}
             />
-            <div className="flex justify-between sm:text-sm flex items-center">
+            <div className="flex justify-between sm:text-sm items-center">
               <span className="flex items-center">
                 <Checkbox
                   name="remember"
