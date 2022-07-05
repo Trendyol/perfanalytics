@@ -10,16 +10,18 @@ interface PageLayout {
 
 const PageLayout = ({ children }: PageLayout) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex">
       <Head>
         <title>Perfanalytics</title>
         <meta name="description" content="..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Sidebar />
-      <Header />
-      <main className="flex-1 ml-[250px]">{children}</main>
-      <Footer />
+      <div className="flex flex-col justify-between w-4/5">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 };

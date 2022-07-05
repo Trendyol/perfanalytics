@@ -23,19 +23,16 @@ const Sidebar = () => {
     },
   ];
   return (
-    <aside className="flex flex-col w-[250px] fixed left-0 top-0 h-screen bg-[#F6F6F6]">
-      <div className="flex items-center justify-center h-[70px] p-4">
+    <aside className="flex flex-col justify-between w-1/5 h-screen bg-[#F6F6F6]">
+      <header className="flex items-center justify-center h-[70px] p-4">
         <Link href="/">
           <a className="flex items-center">
             <Image src={trendyolLogo} alt="Trendyol logo" />
           </a>
         </Link>
-      </div>
+      </header>
 
-      <div
-        id="lists"
-        className="flex flex-col justify-between h-full mb-[50px] w-[250px]"
-      >
+      <nav>
         <ul>
           <SideItem name="DashBoard" icon={<MdOutlineSpaceDashboard />} />
           <SideItem
@@ -49,13 +46,15 @@ const Sidebar = () => {
             subItems={mock}
           />
         </ul>
+      </nav>
 
+      <footer className="mt-auto mb-[50px]">
         <ul>
           <SideItem name="Settings" icon={<FiSettings />} />
           <SideItem name="Documentation" icon={<CgFileDocument />} />
           <SideItem name="Changelog" icon={<AiOutlineHistory />} />
         </ul>
-      </div>
+      </footer>
     </aside>
   );
 };
