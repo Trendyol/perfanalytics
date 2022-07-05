@@ -8,12 +8,11 @@ const RegisterPage: NextPage = () => {
       <Head>
         <title>Register</title>
         <meta name="description" content="Register to continue." />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Register />
     </div>
   );
-}
+};
 
 export default RegisterPage;

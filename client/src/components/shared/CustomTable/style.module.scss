@@ -1,0 +1,23 @@
+.table {
+  @apply w-fit border border-gray-300 bg-white rounded-md text-xsmall;
+
+  .headerCell {
+    @apply normal-case;
+
+    &:not(:first-child) {
+      @apply text-center;
+    }
+  }
+
+  .row {
+    @apply border-b border-gray-300 pl-4;
+  }
+
+  .rowCell {
+    @apply text-gray-500;
+
+    &:not(:first-child) {
+      @apply text-center w-8;
+    }
+  }
+}

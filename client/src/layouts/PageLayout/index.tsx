@@ -15,6 +15,7 @@ const PageLayout = ({ children }: PageLayout) => {
         <title>Perfanalytics</title>
         <meta name="description" content="..." />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=1920, initial-scale=1.0"></meta>
       </Head>
       <Sidebar />
       <div className="flex flex-col justify-between w-4/5">

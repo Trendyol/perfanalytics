@@ -12,6 +12,20 @@ module.exports = {
       colors: {
         primary: "#f27a1a",
         secondary: "#1890ff",
+        border: "#dcdfe3",
+      },
+      fontSize: {
+        heading1: ["56px", "61.5px"],
+        heading2: ["48px", "52.8px"],
+        heading3: ["40px", "44px"],
+        heading4: ["32px", "35.2px"],
+        heading5: ["24px", "26.4px"],
+        heading6: ["20px", "22px"],
+        large: ["20px", "28px"],
+        medium: ["18px", "25.2px"],
+        normal: ["16px", "22.4px"],
+        small: ["14px", "19.6px"],
+        xsmall: ["12px", "16px"],
       },
     },
     screens: {
@@ -30,7 +44,7 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    styled: true,
+    styled: false,
     themes: true,
     base: true,
     utils: true,

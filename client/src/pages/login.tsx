@@ -8,12 +8,11 @@ const LoginPage: NextPage = () => {
       <Head>
         <title>Login</title>
         <meta name="description" content="Login to continue." />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Login />
     </div>
   );
-}
+};
 
 export default LoginPage;

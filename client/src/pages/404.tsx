@@ -8,7 +8,6 @@ const NotFound: NextPage = () => {
       <Head>
         <title>404</title>
         <meta name="description" content="..." />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>404 Page</main>
