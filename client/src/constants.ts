@@ -13,4 +13,8 @@ export const FOOTER_ROUTES = [
     title: "Changelog",
     url: "#",
   },
+  {
+    title: "Contact",
+    url: "#",
+  },
 ];

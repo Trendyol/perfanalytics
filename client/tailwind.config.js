@@ -12,7 +12,9 @@ module.exports = {
       colors: {
         primary: "#f27a1a",
         secondary: "#1890ff",
+        dark: "#092C4C",
         border: "#dcdfe3",
+
       },
       fontSize: {
         heading1: ["56px", "61.5px"],
