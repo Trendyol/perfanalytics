@@ -18,7 +18,7 @@ interface DomainModalProps {
 const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
-  const { data: domains, mutate: mutateDomain } = useDomain();
+  const { data: domains, mutate: mutateDomain, length } = useDomain();
 
   const formik = useFormik({
     initialValues: { name: "", url: "" },
@@ -35,7 +35,10 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
 
     try {
       await createDomain(values);
-      mutateDomain();
+      mutateDomain(
+        [{ docs: [values, ...domains], totalDocs: length + 1 }],
+        false
+      );
       onClose();
     } catch (error) {
       toast.error(t("error"));

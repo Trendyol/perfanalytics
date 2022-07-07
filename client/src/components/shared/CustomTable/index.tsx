@@ -6,14 +6,14 @@ import styles from "./style.module.scss";
 const CustomTable: FC<CustomTableProps> = (props) => {
   const {
     data,
-    columnData,
-    width = 1200,
-    height = 500,
-    headerHeight = 40,
-    rowHeight = 40,
-    onNextPage,
-    isLoading,
     length,
+    isLoading,
+    onNextPage,
+    columnData,
+    height = 300,
+    width = 1200,
+    rowHeight = 40,
+    headerHeight = 40,
   } = props;
 
   return (
@@ -27,7 +27,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
       }}
       rowCount={length}
       minimumBatchSize={10}
-      threshold={10}
+      threshold={9}
     >
       {({ onRowsRendered, registerChild }) => (
         <Table
@@ -51,7 +51,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               width={data.columnWidth ?? 300}
               className={styles.rowCell}
               cellRenderer={({ cellData, rowData }) =>
-                data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData
+                data.cellRenderer
+                  ? data.cellRenderer(cellData, rowData)
+                  : cellData
               }
             />
           ))}

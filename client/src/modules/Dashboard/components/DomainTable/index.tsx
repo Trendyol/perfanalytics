@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import CustomTable from "@components/shared/CustomTable";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
@@ -11,14 +11,14 @@ const columnData = [
     dataKey: "name",
     label: "Name",
     cellRenderer: (name: string, { url }: { url: string }) => (
-      <div className="flex items-center">
-        {/* <Image
+      <div className="flex items-center gap-2">
+        <Image
           className="bg-white rounded-full"
           src={getFavicon(url)}
-          width={24}
-          height={24}
-        /> */}
-        <div className="ml-2"> {name}</div>
+          width={28}
+          height={28}
+        />
+        <div> {name}</div>
       </div>
     ),
   },
@@ -54,15 +54,17 @@ const columnData = [
 
 const DomainTable: FC<DomainTableProps> = (props) => {
   const { data, length, size, setSize, isLoading } = useDomain();
-  
+
   return (
     <div>
       <CustomTable
-        onNextPage={() => setSize(size + 1)}
-        isLoading={isLoading}
-        length={length}
-        columnData={columnData}
         data={data}
+        length={length}
+        isLoading={isLoading}
+        columnData={columnData}
+        onNextPage={() => {
+          setSize(size + 1);
+        }}
       />
     </div>
   );

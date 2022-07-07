@@ -27,7 +27,7 @@ export const useDomain = () => {
       revalidateFirstPage: false,
       revalidateAll: false,
       initialSize: 1,
-      persistSize: true
+      persistSize: true,
     }
   );
 
