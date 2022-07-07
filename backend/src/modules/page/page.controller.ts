@@ -23,7 +23,7 @@ import { plainToInstance } from 'class-transformer';
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
-  @Throttle(3, 60)
+  @Throttle(300, 60)
   @UseGuards(JwtGuard)
   @Post()
   async create(@User() user, @Body() createPageDTO: CreatePageDTO) {

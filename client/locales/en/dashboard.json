@@ -1,0 +1,11 @@
+{
+  "dashboard": "dashboard module en",
+  "add_domain": "Add Domain",
+  "name": "Name",
+  "domain_url": "Domain Url",
+  "field_required": "Required",
+  "add": "Add",
+  "url_invalid": "Url is not valid",
+  "success": "Success",
+  "error": "Error"
+}

@@ -10,7 +10,7 @@ interface PageLayout {
 
 const PageLayout = ({ children }: PageLayout) => {
   return (
-    <div className="flex">
+    <div className="flex min-w-[1600px]">
       <Head>
         <title>Perfanalytics</title>
         <meta name="description" content="..." />

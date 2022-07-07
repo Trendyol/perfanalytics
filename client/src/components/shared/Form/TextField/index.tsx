@@ -1,14 +1,19 @@
+import classNames from "classnames";
 import { FC, InputHTMLAttributes } from "react";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string | boolean;
+  className?: string;
 }
 
-const TextField: FC<TextFieldProps> = ({ error, ...rest }) => {
+const TextField: FC<TextFieldProps> = ({ error, className, ...rest }) => {
   return (
     <div className="mb-6 w-full">
       <input
-        className="input w-full input-primary bg-gray-50 border-none"
+        className={classNames(
+          "input w-full input-primary bg-gray-50 border-none",
+          className
+        )}
         {...rest}
       />
       {error && <div className="text-sm text-red-600 mt-1">{error}</div>}
