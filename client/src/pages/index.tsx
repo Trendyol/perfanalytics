@@ -1,16 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Home from "@modules/Home";
+import Dashboard from "@modules/Dashboard";
 
 const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Dashboard</title>
         <meta name="description" content="..." />
       </Head>
 
-      <Home />
+      <Dashboard />
     </>
   );
 };
