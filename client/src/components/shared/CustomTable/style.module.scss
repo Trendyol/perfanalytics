@@ -10,7 +10,7 @@
   }
 
   .row {
-    @apply border-b border-gray-300 pl-4;
+    @apply border-b border-gray-300 pl-4 hover:bg-slate-100 cursor-pointer;
   }
 
   .rowCell {
@@ -19,5 +19,9 @@
     &:not(:first-child) {
       @apply text-center w-8;
     }
+  }
+
+  .empty {
+    @apply flex items-center justify-center h-full;
   }
 }

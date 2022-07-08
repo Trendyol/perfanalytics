@@ -1,5 +1,5 @@
 import React from "react";
-import UserSection from "./UserSection";
+import UserSection from "./components/UserSection";
 
 const Header = () => {
   return (

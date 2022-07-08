@@ -2,8 +2,8 @@ import { FC } from "react";
 import Modal from "@components/shared/Modal";
 import useTranslation from "next-translate/useTranslation";
 import Divider from "@components/shared/Divider";
-import PasswordForm from "./PasswordForm";
-import NameForm from "./NameForm";
+import PasswordForm from "../PasswordForm";
+import NameForm from "../NameForm";
 
 interface SettingsModalProps {
   show: boolean;

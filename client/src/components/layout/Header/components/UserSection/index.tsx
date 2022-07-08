@@ -8,7 +8,7 @@ import userIcon from "@assets/images/user.svg";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { deleteSession } from "@services/userService";
-import SettingsModal from "./SettingsModal";
+import SettingsModal from "../SettingsModal";
 
 interface UserSectionProps {}
 

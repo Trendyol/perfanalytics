@@ -7,7 +7,7 @@ import trendyolLogo from "@assets/images/trendyol.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@components/shared/Form/Button";
-import SideItem from "./SideItem";
+import SideItem from "./components/SideItem";
 
 const Sidebar = () => {
   const mock = [

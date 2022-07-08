@@ -1,7 +1,7 @@
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
-import { useDomain } from "@hooks/useDomain";
+import { useDomainInfinite } from "@hooks/useDomain";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
 import { useFormik } from "formik";
@@ -18,7 +18,7 @@ interface DomainModalProps {
 const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
-  const { data: domains, mutate: mutateDomain, length } = useDomain();
+  const { data: domains, mutate: mutateDomain, length } = useDomainInfinite();
 
   const formik = useFormik({
     initialValues: { name: "", url: "" },

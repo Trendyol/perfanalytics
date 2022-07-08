@@ -2,8 +2,6 @@ import { flattenNestedProperty } from "@utils/common";
 import { fetcher } from "@utils/fetcher";
 import useSWRInfinite from "swr/infinite";
 
-export const DOMAIN_KEY = "/domain";
-
 interface DomainData {
   docs: Domain[];
   totalDocs: number;
@@ -19,7 +17,7 @@ const getDomainKey = (pageIndex: number, previousPageData: any) => {
   return `/page?index=${pageIndex}`;
 };
 
-export const useDomain = () => {
+export const useDomainInfinite = () => {
   const { data, error, size, setSize, mutate } = useSWRInfinite<DomainData>(
     getDomainKey,
     fetcher,
