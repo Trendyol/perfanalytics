@@ -5,6 +5,7 @@ import {
   Get,
   Post,
   Query,
+  Param,
   UseGuards,
   Put,
 } from '@nestjs/common';
@@ -38,6 +39,12 @@ export class DomainController {
   @UseGuards(JwtGuard)
   async getAllByUser(@User() user, @Query('index') index: number) {
     return await this.domainService.getAllByUser(user, index);
+  }
+
+  @Get('/:id')
+  @UseGuards(JwtGuard)
+  async get(@User() user, @Param('id') id: string) {
+    return await this.domainService.get(user, id);
   }
 
   @Delete()

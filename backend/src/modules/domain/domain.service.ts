@@ -26,7 +26,10 @@ export class DomainService {
     return domainModel;
   }
 
-  async getAllByUser(user: User, index: number): Promise<PaginateResult<Domain>> {
+  async getAllByUser(
+    user: User,
+    index: number,
+  ): Promise<PaginateResult<Domain>> {
     return this.domainModel.paginate(
       { owner: user },
       {
@@ -37,8 +40,28 @@ export class DomainService {
     );
   }
 
+  async get(user: User, id: string): Promise<Domain> {
+    const domain = await this.domainModel.findById({ _id: id });
+
+    if (!domain) {
+      throw new UnprocessableEntityException('Domain not found');
+    }
+
+    if (String(domain.owner) !== String(user._id)) {
+      throw new UnprocessableEntityException(
+        'You are not the owner of this domain',
+      );
+    }
+
+    return domain;
+  }
+
   async remove(user: User, id: string) {
     const domain = await this.domainModel.findById({ _id: id });
+
+    if (!domain) {
+      throw new UnprocessableEntityException('Domain not found');
+    }
 
     if (String(domain.owner) !== String(user._id)) {
       throw new UnprocessableEntityException(
@@ -51,6 +74,10 @@ export class DomainService {
 
   async update(user: User, id: string, updateDomainDTO: UpdateDomainDTO) {
     const domain = await this.domainModel.findById({ _id: id });
+
+    if (!domain) {
+      throw new UnprocessableEntityException('Domain not found');
+    }
 
     if (String(domain.owner) !== String(user._id)) {
       throw new UnprocessableEntityException(
