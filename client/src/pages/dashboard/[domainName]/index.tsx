@@ -8,13 +8,13 @@ const DomainPage: NextPage = () => {
   const { t } = useTranslation("domain");
   const router = useRouter();
 
-  const { domain } = router.query;
+  const { domainName } = router.query;
 
   return (
     <>
       <Head>
         <title>
-          {t("dashboard")} | {domain}
+          {t("dashboard")} | {domainName}
         </title>
       </Head>
 
