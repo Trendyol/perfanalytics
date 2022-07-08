@@ -1,4 +1,4 @@
-import { AiOutlineHome, AiOutlineHistory } from "react-icons/ai";
+import { AiOutlineHistory } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { BiTag } from "react-icons/bi";

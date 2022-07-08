@@ -19,14 +19,16 @@ const CustomTable: FC<CustomTableProps> = (props) => {
   } = props;
 
   const noRowsRenderer = () => {
-    return <div className={styles.empty}>{isLoading ? <Spinner /> : null}</div>;
+    return (
+      <div className="flex items-center justify-center h-full">
+        {isLoading ? <Spinner /> : null}
+      </div>
+    );
   };
 
   return (
     <InfiniteLoader
-      isRowLoaded={({ index }) => {
-        return Boolean(data[index]);
-      }}
+      isRowLoaded={({ index }) => Boolean(data[index])}
       loadMoreRows={async () => onNextPage()}
       rowCount={length}
       minimumBatchSize={10}
@@ -40,9 +42,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
           rowHeight={rowHeight}
           rowCount={data.length}
           rowGetter={({ index }) => data[index]}
-          className={styles.table}
-          headerClassName={styles.headerCell}
-          rowClassName={styles.row}
+          className="w-fit border border-gray-300 bg-white rounded-md text-xsmall"
+          headerClassName="normal-case text-center first:text-start"
+          rowClassName="border-b border-gray-300 pl-4 hover:bg-slate-100 cursor-pointer text-center"
           onRowsRendered={onRowsRendered}
           ref={registerChild}
           noRowsRenderer={noRowsRenderer}
@@ -54,7 +56,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               label={data.label}
               dataKey={data.dataKey}
               width={data.columnWidth ?? 300}
-              className={styles.rowCell}
+              className="text-gray-500"
               cellRenderer={({ cellData, rowData }) =>
                 data.cellRenderer
                   ? data.cellRenderer(cellData, rowData)
