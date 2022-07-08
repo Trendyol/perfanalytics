@@ -1,22 +1,23 @@
 import { FC, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useDomain } from "@hooks/useDomain";
+import useDomain from "@hooks/useDomain";
 import Button from "@components/shared/Form/Button";
 
 const Domain: FC = () => {
   const router = useRouter();
-  const { domain } = router.query;
-  const { data, isError } = useDomain(domain as string);
+  const { domainName } = router.query;
+  const { domain, isError } = useDomain(domainName as string);
 
   useEffect(() => {
     if (isError) {
       router.push("/");
     }
-  }, [data]);
+  }, [domain]);
 
   return (
     <div>
-      <Button onClick={() => router.back()}>Back</Button> {JSON.stringify(data)}
+      <Button onClick={() => router.back()}>Back</Button>{" "}
+      {JSON.stringify(domain)}
     </div>
   );
 };

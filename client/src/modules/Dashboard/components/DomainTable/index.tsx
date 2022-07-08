@@ -2,10 +2,10 @@ import React, { FC, useRef } from "react";
 import CustomTable from "@components/shared/CustomTable";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
-import { useDomainInfinite } from "@hooks/useDomain";
 import { getFavicon } from "@utils/common";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import useDomainInfinite from "@hooks/useDomainInfinite";
 
 const columnData = [
   {
@@ -55,7 +55,7 @@ const columnData = [
 
 const DomainTable: FC<DomainTableProps> = (props) => {
   const router = useRouter();
-  const { data, length, size, setSize, isLoading } = useDomainInfinite();
+  const { domains, length, size, setSize, isLoading } = useDomainInfinite();
 
   const handleDomainClick = ({ name }: { name: string }) => {
     router.push(`/dashboard/${name}`);
@@ -68,7 +68,7 @@ const DomainTable: FC<DomainTableProps> = (props) => {
   return (
     <div>
       <CustomTable
-        data={data}
+        data={domains}
         length={length}
         isLoading={isLoading}
         columnData={columnData}
