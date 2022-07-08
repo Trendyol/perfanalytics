@@ -4,6 +4,7 @@
   "pages": {
     "*": ["common", "layout"],
     "/": ["dashboard"],
+    "/dashboard/[domain]": ["domain"],
     "/login": ["login"],
     "/register": ["register"]
   },

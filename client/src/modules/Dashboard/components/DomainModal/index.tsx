@@ -1,14 +1,15 @@
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
-import { useDomainInfinite } from "@hooks/useDomain";
+import useDomainInfinite from "@hooks/useDomainInfinite";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
+import { getDomainKey } from "@utils/swr";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { mutate } from "swr";
+import { useSWRConfig } from "swr";
 
 interface DomainModalProps {
   show: boolean;
@@ -18,7 +19,8 @@ interface DomainModalProps {
 const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
-  const { data: domains, mutate: mutateDomain, length } = useDomainInfinite();
+  const { domains, mutateDomains, length } = useDomainInfinite();
+  const { cache } = useSWRConfig();
 
   const formik = useFormik({
     initialValues: { name: "", url: "" },
@@ -35,14 +37,21 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
 
     try {
       await createDomain(values);
-      mutateDomain(
+      mutateDomains(
         [{ docs: [values, ...domains], totalDocs: length + 1 }],
         false
       );
+
+      cache.set(getDomainKey(0), {
+        docs: [values, ...domains.slice(10)],
+        totalDocs: length + 1,
+      });
+
       onClose();
     } catch (error) {
       toast.error(t("error"));
     }
+
     setAddingDomain(false);
   };
 

@@ -5,6 +5,7 @@ import Toast from "@components/shared/Toast";
 import PageLayout from "@layouts/PageLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "@styles/globals.scss";
+import { useSWRConfig } from "swr";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
