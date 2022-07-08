@@ -24,7 +24,7 @@ export class UserService {
       {},
       {
         sort: { createdAt: -1 },
-        page: Number(index) + 1,
+        domain: Number(index) + 1,
         projection: { password: 0 },
       },
     );

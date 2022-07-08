@@ -6,7 +6,7 @@ interface CreateDomain {
 }
 
 export const createDomain = ({ name, url }: CreateDomain) => {
-  return axiosInstance.post("/page", {
+  return axiosInstance.post("/domain", {
     name: name,
     url: url,
   });

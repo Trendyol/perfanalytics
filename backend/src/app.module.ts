@@ -8,7 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { config } from '@config';
 import { UserModule } from '@user/user.module';
 import { SessionModule } from '@session/session.module';
-import { PageModule } from '@modules/page/page.module';
+import { DomainModule } from '@domain/domain.module';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { PageModule } from '@modules/page/page.module';
     }),
     UserModule,
     SessionModule,
-    PageModule,
+    DomainModule,
   ],
   controllers: [AppController],
   providers: [

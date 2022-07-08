@@ -6,7 +6,7 @@ import * as mongoosePaginate from 'mongoose-paginate-v2';
   versionKey: false,
   timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
 })
-export class Page extends Document {
+export class Domain extends Document {
   @Prop({ required: true })
   name: string;
 
@@ -20,5 +20,5 @@ export class Page extends Document {
   owner: string;
 }
 
-export const PageSchema = SchemaFactory.createForClass(Page);
-PageSchema.plugin(mongoosePaginate);
+export const DomainSchema = SchemaFactory.createForClass(Domain);
+DomainSchema.plugin(mongoosePaginate);

@@ -47,6 +47,9 @@
       ],
       "@user/*": [
         "src/modules/user/*"
+      ],
+      "@domain/*": [
+        "src/modules/domain/*"
       ]
     }
   }

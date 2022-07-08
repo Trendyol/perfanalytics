@@ -1,7 +1,7 @@
 import { UserDTO } from '@modules/user/etc/user.dto';
 import { Expose, Type } from 'class-transformer';
 
-export class PageDTO {
+export class DomainDTO {
   @Expose()
   readonly id: string;
   @Expose()

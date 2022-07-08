@@ -14,7 +14,7 @@ interface Domain {
 
 const getDomainKey = (pageIndex: number, previousPageData: any) => {
   if (previousPageData && !previousPageData?.hasNextPage) return null;
-  return `/page?index=${pageIndex}`;
+  return `/domain?index=${pageIndex}`;
 };
 
 export const useDomainInfinite = () => {
