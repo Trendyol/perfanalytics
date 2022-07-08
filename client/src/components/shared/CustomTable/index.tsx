@@ -1,7 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { Column, InfiniteLoader, Table } from "react-virtualized";
 import Spinner from "../Spinner";
-import styles from "./style.module.scss";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
