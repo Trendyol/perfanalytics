@@ -8,7 +8,7 @@ const Footer = () => {
   const { t } = useTranslation("layout");
 
   return (
-    <footer className="flex justify-between px-6 py-4 h-[50px] bg-[#F6F6F6] text-dark">
+    <footer className="flex justify-between px-6 py-4 h-[50px] bg-[#F6F6F6] text-dark w-full">
       <div className="flex items-center gap-1 text-sm">
         <span>{t("copyright_before")}</span>
         <Image width={62} src={trendyolLogo} alt="Trendyol logo" />
