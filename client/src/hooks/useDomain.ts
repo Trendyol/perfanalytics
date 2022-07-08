@@ -1,5 +1,6 @@
 import { flattenNestedProperty } from "@utils/common";
 import { fetcher } from "@utils/fetcher";
+import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 
 interface DomainData {
@@ -36,6 +37,20 @@ export const useDomainInfinite = () => {
     isError: error?.statusText,
     size,
     setSize,
+    mutate,
+  };
+};
+
+export const useDomain = (name: string) => {
+  const { data, error, mutate } = useSWR<Domain>(`/domain/${name}`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+  });
+
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error?.message,
     mutate,
   };
 };
