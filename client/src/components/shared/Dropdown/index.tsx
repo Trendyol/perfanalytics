@@ -8,7 +8,7 @@ interface ContentProps {
 const Content: FC<ContentProps> = ({ targetElement, children }) => {
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} className="btn m-1">
+      <div tabIndex={0} className="btn">
         {targetElement}
       </div>
       <ul

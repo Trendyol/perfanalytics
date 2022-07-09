@@ -3,8 +3,10 @@ import UserSection from "./components/UserSection";
 
 const Header = () => {
   return (
-    <header className="flex justify-end px-12 py-4 h-[70px] w-full">
-      <UserSection />
+    <header className="flex justify-center py-4 h-header w-full">
+      <div className="w-container flex items-center">
+        <UserSection className="ml-auto" />
+      </div>
     </header>
   );
 };

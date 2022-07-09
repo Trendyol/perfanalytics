@@ -11,9 +11,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
     onNextPage,
     columnData,
     onRowClick,
-    height = 300,
-    width = 1200,
-    rowHeight = 40,
+    height = 340,
+    width = 1300,
+    rowHeight = 50,
     headerHeight = 40,
   } = props;
 

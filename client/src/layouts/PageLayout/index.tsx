@@ -15,12 +15,12 @@ const PageLayout = ({ children }: PageLayout) => {
         <title>Perfanalytics</title>
         <meta name="description" content="..." />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=1920, initial-scale=1.0"></meta>
+        <meta name="viewport" content="width=1920, initial-scale=1"></meta>
       </Head>
       <Sidebar />
-      <div className="flex flex-col justify-between w-4/5 items-center">
+      <div className="flex flex-grow flex-col justify-between items-center">
         <Header />
-        <main className="flex-1 w-[1200px] mt-5">{children}</main>
+        <main className="flex-1 w-container mt-5">{children}</main>
         <Footer />
       </div>
     </div>

@@ -9,10 +9,13 @@ import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { deleteSession } from "@services/userService";
 import SettingsModal from "../SettingsModal";
+import classNames from "classnames";
 
-interface UserSectionProps {}
+interface UserSectionProps {
+  className?: string;
+}
 
-const UserSection: FC<UserSectionProps> = () => {
+const UserSection: FC<UserSectionProps> = ({ className }) => {
   const { t } = useTranslation("layout");
   const { data: user, isLoading } = useUser(true);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -33,26 +36,19 @@ const UserSection: FC<UserSectionProps> = () => {
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className={classNames("flex items-center gap-3", className)}>
       {user ? (
         <Dropdown.Content
           targetElement={
             <div className="flex items-center">
               <div className="rounded-full bg-[#D9D9D9] p-2 w-8 h-8 mr-3 flex justify-center items-center">
-                <Image
-                  src={userIcon}
-                  alt="Trendyol logo"
-                  width={16}
-                  height={16}
-                />
+                <Image src={userIcon} alt="Trendyol logo" width={16} height={16} />
               </div>
               <p>{user.name}</p>
             </div>
           }
         >
-          <Dropdown.Item onClick={handleShowSettingsModal}>
-            {t("settings")}
-          </Dropdown.Item>
+          <Dropdown.Item onClick={handleShowSettingsModal}>{t("settings")}</Dropdown.Item>
           <Dropdown.Item onClick={logout}>{t("logout")}</Dropdown.Item>
         </Dropdown.Content>
       ) : (
@@ -61,10 +57,7 @@ const UserSection: FC<UserSectionProps> = () => {
         </Button>
       )}
 
-      <SettingsModal
-        show={showSettingsModal}
-        onClose={handleCloseSettingsModal}
-      />
+      <SettingsModal show={showSettingsModal} onClose={handleCloseSettingsModal} />
     </div>
   );
 };

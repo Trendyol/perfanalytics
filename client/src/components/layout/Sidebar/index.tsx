@@ -23,7 +23,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <aside className="flex flex-col justify-between w-1/5 h-screen bg-[#F6F6F6]">
+    <aside className="flex flex-col justify-between w-sidebar h-screen bg-[#F6F6F6]">
       <header className="flex items-center justify-center h-[70px] p-4">
         <Link href="/">
           <a className="flex items-center">
