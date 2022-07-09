@@ -57,8 +57,8 @@ const DomainTable: FC<DomainTableProps> = (props) => {
   const router = useRouter();
   const { domains, length, size, setSize, isLoading } = useDomainInfinite();
 
-  const handleDomainClick = ({ name }: { name: string }) => {
-    router.push(`/dashboard/${name}`);
+  const handleDomainClick = ({ _id }: { _id: string }) => {
+    router.push(`/dashboard/${_id}`);
   };
 
   const handleNextPage = () => {

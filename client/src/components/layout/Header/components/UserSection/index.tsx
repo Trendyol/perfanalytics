@@ -1,8 +1,8 @@
+import { FC, useState } from "react";
 import Dropdown from "@components/shared/Dropdown";
 import Button from "@components/shared/Form/Button";
 import { USER_KEY, useUser } from "@hooks/useUser";
 import Image from "next/image";
-import { FC, useState } from "react";
 import { mutate } from "swr";
 import userIcon from "@assets/images/user.svg";
 import useTranslation from "next-translate/useTranslation";

@@ -43,10 +43,10 @@ const PasswordForm: FC<PasswordFormProps> = () => {
 
   return (
     <form
-      className="section w-full flex flex-col text-xl"
+      className="section w-full flex flex-col text-medium"
       onSubmit={formik.handleSubmit}
     >
-      <div className="mt-3 mb-4 font-semibold">{t("update_password")}</div>
+      <div className="mb-3 font-semibold text-sm">{t("update_password")}</div>
       <TextField
         name="oldPassword"
         type="password"

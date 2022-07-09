@@ -21,9 +21,9 @@ export class DomainService {
       owner: user,
     });
 
-    await domainModel.save();
+    const result = await domainModel.save();
 
-    return domainModel;
+    return result;
   }
 
   async getAllByUser(
@@ -40,16 +40,17 @@ export class DomainService {
     );
   }
 
-  async get(user: User, name: string): Promise<Domain> {
-    const domain = await this.domainModel
-      .where({
-        name: { $regex: name, $options: 'i' },
-        owner: user._id,
-      })
-      .findOne();
+  async get(user: User, id: string): Promise<Domain> {
+    const domain = await this.domainModel.findById({ _id: id });
 
     if (!domain) {
       throw new UnprocessableEntityException('Domain not found');
+    }
+
+    if (String(domain.owner) !== String(user._id)) {
+      throw new UnprocessableEntityException(
+        'You are not the owner of this domain',
+      );
     }
 
     return domain;

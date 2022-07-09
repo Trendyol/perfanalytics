@@ -7,6 +7,7 @@
   "blog": "Blog",
   "login": "Login",
   "settings": "Settings",
+  "user_settings": "User Settings",
   "logout": "Logout",
   "error": "Something went wrong",
   "update": "Update",

@@ -43,3 +43,10 @@ export const addDomainSchema = (t: any) => {
     url: Yup.string().url(t("url_invalid")).required(t("field_required")),
   });
 };
+
+export const updateDomainSchema = (t: any) => {
+  return Yup.object().shape({
+    name: Yup.string().required(t("field_required")),
+    url: Yup.string().url(t("url_invalid")).required(t("field_required")),
+  });
+};

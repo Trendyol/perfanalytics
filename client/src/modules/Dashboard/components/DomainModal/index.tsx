@@ -1,3 +1,5 @@
+import { FC, useState } from "react";
+import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
@@ -7,7 +9,6 @@ import { createDomain } from "@services/domainService";
 import { getDomainKey } from "@utils/swr";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
-import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSWRConfig } from "swr";
 
@@ -36,17 +37,14 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     setAddingDomain(true);
 
     try {
-      await createDomain(values);
-      mutateDomains(
-        [{ docs: [values, ...domains], totalDocs: length + 1 }],
-        false
-      );
-
+      const result = await createDomain(values);
+      mutateDomains([{ docs: [result.data, ...domains], totalDocs: length + 1 }], false);
       cache.set(getDomainKey(0), {
-        docs: [values, ...domains.slice(10)],
+        docs: [result.data, ...domains.slice(10)],
         totalDocs: length + 1,
       });
 
+      toast.success(t("success"));
       onClose();
     } catch (error) {
       toast.error(t("error"));
@@ -56,11 +54,23 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   };
 
   return (
-    <Modal show={show} onClose={onClose} title={t("add_domain")}>
-      <form
-        className="section w-full flex flex-col text-xl"
-        onSubmit={formik.handleSubmit}
-      >
+    <Modal
+      show={show}
+      onClose={onClose}
+      title={t("add_domain")}
+      footer={
+        <div className="float-right">
+          <Button onClick={onClose} type="submit" color="transparent" className="mr-2">
+            {t("cancel")}
+          </Button>
+          <Button onClick={() => formik.handleSubmit()} loading={addingDomain} type="submit" color="secondary">
+            {t("add")}
+          </Button>
+        </div>
+      }
+    >
+      <Divider />
+      <form className="section w-full flex flex-col text-xl">
         <TextField
           name="name"
           className="mt-3"
@@ -78,14 +88,6 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
           value={formik.values.url}
           error={formik.touched.url && formik.errors.url}
         />
-        <Button
-          loading={addingDomain}
-          type="submit"
-          color="secondary"
-          className="ml-auto"
-        >
-          {t("add")}
-        </Button>
       </form>
     </Modal>
   );

@@ -5,6 +5,7 @@ const COLORS = {
   primary: "btn-primary text-white",
   secondary: "bg-secondary text-white",
   transparent: "bg-transparent border-none text-black",
+  danger: "btn-error text-white",
 };
 
 const SIZES = {
@@ -34,7 +35,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={classnames(
-        "btn no-animation rounded-md",
+        "btn no-animation rounded-[5px]",
 
         COLORS[color],
         SIZES[size],

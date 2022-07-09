@@ -14,7 +14,6 @@ module.exports = {
         secondary: "#1890ff",
         dark: "#092C4C",
         border: "#dcdfe3",
-
       },
       fontSize: {
         heading1: ["56px", "61.5px"],
@@ -60,6 +59,7 @@ module.exports = {
           primary: "#f27a1a",
           secondary: "#1890ff",
           neutral: "#ffffff",
+          error: "#ff0000",
           "base-100": "#ffffff",
 
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes

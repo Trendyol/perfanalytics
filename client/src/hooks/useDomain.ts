@@ -2,8 +2,8 @@ import { fetcher } from "@utils/fetcher";
 import { Domain } from "src/interfaces";
 import useSWR from "swr";
 
-const useDomain = (name: string) => {
-  const { data, error, mutate } = useSWR<Domain>(`/domain/${name}`, fetcher, {
+const useDomain = (id: string) => {
+  const { data, error, mutate } = useSWR<Domain>(`/domain/${id}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
   });

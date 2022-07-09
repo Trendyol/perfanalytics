@@ -1,23 +1,32 @@
-import { FC, useEffect } from "react";
+import { FC, useState } from "react";
 import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
 import Button from "@components/shared/Form/Button";
+import DomainSettingsModal from "./components/DomainSettingsModal";
 
 const Domain: FC = () => {
+  const [showDomainSettingsModal, setShowDomainSettingsModal] = useState(false);
   const router = useRouter();
-  const { domainName } = router.query;
-  const { domain, isError } = useDomain(domainName as string);
+  const { domainId } = router.query;
+  const { domain } = useDomain(domainId as string);
 
-  useEffect(() => {
-    if (isError) {
-      router.push("/");
-    }
-  }, [domain]);
+  const handleShowDomainSettingsModal = () => {
+    setShowDomainSettingsModal(true);
+  };
+
+  const handleCloseDomainSettingsModal = () => {
+    setShowDomainSettingsModal(false);
+  };
 
   return (
     <div>
-      <Button onClick={() => router.back()}>Back</Button>{" "}
-      {JSON.stringify(domain)}
+      <Button onClick={() => router.back()}>Back</Button>
+      <Button className="float-right" onClick={handleShowDomainSettingsModal}>
+        Settings
+      </Button>
+      <DomainSettingsModal show={showDomainSettingsModal} onClose={handleCloseDomainSettingsModal} />
+      <div>{domain?.name}</div>
+      <div>{domain?.url}</div>
     </div>
   );
 };

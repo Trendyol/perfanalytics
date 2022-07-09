@@ -41,15 +41,15 @@ export class DomainController {
     return await this.domainService.getAllByUser(user, index);
   }
 
-  @Get('/:name')
+  @Get('/:id')
   @UseGuards(JwtGuard)
-  async get(@User() user, @Param('name') name: string) {
-    return await this.domainService.get(user, name);
+  async get(@User() user, @Param('id') id: string) {
+    return await this.domainService.get(user, id);
   }
 
-  @Delete()
+  @Delete('/:id')
   @UseGuards(JwtGuard)
-  async remove(@User() user, @Query('id') id: string) {
+  async remove(@User() user, @Param('id') id: string) {
     return await this.domainService.remove(user, id);
   }
 

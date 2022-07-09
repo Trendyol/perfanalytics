@@ -14,7 +14,7 @@ const SettingsModal: FC<SettingsModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("layout");
 
   return (
-    <Modal show={show} onClose={onClose} title={t("settings")}>
+    <Modal show={show} onClose={onClose} title={t("user_settings")}>
       <Divider />
       <NameForm />
       <Divider />

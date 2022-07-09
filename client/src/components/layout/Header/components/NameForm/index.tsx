@@ -40,11 +40,8 @@ const NameForm: FC<NameFormProps> = () => {
   });
 
   return (
-    <form
-      className="section w-full flex flex-col text-xl"
-      onSubmit={formik.handleSubmit}
-    >
-      <div className="mt-3 mb-4 font-semibold">{t("update_name")}</div>
+    <form className="section w-full flex flex-col text-xl" onSubmit={formik.handleSubmit}>
+      <div className="mb-3 font-semibold text-sm">{t("update_name")}</div>
       <TextField
         name="name"
         placeholder={t("name")}
@@ -53,12 +50,7 @@ const NameForm: FC<NameFormProps> = () => {
         value={formik.values.name}
         error={formik.touched.name && formik.errors.name}
       />
-      <Button
-        loading={updatingName}
-        type="submit"
-        color="secondary"
-        className="ml-auto"
-      >
+      <Button loading={updatingName} type="submit" color="secondary" className="ml-auto">
         {t("update")}
       </Button>
     </form>

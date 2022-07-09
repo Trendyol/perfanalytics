@@ -11,7 +11,7 @@ const TextField: FC<TextFieldProps> = ({ error, className, ...rest }) => {
     <div className="mb-6 w-full">
       <input
         className={classNames(
-          "input w-full input-primary bg-gray-50 border-none",
+          "input w-full input-primary bg-gray-50 border-none rounded-sm",
           className
         )}
         {...rest}
