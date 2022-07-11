@@ -3,7 +3,7 @@ import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useTranslation from "next-translate/useTranslation";
-import { deleteDomain } from "@services/domainService";
+import * as domainService from "@services/domainService";
 import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
 import useDomainInfinite from "@hooks/useDomainInfinite";
@@ -14,7 +14,7 @@ const DangerForm = () => {
   const [deletingDomain, setDeletingDomain] = useState(false);
   const { domainId } = router.query;
   const { domain } = useDomain(domainId as string);
-  const { mutateDomains } = useDomainInfinite();
+  const { removeDomainInfinite } = useDomainInfinite();
   const { t } = useTranslation("domain");
 
   const handleCloseVerifyDeleteModal = () => {
@@ -24,8 +24,8 @@ const DangerForm = () => {
   const handleDeleteDomain = async () => {
     if (!domain) return;
     setDeletingDomain(true);
-    await deleteDomain(domain._id);
-    await mutateDomains();
+    await domainService.deleteDomain(domain._id);
+    await removeDomainInfinite(domain._id);
     router.push("/");
   };
 

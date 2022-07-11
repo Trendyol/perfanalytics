@@ -8,7 +8,16 @@ const useDomain = (id: string) => {
     revalidateOnFocus: false,
   });
 
+  const updateDomain = async (values: Partial<Domain>) => {
+    return mutate((prev) => {
+      if (prev) {
+        return { ...prev, ...values };
+      }
+    }, false);
+  };
+
   return {
+    updateDomain,
     domain: data,
     isLoading: !error && !data,
     isError: error?.message,

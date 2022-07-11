@@ -9,7 +9,7 @@ import useDomain from "@hooks/useDomain";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { updateDomain } from "@services/domainService";
+import * as domainService from "@services/domainService";
 import { toast } from "react-toastify";
 import { updateDomainSchema } from "@schemas";
 import { DomainSettings } from "src/interfaces";
@@ -24,8 +24,8 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
   const router = useRouter();
   const { t } = useTranslation("domain");
   const { domainId } = router.query;
-  const { domain, mutateDomain } = useDomain(domainId as string);
-  const { mutateDomains } = useDomainInfinite();
+  const { domain, updateDomain } = useDomain(domainId as string);
+  const { updateDomainInfinite } = useDomainInfinite();
 
   const formik = useFormik({
     initialValues: { name: domain?.name || "", url: domain?.url || "" },
@@ -43,9 +43,9 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
     setUpdatingDomain(true);
 
     try {
-      await updateDomain(domain._id, values);
-      await mutateDomain();
-      await mutateDomains();
+      await domainService.updateDomain(domain._id, values);
+      await updateDomain(values);
+      await updateDomainInfinite(domain._id, values);
 
       toast.success(t("success"));
       onClose();
@@ -63,7 +63,7 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
       title={t("domain_settings")}
       footer={
         <div className="float-right">
-          <Button color="transparent" className="mr-2">
+          <Button onClick={onClose} color="transparent" className="mr-2">
             {t("cancel")}
           </Button>
           <Button onClick={() => formik.submitForm()} loading={updatingDomain} color="secondary">

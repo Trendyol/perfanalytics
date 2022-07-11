@@ -6,11 +6,9 @@ import Modal from "@components/shared/Modal";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
-import { getDomainKey } from "@utils/swr";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { toast } from "react-toastify";
-import { useSWRConfig } from "swr";
 
 interface DomainModalProps {
   show: boolean;
@@ -20,8 +18,7 @@ interface DomainModalProps {
 const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
-  const { domains, mutateDomains, length } = useDomainInfinite();
-  const { cache } = useSWRConfig();
+  const { addDomainInfinite } = useDomainInfinite();
 
   const formik = useFormik({
     initialValues: { name: "", url: "" },
@@ -38,11 +35,7 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
 
     try {
       const result = await createDomain(values);
-      mutateDomains([{ docs: [result.data, ...domains], totalDocs: length + 1 }], false);
-      cache.set(getDomainKey(0), {
-        docs: [result.data, ...domains.slice(10)],
-        totalDocs: length + 1,
-      });
+      addDomainInfinite(result.data);
 
       toast.success(t("success"));
       onClose();
