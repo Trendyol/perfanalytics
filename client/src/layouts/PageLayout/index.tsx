@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 import Header from "@components/layout/Header";
 import Footer from "@components/layout/Footer";
@@ -8,9 +8,11 @@ interface PageLayout {
   children: React.ReactNode;
 }
 
-const PageLayout = ({ children }: PageLayout) => {
+const PageLayout: FC<PageLayout> = (props) => {
+  const { children } = props;
+
   return (
-    <div className="flex min-w-[1600px]">
+    <div className="flex max-h-screen bg-background overflow-hidden bg-gray-50">
       <Head>
         <title>Perfanalytics</title>
         <meta name="description" content="..." />
@@ -18,7 +20,7 @@ const PageLayout = ({ children }: PageLayout) => {
         <meta name="viewport" content="width=1920, initial-scale=1"></meta>
       </Head>
       <Sidebar />
-      <div className="flex flex-grow flex-col justify-between items-center">
+      <div className="flex flex-grow flex-col justify-between items-center px-12">
         <Header />
         <main className="flex-1 w-container mt-5">{children}</main>
         <Footer />
