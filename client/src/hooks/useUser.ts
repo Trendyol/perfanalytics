@@ -8,13 +8,12 @@ interface User {
   email?: string;
 }
 
-export const useUser = (shouldCallApi?: boolean) => {
-  const { data, error } = useSWR<User>(
-    shouldCallApi ? USER_KEY : null,
-    fetcher
-  );
+export const useUser = () => {
+  const { data, error, mutate } = useSWR<User>(USER_KEY, fetcher);
+
   return {
-    data,
+    user: data,
+    mutateUser: mutate,
     isLoading: !error && !data,
     isError: error?.statusText,
   };

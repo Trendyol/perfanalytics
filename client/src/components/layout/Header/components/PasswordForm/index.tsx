@@ -3,9 +3,7 @@ import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import { updatePassword } from "@services/userService";
-import { mutate } from "swr";
 import { toast } from "react-toastify";
-import { USER_KEY } from "@hooks/useUser";
 import { useFormik } from "formik";
 import { passwordUpdateSchema } from "@schemas";
 
@@ -15,20 +13,15 @@ const PasswordForm: FC<PasswordFormProps> = () => {
   const { t } = useTranslation("layout");
   const [updatingPassword, setUpdatingPassword] = useState(false);
 
-  const handlePasswordUpdate = async (values: {
-    oldPassword: string;
-    newPassword: string;
-  }) => {
+  const handlePasswordUpdate = async (values: { oldPassword: string; newPassword: string }) => {
     setUpdatingPassword(true);
-    mutate(USER_KEY, async () => {
-      try {
-        await updatePassword(values);
-        toast.success(t("success"));
-      } catch {
-        toast.error(t("error"));
-      }
-      setUpdatingPassword(false);
-    });
+    try {
+      await updatePassword(values);
+      toast.success(t("success"));
+    } catch {
+      toast.error(t("error"));
+    }
+    setUpdatingPassword(false);
   };
 
   const formik = useFormik({
@@ -42,10 +35,7 @@ const PasswordForm: FC<PasswordFormProps> = () => {
   });
 
   return (
-    <form
-      className="section w-full flex flex-col text-medium"
-      onSubmit={formik.handleSubmit}
-    >
+    <form className="section w-full flex flex-col text-medium" onSubmit={formik.handleSubmit}>
       <div className="mb-3 font-semibold text-sm">{t("update_password")}</div>
       <TextField
         name="oldPassword"

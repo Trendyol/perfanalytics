@@ -6,24 +6,20 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { registerSchema } from "@schemas";
 import { toast } from "react-toastify";
-import { mutate } from "swr";
-import { USER_KEY } from "@hooks/useUser";
+import { useUser } from "@hooks/useUser";
 import { createSession, createUser } from "@services/userService";
 
 const RegisterForm: FC = () => {
+  const { mutateUser } = useUser();
   const { t } = useTranslation("register");
   const router = useRouter();
 
-  const handleSignUp = async (values: {
-    name: string;
-    email: string;
-    password: string;
-  }) => {
+  const handleSignUp = async (values: { name: string; email: string; password: string }) => {
     try {
       await createUser(values);
       try {
         await createSession(values);
-        mutate(USER_KEY);
+        await mutateUser();
         router.push("/");
       } catch (error) {
         toast.error(t("registration_error"));
@@ -53,12 +49,8 @@ const RegisterForm: FC = () => {
       onSubmit={formik.handleSubmit}
     >
       <div id="header">
-        <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">
-          {t("sign_up")}
-        </h1>
-        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">
-          {t("see_what_capable_of")}
-        </p>
+        <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">{t("sign_up")}</h1>
+        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("see_what_capable_of")}</p>
       </div>
       <div id="content" className="flex flex-col">
         <TextField

@@ -3,9 +3,8 @@ import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import { updateUsername } from "@services/userService";
-import { mutate } from "swr";
 import { toast } from "react-toastify";
-import { USER_KEY, useUser } from "@hooks/useUser";
+import { useUser } from "@hooks/useUser";
 import { useFormik } from "formik";
 import { nameUpdateSchema } from "@schemas";
 
@@ -13,20 +12,19 @@ interface NameFormProps {}
 
 const NameForm: FC<NameFormProps> = () => {
   const { t } = useTranslation("layout");
-  const { data: user } = useUser(true);
+  const { user, mutateUser } = useUser();
   const [updatingName, setUpdatingName] = useState(false);
 
   const handleNameUpdate = async (values: { name: string }) => {
     setUpdatingName(true);
-    mutate(USER_KEY, async () => {
-      try {
-        await updateUsername(values);
-        toast.success(t("success"));
-      } catch {
-        toast.error(t("error"));
-      }
-      setUpdatingName(false);
-    });
+    try {
+      await updateUsername(values);
+      mutateUser();
+      toast.success(t("success"));
+    } catch {
+      toast.error(t("error"));
+    }
+    setUpdatingName(false);
   };
 
   const formik = useFormik({

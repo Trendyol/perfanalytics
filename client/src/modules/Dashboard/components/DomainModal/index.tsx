@@ -39,11 +39,7 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     try {
       const result = await createDomain(values);
       mutateDomains([{ docs: [result.data, ...domains], totalDocs: length + 1 }], false);
-      cache.set(getDomainKey(0), {
-        docs: [result.data, ...domains.slice(10)],
-        totalDocs: length + 1,
-      });
-
+  
       toast.success(t("success"));
       onClose();
     } catch (error) {

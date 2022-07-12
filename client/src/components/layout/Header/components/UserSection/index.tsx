@@ -1,9 +1,8 @@
 import { FC, useState } from "react";
 import Dropdown from "@components/shared/Dropdown";
 import Button from "@components/shared/Form/Button";
-import { USER_KEY, useUser } from "@hooks/useUser";
+import { useUser } from "@hooks/useUser";
 import Image from "next/image";
-import { mutate } from "swr";
 import userIcon from "@assets/images/user.svg";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
@@ -17,7 +16,7 @@ interface UserSectionProps {
 
 const UserSection: FC<UserSectionProps> = ({ className }) => {
   const { t } = useTranslation("layout");
-  const { data: user, isLoading } = useUser(true);
+  const { user, isLoading, mutateUser } = useUser();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const handleShowSettingsModal = () => {
@@ -29,10 +28,8 @@ const UserSection: FC<UserSectionProps> = ({ className }) => {
   };
 
   const logout = async () => {
-    mutate(USER_KEY, async () => {
-      await deleteSession();
-      return null;
-    });
+    await deleteSession();
+    mutateUser(undefined);
   };
 
   return (

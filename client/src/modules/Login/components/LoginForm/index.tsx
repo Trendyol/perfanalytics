@@ -8,18 +8,18 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { loginSchema } from "@schemas";
-import { USER_KEY } from "@hooks/useUser";
-import { mutate } from "swr";
 import { createSession } from "@services/userService";
+import { useUser } from "@hooks/useUser";
 
 const LoginForm: FC = () => {
+  const { mutateUser } = useUser();
   const { t } = useTranslation("login");
   const router = useRouter();
 
   const handleSession = async (values: { email: string; password: string }) => {
     try {
       await createSession(values);
-      mutate(USER_KEY);
+      mutateUser();
       router.push("/");
     } catch (error) {
       toast.error(t("credential_error"));
@@ -46,15 +46,9 @@ const LoginForm: FC = () => {
       onSubmit={formik.handleSubmit}
     >
       <div id="header">
-        <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">
-          {t("hello_again")}
-        </h1>
-        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">
-          {t("welcome_to_dashboard")}
-        </p>
-        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">
-          {t("please_login")}
-        </p>
+        <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">{t("hello_again")}</h1>
+        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("welcome_to_dashboard")}</p>
+        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("please_login")}</p>
       </div>
       <div id="content" className="flex flex-col">
         <TextField
@@ -77,16 +71,10 @@ const LoginForm: FC = () => {
         />
         <div className="flex justify-between sm:text-sm items-center">
           <span className="flex items-center">
-            <Checkbox
-              name="remember"
-              label={t("remember_me")}
-              onChange={formik.handleChange}
-            />
+            <Checkbox name="remember" label={t("remember_me")} onChange={formik.handleChange} />
           </span>
           <Link href="/">
-            <span className="text-primary cursor-pointer text-sm sm:text-xs">
-              {t("recover_password")}
-            </span>
+            <span className="text-primary cursor-pointer text-sm sm:text-xs">{t("recover_password")}</span>
           </Link>
         </div>
       </div>
