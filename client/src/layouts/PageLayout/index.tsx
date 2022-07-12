@@ -22,7 +22,7 @@ const PageLayout: FC<PageLayout> = (props) => {
       <Sidebar />
       <div className="flex flex-grow flex-col justify-between items-center px-12">
         <Header />
-        <main className="flex-1 w-container mt-5">{children}</main>
+        <main className="flex-1 w-full mt-5">{children}</main>
         <Footer />
       </div>
     </div>

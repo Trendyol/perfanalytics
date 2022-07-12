@@ -9,9 +9,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      width: {
-        container: "1300px",
-      },
       height: {
         header: "70px",
       },
