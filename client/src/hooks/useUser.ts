@@ -1,15 +1,14 @@
+import { USER_KEY } from "@constants";
 import { fetcher } from "@utils/fetcher";
 import useSWR from "swr";
-
-export const USER_KEY = "/user/@me";
 
 interface User {
   name?: string;
   email?: string;
 }
 
-export const useUser = () => {
-  const { data, error, mutate } = useSWR<User>(USER_KEY, fetcher);
+const useUser = () => {
+  const { data, error, mutate } = useSWR<User | null>(USER_KEY, fetcher);
 
   return {
     user: data,
@@ -18,3 +17,5 @@ export const useUser = () => {
     isError: error?.statusText,
   };
 };
+
+export default useUser;

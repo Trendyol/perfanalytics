@@ -10,7 +10,7 @@ import { getDomainKey } from "@utils/swr";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { toast } from "react-toastify";
-import { useSWRConfig } from "swr";
+import { mutate, useSWRConfig } from "swr";
 
 interface DomainModalProps {
   show: boolean;
@@ -39,7 +39,6 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     try {
       const result = await createDomain(values);
       mutateDomains([{ docs: [result.data, ...domains], totalDocs: length + 1 }], false);
-  
       toast.success(t("success"));
       onClose();
     } catch (error) {

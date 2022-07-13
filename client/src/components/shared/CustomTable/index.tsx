@@ -4,25 +4,10 @@ import Spinner from "../Spinner";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const {
-    data,
-    length,
-    isLoading,
-    onNextPage,
-    columnData,
-    onRowClick,
-    height = 340,
-    width = 1300,
-    rowHeight = 50,
-    headerHeight = 40,
-  } = props;
+  const { data, length, isLoading, columnData, height = 340, width = 1300, rowHeight = 50, headerHeight = 40, onRowClick, onNextPage } = props;
 
   const noRowsRenderer = () => {
-    return (
-      <div className="flex items-center justify-center h-full">
-        {isLoading ? <Spinner /> : null}
-      </div>
-    );
+    return <div className="flex items-center justify-center h-full">{isLoading ? <Spinner /> : null}</div>;
   };
 
   return (
@@ -56,11 +41,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               dataKey={data.dataKey}
               width={data.columnWidth ?? 300}
               className="text-gray-500"
-              cellRenderer={({ cellData, rowData }) =>
-                data.cellRenderer
-                  ? data.cellRenderer(cellData, rowData)
-                  : cellData
-              }
+              cellRenderer={({ cellData, rowData }) => (data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData)}
             />
           ))}
         </Table>
@@ -75,6 +56,7 @@ interface CustomTableProps {
   headerHeight?: number;
   rowHeight?: number;
   data: unknown[];
+  length: number;
   columnData: Array<{
     dataKey: string;
     label: string;
@@ -82,8 +64,7 @@ interface CustomTableProps {
     cellRenderer?: (cellData: any, rowData: any) => ReactNode;
   }>;
   onNextPage: () => void;
-  isLoading: boolean;
-  length: number;
+  isLoading?: boolean;
   onRowClick?: (rowData: any) => void;
 }
 

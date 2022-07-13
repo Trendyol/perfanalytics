@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -15,5 +15,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const fetcher = (url: any) =>
-  axiosInstance.get(url).then((res) => res.data);
+export const fetcher = (url: any, config?: AxiosRequestConfig) => axiosInstance.get(url, config).then((res) => res.data);

@@ -22,21 +22,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   full?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({
-  children,
-  color = "primary",
-  size = "medium",
-  loading = false,
-  circle = false,
-  full = false,
-  className,
-  ...rest
-}) => {
+const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium", loading = false, circle = false, full = false, className, ...rest }) => {
   return (
     <button
       className={classnames(
         "btn no-animation rounded-[5px]",
-
         COLORS[color],
         SIZES[size],
         {

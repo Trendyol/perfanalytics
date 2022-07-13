@@ -5,9 +5,10 @@ import Toast from "@components/shared/Toast";
 import PageLayout from "@layouts/PageLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "@styles/globals.scss";
-import { useSWRConfig } from "swr";
+import { SWRConfig } from "swr";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = (props: AppProps) => {
+  const { Component, pageProps } = props;
   const router = useRouter();
 
   if (LAYOUT_EXCLUDED_PAGES.includes(router.asPath)) {
@@ -20,10 +21,12 @@ const App = ({ Component, pageProps }: AppProps) => {
   }
 
   return (
-    <PageLayout>
-      <Component {...pageProps} />
-      <Toast />
-    </PageLayout>
+    <SWRConfig value={pageProps.fallback && { fallback: pageProps.fallback }}>
+      <PageLayout>
+        <Component {...pageProps} />
+        <Toast />
+      </PageLayout>
+    </SWRConfig>
   );
 };
 

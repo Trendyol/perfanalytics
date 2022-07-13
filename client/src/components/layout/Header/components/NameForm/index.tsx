@@ -4,7 +4,7 @@ import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import { updateUsername } from "@services/userService";
 import { toast } from "react-toastify";
-import { useUser } from "@hooks/useUser";
+import useUser from "@hooks/useUser";
 import { useFormik } from "formik";
 import { nameUpdateSchema } from "@schemas";
 

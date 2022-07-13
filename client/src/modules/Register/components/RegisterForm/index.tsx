@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { registerSchema } from "@schemas";
 import { toast } from "react-toastify";
-import { useUser } from "@hooks/useUser";
+import useUser from "@hooks/useUser";
 import { createSession, createUser } from "@services/userService";
 
 const RegisterForm: FC = () => {

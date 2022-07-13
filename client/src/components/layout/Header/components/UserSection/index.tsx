@@ -4,11 +4,12 @@ import { IoIosArrowDown, IoMdNotificationsOutline } from "react-icons/io";
 import useTranslation from "next-translate/useTranslation";
 import DropdownItem from "@components/shared/Dropdown/DropdownItem";
 import DropdownContent from "@components/shared/Dropdown/DropdownContent";
-import { useUser } from "@hooks/useUser";
+import useUser from "@hooks/useUser";
 import { deleteSession } from "@services/userService";
 import SettingsModal from "../SettingsModal";
 import { UserDropdownItemType } from "@enums";
 import { useRouter } from "next/router";
+import { USER_KEY } from "@constants";
 
 const UserSection: FC<UserSectionProps> = () => {
   const { t } = useTranslation("layout");
@@ -26,7 +27,7 @@ const UserSection: FC<UserSectionProps> = () => {
 
   const handleLogout = async () => {
     await deleteSession();
-    mutateUser(undefined);
+    mutateUser(null);
   };
 
   const handleLogin = async () => {

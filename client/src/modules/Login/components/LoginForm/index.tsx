@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { loginSchema } from "@schemas";
 import { createSession } from "@services/userService";
-import { useUser } from "@hooks/useUser";
+import useUser from "@hooks/useUser";
 
 const LoginForm: FC = () => {
   const { mutateUser } = useUser();
