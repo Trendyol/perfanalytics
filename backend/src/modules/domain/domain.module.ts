@@ -5,7 +5,9 @@ import { DomainSchema } from './etc/domain.schema';
 import { DomainService } from './domain.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'Domain', schema: DomainSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: 'Domain', schema: DomainSchema }]),
+  ],
   controllers: [DomainController],
   providers: [DomainService],
 })

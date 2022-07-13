@@ -9,6 +9,7 @@ import { config } from '@config';
 import { UserModule } from '@user/user.module';
 import { SessionModule } from '@session/session.module';
 import { DomainModule } from '@domain/domain.module';
+import { PageModule } from '@modules/page/page.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DomainModule } from '@domain/domain.module';
     UserModule,
     SessionModule,
     DomainModule,
+    PageModule,
   ],
   controllers: [AppController],
   providers: [

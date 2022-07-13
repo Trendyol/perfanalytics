@@ -9,7 +9,6 @@ import {
   UseGuards,
   Put,
 } from '@nestjs/common';
-import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@core/decorators/user.decorator';
 import { CreateDomainDTO } from './etc/create-domain.dto';
@@ -24,7 +23,6 @@ import { plainToInstance } from 'class-transformer';
 export class DomainController {
   constructor(private readonly domainService: DomainService) {}
 
-  @Throttle(300, 60)
   @UseGuards(JwtGuard)
   @Post()
   async create(@User() user, @Body() createDomainDTO: CreateDomainDTO) {
