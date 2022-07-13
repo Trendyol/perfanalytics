@@ -22,5 +22,6 @@
   "success": "Success!",
   "edit_button": "Edit",
   "guest_name": "Guest",
-  "guest_info_message": "What you can do is limited."
+  "guest_info_message": "What you can do is limited.",
+  "member_message": "Member"
 }

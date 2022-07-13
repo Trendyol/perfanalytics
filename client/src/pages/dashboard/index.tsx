@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Dashboard from "@modules/Dashboard";
 import { USER_KEY } from "@constants";
-import { getUserDataInServerSide } from "@utils/swr";
+import { getUserData } from "@utils/swr";
 
 const DashboardPage: NextPage<any> = () => {
   return (
@@ -17,7 +17,7 @@ const DashboardPage: NextPage<any> = () => {
 };
 
 export async function getServerSideProps(context: any) {
-  const userData = await getUserDataInServerSide(context);
+  const userData = await getUserData(context);
 
   return {
     props: {

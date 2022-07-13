@@ -3,10 +3,12 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SidebarSubItem from "./SidebarSubItem";
-import EditButton from "./EditButton";
+import Button from "@components/shared/Form/Button";
+import useTranslation from "next-translate/useTranslation";
 
 const SideItem: FC<SideItemProps> = (props) => {
-  const { name, LeftIcon, link, subItems, rightIconAction, isEditable = false } = props;
+  const { t } = useTranslation("layout");
+  const { name, LeftIcon, link, subItems, rightIconAction } = props;
   const router = useRouter();
 
   const isActiveRoute = link === router.asPath;
@@ -23,7 +25,11 @@ const SideItem: FC<SideItemProps> = (props) => {
         >
           <LeftIcon fontSize={24} />
           <span className="mr-auto">{name}</span>
-          {isEditable && rightIconAction && <EditButton rightIconAction={rightIconAction} />}
+          {rightIconAction && (
+            <Button color="transparent" size="small" className="absolute right-0 text-gray-500" onClick={rightIconAction}>
+              {t("edit_button")}
+            </Button>
+          )}
         </a>
       </Link>
       {subItems && (

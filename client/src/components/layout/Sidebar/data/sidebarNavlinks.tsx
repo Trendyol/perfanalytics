@@ -15,7 +15,6 @@ const sidebarNavlinks = [
   {
     name: "Tags",
     LeftIcon: RiHashtag,
-    isEditable: true,
     rightIconAction: () => {
       alert("TODO: Open tag settings popup");
     },

@@ -2,16 +2,16 @@ import { FC } from "react";
 import classnames from "classnames";
 
 const COLORS = {
-  primary: "btn-primary text-white",
+  primary: "btn-primary text-white hover:bg-[#F16B00]",
   secondary: "bg-secondary text-white",
-  transparent: "bg-transparent border-none text-black",
+  transparent: "bg-transparent border-none text-gray-500 hover:bg-gray-200",
   danger: "btn-error text-white",
 };
 
 const SIZES = {
   large: "btn-md h-[45px]",
   medium: "btn-sm h-[36px]",
-  small: "btn-sm",
+  small: "btn-sm text-xs",
 };
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -19,10 +19,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: keyof typeof SIZES;
   loading?: boolean;
   circle?: boolean;
-  full?: boolean;
+  fluid?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium", loading = false, circle = false, full = false, className, ...rest }) => {
+const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium", loading = false, circle = false, fluid = false, className, ...rest }) => {
   return (
     <button
       className={classnames(
@@ -32,7 +32,7 @@ const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium",
         {
           loading: loading,
           "btn-circle": circle,
-          "w-full": full,
+          "w-full": fluid,
         },
         className
       )}

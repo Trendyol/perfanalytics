@@ -1,4 +1,4 @@
-import { UserDropdownButtonType, UserDropdownItemType } from "@enums";
+import { UserDropdownItemType } from "@enums";
 import classNames from "classnames";
 import { FC, ReactNode } from "react";
 

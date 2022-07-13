@@ -9,7 +9,7 @@ import { deleteSession } from "@services/userService";
 import SettingsModal from "../SettingsModal";
 import { UserDropdownItemType } from "@enums";
 import { useRouter } from "next/router";
-import { USER_KEY } from "@constants";
+import Button from "@components/shared/Form/Button";
 
 const UserSection: FC<UserSectionProps> = () => {
   const { t } = useTranslation("layout");
@@ -49,27 +49,27 @@ const UserSection: FC<UserSectionProps> = () => {
         }
       >
         <DropdownItem type={UserDropdownItemType.INFO}>
-          <div className="flex flex-col w-full items-center gap-1 p-4">
+          <div className="flex flex-col w-full items-center gap-1 p-4 border-b-gray-200 border-b">
             <div className="rounded-full bg-gray-500 p-2 w-10 h-10 flex justify-center items-center">
               <AiOutlineUser fontSize={20} className="text-gray-100" />
             </div>
             <div className="text-center">
               <h3 className="capitalize text-lg text-gray-500 font-semibold">{user ? user.name : t("guest_name")}</h3>
-              <p className="text-gray-400 text-sm font-medium">{t("guest_info_message")}</p>
+              <p className="text-gray-400 text-sm font-medium">{user ? t("member_message") : t("guest_info_message")}</p>
             </div>
           </div>
         </DropdownItem>
         {user && (
           <DropdownItem onClick={handleShowSettingsModal}>
-            <div className="flex justify-center items-center w-full bg-white hover:bg-gray-50 text-gray-500 border-t text-sm h-10 border-t-gray-200">
+            <Button color="transparent" size="small" fluid className="h-10 rounded-none">
               {t("settings")}
-            </div>
+            </Button>
           </DropdownItem>
         )}
         <DropdownItem onClick={user ? handleLogout : handleLogin}>
-          <div className="flex justify-center items-center w-full bg-primary hover:bg-[#F16B00] text-white border-t text-sm h-10">
+          <Button fluid size="small" className="h-10 rounded-none">
             {user ? t("logout") : t("login")}
-          </div>
+          </Button>
         </DropdownItem>
       </DropdownContent>
       <SettingsModal show={showSettingsModal} onClose={handleCloseSettingsModal} />

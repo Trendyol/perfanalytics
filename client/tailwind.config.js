@@ -26,24 +26,11 @@ module.exports = {
       sm: { max: "639px" },
       // => @media (max-width: 639px) { ... }
     },
-    fontSize: {
-      "display-2xl": ["4.5rem", "5.625rem"],
-      "display-xl": ["3.75rem", "4.5rem"],
-      "display-lg": ["3rem", "3.75rem"],
-      "display-md": ["2.25rem", "2.75rem"],
-      "display-sm": ["1.875rem", "2.375rem"],
-      "display-xs": ["1.5rem", "2rem"],
-      xl: ["1.25rem", "1.875rem"],
-      lg: ["1.125rem", "1.75rem"],
-      md: ["1rem", "1.5rem"],
-      sm: ["0.875rem", "1.25rem"],
-      xs: ["0.75rem", "1.125rem"],
-    },
     colors: {
       primary: "#f27a1a",
-      secondary: "#1890ff", // TODO: sil bunu
+      secondary: "#1890ff",
       black: "#092C4C",
-      border: "#e6e6e6", // sil
+      border: "#e6e6e6",
       white: "#ffffff",
       success: "#12b76A",
       warning: "#f79009",

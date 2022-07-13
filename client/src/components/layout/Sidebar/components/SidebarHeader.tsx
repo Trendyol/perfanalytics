@@ -8,7 +8,7 @@ const SidebarHeader: FC<SidebarHeaderProps> = () => {
     <header className="flex items-center justify-center h-28 p-4">
       <Link href="/dashboard">
         <a>
-          <Image src={trendyolLogo} alt="Trendyol logo" width={150} height={61.48} />
+          <Image priority src={trendyolLogo} alt="Trendyol logo" width={150} height={61.48} />
         </a>
       </Link>
     </header>

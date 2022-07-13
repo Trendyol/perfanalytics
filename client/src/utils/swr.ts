@@ -6,7 +6,7 @@ export const getDomainKey = (pageIndex: number, previousPageData?: any) => {
   return `/domain?index=${pageIndex}`;
 };
 
-async function getUserDataInServerSide(context: any) {
+export const getUserData = async (context: any) => {
   let data = null;
 
   try {
@@ -20,6 +20,4 @@ async function getUserDataInServerSide(context: any) {
   } catch {}
 
   return data;
-}
-
-export { getUserDataInServerSide };
+};

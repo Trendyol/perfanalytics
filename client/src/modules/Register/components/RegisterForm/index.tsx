@@ -82,7 +82,7 @@ const RegisterForm: FC = () => {
         />
       </div>
       <div id="actions">
-        <Button full type="submit" size="large">
+        <Button fluid type="submit" size="large">
           {t("register")}
         </Button>
       </div>
