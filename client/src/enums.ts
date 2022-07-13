@@ -1,4 +1,14 @@
 export enum NavlinkLocation {
-  SidebarCenter,
-  SidebarFooter,
+  SIDEBAR_CENTER,
+  SIDEBAR_FOOTER,
+}
+
+export enum UserDropdownItemType {
+  INFO,
+  ACTION,
+}
+
+export enum UserDropdownButtonType {
+  PRIMARY,
+  NORMAL,
 }

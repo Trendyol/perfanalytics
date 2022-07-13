@@ -9,7 +9,7 @@ const sidebarNavlinks = [
   {
     name: "Dashboard",
     LeftIcon: MdOutlineSpaceDashboard,
-    location: NavlinkLocation.SidebarCenter,
+    location: NavlinkLocation.SIDEBAR_CENTER,
     link: "/dashboard",
   },
   {
@@ -19,7 +19,7 @@ const sidebarNavlinks = [
     rightIconAction: () => {
       alert("TODO: Open tag settings popup");
     },
-    location: NavlinkLocation.SidebarCenter,
+    location: NavlinkLocation.SIDEBAR_CENTER,
     link: "#",
     subItems: [
       {
@@ -39,19 +39,19 @@ const sidebarNavlinks = [
   {
     name: "Settings",
     LeftIcon: TbSettings,
-    location: NavlinkLocation.SidebarFooter,
+    location: NavlinkLocation.SIDEBAR_FOOTER,
     link: "/settings",
   },
   {
     name: "Documentation",
     LeftIcon: CgFileDocument,
-    location: NavlinkLocation.SidebarFooter,
+    location: NavlinkLocation.SIDEBAR_FOOTER,
     link: "https://trendyol.github.io/perfanalytics/",
   },
   {
     name: "Changelog",
     LeftIcon: BiHistory,
-    location: NavlinkLocation.SidebarFooter,
+    location: NavlinkLocation.SIDEBAR_FOOTER,
     link: "https://github.com/trendyol/perfanalytics",
   },
 ];

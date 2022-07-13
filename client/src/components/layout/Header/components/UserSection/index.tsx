@@ -1,22 +1,19 @@
 import { FC, useState } from "react";
-import Dropdown from "@components/shared/Dropdown";
-import Button from "@components/shared/Form/Button";
-import { useUser } from "@hooks/useUser";
-import Image from "next/image";
-import userIcon from "@assets/images/user.svg";
+import { AiOutlineUser } from "react-icons/ai";
+import { IoIosArrowDown, IoMdNotificationsOutline } from "react-icons/io";
 import useTranslation from "next-translate/useTranslation";
-import Link from "next/link";
+import DropdownItem from "@components/shared/Dropdown/DropdownItem";
+import DropdownContent from "@components/shared/Dropdown/DropdownContent";
+import { useUser } from "@hooks/useUser";
 import { deleteSession } from "@services/userService";
 import SettingsModal from "../SettingsModal";
-import classNames from "classnames";
+import { UserDropdownItemType } from "@enums";
+import { useRouter } from "next/router";
 
-interface UserSectionProps {
-  className?: string;
-}
-
-const UserSection: FC<UserSectionProps> = ({ className }) => {
+const UserSection: FC<UserSectionProps> = () => {
   const { t } = useTranslation("layout");
-  const { user, isLoading, mutateUser } = useUser();
+  const router = useRouter();
+  const { user, mutateUser } = useUser();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const handleShowSettingsModal = () => {
@@ -27,36 +24,58 @@ const UserSection: FC<UserSectionProps> = ({ className }) => {
     setShowSettingsModal(false);
   };
 
-  const logout = async () => {
+  const handleLogout = async () => {
     await deleteSession();
     mutateUser(undefined);
   };
 
-  return (
-    <div className={classNames("flex items-center gap-3", className)}>
-      {user ? (
-        <Dropdown.Content
-          targetElement={
-            <div className="flex items-center">
-              <div className="rounded-full bg-[#D9D9D9] p-2 w-8 h-8 mr-3 flex justify-center items-center">
-                <Image src={userIcon} alt="Trendyol logo" width={16} height={16} />
-              </div>
-              <p>{user.name}</p>
-            </div>
-          }
-        >
-          <Dropdown.Item onClick={handleShowSettingsModal}>{t("settings")}</Dropdown.Item>
-          <Dropdown.Item onClick={logout}>{t("logout")}</Dropdown.Item>
-        </Dropdown.Content>
-      ) : (
-        <Button loading={isLoading}>
-          <Link href="/login">{t("login")}</Link>
-        </Button>
-      )}
+  const handleLogin = async () => {
+    router.push("/login");
+  };
 
+  return (
+    <div className="flex items-center justify-end gap-6 cursor-pointer text-md">
+      {user && <IoMdNotificationsOutline fontSize={20} strokeWidth={12} className="text-gray-500 mt-1" />}
+      <DropdownContent
+        targetElement={
+          <div className="flex items-center gap-3">
+            <div className="rounded-full bg-gray-500 p-2 w-10 h-10 flex justify-center items-center">
+              <AiOutlineUser fontSize={20} className="text-gray-100" />
+            </div>
+            <p className="capitalize">{user ? user.name : t("guest_name")}</p>
+            <IoIosArrowDown fontSize={20} className="text-gray-500 mt-1" />
+          </div>
+        }
+      >
+        <DropdownItem type={UserDropdownItemType.INFO}>
+          <div className="flex flex-col w-full items-center gap-1 p-4">
+            <div className="rounded-full bg-gray-500 p-2 w-10 h-10 flex justify-center items-center">
+              <AiOutlineUser fontSize={20} className="text-gray-100" />
+            </div>
+            <div className="text-center">
+              <h3 className="capitalize text-lg text-gray-500 font-semibold">{user ? user.name : t("guest_name")}</h3>
+              <p className="text-gray-400 text-sm font-medium">{t("guest_info_message")}</p>
+            </div>
+          </div>
+        </DropdownItem>
+        {user && (
+          <DropdownItem onClick={handleShowSettingsModal}>
+            <div className="flex justify-center items-center w-full bg-white hover:bg-gray-50 text-gray-500 border-t text-sm h-10 border-t-gray-200">
+              {t("settings")}
+            </div>
+          </DropdownItem>
+        )}
+        <DropdownItem onClick={user ? handleLogout : handleLogin}>
+          <div className="flex justify-center items-center w-full bg-primary hover:bg-[#F16B00] text-white border-t text-sm h-10">
+            {user ? t("logout") : t("login")}
+          </div>
+        </DropdownItem>
+      </DropdownContent>
       <SettingsModal show={showSettingsModal} onClose={handleCloseSettingsModal} />
     </div>
   );
 };
+
+interface UserSectionProps {}
 
 export default UserSection;

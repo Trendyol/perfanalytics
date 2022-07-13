@@ -3,9 +3,9 @@ import UserSection from "./components/UserSection";
 
 const Header = () => {
   return (
-    <header className="flex justify-center py-4 h-header w-full">
-      <div className="w-container flex items-center">
-        <UserSection className="ml-auto" />
+    <header className="flex justify-end h-28 w-full">
+      <div className="flex items-center">
+        <UserSection />
       </div>
     </header>
   );

@@ -5,9 +5,9 @@
   "sites": "Sites",
   "documentation": "Documentation",
   "blog": "Blog",
-  "login": "Login",
   "settings": "Settings",
   "user_settings": "User Settings",
+  "login": "Login",
   "logout": "Logout",
   "error": "Something went wrong",
   "update": "Update",
@@ -20,5 +20,7 @@
   "confirm_password": "Confirm Password",
   "password_mismatch": "Password mismatch",
   "success": "Success!",
-  "edit_button": "Edit"
+  "edit_button": "Edit",
+  "guest_name": "Guest",
+  "guest_info_message": "What you can do is limited."
 }

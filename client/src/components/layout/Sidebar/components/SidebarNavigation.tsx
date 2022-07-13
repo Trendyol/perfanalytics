@@ -9,7 +9,7 @@ const SidebarNavigation: FC<SidebarNavigationProps> = (props) => {
     <nav>
       <ul className="flex flex-col gap-1">
         {sidebarNavlinks.map((navlink) => (
-          <SideItem {...navlink} />
+          <SideItem key={navlink.name} {...navlink} />
         ))}
       </ul>
     </nav>
