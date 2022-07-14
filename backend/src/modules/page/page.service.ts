@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Page } from './etc/page.schema';
 import { User } from '@modules/user/etc/user.schema';
 import { CreatePageDTO } from './etc/create-page.dto';
+import { UpdatePageDTO } from './etc/update-page.dto';
 
 @Injectable()
 export class PageService {
@@ -72,5 +73,21 @@ export class PageService {
     }
 
     return this.pageModel.findByIdAndDelete(id);
+  }
+
+  async update(user: User, id: string, updatePageDTO: UpdatePageDTO) {
+    const page = await this.pageModel.findById({ _id: id });
+
+    if (!page) {
+      throw new UnprocessableEntityException('Page not found');
+    }
+
+    if (String(page.owner) !== String(user._id)) {
+      throw new UnprocessableEntityException(
+        'You are not the owner of this page',
+      );
+    }
+
+    return this.pageModel.updateOne({ _id: id }, updatePageDTO);
   }
 }

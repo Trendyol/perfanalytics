@@ -7,6 +7,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { CreatePageDTO } from './etc/create-page.dto';
 import { PageDTO } from './etc/page.dto';
+import { UpdatePageDTO } from './etc/update-page.dto';
 import { PageService } from './page.service';
 
 @ApiTags('Page')
@@ -51,5 +53,15 @@ export class PageController {
   @UseGuards(JwtGuard)
   async remove(@User() user, @Param('id') id: string) {
     return await this.pageService.remove(user, id);
+  }
+
+  @Put()
+  @UseGuards(JwtGuard)
+  async update(
+    @User() user,
+    @Query('id') id: string,
+    @Body() updatePageDTO: UpdatePageDTO,
+  ) {
+    return await this.pageService.update(user, id, updatePageDTO);
   }
 }
