@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { PaginateModel, PaginateResult } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Page } from './etc/page.schema';
@@ -40,5 +40,21 @@ export class PageService {
       sort: { createdAt: -1 },
       page: Number(index) + 1,
     });
+  }
+
+  async remove(user: User, id: string) {
+    const page = await this.pageModel.findById({ _id: id });
+
+    if (!page) {
+      throw new UnprocessableEntityException('Page not found');
+    }
+
+    if (String(page.owner) !== String(user._id)) {
+      throw new UnprocessableEntityException(
+        'You are not the owner of this page',
+      );
+    }
+
+    return this.pageModel.findByIdAndDelete(id);
   }
 }

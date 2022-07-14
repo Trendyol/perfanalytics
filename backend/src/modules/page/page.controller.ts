@@ -1,6 +1,15 @@
 import { User } from '@core/decorators/user.decorator';
 import { JwtGuard } from '@core/guards/jwt.guard';
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { CreatePageDTO } from './etc/create-page.dto';
@@ -30,5 +39,11 @@ export class PageController {
     @Query('domainId') domainId?: string,
   ) {
     return await this.pageService.getAllByUser(user, index, domainId);
+  }
+
+  @Delete('/:id')
+  @UseGuards(JwtGuard)
+  async remove(@User() user, @Param('id') id: string) {
+    return await this.pageService.remove(user, id);
   }
 }
