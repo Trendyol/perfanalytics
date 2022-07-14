@@ -42,6 +42,22 @@ export class PageService {
     });
   }
 
+  async get(user: User, id: string): Promise<Page> {
+    const page = await this.pageModel.findById({ _id: id });
+
+    if (!page) {
+      throw new UnprocessableEntityException('Page not found');
+    }
+
+    if (String(page.owner) !== String(user._id)) {
+      throw new UnprocessableEntityException(
+        'You are not the owner of this page',
+      );
+    }
+
+    return page;
+  }
+
   async remove(user: User, id: string) {
     const page = await this.pageModel.findById({ _id: id });
 

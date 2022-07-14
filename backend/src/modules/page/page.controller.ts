@@ -41,6 +41,12 @@ export class PageController {
     return await this.pageService.getAllByUser(user, index, domainId);
   }
 
+  @Get('/:id')
+  @UseGuards(JwtGuard)
+  async get(@User() user, @Param('id') id: string) {
+    return await this.pageService.get(user, id);
+  }
+
   @Delete('/:id')
   @UseGuards(JwtGuard)
   async remove(@User() user, @Param('id') id: string) {
