@@ -11,22 +11,20 @@ import { SessionService } from './session.service';
 import { CreateSessionDTO } from './etc/create-session.dto';
 import { RoleGuard } from '@guards/role.guard';
 import { JwtGuard } from '@guards/jwt.guard';
-import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Session')
 @Controller('session')
 export class SessionController {
-  constructor(private readonly service: SessionService) {}
+  constructor(private readonly sessionService: SessionService) {}
 
-  @Throttle(3, 60)
   @Post()
   async createSession(
     @Body() createDTO: CreateSessionDTO,
     @Res({ passthrough: true }) response,
   ) {
-    const token = await this.service.create(createDTO);
-    response.setCookie('auth-cookie', token);
+    const token = await this.sessionService.create(createDTO);
+    response.cookie('auth-cookie', token, { httpOnly: true });
     return;
   }
 
@@ -39,6 +37,6 @@ export class SessionController {
   @UseGuards(JwtGuard, RoleGuard)
   @Post(':id')
   async createSessionForUser(@Param('id') id) {
-    return await this.service.createSessionForUser(id);
+    return await this.sessionService.createSessionForUser(id);
   }
 }

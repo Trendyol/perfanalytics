@@ -1,39 +1,33 @@
+import helmet from 'helmet';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
-import helmet from 'fastify-helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as morgan from 'morgan';
 import { Logger } from '@nestjs/common';
 import { config } from '@config';
-import fastifyCookie from 'fastify-cookie';
-import compression from 'fastify-compress';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as morgan from 'morgan';
+import * as cookieParser from 'cookie-parser';
+import * as compression from 'compression';
 
 const logger = new Logger('Main');
 
-async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
+const bootstrap = async () => {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   initializeValidationPipe(app);
   initializeSwagger(app);
-  initializeMorgan(app);
   enableCors(app);
 
-  await registerHelmet(app);
-  await registerFastifyCookie(app);
-  await registerCompression(app);
+  useMorgan(app);
+  useHelmet(app);
+  useCookie(app);
+  useCompression(app);
 
-  await app.listen(config.port, '0.0.0.0');
-}
+  await app.listen(config.port);
+};
 
-function initializeValidationPipe(app: NestFastifyApplication) {
+const initializeValidationPipe = (app: NestExpressApplication) => {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -42,9 +36,9 @@ function initializeValidationPipe(app: NestFastifyApplication) {
       forbidUnknownValues: true,
     }),
   );
-}
+};
 
-function initializeSwagger(app: NestFastifyApplication) {
+const initializeSwagger = (app: NestExpressApplication) => {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Perfanalytics API')
     .setDescription('Lighthouse tests on cutting edge.')
@@ -57,9 +51,9 @@ function initializeSwagger(app: NestFastifyApplication) {
   SwaggerModule.setup('docs', app, document, {
     explorer: true,
   });
-}
+};
 
-function initializeMorgan(app: NestFastifyApplication) {
+const useMorgan = (app: NestExpressApplication) => {
   const logger = new Logger('Morgan');
   app.use(
     morgan(':remote-addr :url :method :req[origin] :status :response-time ms', {
@@ -71,9 +65,9 @@ function initializeMorgan(app: NestFastifyApplication) {
       },
     }),
   );
-}
+};
 
-function enableCors(app: NestFastifyApplication) {
+const enableCors = (app: NestExpressApplication) => {
   app.enableCors({
     origin: '*',
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
@@ -81,30 +75,23 @@ function enableCors(app: NestFastifyApplication) {
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
-}
+};
 
-async function registerHelmet(app: NestFastifyApplication) {
-  await app.register(helmet, {
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: [`'self'`],
-        styleSrc: [`'self'`, `'unsafe-inline'`],
-        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
-        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
-      },
-    },
-  });
-}
+const useHelmet = (app: NestExpressApplication) => {
+  app.use(helmet());
+};
 
-async function registerCompression(app: NestFastifyApplication) {
-  await app.register(compression, { encodings: ['gzip', 'deflate'] });
-}
+const useCompression = (app: NestExpressApplication) => {
+  app.use(compression());
+};
 
-async function registerFastifyCookie(app: NestFastifyApplication) {
-  await app.register(fastifyCookie, {
-    secret: config.secret,
-    parseOptions: { httpOnly: true },
-  });
-}
+const useCookie = (app: NestExpressApplication) => {
+  app.use(cookieParser(config.secret));
+
+  // app.use(cookieParser, {
+  //   secret: config.secret,
+  //   parseOptions: { httpOnly: true },
+  // });
+};
 
 bootstrap().then(() => logger.log(`Server is running on port ${config.port}.`));

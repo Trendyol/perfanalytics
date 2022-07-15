@@ -16,8 +16,6 @@ import { RoleType } from '@enums/role.enum';
 import { UserService } from './user.service';
 import { JwtGuard } from '@guards/jwt.guard';
 import { Role } from '@decorators/role.decorator';
-import { AuthSkip } from '@decorators/auth-skip.decorator';
-import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { UserDTO } from './etc/user.dto';
@@ -27,17 +25,15 @@ import { UserDTO } from './etc/user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Throttle(5, 60 * 10)
-  @AuthSkip()
   @Post()
   async create(@Body() createDTO: CreateUserDTO) {
     return await this.userService.create(createDTO);
   }
 
   @UseGuards(JwtGuard)
-  @Role(RoleType.USER)
   @Get('@me')
   async getMe(@User() user) {
+    console.log('hey');
     const userData = await this.userService.getMe(user);
     const userDTO = plainToInstance(UserDTO, userData, {
       excludeExtraneousValues: true,
