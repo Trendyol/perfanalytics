@@ -2,8 +2,10 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -12,11 +14,38 @@ import { CreateSessionDTO } from './etc/create-session.dto';
 import { RoleGuard } from '@guards/role.guard';
 import { JwtGuard } from '@guards/jwt.guard';
 import { ApiTags } from '@nestjs/swagger';
-
+import { UserService } from '@modules/user/user.service';
+import { GoogleGuard } from '@core/guards/google.guard';
+import config from '@config';
 @ApiTags('Session')
 @Controller('session')
 export class SessionController {
-  constructor(private readonly sessionService: SessionService) {}
+  constructor(
+    private readonly sessionService: SessionService,
+    private readonly userService: UserService,
+  ) {}
+
+  @Get('google/callback')
+  @UseGuards(GoogleGuard)
+  async googleAuthCallback(
+    @Req() request,
+    @Res({ passthrough: true }) response,
+  ) {
+    let user = await this.userService.getByEmail(request.user.email);
+
+    if (!user) {
+      const { email, name } = request.user;
+      user = await this.userService.create({
+        email,
+        name,
+      });
+    }
+
+    const token = this.sessionService.createSession(user);
+    response.cookie('auth-cookie', token, { httpOnly: true });
+
+    return response.redirect(config.clientUrl);
+  }
 
   @Post()
   async createSession(

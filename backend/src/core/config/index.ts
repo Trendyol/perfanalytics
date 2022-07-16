@@ -13,6 +13,12 @@ export interface Config {
     secret: string;
     expiresIn: string;
   };
+  google: {
+    callbackUrl: string;
+    clientSecret: string;
+    clientId: string;
+  };
+  clientUrl: string;
 }
 
 export const config = {
@@ -27,6 +33,12 @@ export const config = {
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
   secret: process.env.SECRET,
+  google: {
+    callbackUrl: process.env.GOOGLE_CALLBACK_URL,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    clientId: process.env.GOOGLE_CLIENT_ID,
+  },
+  clientUrl: process.env.CLIENT_URL,
 };
 
 export default config as Config;

@@ -16,11 +16,11 @@ import { User } from '@user/etc/user.schema';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel('User') private readonly model: PaginateModel<User>,
+    @InjectModel('User') private readonly userModel: PaginateModel<User>,
   ) {}
 
   async getAll(index: number): Promise<PaginateResult<User>> {
-    return this.model.paginate(
+    return this.userModel.paginate(
       {},
       {
         sort: { createdAt: -1 },
@@ -33,7 +33,7 @@ export class UserService {
   async getByID(id: string): Promise<User> {
     if (!isValidObjectId(id)) throw new BadRequestException();
 
-    const exist = await this.model.findOne({ _id: id });
+    const exist = await this.userModel.findOne({ _id: id });
 
     if (!exist) throw new NotFoundException();
 
@@ -41,31 +41,31 @@ export class UserService {
   }
 
   async getByEmail(email: string): Promise<User> {
-    return this.model.findOne({ email });
+    return this.userModel.findOne({ email });
   }
 
-  async create(createDTO: CreateUserDTO): Promise<any> {
-    const { email, password, name } = createDTO;
+  async create(createUserDTO: CreateUserDTO): Promise<any> {
+    const { email, password, name } = createUserDTO;
 
-    const exist = await this.model.exists({ email });
+    const exist = await this.userModel.exists({ email });
     if (exist) throw new UnprocessableEntityException('Email already exists.');
 
-    const model = new this.model({
+    const userModel = new this.userModel({
       name: name,
       email: email,
-      password: await bcrypt.hash(password, 10),
       role: RoleType.USER,
+      ...(password && { password: await bcrypt.hash(password, 10) }),
     });
 
-    await model.save();
+    await userModel.save();
 
-    return model;
+    return userModel;
   }
 
   async updateMe(id: string, updateDTO: UpdateMeDTO): Promise<boolean> {
     if (!isValidObjectId(id)) throw new BadRequestException();
 
-    await this.model.updateOne(
+    await this.userModel.updateOne(
       { _id: id },
       {
         name: updateDTO.name,
@@ -81,7 +81,7 @@ export class UserService {
   ): Promise<User> {
     if (!isValidObjectId(user._id)) throw new BadRequestException();
 
-    const exist = await this.model.findOne({ _id: user._id });
+    const exist = await this.userModel.findOne({ _id: user._id });
 
     if (!exist) throw new NotFoundException();
 
@@ -90,12 +90,12 @@ export class UserService {
 
     const newPassword = await bcrypt.hash(updateDTO.newPassword, 10);
     if (bcrypt.compare(updateDTO.oldPassword, exist.password)) {
-      await this.model.updateOne(
+      await this.userModel.updateOne(
         { _id: user._id },
         { password: newPassword },
         { new: true },
       );
-      return this.model.findOne({ _id: user._id }, { password: 0 });
+      return this.userModel.findOne({ _id: user._id }, { password: 0 });
     } else
       throw new UnprocessableEntityException(
         'New password is same as old password.',

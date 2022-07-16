@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import config from '@config';
 import { UserModule } from '@user/user.module';
+import { GoogleStrategy } from '@core/strategies/google.strategy';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { UserModule } from '@user/user.module';
     }),
   ],
   controllers: [SessionController],
-  providers: [SessionService, JwtStrategy],
+  providers: [SessionService, JwtStrategy, GoogleStrategy],
 })
 export class SessionModule {}

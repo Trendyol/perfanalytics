@@ -83,6 +83,9 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
       </div>
+      <Link href={"http://localhost:4000/session/google/callback"} >
+        <a>Google</a>
+      </Link>
     </form>
   );
 };

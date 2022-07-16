@@ -33,7 +33,6 @@ export class UserController {
   @UseGuards(JwtGuard)
   @Get('@me')
   async getMe(@User() user) {
-    console.log('hey');
     const userData = await this.userService.getMe(user);
     const userDTO = plainToInstance(UserDTO, userData, {
       excludeExtraneousValues: true,
