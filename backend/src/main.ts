@@ -69,11 +69,9 @@ const useMorgan = (app: NestExpressApplication) => {
 
 const enableCors = (app: NestExpressApplication) => {
   app.enableCors({
-    origin: '*',
+    origin: true,
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
-    optionsSuccessStatus: 204,
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 };
 
