@@ -1,0 +1,17 @@
+{
+  "dashboard": "Dashboard",
+  "update": "Update",
+  "name": "Name",
+  "domain_url": "Domain URL",
+  "url_invalid": "Url is not valid",
+  "field_required": "Required",
+  "update_domain": "Update Domain",
+  "success": "Success",
+  "error": "Error",
+  "domain_settings": "Domain Settings",
+  "general": "General Configuration",
+  "danger": "Danger Zone",
+  "delete": "Delete",
+  "verify_delete": "Are you sure want to delete this domain?",
+  "cancel": "Cancel"
+}
