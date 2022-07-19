@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
 import Button from "@components/shared/Form/Button";
 import DomainSettingsModal from "./components/DomainSettingsModal";
+import Breadcrumb from "@components/shared/Breadcrumb";
 
 const Domain: FC = () => {
   const [showDomainSettingsModal, setShowDomainSettingsModal] = useState(false);
@@ -20,6 +21,7 @@ const Domain: FC = () => {
 
   return (
     <div>
+      <Breadcrumb/>
       <Button onClick={() => router.back()}>Back</Button>
       <Button className="float-right" onClick={handleShowDomainSettingsModal}>
         Settings
