@@ -23,9 +23,6 @@ export class User extends Document {
   @Prop({ default: false })
   emailVerified: boolean;
 
-  @Prop({ default: false })
-  deleted: boolean;
-
   @Prop()
   createdAt: number;
 
