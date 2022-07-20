@@ -5,21 +5,29 @@ import { Page } from './etc/page.schema';
 import { User } from '@modules/user/etc/user.schema';
 import { CreatePageDTO } from './etc/create-page.dto';
 import { UpdatePageDTO } from './etc/update-page.dto';
+import { TagService } from '@modules/tag/tag.service';
 
 @Injectable()
 export class PageService {
   constructor(
+    private readonly tagService: TagService,
     @InjectModel('Page') private readonly pageModel: PaginateModel<Page>,
   ) {}
 
   async create(user: User, createPageDTO: CreatePageDTO) {
-    const { domainId, url, device } = createPageDTO;
-
+    const { domainId, tagId, url, device } = createPageDTO;
+    if (tagId) {
+      const tag = await this.tagService.get(user, tagId);
+      if (!tag) {
+        throw new UnprocessableEntityException('Tag not found');
+      }
+    }
     const pageModel = new this.pageModel({
       url: url,
       owner: user,
       domain: domainId,
       device: device,
+      ...(tagId && { tag: tagId }),
     });
 
     const result = await pageModel.save();
@@ -31,10 +39,12 @@ export class PageService {
     user: User,
     index: number,
     domainId?: string,
+    tagId?: string,
   ): Promise<PaginateResult<Page>> {
     const query = {
       owner: user,
       ...(domainId && { domain: domainId }),
+      ...(tagId && { tag: tagId }),
     };
 
     return this.pageModel.paginate(query, {

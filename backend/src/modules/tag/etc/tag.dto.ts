@@ -7,10 +7,13 @@ export class TagDTO {
   @ExposeId()
   @Expose()
   readonly _id: Types.ObjectId;
+
   @Expose()
   readonly name: string;
+
   @Expose()
   readonly color: string;
+
   @Expose()
   @Type(() => UserDTO)
   readonly owner: UserDTO;

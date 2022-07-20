@@ -39,8 +39,9 @@ export class PageController {
     @User() user,
     @Query('index') index: number,
     @Query('domainId') domainId?: string,
+    @Query('tagId') tagId?: string,
   ) {
-    return await this.pageService.getAllByUser(user, index, domainId);
+    return await this.pageService.getAllByUser(user, index, domainId, tagId);
   }
 
   @Get('/:id')
