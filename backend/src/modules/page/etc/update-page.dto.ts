@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePageDTO {
@@ -8,5 +8,6 @@ export class UpdatePageDTO {
 
   @ApiProperty()
   @IsString()
-  readonly tag?: string;
+  @IsOptional()
+  readonly tag: string;
 }
