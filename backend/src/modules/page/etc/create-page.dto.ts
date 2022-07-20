@@ -9,6 +9,10 @@ export class CreatePageDTO {
 
   @ApiProperty()
   @IsString()
+  readonly tagId?: string;
+
+  @ApiProperty()
+  @IsString()
   readonly url: string;
 
   @ApiProperty()

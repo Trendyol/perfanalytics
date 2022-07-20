@@ -5,4 +5,8 @@ export class UpdatePageDTO {
   @ApiProperty()
   @IsString()
   readonly url: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly tag?: string;
 }

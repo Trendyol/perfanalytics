@@ -25,6 +25,13 @@ export class Page extends Document {
     ref: 'Domain',
   })
   domain: string;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tag',
+    required: false,
+  })
+  tag: string;
 }
 
 export const PageSchema = SchemaFactory.createForClass(Page);
