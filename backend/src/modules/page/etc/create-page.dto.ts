@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Device } from '../enums';
 
@@ -9,7 +9,8 @@ export class CreatePageDTO {
 
   @ApiProperty()
   @IsString()
-  readonly tagId?: string;
+  @IsOptional()
+  readonly tagId: string;
 
   @ApiProperty()
   @IsString()

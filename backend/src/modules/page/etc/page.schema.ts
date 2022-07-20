@@ -29,7 +29,6 @@ export class Page extends Document {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag',
-    required: false,
   })
   tag: string;
 }
