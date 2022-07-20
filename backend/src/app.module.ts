@@ -10,6 +10,7 @@ import { UserModule } from '@user/user.module';
 import { SessionModule } from '@session/session.module';
 import { DomainModule } from '@domain/domain.module';
 import { PageModule } from '@modules/page/page.module';
+import { TagModule } from './modules/tag/tag.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { PageModule } from '@modules/page/page.module';
     SessionModule,
     DomainModule,
     PageModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [
