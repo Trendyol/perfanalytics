@@ -17,10 +17,10 @@ export const createDomain = ({ name, url }: CreateDomain) => {
 };
 
 export const updateDomain = (id: string, { name, url }: UpdateDomain) => {
-  return axiosInstance.put(`/domain?id=${id}`, {
+  return axiosInstance.put(`/domain/${id}`, {
     name: name,
     url: url,
-  });
+  }); 
 };
 
 export const deleteDomain = (id: string) => {

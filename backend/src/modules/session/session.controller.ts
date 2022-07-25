@@ -17,6 +17,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '@modules/user/user.service';
 import { GoogleGuard } from '@core/guards/google.guard';
 import config from '@config';
+import { CreateSessionParam } from './etc/create-session.param';
 @ApiTags('Session')
 @Controller('session')
 export class SessionController {
@@ -65,7 +66,8 @@ export class SessionController {
 
   @UseGuards(JwtGuard, RoleGuard)
   @Post(':id')
-  async createSessionForUser(@Param('id') id) {
+  async createSessionForUser(@Param() param: CreateSessionParam) {
+    const { id } = param;
     return await this.sessionService.createSessionForUser(id);
   }
 }

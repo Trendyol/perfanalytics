@@ -31,8 +31,6 @@ export class UserService {
   }
 
   async getByID(id: string): Promise<User> {
-    if (!isValidObjectId(id)) throw new BadRequestException();
-
     const exist = await this.userModel.findOne({ _id: id });
 
     if (!exist) throw new NotFoundException();
@@ -79,8 +77,6 @@ export class UserService {
     user: User,
     updateDTO: UpdatePasswordDTO,
   ): Promise<User> {
-    if (!isValidObjectId(user._id)) throw new BadRequestException();
-
     const exist = await this.userModel.findOne({ _id: user._id });
 
     if (!exist) throw new NotFoundException();

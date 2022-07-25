@@ -1,24 +1,18 @@
 import { ExposeId } from '@core/decorators/expose-id.decorator';
-import { TagDTO } from '@modules/tag/etc/tag.dto';
 import { UserDTO } from '@modules/user/etc/user.dto';
 import { Expose, Type } from 'class-transformer';
 import { Types } from 'mongoose';
-import { Device } from '../enums';
 
-export class PageDTO {
+export class TagDTO {
   @ExposeId()
   @Expose()
   readonly _id: Types.ObjectId;
 
   @Expose()
-  readonly url: string;
+  readonly name: string;
 
   @Expose()
-  readonly device: Device;
-
-  @Expose()
-  @Type(() => TagDTO)
-  readonly tag: TagDTO;
+  readonly color: string;
 
   @Expose()
   @Type(() => UserDTO)

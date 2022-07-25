@@ -1,6 +1,6 @@
 import { ExposeId } from '@core/decorators/expose-id.decorator';
 import { UserDTO } from '@modules/user/etc/user.dto';
-import { Expose, Transform, Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { Types } from 'mongoose';
 
 export class DomainDTO {

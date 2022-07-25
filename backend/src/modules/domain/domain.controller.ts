@@ -16,7 +16,11 @@ import { JwtGuard } from '@core/guards/jwt.guard';
 import { DomainService } from './domain.service';
 import { UpdateDomainDTO } from './etc/update.domain.dto';
 import { DomainDTO } from './etc/domain.dto';
-import { plainToInstance } from 'class-transformer';
+import mapToInstance from '@core/utils/mapper';
+import { DeleteDomainParam } from './etc/delete-domain.param';
+import { UpdateDomainParam } from './etc/update-domain.param';
+import { GetDomainParam } from './etc/get-domain.param';
+import { GetDomainsQuery } from './etc/get-domains.query';
 
 @ApiTags('Domain')
 @Controller('domain')
@@ -27,37 +31,39 @@ export class DomainController {
   @Post()
   async create(@User() user, @Body() createDomainDTO: CreateDomainDTO) {
     const domainData = await this.domainService.create(user, createDomainDTO);
-    const domainDTO = plainToInstance(DomainDTO, domainData, {
-      excludeExtraneousValues: true,
-    });
+    const domainDTO = mapToInstance(DomainDTO, domainData);
     return domainDTO;
   }
 
   @Get()
   @UseGuards(JwtGuard)
-  async getAllByUser(@User() user, @Query('index') index: number) {
+  async getAllByUser(@User() user, @Query() query: GetDomainsQuery) {
+    const { index } = query;
     return await this.domainService.getAllByUser(user, index);
   }
 
   @Get('/:id')
   @UseGuards(JwtGuard)
-  async get(@User() user, @Param('id') id: string) {
+  async get(@User() user, @Param() param: GetDomainParam) {
+    const { id } = param;
     return await this.domainService.get(user, id);
   }
 
   @Delete('/:id')
   @UseGuards(JwtGuard)
-  async remove(@User() user, @Param('id') id: string) {
+  async remove(@User() user, @Param() param: DeleteDomainParam) {
+    const { id } = param;
     return await this.domainService.remove(user, id);
   }
 
-  @Put()
+  @Put('/:id')
   @UseGuards(JwtGuard)
   async update(
     @User() user,
-    @Query('id') id: string,
+    @Param() param: UpdateDomainParam,
     @Body() updateDomainDTO: UpdateDomainDTO,
   ) {
+    const { id } = param;
     return await this.domainService.update(user, id, updateDomainDTO);
   }
 }

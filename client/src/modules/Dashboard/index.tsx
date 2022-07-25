@@ -5,7 +5,7 @@ import Button from "@components/shared/Form/Button";
 import DomainModal from "./components/DomainModal";
 import InfoCard from "@components/shared/InfoCard";
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: FC<HomeProps> = () => {
   const { t } = useTranslation("dashboard");
@@ -34,7 +34,7 @@ const Home: FC<HomeProps> = () => {
         <DomainModal show={showDomaiModal} onClose={handleCloseDomainModal} />
         <DomainTable />
       </div>
-    </div>
+    </>
   );
 };
 
