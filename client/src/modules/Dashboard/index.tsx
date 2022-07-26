@@ -34,7 +34,7 @@ const Home: FC<HomeProps> = () => {
         <DomainModal show={showDomaiModal} onClose={handleCloseDomainModal} />
         <DomainTable />
       </div>
-    </>
+    </div>
   );
 };
 

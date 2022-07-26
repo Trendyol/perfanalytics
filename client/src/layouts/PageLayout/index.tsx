@@ -12,7 +12,7 @@ const PageLayout: FC<PageLayout> = (props) => {
   const { children } = props;
 
   return (
-    <div className="flex max-h-screen bg-background overflow-hidden bg-gray-50">
+    <div className="min-w-[1600px] flex max-h-screen bg-background overflow-hidden bg-gray-50">
       <Head>
         <title>Perfanalytics</title>
         <meta name="description" content="..." />
