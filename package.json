@@ -1,0 +1,13 @@
+{
+  "name": "perfanalytics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Trendyol/perfanalytics.git",
+  "author": "Kayra Berk Tuncer <kayrabtuncer@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "husky": "^8.0.1"
+  }
+}
