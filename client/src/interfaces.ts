@@ -13,3 +13,9 @@ export interface DomainSettings {
   name: string;
   url: string;
 }
+
+export interface Page {
+  device: string;
+  url: string;
+  _id: string;
+}
