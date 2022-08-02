@@ -13,5 +13,9 @@
   "danger": "Danger Zone",
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete this domain?",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "add_page": "Add Page",
+  "add": "Add",
+  "page_url": "Page URL",
+  "device": "Device"
 }
