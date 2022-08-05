@@ -9,5 +9,8 @@
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "husky": "^8.0.1"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1"
   }
 }

@@ -1,14 +1,21 @@
 import React, { FC, ReactNode } from "react";
 import { Column, InfiniteLoader, Table } from "react-virtualized";
-import Spinner from "../Spinner";
+import clsx from "clsx";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const { data, length, isLoading, columnData, height = 340, width = 1300, rowHeight = 50, headerHeight = 40, onRowClick, onNextPage } = props;
+  const { data, length, isLoading, columnData, height = 340, width = 1300, rowHeight = 35, headerHeight = 40, onRowClick, onNextPage } = props;
 
   const noRowsRenderer = () => {
-    return <div className="flex items-center justify-center h-full">{isLoading ? <Spinner /> : null}</div>;
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <div className="flex justify-center items-center w-full h-full animate-pulse-slow bg-gray-100 text-3xl"></div>
+        <span className="absolute text-3xl text-gray-500">FETCHING DATA...</span>
+      </div>
+    );
   };
+
+  // TODO: Hover headerdan kaldir.
 
   return (
     <InfiniteLoader
@@ -26,9 +33,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
           rowHeight={rowHeight}
           rowCount={data.length}
           rowGetter={({ index }) => data[index]}
-          className="w-fit border border-gray-300 bg-white rounded-md text-xsmall"
-          headerClassName="normal-case text-center first:text-start"
-          rowClassName="border-b border-gray-300 pl-4 hover:bg-slate-100 cursor-pointer text-center"
+          className="w-fit bg-white rounded-md text-xs"
+          headerClassName="text-gray-500 flex !shrink-0 items-center normal-case justify-center first:justify-start"
+          rowClassName={({ index }: { index: number }) => clsx("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")}
           onRowsRendered={onRowsRendered}
           ref={registerChild}
           noRowsRenderer={noRowsRenderer}
@@ -39,8 +46,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               key={data.dataKey}
               label={data.label}
               dataKey={data.dataKey}
+              flexGrow={1}
               width={data.columnWidth ?? 300}
-              className="text-gray-500"
+              className="text-gray-400"
               cellRenderer={({ cellData, rowData }) => (data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData)}
             />
           ))}
@@ -63,8 +71,8 @@ interface CustomTableProps {
     columnWidth?: number;
     cellRenderer?: (cellData: any, rowData: any) => ReactNode;
   }>;
-  onNextPage: () => void;
   isLoading?: boolean;
+  onNextPage: () => void;
   onRowClick?: (rowData: any) => void;
 }
 

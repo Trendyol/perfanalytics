@@ -8,5 +8,6 @@
   "url_invalid": "Url is not valid",
   "success": "Success",
   "error": "Error",
-  "general": "General Configuration"
+  "general": "General Configuration",
+  "domains": "Domains"
 }

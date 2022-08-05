@@ -35,6 +35,9 @@ module.exports = {
           900: "#101828",
         },
       },
+      animation: {
+        "pulse-slow": "pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
     },
     screens: {
       xl: { max: "1279px" },
