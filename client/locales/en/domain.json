@@ -14,8 +14,9 @@
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete this domain?",
   "cancel": "Cancel",
-  "add_page": "Add Page",
+  "new_url": "+ New Url",
   "add": "Add",
   "page_url": "Page URL",
-  "device": "Device"
+  "device": "Device",
+  "paths": "Paths"
 }

@@ -51,7 +51,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
     <Modal
       show={show}
       onClose={onClose}
-      title={t("add_page")}
+      title={t("new_url")}
       footer={
         <div className="float-right">
           <Button onClick={onClose} type="submit" color="transparent" className="mr-2">
