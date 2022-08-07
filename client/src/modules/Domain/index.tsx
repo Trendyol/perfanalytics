@@ -4,15 +4,11 @@ import useDomain from "@hooks/useDomain";
 import Button from "@components/shared/Form/Button";
 import DomainSettingsModal from "./components/DomainSettingsModal";
 import Breadcrumb from "@components/shared/Breadcrumb";
-import PageTable from "./components/PageTable";
 import InfoCardContainer from "./components/InfoCardContainer";
-import PageModal from "./components/PageModal";
-import useTranslation from "next-translate/useTranslation";
+import PageContainer from "./components/PageContainer";
 
 const Domain: FC = () => {
   const [showDomainSettingsModal, setShowDomainSettingsModal] = useState(false);
-  const [showPageModal, setShowPageModal] = useState(false);
-  const { t } = useTranslation("domain");
   const router = useRouter();
   const { domainId } = router.query;
   const { domain } = useDomain(domainId as string);
@@ -23,14 +19,6 @@ const Domain: FC = () => {
 
   const handleCloseDomainSettingsModal = () => {
     setShowDomainSettingsModal(false);
-  };
-
-  const handleShowPageModal = () => {
-    setShowPageModal(true);
-  };
-
-  const handleClosePageModal = () => {
-    setShowPageModal(false);
   };
 
   return (
@@ -44,11 +32,7 @@ const Domain: FC = () => {
       <div>{domain?.name}</div>
       <div>{domain?.url}</div>
       <InfoCardContainer />
-      <Button onClick={handleShowPageModal} className="self-end mb-2">
-        {t("add_page")}
-      </Button>
-      <PageModal show={showPageModal} onClose={handleClosePageModal} />
-      <PageTable />
+      <PageContainer />
     </div>
   );
 };
