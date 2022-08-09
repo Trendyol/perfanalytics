@@ -5,6 +5,7 @@
     "*": ["common", "layout"],
     "/": ["dashboard"],
     "/dashboard/[domainId]": ["domain"],
+    "/dashboard/[domainId]/[pageId]": ["page"],
     "/login": ["login"],
     "/register": ["register"]
   },
