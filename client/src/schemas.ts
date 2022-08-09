@@ -51,3 +51,10 @@ export const addPageSchema = (t: any) => {
     device: Yup.string().required(t("field_required")),
   });
 };
+
+export const updatePageSchema = (t: any) => {
+  return Yup.object().shape({
+    url: Yup.string().url(t("url_invalid")).required(t("field_required")),
+    device: Yup.string().required(t("field_required")),
+  });
+};

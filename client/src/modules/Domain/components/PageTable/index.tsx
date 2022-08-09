@@ -13,12 +13,7 @@ const columnData = [
     label: "Name",
     cellRenderer: (name: string, { url }: { url: string }) => (
       <div className="flex items-center gap-2">
-        <Image
-          className="bg-white rounded-full"
-          src={getFavicon(url)}
-          width={28}
-          height={28}
-        />
+        <Image className="bg-white rounded-full" src={getFavicon(url)} width={28} height={28} />
         <div>{name}</div>
       </div>
     ),
@@ -27,73 +22,55 @@ const columnData = [
     dataKey: "avgFcp",
     label: "Avg FCP",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgSi",
     label: "Avg SI",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgLcp",
     label: "Avg LCP",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgTti",
     label: "Avg TTI",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgTbt",
     label: "Avg TBT",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgCls",
     label: "Avg CLS",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgFmp",
     label: "Avg FMP",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "avgPerf",
     label: "Avg PERF",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "overallScore",
     label: "Overall Score",
     columnWidth: 100,
-    cellRenderer: (score: number) => (
-      <ScoreBadge type={getBadgeType(score)} score={score} />
-    ),
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "lastReportDate",
@@ -105,9 +82,10 @@ const columnData = [
 const PageTable: FC<PageTableProps> = (props) => {
   const router = useRouter();
   const { pages, length, size, setSize, isLoading } = usePageInfinite();
+  const { domainId } = router.query;
 
   const handlePageClick = ({ _id }: { _id: string }) => {
-    router.push(`/page/${_id}`);
+    router.push(`/dashboard/${domainId}/${_id}`);
   };
 
   const handleNextPage = () => {

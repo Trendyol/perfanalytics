@@ -19,3 +19,8 @@ export interface Page {
   url: string;
   _id: string;
 }
+
+export interface PageSettings {
+  device: string;
+  url: string;
+}
