@@ -8,6 +8,10 @@ export class UpdatePageDTO {
 
   @ApiProperty()
   @IsString()
+  readonly device: string;
+
+  @ApiProperty()
+  @IsString()
   @IsOptional()
-  readonly tag: string;
+  readonly tagId: string;
 }
