@@ -13,7 +13,7 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
   };
 
   return (
-    <div className="flex gap-3 h-11">
+    <div className="flex gap-3 h-12">
       <CheckedColorBox color={checkedColor} />
       <div className="flex flex-col flex-wrap gap-1" onClick={handleColorBoxClick}>
         {colors.map((color) => (

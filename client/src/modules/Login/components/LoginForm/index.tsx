@@ -50,7 +50,7 @@ const LoginForm: FC = () => {
         <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("welcome_to_dashboard")}</p>
         <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("please_login")}</p>
       </div>
-      <div id="content" className="flex flex-col">
+      <div id="content" className="flex flex-col gap-4">
         <TextField
           name="email"
           type="email"
@@ -83,7 +83,7 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
       </div>
-      <Link href={"http://localhost:4000/session/google/callback"} >
+      <Link href={"http://localhost:4000/session/google/callback"}>
         <a>Google</a>
       </Link>
     </form>
