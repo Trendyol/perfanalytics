@@ -8,14 +8,8 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const TextField: FC<TextFieldProps> = ({ error, className, ...rest }) => {
   return (
-    <div className="mb-6 w-full">
-      <input
-        className={classNames(
-          "input w-full input-primary bg-gray-50 border-none rounded-sm",
-          className
-        )}
-        {...rest}
-      />
+    <div className="w-full">
+      <input className={classNames("input w-full input-primary bg-gray-50 border-none rounded-sm", className)} {...rest} />
       {error && <div className="text-sm text-red-600 mt-1">{error}</div>}
     </div>
   );

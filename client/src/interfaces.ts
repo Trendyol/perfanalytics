@@ -24,3 +24,14 @@ export interface PageSettings {
   device: string;
   url: string;
 }
+export interface TagResponse {
+  _id: string;
+  name: string;
+  color: string;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  color: string;
+}

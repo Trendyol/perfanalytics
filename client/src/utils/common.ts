@@ -1,3 +1,5 @@
+export const hasItem = (array: any[] | undefined | null): boolean => Boolean(array && array.length > 0);
+
 export const flattenNestedProperty = (property: any, array?: any[]) => {
   let flattenArray = [] as any;
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useTranslation from "next-translate/useTranslation";
@@ -37,7 +36,6 @@ const DangerForm = () => {
           {t("delete")}
         </Button>
       </div>
-      <Divider />
       <Modal show={showVerifyDeleteModal} onClose={() => setShowVerifyDeleteModal(false)}>
         <div>{t("verify_delete")}</div>
         <div className="w-full flex mt-4">

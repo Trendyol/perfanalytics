@@ -1,16 +1,13 @@
 import { FC, useState } from "react";
-import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
-import { getDomainKey } from "@utils/swr";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { toast } from "react-toastify";
-import { mutate, useSWRConfig } from "swr";
 
 interface DomainModalProps {
   show: boolean;
@@ -21,7 +18,6 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
   const { domains, mutateDomains, length } = useDomainInfinite();
-  const { cache } = useSWRConfig();
 
   const formik = useFormik({
     initialValues: { name: "", url: "" },
@@ -54,21 +50,19 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
       onClose={onClose}
       title={t("add_domain")}
       footer={
-        <div className="float-right">
+        <div className="flex justify-end">
           <Button onClick={onClose} type="submit" color="transparent" className="mr-2">
             {t("cancel")}
           </Button>
-          <Button onClick={() => formik.handleSubmit()} loading={addingDomain} type="submit" color="secondary">
+          <Button onClick={() => formik.handleSubmit()} loading={addingDomain} type="submit" color="primary">
             {t("add")}
           </Button>
         </div>
       }
     >
-      <Divider />
-      <form className="section w-full flex flex-col text-xl">
+      <form className="section w-full flex flex-col gap-3 text-xl">
         <TextField
           name="name"
-          className="mt-3"
           placeholder={t("name")}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}

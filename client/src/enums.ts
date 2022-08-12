@@ -1,8 +1,3 @@
-export enum NavlinkLocation {
-  SIDEBAR_CENTER,
-  SIDEBAR_FOOTER,
-}
-
 export enum UserDropdownItemType {
   INFO,
   ACTION,
@@ -22,4 +17,10 @@ export enum HttpCodes {
   FORBIDDEN = 403,
   NOT_FOUND = 404,
   INTERNAL_SERVER_ERROR = 500,
+}
+
+export enum TagAction {
+  ADD,
+  EDIT,
+  DELETE,
 }
