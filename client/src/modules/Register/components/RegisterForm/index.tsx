@@ -52,7 +52,7 @@ const RegisterForm: FC = () => {
         <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">{t("sign_up")}</h1>
         <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("see_what_capable_of")}</p>
       </div>
-      <div id="content" className="flex flex-col">
+      <div id="content" className="flex flex-col gap-4">
         <TextField
           name="name"
           type="text"

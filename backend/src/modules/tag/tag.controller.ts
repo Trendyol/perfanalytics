@@ -49,7 +49,7 @@ export class TagController {
     return await this.tagService.get(user, id);
   }
 
-  @Put('/id')
+  @Put('/:id')
   @UseGuards(JwtGuard)
   async update(
     @User() user,

@@ -65,23 +65,25 @@ const DomainTable: FC<DomainTableProps> = (props) => {
   };
 
   return (
-    <div className={clsx("flex flex-col gap-7", "bg-white px-9 py-6 rounded-lg drop-shadow-md", "text-xl font-semibold")}>
-      <div className="flex justify-between items-center">
-        <h3>{t("domains")}</h3>
-        <Button onClick={() => setShowDomainModal(true)} className="px-3 py-2">
-          {t("add_domain")}
-        </Button>
+    <>
+      <div className={clsx("flex flex-col gap-7", "bg-white px-9 py-6 rounded-lg drop-shadow-md", "text-xl font-semibold")}>
+        <div className="flex justify-between items-center">
+          <h3>{t("domains")}</h3>
+          <Button onClick={() => setShowDomainModal(true)} className="px-3 py-2">
+            {t("add_domain")}
+          </Button>
+        </div>
+        <CustomTable
+          data={domains}
+          length={length}
+          isLoading={isLoading}
+          columnData={columnData}
+          onNextPage={handleNextPage}
+          onRowClick={({ rowData }) => handleDomainClick(rowData)}
+        />
       </div>
-      <CustomTable
-        data={domains}
-        length={length}
-        isLoading={isLoading}
-        columnData={columnData}
-        onNextPage={handleNextPage}
-        onRowClick={({ rowData }) => handleDomainClick(rowData)}
-      />
       <DomainModal show={showDomainModal} onClose={() => setShowDomainModal(false)} />
-    </div>
+    </>
   );
 };
 

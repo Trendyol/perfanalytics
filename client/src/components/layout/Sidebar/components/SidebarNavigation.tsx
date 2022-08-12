@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { RiHashtag } from "react-icons/ri";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
@@ -15,7 +14,7 @@ const SidebarTagSection: FC<SidebarNavigationProps> = (props) => {
           <Link href="/dashboard">
             <a className="flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md cursor-pointer hover:bg-gray-200">
               <MdOutlineSpaceDashboard fontSize={24} />
-              <span className="mr-auto">Dashboard</span>
+              <span className="mr-auto">{t("dashboard")}</span>
             </a>
           </Link>
         </li>

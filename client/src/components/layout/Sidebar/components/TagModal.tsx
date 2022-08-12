@@ -46,7 +46,11 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           });
           break;
         case TagAction.EDIT:
-          result = await editTag(tag!);
+          result = await editTag({
+            id: tag!.id,
+            name: formik.values.name,
+            color: formik.values.checkedColor,
+          });
           break;
         case TagAction.DELETE:
           result = await deleteTag(tag!.id);
