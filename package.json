@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/Trendyol/perfanalytics.git",
-  "author": "Kayra Berk Tuncer <kayrabtuncer@gmail.com>",
+  "scripts": {
+    "install": "concurrently \"cd backend && yarn\" \"cd client &&  yarn\"",
+    "dev": "concurrently \"cd backend && yarn start:dev\" \"cd client && yarn dev\""
+  },
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
@@ -11,6 +14,7 @@
     "husky": "^8.0.1"
   },
   "dependencies": {
-    "clsx": "^1.2.1"
+    "clsx": "^1.2.1",
+    "concurrently": "^7.3.0"
   }
 }
