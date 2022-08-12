@@ -20,7 +20,7 @@
   "confirm_password": "Confirm Password",
   "password_mismatch": "Password mismatch",
   "success": "Success!",
-  "edit_button": "EDIT",
+  "add_button": "Add",
   "guest_name": "Guest",
   "guest_info_message": "What you can do is limited.",
   "member_message": "Member"

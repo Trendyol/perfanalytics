@@ -48,7 +48,7 @@ const NameForm: FC<NameFormProps> = () => {
         value={formik.values.name}
         error={formik.touched.name && formik.errors.name}
       />
-      <Button loading={updatingName} type="submit" color="secondary" className="ml-auto">
+      <Button loading={updatingName} type="submit" color="primary" className="ml-auto mt-5">
         {t("update")}
       </Button>
     </form>

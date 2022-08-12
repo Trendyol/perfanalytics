@@ -35,8 +35,8 @@ const PasswordForm: FC<PasswordFormProps> = () => {
   });
 
   return (
-    <form className="section w-full flex flex-col text-medium" onSubmit={formik.handleSubmit}>
-      <div className="mb-3 font-semibold text-sm">{t("update_password")}</div>
+    <form className="section w-full flex flex-col gap-3 text-medium" onSubmit={formik.handleSubmit}>
+      <div className="font-semibold text-sm">{t("update_password")}</div>
       <TextField
         name="oldPassword"
         type="password"
@@ -64,7 +64,7 @@ const PasswordForm: FC<PasswordFormProps> = () => {
         value={formik.values.confirmPassword}
         error={formik.touched.confirmPassword && formik.errors.confirmPassword}
       />
-      <Button loading={updatingPassword} color="secondary" className="ml-auto">
+      <Button loading={updatingPassword} color="primary" className="ml-auto mt-2">
         {t("update")}
       </Button>
     </form>

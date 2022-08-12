@@ -38,7 +38,7 @@ const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium",
       )}
       {...rest}
     >
-      {children}
+      {!loading && children}
     </button>
   );
 };

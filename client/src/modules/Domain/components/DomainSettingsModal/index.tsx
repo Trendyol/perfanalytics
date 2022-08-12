@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useTranslation from "next-translate/useTranslation";
@@ -62,19 +61,17 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
       onClose={onClose}
       title={t("domain_settings")}
       footer={
-        <div className="float-right">
+        <div className="flex justify-end">
           <Button color="transparent" className="mr-2">
             {t("cancel")}
           </Button>
-          <Button onClick={() => formik.submitForm()} loading={updatingDomain} color="secondary">
+          <Button onClick={() => formik.submitForm()} loading={updatingDomain} color="primary">
             {t("update")}
           </Button>
         </div>
       }
     >
-      <Divider />
       <UpdateSection formik={formik} />
-      <Divider />
       <DangerSection />
     </Modal>
   );

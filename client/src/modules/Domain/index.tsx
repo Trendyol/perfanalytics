@@ -24,10 +24,10 @@ const Domain: FC = () => {
   return (
     <div>
       <Breadcrumb />
-      <Button onClick={() => router.back()}>Back</Button>
-      <Button className="float-right" onClick={handleShowDomainSettingsModal}>
-        Settings
-      </Button>
+      <div className="flex justify-between">
+        <Button onClick={() => router.back()}>Back</Button>
+        <Button onClick={handleShowDomainSettingsModal}>Settings</Button>
+      </div>
       <DomainSettingsModal show={showDomainSettingsModal} onClose={handleCloseDomainSettingsModal} />
       <div>{domain?.name}</div>
       <div>{domain?.url}</div>
