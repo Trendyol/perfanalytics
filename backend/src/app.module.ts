@@ -11,6 +11,7 @@ import { SessionModule } from '@session/session.module';
 import { DomainModule } from '@domain/domain.module';
 import { PageModule } from '@modules/page/page.module';
 import { TagModule } from './modules/tag/tag.module';
+import { LighthouseModule } from '@modules/lighthouse/lighthouse.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TagModule } from './modules/tag/tag.module';
     DomainModule,
     PageModule,
     TagModule,
+    LighthouseModule,
   ],
   controllers: [AppController],
   providers: [
