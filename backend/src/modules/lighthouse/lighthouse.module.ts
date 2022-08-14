@@ -3,8 +3,15 @@ import { Producer } from 'kafkajs';
 import { KafkaProducerProvider } from './kafka-producer.provider';
 import { LighthouseController } from './lighthouse.controller';
 import { LighthouseService } from './lighthouse.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { MongooseModule } from '@nestjs/mongoose';
+import { PageSchema } from '@modules/page/etc/page.schema';
 
 @Module({
+  imports: [
+    ScheduleModule.forRoot(),
+    MongooseModule.forFeature([{ name: 'Page', schema: PageSchema }]),
+  ],
   controllers: [LighthouseController],
   providers: [LighthouseService, KafkaProducerProvider],
 })
