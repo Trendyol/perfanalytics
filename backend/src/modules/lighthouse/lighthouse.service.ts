@@ -12,14 +12,17 @@ export class LighthouseService {
     @InjectModel('Page') private readonly pageModel: Model<Page>,
   ) {}
 
-  @Cron(CronExpression.EVERY_5_SECONDS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
     const pages = await this.getPages();
 
     pages.forEach((page) => {
       const lighthousePayload = {
-        fullUrl: page.domain.url + page.url,
+        url: page.domain.url + page.url,
+        owner: page.owner,
+        domainId: page.domain._id,
         pageId: page._id,
+        device: page.device,
       };
 
       this.sendMessage(lighthousePayload);
@@ -39,7 +42,7 @@ export class LighthouseService {
       topic: 'lh',
       messages: [
         {
-          value: JSON.stringify({ msg: message }),
+          value: JSON.stringify({ message }),
         },
       ],
     });

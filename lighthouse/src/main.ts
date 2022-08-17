@@ -15,6 +15,6 @@ async function bootstrap() {
       bufferLogs: true,
     },
   );
-  app.listen();
+  await app.listen();
 }
 bootstrap();
