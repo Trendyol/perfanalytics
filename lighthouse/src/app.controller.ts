@@ -1,10 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AppService } from './app.service';
+import { LighthousePayload } from './modules/lighthouse/dto/lighthouse.payload';
+import { LighthouseService } from './modules/lighthouse/lighthouse.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly lighthouseService: LighthouseService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -12,17 +17,7 @@ export class AppController {
   }
 
   @MessagePattern('lh')
-  async respondToTestTopic(@Payload() message) {
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('done');
-      }, 3000);
-    }).then((res) => {
-      console.log(res);
-    });
-
-    await promise;
-    console.log('promise ended', message.msg);
-    return 'Hello World';
+  async respondToLighthouseTopic(@Payload() payload: LighthousePayload) {
+    return await this.lighthouseService.initLighthouse(payload.message);
   }
 }
