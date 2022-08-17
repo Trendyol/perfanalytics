@@ -11,6 +11,7 @@ const nextConfig = {
   images: {
     domains: ["t1.gstatic.com"],
   },
+  swcMinify: true,
 };
 
 module.exports = nextConfig;

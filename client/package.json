@@ -14,7 +14,7 @@
     "classnames": "^2.3.1",
     "daisyui": "^2.17.0",
     "formik": "^2.2.9",
-    "next": "12.1.6",
+    "next": "^12.2.5",
     "next-translate": "^1.4.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
