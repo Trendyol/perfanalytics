@@ -22,9 +22,7 @@ const columnData = [
     dataKey: "overallScore",
     label: "Overall Score",
     columnWidth: 150,
-    cellRenderer: (cellData: number) => (
-      <ScoreBadge type={getBadgeType(cellData)} score={cellData} />
-    ),
+    cellRenderer: (cellData: number) => <ScoreBadge type={getBadgeType(cellData)} score={cellData} />,
   },
   {
     dataKey: "slackChannel",
@@ -857,14 +855,7 @@ const data = [
 ];
 
 const SiteTable: FC<SiteTableProps> = () => {
-  return (
-    <CustomTable
-      onNextPage={() => {}}
-      onRowClick={() => {}}
-      columnData={columnData}
-      data={data}
-    />
-  );
+  return <CustomTable onNextPage={() => {}} onRowClick={() => {}} columnData={columnData} data={data} length={0} />;
 };
 
 interface SiteTableProps {}
