@@ -23,6 +23,8 @@ export class LighthouseService {
   async initLighthouse(lighthouseMessage: LighthouseMessage) {
     const lighthouse = await this.lighthouseModel.create({
       status: Status.PENDING,
+      domain: lighthouseMessage.domainId,
+      page: lighthouseMessage.pageId,
       audits: {},
       ...lighthouseMessage,
     });

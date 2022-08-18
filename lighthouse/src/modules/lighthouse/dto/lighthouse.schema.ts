@@ -2,10 +2,7 @@ import mongoose, { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Status, Device } from '../enums';
 
-@Schema({
-  versionKey: false,
-  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
-})
+@Schema({ timestamps: true })
 export class Lighthouse extends Document {
   @Prop()
   url: string;

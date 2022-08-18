@@ -3,10 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 import { RoleType } from '@enums/role.enum';
 
-@Schema({
-  versionKey: false,
-  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
-})
+@Schema({ timestamps: true })
 export class User extends Document {
   @Prop({ required: true })
   name: string;

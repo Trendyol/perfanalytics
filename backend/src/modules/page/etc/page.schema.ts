@@ -3,10 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 import { Device } from '../enums';
 
-@Schema({
-  versionKey: false,
-  timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
-})
+@Schema({ timestamps: true })
 export class Page extends Document {
   @Prop({ required: true })
   url: string;
