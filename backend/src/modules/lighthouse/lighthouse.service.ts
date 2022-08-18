@@ -15,7 +15,6 @@ export class LighthouseService {
   @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
     const pages = await this.getPages();
-
     pages.forEach((page) => {
       const lighthousePayload = {
         url: page.domain.url + page.url,
