@@ -31,3 +31,10 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Init kafka topics
+
+```bash
+$ docker-compose up -d
+$ docker-compose exec kafka kafka-topics --bootstrap-server broker:9092 --topic lh --create --replication-factor 1 --partitions 2
+```

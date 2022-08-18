@@ -4,7 +4,7 @@ export enum Device {
 }
 
 export enum Status {
-  PENDING = 'PENDING',
-  DONE = 'DONE',
-  ERROR = 'ERROR',
+  PENDING = 0,
+  DONE = 1,
+  ERROR = 2,
 }
