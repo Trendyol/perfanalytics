@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { config } from '@config';
 import { LighthouseModule } from './modules/lighthouse/lighthouse.module';
-import { LighthouseService } from './modules/lighthouse/lighthouse.service';
 
 @Module({
   imports: [
@@ -16,6 +14,5 @@ import { LighthouseService } from './modules/lighthouse/lighthouse.service';
     LighthouseModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
