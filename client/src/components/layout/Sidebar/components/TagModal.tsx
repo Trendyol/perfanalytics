@@ -9,8 +9,9 @@ import { toast } from "react-toastify";
 import ColorPicker from "@components/shared/ColorPicker";
 import { HttpCodes, TagAction } from "@enums";
 import { createTag, deleteTag, editTag } from "@services/tagService";
-import { mutate } from "swr";
 import { Tag } from "@interfaces";
+import { useRouter } from "next/router";
+import useTags from "@hooks/useTag";
 
 interface TagModalProps {
   type: "add" | "edit";
@@ -21,8 +22,11 @@ interface TagModalProps {
 
 const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
   const [isProcessContinue, setIsProcessContinue] = useState(false);
-
   const { t } = useTranslation("dashboard");
+  const router = useRouter();
+  const { domainId } = router.query;
+  const { mutateTag } = useTags(domainId as string);
+
   const formik = useFormik({
     initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "" },
     validateOnChange: false,
@@ -43,6 +47,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           result = await createTag({
             name: formik.values.name,
             color: formik.values.checkedColor,
+            domainId: domainId as string,
           });
           break;
         case TagAction.EDIT:
@@ -61,7 +66,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
 
       if ([HttpCodes.OK, HttpCodes.CREATED].includes(result?.status!)) {
         toast.success(t("success"));
-        mutate("/tag?index=0");
+        mutateTag();
         formik.resetForm();
         onClose();
       } else {

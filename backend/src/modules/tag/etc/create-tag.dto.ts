@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsMongoId, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTagDTO {
@@ -9,4 +9,8 @@ export class CreateTagDTO {
   @ApiProperty()
   @IsString()
   readonly color: string;
+
+  @ApiProperty()
+  @IsMongoId()
+  readonly domainId: string;
 }

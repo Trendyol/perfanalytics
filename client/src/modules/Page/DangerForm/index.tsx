@@ -14,7 +14,7 @@ const DangerForm = () => {
   const [deletingPage, setDeletingPage] = useState(false);
   const { pageId, domainId } = router.query;
   const { page } = usePage(pageId as string);
-  const { mutatePages } = usePageInfinite();
+  const { mutatePages } = usePageInfinite(domainId as string);
   const { t } = useTranslation("page");
 
   const handleCloseVerifyDeleteModal = () => {

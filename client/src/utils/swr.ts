@@ -22,7 +22,7 @@ export const getUserData = async (context: any) => {
   return data;
 };
 
-export const getPageKey = (pageIndex: number, previousPageData?: any) => {
+export const getPageKey = (domainId: string, pageIndex: number, previousPageData?: any) => {
   if (previousPageData && !previousPageData?.hasNextPage) return null;
-  return `/page?index=${pageIndex}`;
-}
+  return `/page?index=${pageIndex}&domainId=${domainId}`;
+};

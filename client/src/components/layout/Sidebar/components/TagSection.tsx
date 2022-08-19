@@ -2,7 +2,7 @@ import Button from "@components/shared/Form/Button";
 import useTags from "@hooks/useTag";
 import { Tag } from "@interfaces";
 import { hasItem } from "@utils/common";
-import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { RiHashtag } from "react-icons/ri";
@@ -11,8 +11,9 @@ import TagModal from "./TagModal";
 
 const TagSection = () => {
   const [showTag, setShowTag] = useState(false);
-  const { t } = useTranslation("layout");
-  const { tags } = useTags();
+  const router = useRouter();
+  const { domainId } = router.query;
+  const { tags } = useTags(domainId as string);
 
   const handleTagEditClick = () => {
     setShowTag(true);

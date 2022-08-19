@@ -13,12 +13,13 @@ export class TagService {
   ) {}
 
   async create(user: User, createTagDTO: CreateTagDTO) {
-    const { name, color } = createTagDTO;
+    const { name, color, domainId } = createTagDTO;
 
     const tagModel = new this.tagModel({
       name: name,
       color: color,
       owner: user,
+      domain: domainId,
     });
 
     const result = await tagModel.save();
@@ -26,9 +27,9 @@ export class TagService {
     return result;
   }
 
-  async getAllByUser(user: User, index: number) {
+  async getAllByUser(user: User, index: number, domainId: string) {
     return this.tagModel.paginate(
-      { owner: user },
+      { owner: user, domain: domainId },
       {
         sort: { createdAt: -1 },
         domain: Number(index) + 1,

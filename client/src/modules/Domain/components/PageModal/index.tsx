@@ -19,9 +19,9 @@ interface PageModalProps {
 const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("domain");
   const [addingPage, setAddingPage] = useState(false);
-  const { pages, mutatePages, length } = usePageInfinite();
   const router = useRouter();
   const { domainId } = router.query;
+  const { pages, mutatePages, length } = usePageInfinite(domainId as string);
 
   const formik = useFormik({
     initialValues: { domainId: domainId as string, url: "", device: "" },

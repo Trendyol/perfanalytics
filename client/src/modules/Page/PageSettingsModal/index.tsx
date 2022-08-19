@@ -23,9 +23,9 @@ const PageSettingsModal: FC<PageSettingsModalProps> = ({ show, onClose }) => {
   const [updatingPage, setUpdatingPage] = useState(false);
   const router = useRouter();
   const { t } = useTranslation("page");
-  const { pageId } = router.query;
+  const { pageId, domainId } = router.query;
   const { page, mutatePage } = usePage(pageId as string);
-  const { mutatePages } = usePageInfinite();
+  const { mutatePages } = usePageInfinite(domainId as string);
 
   const formik = useFormik({
     initialValues: { url: page?.url || "", device: page?.device || "" },

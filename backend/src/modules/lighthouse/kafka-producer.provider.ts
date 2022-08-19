@@ -12,7 +12,7 @@ export const KafkaProducerProvider = {
           brokers: brokerURLs,
         },
         producer: {
-          allowAutoTopicCreation: false,
+          allowAutoTopicCreation: true,
         },
       },
     });

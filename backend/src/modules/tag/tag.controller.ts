@@ -38,8 +38,8 @@ export class TagController {
   @Get()
   @UseGuards(JwtGuard)
   async getAllByUser(@User() user, @Query() query: GetTagsParam) {
-    const { index } = query;
-    return await this.tagService.getAllByUser(user, index);
+    const { index, domainId } = query;
+    return await this.tagService.getAllByUser(user, index, domainId);
   }
 
   @Get('/:id')

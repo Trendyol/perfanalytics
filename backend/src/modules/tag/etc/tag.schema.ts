@@ -15,6 +15,12 @@ export class Tag extends Document {
     ref: 'User',
   })
   owner: string;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Domain',
+  })
+  domain: string;
 }
 
 export const TagSchema = SchemaFactory.createForClass(Tag);
