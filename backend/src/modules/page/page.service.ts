@@ -100,4 +100,13 @@ export class PageService {
 
     return this.pageModel.updateOne({ _id: id }, updatePageDTO);
   }
+
+  async getCount(user: User, domainId?: string) {
+    const count = await this.pageModel.countDocuments({
+      owner: user,
+      ...(domainId && { domain: domainId }),
+    });
+
+    return count;
+  }
 }

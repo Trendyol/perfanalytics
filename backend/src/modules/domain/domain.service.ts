@@ -87,4 +87,12 @@ export class DomainService {
 
     return this.domainModel.updateOne({ _id: id }, updateDomainDTO);
   }
+
+  async getCount(user: User) {
+    const count = await this.domainModel.countDocuments({
+      owner: user,
+    });
+
+    return count;
+  }
 }
