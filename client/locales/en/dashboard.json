@@ -15,5 +15,7 @@
   "success": "Success",
   "error": "Error",
   "general": "General Configuration",
-  "domains": "Domains"
+  "domains": "Domains",
+  "pageCount": "Page Count",
+  "domainCount": "Domain Count"
 }

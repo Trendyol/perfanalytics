@@ -36,3 +36,8 @@ export interface Tag {
   color: string;
   domainId: string;
 }
+
+export interface DashboardMetrics {
+  pageCount?: number;
+  domainCount?: number;
+}

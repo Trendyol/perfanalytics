@@ -2,7 +2,7 @@
   "locales": ["en", "tr"],
   "defaultLocale": "en",
   "pages": {
-    "*": ["common", "layout"],
+    "*": ["common", "layout", "dashboard"],
     "/": ["dashboard"],
     "/dashboard/[domainId]": ["domain"],
     "/dashboard/[domainId]/[pageId]": ["page"],

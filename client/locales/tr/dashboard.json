@@ -1,7 +1,7 @@
 {
   "dashboard": "dashboard module en",
   "add_domain": "Add Domain",
-  "add_tag": "Add Tag",
+  "add_tag": "Tag ekle",
   "edit_tag": "Edit Tag",
   "name": "Name",
   "color": "Color",
@@ -15,5 +15,7 @@
   "success": "Success",
   "error": "Error",
   "general": "General Configuration",
-  "domains": "Domains"
+  "domains": "Domains",
+  "pageCount": "Sayfası Sayısı",
+  "domainCount": "Alanadı Sayısı"
 }
