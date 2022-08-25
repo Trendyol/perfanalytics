@@ -6,7 +6,6 @@ import useTranslation from "next-translate/useTranslation";
 const InfoCardContainer: FC = () => {
   const { t } = useTranslation("dashboard");
 
-  // TODO: hook into InfoCard 
   const { dashboardMetrics, isLoading, isError } = useDashboardMetric("");
   if (isError) {
     return <>"Loading dashboard metrics failed"</>;

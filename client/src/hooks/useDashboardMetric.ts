@@ -2,8 +2,8 @@ import { fetcher } from "@utils/fetcher";
 import { DashboardMetrics } from "src/interfaces";
 import useSWR from "swr";
 
-const useDasboardMetric = (id: string) => {
-    const { data, error, mutate } = useSWR<DashboardMetrics>(`/dashboard${id !== '' ? `/?=${id}` : ''}`, fetcher, {
+const useDashboardMetric = (id: string) => {
+    const { data, error, mutate } = useSWR<DashboardMetrics>('/dashboard' + (id !== '' ? `/?domainId=${id}` : ''), fetcher, {
         revalidateIfStale: false,
         revalidateOnFocus: false,
     });
@@ -16,4 +16,4 @@ const useDasboardMetric = (id: string) => {
     };
 };
 
-export default useDasboardMetric;
+export default useDashboardMetric;
