@@ -6,6 +6,7 @@ import { deleteDomain } from "@services/domainService";
 import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
 import useDomainInfinite from "@hooks/useDomainInfinite";
+import useDashboardMetric from "@hooks/useDashboardMetric";
 
 const DangerForm = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const DangerForm = () => {
   const { domain } = useDomain(domainId as string);
   const { mutateDomains } = useDomainInfinite();
   const { t } = useTranslation("domain");
+  const { mutateDashboardMetrics } = useDashboardMetric();
 
   const handleCloseVerifyDeleteModal = () => {
     setShowVerifyDeleteModal(false);
@@ -25,6 +27,7 @@ const DangerForm = () => {
     setDeletingDomain(true);
     await deleteDomain(domain._id);
     await mutateDomains();
+    await mutateDashboardMetrics();
     router.push("/");
   };
 

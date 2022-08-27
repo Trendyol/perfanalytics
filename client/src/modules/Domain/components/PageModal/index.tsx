@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { createPage } from "@services/pageService";
 import usePageInfinite from "@hooks/usePageInfinite";
 import { useRouter } from "next/router";
+import useDashboardMetric from "@hooks/useDashboardMetric";
 
 interface PageModalProps {
   show: boolean;
@@ -22,6 +23,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const router = useRouter();
   const { domainId } = router.query;
   const { pages, mutatePages, length } = usePageInfinite(domainId as string);
+  const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
 
   const formik = useFormik({
     initialValues: { domainId: domainId as string, url: "", device: "" },
@@ -39,6 +41,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
     try {
       const result = await createPage(values);
       mutatePages([{ docs: [result.data, ...pages], totalDocs: length + 1 }], false);
+      mutateDashboardMetrics();
       toast.success(t("success"));
       onClose();
     } catch (error) {

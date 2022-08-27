@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import usePage from "@hooks/usePage";
 import usePageInfinite from "@hooks/usePageInfinite";
 import { deletePage } from "@services/pageService";
+import useDashboardMetric from "@hooks/useDashboardMetric";
 
 const DangerForm = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const DangerForm = () => {
   const { pageId, domainId } = router.query;
   const { page } = usePage(pageId as string);
   const { mutatePages } = usePageInfinite(domainId as string);
+  const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
   const { t } = useTranslation("page");
 
   const handleCloseVerifyDeleteModal = () => {
@@ -26,6 +28,7 @@ const DangerForm = () => {
     setDeletingPage(true);
     await deletePage(page._id);
     await mutatePages();
+    await mutateDashboardMetrics();
     router.push(`/dashboard/${domainId}`);
   };
 

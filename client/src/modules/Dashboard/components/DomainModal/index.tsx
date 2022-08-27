@@ -8,6 +8,7 @@ import { createDomain } from "@services/domainService";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { toast } from "react-toastify";
+import useDashboardMetric from "@hooks/useDashboardMetric";
 
 interface DomainModalProps {
   show: boolean;
@@ -18,7 +19,8 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
   const { domains, mutateDomains, length } = useDomainInfinite();
-
+  const { mutateDashboardMetrics } = useDashboardMetric();
+  
   const formik = useFormik({
     initialValues: { name: "", url: "" },
     validateOnChange: false,
@@ -35,6 +37,7 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     try {
       const result = await createDomain(values);
       mutateDomains([{ docs: [result.data, ...domains], totalDocs: length + 1 }], false);
+      mutateDashboardMetrics();
       toast.success(t("success"));
       onClose();
     } catch (error) {
