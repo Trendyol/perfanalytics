@@ -6,6 +6,7 @@ const COLORS = {
   secondary: "bg-secondary text-white",
   transparent: "bg-transparent border-none text-gray-500 hover:bg-gray-200",
   danger: "btn-error text-white",
+  light: "text-gray-400 hover:bg-gray-100  border border-gray-300"
 };
 
 const SIZES = {

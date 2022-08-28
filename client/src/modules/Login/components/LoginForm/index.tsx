@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import { loginSchema } from "@schemas";
 import { createSession } from "@services/userService";
 import useUser from "@hooks/useUser";
+import { FcGoogle } from "react-icons/fc";
+import Divider from "@components/shared/Divider";
 
 const LoginForm: FC = () => {
   const { mutateUser } = useUser();
@@ -42,7 +44,7 @@ const LoginForm: FC = () => {
   return (
     <form
       id="container"
-      className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-12 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]"
+      className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-4 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]"
       onSubmit={formik.handleSubmit}
     >
       <div id="header">
@@ -83,9 +85,13 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
       </div>
-      <Link href={"http://localhost:4000/session/google/callback"}>
-        <a>Google</a>
-      </Link>
+      <div className="divider mt-0 mb-0 text-slate-300">OR</div>
+      <Button size="large" color="light">
+        <FcGoogle fontSize={18} />
+        <Link href={"http://localhost:4000/session/google/callback"}>
+          <span className="pl-2 text-xs">{t("Continue with Google")}</span>
+        </Link>
+      </Button>
     </form>
   );
 };

@@ -8,6 +8,9 @@ import { registerSchema } from "@schemas";
 import { toast } from "react-toastify";
 import useUser from "@hooks/useUser";
 import { createSession, createUser } from "@services/userService";
+import { FcGoogle } from "react-icons/fc";
+import Link from "next/link";
+
 
 const RegisterForm: FC = () => {
   const { mutateUser } = useUser();
@@ -45,7 +48,7 @@ const RegisterForm: FC = () => {
   return (
     <form
       id="container"
-      className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-12 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]"
+      className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-4 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]"
       onSubmit={formik.handleSubmit}
     >
       <div id="header">
@@ -80,12 +83,28 @@ const RegisterForm: FC = () => {
           value={formik.values.password}
           error={formik.touched.password && formik.errors.password}
         />
+        <TextField
+          name="password"
+          type="password"
+          placeholder={t("password")}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.password}
+          error={formik.touched.password && formik.errors.password}
+        />
       </div>
       <div id="actions">
         <Button fluid type="submit" size="large">
           {t("register")}
         </Button>
       </div>
+      <div className="divider mt-0 mb-0 text-slate-300">OR</div>
+          <Button size="large" color="light">
+            <FcGoogle fontSize={18} />
+            <Link href={"http://localhost:4000/session/google/callback"}>
+              <span className="pl-2 text-xs">{t("Continue with Google")}</span>
+            </Link>
+          </Button>
     </form>
   );
 };
