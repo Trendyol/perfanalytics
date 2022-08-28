@@ -75,7 +75,7 @@ const LoginForm: FC = () => {
           <span className="flex items-center">
             <Checkbox name="remember" label={t("remember_me")} onChange={formik.handleChange} />
           </span>
-          <Link href="/">
+          <Link href="/recover">
             <span className="text-primary cursor-pointer text-sm sm:text-xs">{t("recover_password")}</span>
           </Link>
         </div>

@@ -7,7 +7,9 @@
     "/dashboard/[domainId]": ["domain"],
     "/dashboard/[domainId]/[pageId]": ["page"],
     "/login": ["login"],
-    "/register": ["register"]
+    "/register": ["register"],
+    "/recover": ["recover"],
+    "/reset-password": ["reset-password"]
   },
   "defaultNS": "common",
   "logBuild": false

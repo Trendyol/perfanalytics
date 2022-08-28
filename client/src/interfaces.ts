@@ -34,7 +34,7 @@ export interface Tag {
   id: string;
   name: string;
   color: string;
-  domainId: string;
+  domainId?: string;
 }
 
 export interface DashboardMetrics {
