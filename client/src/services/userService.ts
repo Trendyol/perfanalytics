@@ -27,6 +27,14 @@ export const createSession = ({ email, password }: CreateSession) => {
   });
 };
 
+export const recoverPassword = (email : string, language: string) => {
+  return axiosInstance.post("user/recover-password", { email, language });
+}
+
+export const changeUserPassword = (token: string, password: string) => {
+  return axiosInstance.post("user/password-change", { token, password });
+}
+
 export const createUser = ({ name, email, password }: CreateUser) => {
   return axiosInstance.post("/user", {
     name: name,

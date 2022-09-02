@@ -37,6 +37,7 @@ const RegisterForm: FC = () => {
       name: "",
       email: "",
       password: "",
+      verifyPassword: "",
     },
     validateOnChange: false,
     validationSchema: () => registerSchema(t),
@@ -84,13 +85,13 @@ const RegisterForm: FC = () => {
           error={formik.touched.password && formik.errors.password}
         />
         <TextField
-          name="password"
+          name="verifyPassword"
           type="password"
-          placeholder={t("password")}
+          placeholder={t("verify_password")}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.password}
-          error={formik.touched.password && formik.errors.password}
+          value={formik.values.verifyPassword}
+          error={formik.touched.verifyPassword && formik.errors.verifyPassword}
         />
       </div>
       <div id="actions">

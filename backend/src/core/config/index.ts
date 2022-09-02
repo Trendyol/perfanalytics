@@ -13,6 +13,14 @@ export interface Config {
     secret: string;
     expiresIn: string;
   };
+  jwtForPasswordRecovery: {
+    secret: string;
+    expiresIn: string;
+  };
+  email: {
+    address: string;
+    password: string;
+  };
   google: {
     callbackUrl: string;
     clientSecret: string;
@@ -31,6 +39,14 @@ export const config = {
   jwt: {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
+  },
+  jwtForPasswordRecovery: {
+    secret: process.env.JWT_SECRET_PASSWORD_RECOVER,
+    expiresIn: process.env.JWT_EXPIRES_IN_PASSWORD_RECOVER,
+  },
+  email: {
+    address: process.env.EMAIL_ADDRESS,
+    password: process.env.EMAIL_PASSWORD,
   },
   secret: process.env.SECRET,
   google: {

@@ -11,7 +11,6 @@ import { loginSchema } from "@schemas";
 import { createSession } from "@services/userService";
 import useUser from "@hooks/useUser";
 import { FcGoogle } from "react-icons/fc";
-import Divider from "@components/shared/Divider";
 
 const LoginForm: FC = () => {
   const { mutateUser } = useUser();

@@ -16,6 +16,19 @@ import mapToInstance from '@core/utils/mapper';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Post('recover-password')
+  async recoverPassword(@Body() createDTO) {
+    return await this.userService.recoverPassword(
+      createDTO.email,
+      createDTO.language,
+    );
+  }
+
+  @Post('password-change')
+  async changePassword(@Body() { token, password }) {
+    return await this.userService.changeUserPassword(token, password);
+  }
+
   @Post()
   async create(@Body() createDTO: CreateUserDTO) {
     return await this.userService.create(createDTO);

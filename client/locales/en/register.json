@@ -7,6 +7,8 @@
   "name": "Name",
   "email": "Email",
   "password": "Password",
+  "verify_password": "Verify Password",
+  "password_mismatch": "Password mismatch",
   "sign_up": "Sign Up",
   "password_short": "Password must be at least 8 characters long",
   "password_long": "Password can't be longer than 50 characters",

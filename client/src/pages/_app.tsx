@@ -11,7 +11,7 @@ const App = (props: AppProps) => {
   const { Component, pageProps } = props;
   const router = useRouter();
 
-  if (LAYOUT_EXCLUDED_PAGES.includes(router.asPath)) {
+  if (LAYOUT_EXCLUDED_PAGES.includes(router.route)) {
     return (
       <>
         <Component {...pageProps} />;

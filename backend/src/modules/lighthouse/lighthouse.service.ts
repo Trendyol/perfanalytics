@@ -17,7 +17,7 @@ export class LighthouseService {
     const pages = await this.getPages();
     pages.forEach((page) => {
       const lighthousePayload = {
-        url: page.domain.url + page.url,
+        url: page.domain?.url + page?.url,
         owner: page.owner,
         domainId: page.domain._id,
         pageId: page._id,

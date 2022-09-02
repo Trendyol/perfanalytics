@@ -10,9 +10,11 @@
 	"field_required": "Required",
 	"invalid_email": "Invalid email",
 	"recover_my_password": "Reset my password",
+	"error": "Something went wrong",
 	"recover_email_sent": "Your recover mail sent please check your email!",
 	"mail_not_sent": "If you did not receive the password reset email:",
 	"mail_not_sent_reason_1": "It may take up to 10 minutes for the password reset email to arrive.",
 	"mail_not_sent_reason_2": "Check your spam and other e-mail boxes.",
-	"mail_not_sent_reason_3": "Check that the e-mail address you entered is correct."
+	"mail_not_sent_reason_3": "Check that the e-mail address you entered is correct.",
+	"email_mismatch": "Email mismatch"
 }

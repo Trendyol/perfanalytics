@@ -4,6 +4,10 @@ import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
+import { recoverPassword } from "@services/userService";
+import { toast } from "react-toastify";
+import { recoverSchema } from "@schemas";
+import { DEFAULT_LANGUAGE } from "@constants";
 
 const RecoverForm: FC = () => {
   const { t } = useTranslation("recover");
@@ -11,11 +15,12 @@ const RecoverForm: FC = () => {
   const router = useRouter();
 
   const handleClick = async (values: { email: string; emailVerify: string; }) => {
+    const lang = router.locale || DEFAULT_LANGUAGE;
     try {
-      if (values.email === values.emailVerify && values.email.length) {
-        setMailSend(true)
-      }
+      await recoverPassword(values.email, lang);
+      setMailSend(true);
     } catch (error) {
+      toast.error(t("error"));
     }
   };
 
@@ -25,6 +30,7 @@ const RecoverForm: FC = () => {
       emailVerify: ""
     },
     validateOnChange: false,
+    validationSchema: () => recoverSchema(t),
     onSubmit: (values) => {
       handleClick(values);
     },
