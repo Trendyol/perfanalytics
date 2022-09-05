@@ -27,8 +27,8 @@ import { PageService } from './page.service';
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
-  @UseGuards(JwtGuard)
   @Post()
+  @UseGuards(JwtGuard)
   async create(@User() user, @Body() createPageDTO: CreatePageDTO) {
     const pageData = await this.pageService.create(user, createPageDTO);
     const pageDTO = mapToInstance(PageDTO, pageData);

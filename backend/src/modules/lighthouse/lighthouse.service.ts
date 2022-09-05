@@ -3,13 +3,17 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectModel } from '@nestjs/mongoose';
 import { Producer } from 'kafkajs';
-import { Model } from 'mongoose';
+import { Model, PaginateModel } from 'mongoose';
 import { Domain } from '@modules/domain/etc/domain.schema';
+import { Lighthouse } from './etc/lighthouse.schema';
+import { User } from '@modules/user/etc/user.schema';
 @Injectable()
 export class LighthouseService {
   constructor(
     @Inject('KafkaProducer') private readonly kafkaProducer: Producer,
     @InjectModel('Page') private readonly pageModel: Model<Page>,
+    @InjectModel('Lighthouse')
+    private readonly lighthouseModel: PaginateModel<Lighthouse>,
   ) {}
 
   @Cron(CronExpression.EVERY_MINUTE)
@@ -45,5 +49,14 @@ export class LighthouseService {
         },
       ],
     });
+  }
+
+  async get(user: User, startDate: string, endDate: string): Promise<any> {
+    const query = {
+      owner: user,
+      createdAt: { $gte: startDate, $lte: endDate },
+    };
+
+    return this.lighthouseModel.find(query);
   }
 }

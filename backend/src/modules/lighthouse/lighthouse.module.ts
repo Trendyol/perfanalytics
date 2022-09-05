@@ -6,11 +6,15 @@ import { LighthouseService } from './lighthouse.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PageSchema } from '@modules/page/etc/page.schema';
+import { LighthouseSchema } from './etc/lighthouse.schema';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    MongooseModule.forFeature([{ name: 'Page', schema: PageSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Page', schema: PageSchema },
+      { name: 'Lighthouse', schema: LighthouseSchema },
+    ]),
   ],
   controllers: [LighthouseController],
   providers: [LighthouseService, KafkaProducerProvider],
