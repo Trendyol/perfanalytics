@@ -1,7 +1,8 @@
 import { User } from '@core/decorators/user.decorator';
 import { JwtGuard } from '@core/guards/jwt.guard';
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { GetAnalyticsParam } from './etc/get-analytics.param';
 import { GetLighthouseQuery } from './etc/get-lighthouse.query';
 import { LighthouseService } from './lighthouse.service';
 
@@ -15,5 +16,22 @@ export class LighthouseController {
   async get(@User() user, @Query() query: GetLighthouseQuery) {
     const { startDate, endDate } = query;
     return await this.lighthouseService.get(user, startDate, endDate);
+  }
+
+  @Get('/analytics/:pageId')
+  @UseGuards(JwtGuard)
+  async getAnalytics(
+    @User() user,
+    @Query() query: GetLighthouseQuery,
+    @Param() param: GetAnalyticsParam,
+  ) {
+    const { startDate, endDate } = query;
+    const { pageId } = param;
+    return await this.lighthouseService.getAnalytics(
+      user,
+      startDate,
+      endDate,
+      pageId,
+    );
   }
 }

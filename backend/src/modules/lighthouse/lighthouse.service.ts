@@ -7,6 +7,7 @@ import { Model, PaginateModel } from 'mongoose';
 import { Domain } from '@modules/domain/etc/domain.schema';
 import { Lighthouse } from './etc/lighthouse.schema';
 import { User } from '@modules/user/etc/user.schema';
+import { usefulAudits } from './constants';
 @Injectable()
 export class LighthouseService {
   constructor(
@@ -51,12 +52,48 @@ export class LighthouseService {
     });
   }
 
-  async get(user: User, startDate: string, endDate: string): Promise<any> {
+  async get(user: User, startDate: string, endDate: string) {
     const query = {
       owner: user,
       createdAt: { $gte: startDate, $lte: endDate },
     };
 
     return this.lighthouseModel.find(query);
+  }
+
+  async getAnalytics(
+    user: User,
+    startDate: string,
+    endDate: string,
+    pageId: string,
+  ) {
+    const audits = {};
+    usefulAudits.map((audit) => {
+      audits[audit] = { $avg: `$audits.${audit}` };
+    });
+
+    const result = this.lighthouseModel.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              createdAt: { $gte: new Date(startDate), $lte: new Date(endDate) },
+            },
+            { owner: user._id },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: {
+            page: pageId,
+          },
+          count: { $sum: 1 },
+          ...audits,
+        },
+      },
+    ]);
+
+    return result;
   }
 }

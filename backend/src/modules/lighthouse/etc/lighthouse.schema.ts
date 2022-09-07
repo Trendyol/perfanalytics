@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Status, Device } from './enums';
+import { Status, Device } from '../enums';
 
 @Schema({ timestamps: true })
 export class Lighthouse extends Document {
