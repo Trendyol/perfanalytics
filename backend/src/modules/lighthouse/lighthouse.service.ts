@@ -52,9 +52,10 @@ export class LighthouseService {
     });
   }
 
-  async get(user: User, startDate: string, endDate: string) {
+  async get(user: User, startDate: string, endDate: string, pageId: string) {
     const query = {
       owner: user,
+      page: pageId,
       createdAt: { $gte: startDate, $lte: endDate },
     };
 

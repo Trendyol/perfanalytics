@@ -14,8 +14,8 @@ export class LighthouseController {
   @Get()
   @UseGuards(JwtGuard)
   async get(@User() user, @Query() query: GetLighthouseQuery) {
-    const { startDate, endDate } = query;
-    return await this.lighthouseService.get(user, startDate, endDate);
+    const { startDate, endDate, pageId } = query;
+    return await this.lighthouseService.get(user, startDate, endDate, pageId);
   }
 
   @Get('/analytics/:pageId')

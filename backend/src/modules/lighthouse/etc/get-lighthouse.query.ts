@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString } from 'class-validator';
+import { IsDateString, IsMongoId } from 'class-validator';
 
 export class GetLighthouseQuery {
   @ApiProperty()
@@ -9,4 +9,8 @@ export class GetLighthouseQuery {
   @ApiProperty()
   @IsDateString()
   endDate: string;
+
+  @ApiProperty({ required: false })
+  @IsMongoId()
+  pageId?: string;
 }
