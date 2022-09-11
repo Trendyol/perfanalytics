@@ -1,7 +1,10 @@
 {
-    "update": "Update",
-    "cancel": "Cancel",
-    "page_settings": "Page Settings",
-    "delete": "Delete",
-    "verify_delete": "Are you sure want to delete this page?"
+  "update": "Update",
+  "cancel": "Cancel",
+  "page_settings": "Page Settings",
+  "delete": "Delete",
+  "verify_delete": "Are you sure want to delete this page?",
+  "danger": "Danger!",
+  "page_url": "Page URL",
+  "device": "Device"
 }

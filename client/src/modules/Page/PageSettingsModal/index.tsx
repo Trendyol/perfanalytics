@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
-import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useTranslation from "next-translate/useTranslation";
 import usePage from "@hooks/usePage";
-import DangerSection from "../DangerForm";
+import DangerSection from "../DangerSection";
 import UpdateSection from "../GeneralForm";
 import usePageInfinite from "@hooks/usePageInfinite";
 import { useRouter } from "next/router";
@@ -57,25 +56,17 @@ const PageSettingsModal: FC<PageSettingsModalProps> = ({ show, onClose }) => {
   };
 
   return (
-    <Modal
-      show={show}
-      onClose={onClose}
-      title={t("Page_settings")}
-      footer={
-        <div className="float-right">
-          <Button color="transparent" className="mr-2">
-            {t("cancel")}
-          </Button>
-          <Button onClick={() => formik.submitForm()} loading={updatingPage} color="secondary">
-            {t("update")}
-          </Button>
-        </div>
-      }
-    >
-      <Divider />
+    <Modal show={show} onClose={onClose} title={t("page_settings")}>
       <UpdateSection formik={formik} />
-      <Divider />
-      <DangerSection />
+      <div className="flex">
+        <DangerSection />
+        <Button color="transparent" className="mr-2">
+          {t("cancel")}
+        </Button>
+        <Button onClick={() => formik.submitForm()} loading={updatingPage} color="primary">
+          {t("update")}
+        </Button>
+      </div>
     </Modal>
   );
 };

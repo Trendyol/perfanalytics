@@ -19,60 +19,6 @@ const columnData = [
     ),
   },
   {
-    dataKey: "avgFcp",
-    label: "Avg FCP",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgSi",
-    label: "Avg SI",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgLcp",
-    label: "Avg LCP",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgTti",
-    label: "Avg TTI",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgTbt",
-    label: "Avg TBT",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgCls",
-    label: "Avg CLS",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgFmp",
-    label: "Avg FMP",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "avgPerf",
-    label: "Avg PERF",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "overallScore",
-    label: "Overall Score",
-    columnWidth: 100,
-    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
     dataKey: "lastReportDate",
     label: "Last Report Date",
     columnWidth: 200,
@@ -92,16 +38,14 @@ const PageTable: FC<PageTableProps> = (props) => {
   };
 
   return (
-    <div>
-      <CustomTable
-        data={pages}
-        length={length}
-        isLoading={isLoading}
-        columnData={columnData}
-        onNextPage={handleNextPage}
-        onRowClick={({ rowData }) => handlePageClick(rowData)}
-      />
-    </div>
+    <CustomTable
+      data={pages}
+      length={length}
+      isLoading={isLoading}
+      columnData={columnData}
+      onNextPage={handleNextPage}
+      onRowClick={({ rowData }) => handlePageClick(rowData)}
+    />
   );
 };
 

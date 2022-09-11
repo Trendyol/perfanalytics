@@ -20,7 +20,7 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const [addingDomain, setAddingDomain] = useState(false);
   const { domains, mutateDomains, length } = useDomainInfinite();
   const { mutateDashboardMetrics } = useDashboardMetric();
-  
+
   const formik = useFormik({
     initialValues: { name: "", url: "" },
     validateOnChange: false,
@@ -48,39 +48,37 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   };
 
   return (
-    <Modal
-      show={show}
-      onClose={onClose}
-      title={t("add_domain")}
-      footer={
-        <div className="flex justify-end">
-          <Button onClick={onClose} type="submit" color="transparent" className="mr-2">
-            {t("cancel")}
-          </Button>
-          <Button onClick={() => formik.handleSubmit()} loading={addingDomain} type="submit" color="primary">
-            {t("add")}
-          </Button>
+    <Modal show={show} onClose={onClose} title={t("add_domain")}>
+      <form className="section w-full flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
+          <h5 className="text-[14px] font-medium text-gray-500">{t("name")}</h5>
+          <TextField
+            name="name"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            error={formik.touched.name && formik.errors.name}
+          />
         </div>
-      }
-    >
-      <form className="section w-full flex flex-col gap-3 text-xl">
-        <TextField
-          name="name"
-          placeholder={t("name")}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-          error={formik.touched.name && formik.errors.name}
-        />
-        <TextField
-          name="url"
-          placeholder={t("domain_url")}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.url}
-          error={formik.touched.url && formik.errors.url}
-        />
+        <div className="flex flex-col gap-2">
+          <h5 className="text-[14px] font-medium text-gray-500">{t("domain_url")}</h5>
+          <TextField
+            name="url"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.url}
+            error={formik.touched.url && formik.errors.url}
+          />
+        </div>
       </form>
+      <div className="flex justify-end">
+        <Button onClick={onClose} type="submit" color="transparent" className="mr-2">
+          {t("cancel")}
+        </Button>
+        <Button onClick={() => formik.handleSubmit()} loading={addingDomain} type="submit" color="primary">
+          {t("add")}
+        </Button>
+      </div>
     </Modal>
   );
 };

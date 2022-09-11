@@ -1,18 +1,18 @@
-import React, { FC } from "react";
-import Head from "next/head";
-import Header from "@components/layout/Header";
 import Footer from "@components/layout/Footer";
+import Header from "@components/layout/Header";
 import Sidebar from "@components/layout/Sidebar";
+import Head from "next/head";
+import React, { FC } from "react";
 
-interface PageLayout {
+interface PageLayoutProps {
   children: React.ReactNode;
 }
 
-const PageLayout: FC<PageLayout> = (props) => {
+const PageLayout: FC<PageLayoutProps> = (props) => {
   const { children } = props;
 
   return (
-    <div className="min-w-[1600px] flex bg-background overflow-hidden bg-gray-50">
+    <div className="min-w-[1600px] flex min-h-screen bg-background overflow-hidden bg-gray-50">
       <Head>
         <title>Perfanalytics</title>
         <meta name="description" content="..." />

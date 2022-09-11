@@ -1,18 +1,22 @@
-import React, { FC, ReactNode } from "react";
-import { Column, InfiniteLoader, Table } from "react-virtualized";
 import clsx from "clsx";
-import "react-virtualized/styles.css";
 import useTranslation from "next-translate/useTranslation";
+import { FC, ReactNode } from "react";
+import { AutoSizer, Column, InfiniteLoader, Table } from "react-virtualized";
+import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const { data, length, isLoading, columnData, height = 340, width = 1300, rowHeight = 35, headerHeight = 40, onRowClick, onNextPage } = props;
-  const { t } = useTranslation("layout");
+  const { data, length, isLoading, columnData, rowHeight = 35, headerHeight = 40, onRowClick, onNextPage } = props;
+
+  const { t } = useTranslation("common");
 
   const noRowsRenderer = () => {
     return (
-      <div className="w-full h-full flex justify-center items-center">
-        <div className="flex justify-center items-center w-full h-full animate-pulse-slow bg-gray-100 text-3xl"></div>
-        <span className="absolute text-3xl text-gray-500">{isLoading ? t("loading") : t("no_result")}</span>
+      <div
+        className={clsx("flex justify-center items-center w-full h-full rounded-b-lg bg-gray-100 text-displaySm text-gray-500", {
+          "animate-pulse-slow": isLoading,
+        })}
+      >
+        {isLoading ? t("fetching_data_placeholder") : t("no_data")}
       </div>
     );
   };
@@ -26,33 +30,39 @@ const CustomTable: FC<CustomTableProps> = (props) => {
       threshold={9}
     >
       {({ onRowsRendered, registerChild }) => (
-        <Table
-          width={width}
-          height={height}
-          headerHeight={headerHeight}
-          rowHeight={rowHeight}
-          rowCount={data.length}
-          rowGetter={({ index }) => data[index]}
-          className="w-fit bg-white rounded-md text-xs"
-          headerClassName="text-gray-500 flex !shrink-0 items-center normal-case justify-center first:justify-start"
-          rowClassName={({ index }: { index: number }) => clsx("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")}
-          onRowsRendered={onRowsRendered}
-          ref={registerChild}
-          noRowsRenderer={noRowsRenderer}
-          onRowClick={onRowClick}
-        >
-          {columnData.map((data) => (
-            <Column
-              key={data.dataKey}
-              label={data.label}
-              dataKey={data.dataKey}
-              flexGrow={1}
-              width={data.columnWidth ?? 300}
-              className="text-gray-400"
-              cellRenderer={({ cellData, rowData }) => (data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData)}
-            />
-          ))}
-        </Table>
+        <AutoSizer defaultHeight={340} disableHeight>
+          {({ width }) => (
+            <Table
+              width={width}
+              height={340}
+              headerHeight={headerHeight}
+              rowHeight={rowHeight}
+              rowCount={data.length}
+              rowGetter={({ index }) => data[index]}
+              className="bg-white rounded-lg text-xs"
+              headerClassName="text-sm font-normal text-gray-400 flex !shrink-0 items-center normal-case justify-center first:justify-start"
+              rowClassName={({ index }: { index: number }) =>
+                clsx("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")
+              }
+              onRowsRendered={onRowsRendered}
+              ref={registerChild}
+              noRowsRenderer={noRowsRenderer}
+              onRowClick={onRowClick}
+            >
+              {columnData.map((data) => (
+                <Column
+                  key={data.dataKey}
+                  label={data.label}
+                  dataKey={data.dataKey}
+                  flexGrow={1}
+                  width={100}
+                  className="text-gray-400"
+                  cellRenderer={({ cellData, rowData }) => (data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData)}
+                />
+              ))}
+            </Table>
+          )}
+        </AutoSizer>
       )}
     </InfiniteLoader>
   );

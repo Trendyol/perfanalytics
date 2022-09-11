@@ -15,6 +15,7 @@ const SettingsModal: FC<SettingsModalProps> = ({ show, onClose }) => {
   return (
     <Modal show={show} onClose={onClose} title={t("user_settings")}>
       <NameForm />
+      <div className="h-px bg-gray-200 -mx-5"></div>
       <PasswordForm />
     </Modal>
   );

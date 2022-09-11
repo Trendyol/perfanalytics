@@ -1,0 +1,7 @@
+.checkboxLabel {
+  @apply flex items-center gap-2 cursor-pointer select-none;
+
+  input:checked + div {
+    @apply border-primary text-primary;
+  }
+}

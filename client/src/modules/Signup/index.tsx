@@ -1,13 +1,13 @@
 import { FC } from "react";
-import RecoverForm from "./components/RecoverForm";
+import SignupForm from "./components/SignupForm";
 import RegistrationLayout from "@layouts/RegistrationLayout";
 
-const Recover: FC = () => {
+const Signup: FC = () => {
   return (
     <RegistrationLayout>
-      <RecoverForm />
+      <SignupForm />
     </RegistrationLayout>
   );
 };
 
-export default Recover;
+export default Signup;

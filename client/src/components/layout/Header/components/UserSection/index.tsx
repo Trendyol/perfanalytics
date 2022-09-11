@@ -48,17 +48,6 @@ const UserSection: FC<UserSectionProps> = () => {
           </div>
         }
       >
-        <DropdownItem type={UserDropdownItemType.INFO}>
-          <div className="flex flex-col w-full items-center gap-1 p-4 border-b-gray-200 border-b">
-            <div className="rounded-full bg-gray-500 p-2 w-10 h-10 flex justify-center items-center">
-              <AiOutlineUser fontSize={20} className="text-gray-100" />
-            </div>
-            <div className="text-center">
-              <h3 className="capitalize text-lg text-gray-500 font-semibold">{user ? user.name : t("guest_name")}</h3>
-              <p className="text-gray-400 text-sm font-medium">{user ? t("member_message") : t("guest_info_message")}</p>
-            </div>
-          </div>
-        </DropdownItem>
         {user && (
           <DropdownItem onClick={handleShowSettingsModal}>
             <Button color="transparent" size="small" fluid className="h-10 rounded-none">

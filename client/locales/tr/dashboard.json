@@ -2,6 +2,7 @@
   "dashboard": "dashboard module en",
   "add_domain": "ADD DOMAIN",
   "add_tag": "Tag ekle",
+  "new_url": "New URL",
   "edit_tag": "Edit Tag",
   "name": "Name",
   "color": "Color",
@@ -15,7 +16,6 @@
   "url_invalid": "Url is not valid",
   "success": "Success",
   "error": "Error",
-  "general": "General Configuration",
   "domains": "Domains",
   "pageCount": "Sayfası Sayısı",
   "domainCount": "Alanadı Sayısı"

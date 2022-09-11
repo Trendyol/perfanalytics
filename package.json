@@ -11,6 +11,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@types/nodemailer": "^6.4.5",
     "husky": "^8.0.1"
   },
   "dependencies": {

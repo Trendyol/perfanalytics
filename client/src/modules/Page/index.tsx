@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "@components/shared/Form/Button";
 import PageSettingsModal from "./PageSettingsModal";
+import Breadcrumb from "@components/shared/Breadcrumb";
 
 const Page: FC = () => {
   const router = useRouter();
@@ -17,11 +18,16 @@ const Page: FC = () => {
 
   return (
     <div>
-      <Button onClick={() => router.back()}>Back</Button>
-      <Button className="float-right" onClick={handleShowPageSettingsModal}>
-        Settings
-      </Button>
-      <PageSettingsModal show={showPageSettingsModal} onClose={handleClosePageSettingsModal} />
+      <div className="flex justify-between items-top">
+        <div className="mb-10">
+          <Breadcrumb />
+          <h3 className="text-md">Example</h3>
+        </div>
+        <Button className="mt-3" onClick={handleShowPageSettingsModal}>
+          Settings
+        </Button>
+        <PageSettingsModal show={showPageSettingsModal} onClose={handleClosePageSettingsModal} />
+      </div>
     </div>
   );
 };

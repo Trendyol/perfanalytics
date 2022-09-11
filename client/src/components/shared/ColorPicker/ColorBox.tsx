@@ -13,7 +13,11 @@ const ColorBox: FC<ColorBoxProps> = (props) => {
       htmlFor="colorBox"
       data-checked={isChecked}
       data-color={color}
-      className={classNames("flex justify-center items-center h-[calc(50%-2px)] aspect-square pointer rounded text-white", color, !color && "bg-gray-100")}
+      className={classNames(
+        "flex justify-center items-center h-[calc(50%-2px)] aspect-square pointer rounded text-white cursor-pointer",
+        color,
+        !color && "bg-gray-100"
+      )}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >

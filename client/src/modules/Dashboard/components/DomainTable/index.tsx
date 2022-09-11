@@ -1,14 +1,16 @@
-import React, { FC, useState } from "react";
-import clsx from "clsx";
 import CustomTable from "@components/shared/CustomTable";
+import Button from "@components/shared/Form/Button";
+import Icon from "@components/shared/Icon";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
+import { DEFAULT_TAG } from "@constants";
+import useDomainInfinite from "@hooks/useDomainInfinite";
 import { getFavicon } from "@utils/common";
+import clsx from "clsx";
+import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import useDomainInfinite from "@hooks/useDomainInfinite";
-import Button from "@components/shared/Form/Button";
-import useTranslation from "next-translate/useTranslation";
+import { FC, useState } from "react";
 import DomainModal from "../DomainModal";
 
 const columnData = [
@@ -39,11 +41,6 @@ const columnData = [
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
-    dataKey: "slackChannel",
-    label: "Slack Channel",
-    columnWidth: 1,
-  },
-  {
     dataKey: "lastReportDate",
     label: "Last Report Date",
     columnWidth: 1,
@@ -66,11 +63,12 @@ const DomainTable: FC<DomainTableProps> = (props) => {
 
   return (
     <>
-      <div className={clsx("flex flex-col gap-7", "bg-white px-9 py-6 rounded-lg drop-shadow-md", "text-xl font-semibold")}>
+      <div className={clsx("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md", "text-xl font-semibold")}>
         <div className="flex justify-between items-center">
-          <h3>{t("domains")}</h3>
-          <Button onClick={() => setShowDomainModal(true)} className="px-3 py-2">
-            {t("add_domain")}
+          <h3 className="text-displayXs">{t("domains")}</h3>
+          <Button onClick={() => setShowDomainModal(true)} className="flex gap-1 px-3 py-2">
+            <Icon name="plus" />
+            {t("new_url")}
           </Button>
         </div>
         <CustomTable
