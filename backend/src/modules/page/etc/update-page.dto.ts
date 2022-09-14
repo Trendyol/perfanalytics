@@ -13,5 +13,5 @@ export class UpdatePageDTO {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  readonly tagId: string;
+  readonly tag: string;
 }

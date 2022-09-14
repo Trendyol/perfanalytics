@@ -1,12 +1,14 @@
 import Button from "@components/shared/Form/Button";
-import { generateTagLink } from "@utils/link";
+import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { MdModeEditOutline } from "react-icons/md";
 import TagModal from "./TagModal";
 
 const TagItem: FC<SidebarSubItemProps> = (props) => {
   const { id, name, color } = props;
+  const router = useRouter();
 
   const [showTag, setShowTag] = useState(false);
 
@@ -15,10 +17,22 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
     setShowTag(true);
   };
 
+  const isActive = router.query.tagId === id;
+
   return (
     <>
-      <Link href={generateTagLink(name)}>
-        <a key={name} className="flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer">
+      <Link
+        href={{
+          pathname: router.pathname,
+          query: { ...router.query, ...(id && { tagId: id }) },
+        }}
+      >
+        <a
+          key={name}
+          className={classNames("flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer", {
+            "bg-gray-200": isActive,
+          })}
+        >
           <div className={`w-6 h-6 rounded-full ${color}`}></div>
           <div>{name}</div>
           <Button

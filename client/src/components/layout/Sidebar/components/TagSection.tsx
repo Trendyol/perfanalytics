@@ -1,7 +1,7 @@
 import Button from "@components/shared/Form/Button";
+import { DEFAULT_TAG } from "@constants";
 import useTags from "@hooks/useTag";
 import { Tag } from "@interfaces";
-import { hasItem } from "@utils/common";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { MdAdd } from "react-icons/md";
@@ -19,6 +19,12 @@ const TagSection = () => {
     setShowTag(true);
   };
 
+  if (domainId === undefined) {
+    return null;
+  }
+
+  const allTags = [DEFAULT_TAG, ...(tags ? tags : [])];
+
   return (
     <li className="flex flex-col items-stretch justify-between font-medium">
       <div className="flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md">
@@ -29,17 +35,13 @@ const TagSection = () => {
         </Button>
         <TagModal type="add" show={showTag} onClose={() => setShowTag(false)} />
       </div>
-      {hasItem(tags) && (
-        <ul className="ml-5 flex flex-col">
-          {tags?.map((tag: Tag) => (
-            <TagItem key={tag.name} id={tag.id} name={tag.name} color={tag.color} />
-          ))}
-        </ul>
-      )}
+      <ul className="ml-5 flex flex-col">
+        {allTags.map((tag: Tag) => (
+          <TagItem key={tag.name} id={tag.id} name={tag.name} color={tag.color} />
+        ))}
+      </ul>
     </li>
   );
 };
-
-interface TagSectionProps {}
 
 export default TagSection;
