@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import clsx from "clsx";
 import CustomTable from "@components/shared/CustomTable";
 import ScoreBadge from "@components/shared/ScoreBadge";
@@ -10,6 +10,7 @@ import useDomainInfinite from "@hooks/useDomainInfinite";
 import Button from "@components/shared/Form/Button";
 import useTranslation from "next-translate/useTranslation";
 import DomainModal from "../DomainModal";
+import { DEFAULT_TAG } from "@constants";
 
 const columnData = [
   {
@@ -57,7 +58,7 @@ const DomainTable: FC<DomainTableProps> = (props) => {
   const { domains, length, size, setSize, isLoading } = useDomainInfinite();
 
   const handleDomainClick = ({ _id }: { _id: string }) => {
-    router.push(`/dashboard/${_id}`);
+    router.push(`/dashboard/${_id}?tagId=${DEFAULT_TAG.id}`);
   };
 
   const handleNextPage = () => {

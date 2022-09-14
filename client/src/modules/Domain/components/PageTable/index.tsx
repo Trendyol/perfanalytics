@@ -81,9 +81,8 @@ const columnData = [
 
 const PageTable: FC<PageTableProps> = (props) => {
   const router = useRouter();
-  const { domainId } = router.query;
-  const { pages, length, size, setSize, isLoading } = usePageInfinite(domainId as string);
-
+  const { domainId, tagId } = router.query;
+  const { pages, length, size, setSize, isLoading } = usePageInfinite(domainId as string, tagId as string);
   const handlePageClick = ({ _id }: { _id: string }) => {
     router.push(`/dashboard/${domainId}/${_id}`);
   };
