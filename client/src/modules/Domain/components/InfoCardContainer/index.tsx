@@ -10,9 +10,6 @@ const InfoCardContainer: FC = () => {
   const { domainId } = router.query;
 
   const { dashboardMetrics, isLoading, isError } = useDashboardMetric(domainId as string);
-  if (isError) {
-    return <>"Loading domain metrics failed"</>;
-  }
 
   return (
     <div className="flex flex-row w-full gap-5">

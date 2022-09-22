@@ -2,20 +2,20 @@ import React, { FC, ReactNode } from "react";
 import { Column, InfiniteLoader, Table } from "react-virtualized";
 import clsx from "clsx";
 import "react-virtualized/styles.css";
+import useTranslation from "next-translate/useTranslation";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
   const { data, length, isLoading, columnData, height = 340, width = 1300, rowHeight = 35, headerHeight = 40, onRowClick, onNextPage } = props;
+  const { t } = useTranslation("layout");
 
   const noRowsRenderer = () => {
     return (
       <div className="w-full h-full flex justify-center items-center">
         <div className="flex justify-center items-center w-full h-full animate-pulse-slow bg-gray-100 text-3xl"></div>
-        <span className="absolute text-3xl text-gray-500">FETCHING DATA...</span>
+        <span className="absolute text-3xl text-gray-500">{isLoading ? t("loading") : t("no_result")}</span>
       </div>
     );
   };
-
-  // TODO: Hover headerdan kaldir.
 
   return (
     <InfiniteLoader

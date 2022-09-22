@@ -23,5 +23,7 @@
   "add_button": "Add",
   "guest_name": "Guest",
   "guest_info_message": "What you can do is limited.",
-  "member_message": "Member"
+  "member_message": "Member",
+  "loading": "Loading",
+  "no_result": "No Result"
 }

@@ -11,7 +11,6 @@ const Domain: FC = () => {
   const [showDomainSettingsModal, setShowDomainSettingsModal] = useState(false);
   const router = useRouter();
   const { domainId } = router.query;
-  const { domain } = useDomain(domainId as string);
 
   const handleShowDomainSettingsModal = () => {
     setShowDomainSettingsModal(true);
@@ -23,15 +22,14 @@ const Domain: FC = () => {
 
   return (
     <div>
-      <Breadcrumb />
       <div className="flex justify-between">
-        <Button onClick={() => router.back()}>Back</Button>
+        <Breadcrumb />
         <Button onClick={handleShowDomainSettingsModal}>Settings</Button>
       </div>
-      <DomainSettingsModal show={showDomainSettingsModal} onClose={handleCloseDomainSettingsModal} />
-      <div>{domain?.name}</div>
-      <div>{domain?.url}</div>
       <InfoCardContainer />
+
+      <DomainSettingsModal show={showDomainSettingsModal} onClose={handleCloseDomainSettingsModal} />
+
       <PageContainer />
     </div>
   );

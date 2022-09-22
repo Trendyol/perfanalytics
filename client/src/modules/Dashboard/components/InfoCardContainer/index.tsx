@@ -7,10 +7,6 @@ const InfoCardContainer: FC = () => {
   const { t } = useTranslation("dashboard");
   const { dashboardMetrics, isLoading, isError } = useDashboardMetric();
 
-  if (isError) {
-    return <>"Loading dashboard metrics failed"</>;
-  }
-
   return (
     <div className="flex flex-row w-full gap-5">
       {isLoading && (

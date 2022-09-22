@@ -4,6 +4,7 @@ import Button from "@components/shared/Form/Button";
 import DomainModal from "./components/DomainModal";
 import InfoCardContainer from "./components/InfoCardContainer";
 import useTranslation from "next-translate/useTranslation";
+import Breadcrumb from "@components/shared/Breadcrumb";
 
 interface HomeProps {}
 
@@ -20,12 +21,10 @@ const Home: FC<HomeProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-full">
+    <div className="min-h-full">
+      <Breadcrumb />
       <div className="flex flex-col">
         <InfoCardContainer />
-        <Button onClick={handleShowDomainModal} className="self-end mb-2">
-          {t("add_domain")}
-        </Button>
         <DomainModal show={showDomainModal} onClose={handleCloseDomainModal} />
         <DomainTable />
       </div>

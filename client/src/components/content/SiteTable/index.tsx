@@ -19,12 +19,6 @@ const columnData = [
     columnWidth: 150,
   },
   {
-    dataKey: "overallScore",
-    label: "Overall Score",
-    columnWidth: 150,
-    cellRenderer: (cellData: number) => <ScoreBadge type={getBadgeType(cellData)} score={cellData} />,
-  },
-  {
     dataKey: "slackChannel",
     label: "Slack Channel",
     columnWidth: 200,

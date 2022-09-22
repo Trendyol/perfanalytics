@@ -18,7 +18,7 @@ const PageContainer: FC = ({}) => {
   
   return (
     <div className="p-6 bg-white">
-      <div className="flex justify-between pr-12 pl-12 p-2">
+      <div className="flex justify-between p-2 px-0">
         <span className="text-3xl">{t("paths")}</span>
         <Button onClick={handleShowPageModal} className="self-end mb-2">
           {t("new_url")}
