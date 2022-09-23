@@ -9,7 +9,7 @@ const ColorPicker: FC<ColorPickerProps> = (props) => {
   const handleColorBoxClick = (e: any) => {
     e.preventDefault();
     const { color, checked } = e.target.dataset;
-    handleColorChange(JSON.parse(checked) ? "" : color);
+    handleColorChange(checked && JSON.parse(checked) ? "" : color);
   };
 
   return (
