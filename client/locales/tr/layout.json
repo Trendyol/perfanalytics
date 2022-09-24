@@ -12,6 +12,8 @@
   "error": "Something went wrong",
   "update": "Update",
   "field_required": "Required",
+  "password_short": "Password must be at least 8 characters long",
+  "password_long": "Password can't be longer than 50 characters",
   "name": "Name",
   "update_name": "Update Name",
   "update_password": "Update Password",

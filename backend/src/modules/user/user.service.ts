@@ -79,11 +79,19 @@ export class UserService {
 
   async recoverPassword(email: string, language: string) {
     const user = await this.getByEmail(email);
+    const currentTimeHash = await bcrypt.hash(new Date().toLocaleString(), 10);
+
     if (!user) throw new InternalServerErrorException();
+
+    await this.userModel.updateOne(
+      { _id: user.id },
+      { changeMailTokenKey: currentTimeHash },
+    );
 
     const token = this.jwtService.sign({
       iss: user._id,
       email: user.email,
+      key: currentTimeHash,
     });
 
     return this.sendEmailToRecoverAccount(token, user, language);
@@ -126,16 +134,28 @@ export class UserService {
 
   async changeUserPassword(token, password) {
     const verifiedToken = this.jwtService.verify(token);
-
-    if (!verifiedToken || !Object.keys(verifiedToken).length)
-      throw new InternalServerErrorException();
+    const currentTimeHash = await bcrypt.hash(new Date().toLocaleString(), 10);
 
     const newPassword = await bcrypt.hash(password, 10);
     await this.userModel.updateOne(
       { _id: (verifiedToken as any).iss },
-      { password: newPassword },
+      { password: newPassword, changeMailTokenKey: currentTimeHash },
       { new: true },
     );
+  }
+
+  async verifyMailChangeToken(token) {
+    const verifiedToken = this.jwtService.verify(token);
+
+    const user = await this.getByEmail(verifiedToken.email);
+    if (!user) throw new InternalServerErrorException();
+
+    if (
+      !verifiedToken ||
+      !Object.keys(verifiedToken).length ||
+      verifiedToken.key !== user.changeMailTokenKey
+    )
+      throw new UnprocessableEntityException('Token verify failed');
   }
 
   async updateMyPassword(

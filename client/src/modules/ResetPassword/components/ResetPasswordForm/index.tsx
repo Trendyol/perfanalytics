@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
-import { changeUserPassword } from "@services/userService";
+import { changeUserPassword, verifyMailChangeToken } from "@services/userService";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { resetPasswordSchema } from "@schemas";
@@ -12,10 +12,24 @@ const ResetPasswordForm: FC = () => {
   const { t } = useTranslation("reset-password");
   const router = useRouter();
   const [isPasswordChange, setPasswordChange] = useState(false);
+  const { token } = router.query;
+
+  useEffect(() => {
+    if (token) {
+      callVerifyMailChangeToken();
+    }
+  }, [token])
+
+  const callVerifyMailChangeToken = async () => {
+    try {
+      await verifyMailChangeToken(token as string);
+    } catch (err) {
+      toast.error(t("password_reset_token_verify_error"));
+    }
+  };
 
   const handleClick = async (values: { newPassword: string; confirmPassword: string; }) => {
     try {
-      const { token } = router.query;
       if (token) {
         await changeUserPassword(token as string, values.newPassword);
         setPasswordChange(true);
@@ -85,7 +99,7 @@ const ResetPasswordForm: FC = () => {
   }
 
   const renderPasswordSetCompleted = () => {
-    return(
+    return (
       <div id="container"
         className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-12 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]">
         <p className="text-m text-gray-500 text-center px-5">{t("password_recovery_completed")}</p>

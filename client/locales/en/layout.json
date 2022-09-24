@@ -14,6 +14,8 @@
   "field_required": "Required",
   "name": "Name",
   "update_name": "Update Name",
+  "password_short": "Password must be at least 8 characters long",
+  "password_long": "Password can't be longer than 50 characters",
   "update_password": "Update Password",
   "current_password": "Current Password",
   "new_password": "New Password",

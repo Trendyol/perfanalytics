@@ -29,6 +29,11 @@ export class UserController {
     return await this.userService.changeUserPassword(token, password);
   }
 
+  @Post('password-token-verify')
+  async verifyMailChangeToken(@Body() { token }) {
+    return await this.userService.verifyMailChangeToken(token);
+  }
+
   @Post()
   async create(@Body() createDTO: CreateUserDTO) {
     return await this.userService.create(createDTO);

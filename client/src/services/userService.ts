@@ -27,12 +27,16 @@ export const createSession = ({ email, password }: CreateSession) => {
   });
 };
 
-export const recoverPassword = (email : string, language: string) => {
+export const recoverPassword = (email: string, language: string) => {
   return axiosInstance.post("user/recover-password", { email, language });
 }
 
 export const changeUserPassword = (token: string, password: string) => {
   return axiosInstance.post("user/password-change", { token, password });
+}
+
+export const verifyMailChangeToken = (token: string) => {
+  return axiosInstance.post("user/password-token-verify", { token });
 }
 
 export const createUser = ({ name, email, password }: CreateUser) => {
