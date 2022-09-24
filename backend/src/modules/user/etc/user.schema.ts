@@ -21,7 +21,7 @@ export class User extends Document {
   emailVerified: boolean;
 
   @Prop({ default: false })
-  changeMailTokenKey: '00:00:00';
+  changeMailTokenKey: string;
 
   @Prop()
   createdAt: number;
