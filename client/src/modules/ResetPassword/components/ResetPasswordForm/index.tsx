@@ -12,6 +12,7 @@ const ResetPasswordForm: FC = () => {
   const { t } = useTranslation("reset-password");
   const router = useRouter();
   const [isPasswordChange, setPasswordChange] = useState(false);
+  const [isTokenValid, setTokenValid] = useState(true);
   const { token } = router.query;
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const ResetPasswordForm: FC = () => {
     try {
       await verifyMailChangeToken(token as string);
     } catch (err) {
-      toast.error(t("password_reset_token_verify_error"));
+      setTokenValid(false);
     }
   };
 
@@ -98,6 +99,10 @@ const ResetPasswordForm: FC = () => {
     router.push("/login");
   }
 
+  const redirectRecover = () => {
+    router.push("/recover");
+  }
+
   const renderPasswordSetCompleted = () => {
     return (
       <div id="container"
@@ -109,6 +114,23 @@ const ResetPasswordForm: FC = () => {
       </div>
     )
   }
+
+  const renderTokenInvalid = () => {
+    return (
+      <div id="container"
+        className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-12 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]">
+        <div id="header">
+          <h1 className="text-4xl sm:text-3xl mb-4 sm:mb-2 text-center">{t("password_reset_failed")}</h1>
+        </div>
+        <p className="text-m text-gray-500 text-center px-5">{t("password_reset_token_verify_error")}</p>
+        <Button fluid size="large" onClick={redirectRecover}>
+          {t("recover_account")}
+        </Button>
+      </div>
+    )
+  }
+
+  if (!isTokenValid) return renderTokenInvalid();
 
   return isPasswordChange ? renderPasswordSetCompleted() : renderFormContent();
 };
