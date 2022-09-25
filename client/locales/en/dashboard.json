@@ -1,6 +1,6 @@
 {
   "dashboard": "dashboard module en",
-  "add_domain": "Add Domain",
+  "add_domain": "ADD DOMAIN",
   "add_tag": "Add Tag",
   "edit_tag": "Edit Tag",
   "name": "Name",
@@ -8,7 +8,7 @@
   "domain_url": "Domain URL",
   "field_required": "Required",
   "add": "Add",
-  "edit": "Edit",
+  "edit": "EDIT",
   "delete": "Delete",
   "cancel": "Cancel",
   "url_invalid": "Url is not valid",

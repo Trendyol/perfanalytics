@@ -20,7 +20,7 @@ export class User extends Document {
   @Prop({ default: false })
   emailVerified: boolean;
 
-  @Prop({ default: false })
+  @Prop({ required: false })
   changeMailTokenKey: string;
 
   @Prop()

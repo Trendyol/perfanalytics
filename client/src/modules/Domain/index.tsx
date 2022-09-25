@@ -6,11 +6,11 @@ import DomainSettingsModal from "./components/DomainSettingsModal";
 import Breadcrumb from "@components/shared/Breadcrumb";
 import InfoCardContainer from "./components/InfoCardContainer";
 import PageContainer from "./components/PageContainer";
+import useTranslation from "next-translate/useTranslation";
 
 const Domain: FC = () => {
   const [showDomainSettingsModal, setShowDomainSettingsModal] = useState(false);
-  const router = useRouter();
-  const { domainId } = router.query;
+  const { t } = useTranslation("domain");
 
   const handleShowDomainSettingsModal = () => {
     setShowDomainSettingsModal(true);
@@ -24,7 +24,7 @@ const Domain: FC = () => {
     <div>
       <div className="flex justify-between">
         <Breadcrumb />
-        <Button onClick={handleShowDomainSettingsModal}>Settings</Button>
+        <Button onClick={handleShowDomainSettingsModal}>{t("settings")}</Button>
       </div>
       <InfoCardContainer />
 

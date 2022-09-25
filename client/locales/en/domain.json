@@ -9,6 +9,7 @@
   "success": "Success",
   "error": "Error",
   "domain_settings": "Domain Settings",
+  "settings": "SETTINGS",
   "general": "General Configuration",
   "danger": "Danger Zone",
   "delete": "Delete",

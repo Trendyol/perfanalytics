@@ -5,7 +5,7 @@ import useTranslation from "next-translate/useTranslation";
 
 const InfoCardContainer: FC = () => {
   const { t } = useTranslation("dashboard");
-  const { dashboardMetrics, isLoading, isError } = useDashboardMetric();
+  const { dashboardMetrics, isLoading } = useDashboardMetric();
 
   return (
     <div className="flex flex-row w-full gap-5">

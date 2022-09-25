@@ -41,7 +41,7 @@ const DangerForm = () => {
         </Button>
       </div>
       <Divider />
-      <Modal show={showVerifyDeleteModal} onClose={() => setShowVerifyDeleteModal(false)}>
+      <Modal show={showVerifyDeleteModal} onClose={handleCloseVerifyDeleteModal}>
         <div>{t("verify_delete")}</div>
         <div className="w-full flex mt-4">
           <div className="ml-auto">
