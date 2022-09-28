@@ -7,7 +7,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import TagModal from "./TagModal";
 
 const TagItem: FC<SidebarSubItemProps> = (props) => {
-  const { id, name, color } = props;
+  const { id, name, color, isDefaultTag } = props;
   const router = useRouter();
 
   const [showTag, setShowTag] = useState(false);
@@ -17,7 +17,7 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
     setShowTag(true);
   };
 
-  const isActive = router.query.tagId === id;
+  const isActive = router.query.tagId ? router.query.tagId === id : isDefaultTag;
 
   return (
     <>
@@ -45,7 +45,12 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
           </Button>
         </a>
       </Link>
-      <TagModal type="edit" show={showTag} tag={{ id, name, color }} onClose={() => setShowTag(false)} />
+      <TagModal
+        type="edit"
+        show={showTag}
+        tag={{ id, name, color, isDefaultTag }}
+        onClose={() => setShowTag(false)}
+      />
     </>
   );
 };
@@ -54,6 +59,7 @@ interface SidebarSubItemProps {
   id: string;
   name: string;
   color: string;
+  isDefaultTag: boolean;
 }
 
 export default TagItem;

@@ -1,4 +1,4 @@
-import { IsMongoId, IsString } from 'class-validator';
+import { IsBoolean, IsMongoId, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTagDTO {
@@ -13,4 +13,8 @@ export class CreateTagDTO {
   @ApiProperty()
   @IsMongoId()
   readonly domainId: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  readonly isDefaultTag: boolean;
 }

@@ -15,6 +15,9 @@ export class TagDTO {
   readonly color: string;
 
   @Expose()
+  readonly isDefaultTag: boolean;
+
+  @Expose()
   @Type(() => UserDTO)
   readonly owner: UserDTO;
 }

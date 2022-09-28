@@ -28,7 +28,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
   const { mutateTag } = useTags(domainId as string);
 
   const formik = useFormik({
-    initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "" },
+    initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "" , isDefaultTag: tag?.isDefaultTag },
     validateOnChange: false,
     enableReinitialize: true,
     validationSchema: () => tagSchema(t),
@@ -36,6 +36,12 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
       helpers.resetForm();
     },
   });
+
+  const handleDefaultTagDeleteAction = () => {
+    toast.error(t("default_tag_can_not_be_deleted"));
+    onClose();
+    setIsProcessContinue(false);
+  }
 
   const handleTagActionClick = async (submitAction: TagAction) => {
     setIsProcessContinue(true);
@@ -48,9 +54,10 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
             name: formik.values.name,
             color: formik.values.checkedColor,
             domainId: domainId as string,
+            isDefaultTag: false,
           });
           break;
-        case TagAction.EDIT:
+          case TagAction.EDIT:
           result = await editTag({
             id: tag!.id,
             name: formik.values.name,
@@ -58,6 +65,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           });
           break;
         case TagAction.DELETE:
+          if(formik.values.isDefaultTag) return handleDefaultTagDeleteAction();
           result = await deleteTag(tag!.id);
           break;
         default:

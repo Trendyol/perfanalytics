@@ -1,5 +1,4 @@
 import Button from "@components/shared/Form/Button";
-import { DEFAULT_TAG } from "@constants";
 import useTags from "@hooks/useTag";
 import { Tag } from "@interfaces";
 import { useRouter } from "next/router";
@@ -23,7 +22,7 @@ const TagSection = () => {
     return null;
   }
 
-  const allTags = [DEFAULT_TAG, ...(tags ? tags : [])];
+  const allTags = [...(tags ? tags : [])];
 
   return (
     <li className="flex flex-col items-stretch justify-between font-medium">
@@ -37,7 +36,12 @@ const TagSection = () => {
       </div>
       <ul className="ml-5 flex flex-col">
         {allTags.map((tag: Tag) => (
-          <TagItem key={tag.name} id={tag.id} name={tag.name} color={tag.color} />
+          <TagItem key={tag.name} 
+            id={tag.id} 
+            name={tag.name}
+            color={tag.color} 
+            isDefaultTag= {tag.isDefaultTag || false} 
+          />
         ))}
       </ul>
     </li>

@@ -8,7 +8,12 @@ const useTags = (domainId: string, index: number = 0) => {
   });
 
   return {
-    tags: data?.docs.map((tag: TagResponse) => ({ id: tag._id, name: tag.name, color: tag.color })).reverse(),
+    tags: data?.docs.map((tag: TagResponse) => (
+      {
+        id: tag._id,
+        name: tag.name, color: tag.color,
+        isDefaultTag: tag.isDefaultTag,
+      })).reverse(),
     isLoading: !error && !data,
     isError: error?.message,
     mutateTag: mutate,

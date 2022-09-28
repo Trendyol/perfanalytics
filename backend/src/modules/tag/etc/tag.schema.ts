@@ -10,6 +10,9 @@ export class Tag extends Document {
   @Prop({ required: true })
   color: string;
 
+  @Prop({ required: true })
+  isDefaultTag: boolean;
+
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

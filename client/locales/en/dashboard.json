@@ -4,6 +4,7 @@
   "add_tag": "Add Tag",
   "edit_tag": "Edit Tag",
   "name": "Name",
+  "default_tag_can_not_be_deleted": "This tag can not be deleted",
   "color": "Color",
   "domain_url": "Domain URL",
   "field_required": "Required",

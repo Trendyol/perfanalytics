@@ -28,6 +28,7 @@ export interface TagResponse {
   _id: string;
   name: string;
   color: string;
+  isDefaultTag: boolean;
 }
 
 export interface Tag {
@@ -35,6 +36,7 @@ export interface Tag {
   name: string;
   color: string;
   domainId?: string;
+  isDefaultTag?: boolean;
 }
 
 export interface DashboardMetrics {

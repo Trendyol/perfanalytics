@@ -8,6 +8,7 @@
   "domain_url": "Domain URL",
   "field_required": "Required",
   "add": "Add",
+  "default_tag_can_not_be_deleted": "This tag can not be deleted",
   "edit": "EDIT",
   "delete": "Delete",
   "cancel": "Cancel",

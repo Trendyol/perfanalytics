@@ -41,10 +41,12 @@ export class PageService {
     domainId?: string,
     tagId?: string,
   ): Promise<PaginateResult<Page>> {
+    const tag = tagId && (await this.tagService.get(user, tagId));
+
     const query = {
       owner: user,
       ...(domainId && { domain: domainId }),
-      ...(tagId && { tag: tagId }),
+      ...(tagId && !tag.isDefaultTag && { tag: tagId }),
     };
 
     return this.pageModel.paginate(query, {

@@ -20,8 +20,3 @@ export const FOOTER_ROUTES = [
     url: "#",
   },
 ];
-export const DEFAULT_TAG = {
-  id: "all",
-  name: "All",
-  color: "bg-primary",
-};

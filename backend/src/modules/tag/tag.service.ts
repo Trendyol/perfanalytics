@@ -1,5 +1,9 @@
 import { User } from '@modules/user/etc/user.schema';
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel } from 'mongoose';
 import { CreateTagDTO } from './etc/create-tag.dto';
@@ -13,13 +17,14 @@ export class TagService {
   ) {}
 
   async create(user: User, createTagDTO: CreateTagDTO) {
-    const { name, color, domainId } = createTagDTO;
+    const { name, color, domainId, isDefaultTag } = createTagDTO;
 
     const tagModel = new this.tagModel({
       name: name,
       color: color,
       owner: user,
       domain: domainId,
+      isDefaultTag: isDefaultTag,
     });
 
     const result = await tagModel.save();
@@ -75,6 +80,10 @@ export class TagService {
 
     if (!tag) {
       throw new UnprocessableEntityException('Tag not found');
+    }
+
+    if (tag.isDefaultTag) {
+      throw new BadRequestException('Default tag can not be deleted');
     }
 
     if (String(tag.owner) !== String(user._id)) {

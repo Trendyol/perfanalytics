@@ -1,6 +1,4 @@
 import { FC, useState } from "react";
-import { useRouter } from "next/router";
-import useDomain from "@hooks/useDomain";
 import Button from "@components/shared/Form/Button";
 import DomainSettingsModal from "./components/DomainSettingsModal";
 import Breadcrumb from "@components/shared/Breadcrumb";
