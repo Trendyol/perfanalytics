@@ -9,6 +9,7 @@ import TagModal from "./TagModal";
 const TagItem: FC<SidebarSubItemProps> = (props) => {
   const { id, name, color, isDefaultTag } = props;
   const router = useRouter();
+  const { domainId } = router.query;
 
   const [showTag, setShowTag] = useState(false);
 
@@ -23,8 +24,8 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
     <>
       <Link
         href={{
-          pathname: router.pathname,
-          query: { ...router.query, ...(id && { tagId: id }) },
+          pathname: `/dashboard/${domainId}`,
+          query: { tagId: id },
         }}
       >
         <a
