@@ -2,6 +2,9 @@ import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
+import useDashboardMetric from "@hooks/useDashboardMetric";
+import useDomain from "@hooks/useDomain";
+import usePageInfinite from "@hooks/usePageInfinite";
 import { addPageSchema } from "@schemas";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
@@ -20,8 +23,10 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("domain");
   const [addingPage, setAddingPage] = useState(false);
   const router = useRouter();
-  const { domainId } = router.query;
-  const { pages, mutatePages, length } = usePageInfinite(domainId as string);
+  const { domainId, tagId } = router.query;
+  const { domain } = useDomain(domainId as string);
+
+  const { pages, mutatePages, length } = usePageInfinite(domainId as string, tagId  as string);
   const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
 
   const formik = useFormik({
@@ -36,6 +41,8 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
 
   const handlePageAdd = async (values: { domainId: string; url: string; device: string }) => {
     setAddingPage(true);
+
+    values.url = domain?.url + values.url
 
     try {
       const result = await createPage(values);
@@ -58,6 +65,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
             name="url"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            prefix={domain?.url}
             value={formik.values.url}
             error={formik.touched.url && formik.errors.url}
           />

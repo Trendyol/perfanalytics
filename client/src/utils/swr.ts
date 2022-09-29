@@ -1,4 +1,4 @@
-import {  USER_KEY } from "@constants";
+import {  USER_KEY, DEFAULT_TAG } from "@constants";
 import { fetcher } from "./fetcher";
 
 export const getDomainKey = (pageIndex: number, previousPageData?: any) => {
@@ -25,5 +25,5 @@ export const getUserData = async (context: any) => {
 export const getPageKey = (domainId: string, pageIndex: number, tagId?: string, previousPageData?: any) => {
   if (previousPageData && !previousPageData?.hasNextPage) return null;
   const basePageKey = `/page?index=${pageIndex}&domainId=${domainId}`;
-  return tagId ? `${basePageKey}&tagId=${tagId}` : basePageKey ;
+  return !tagId || tagId === DEFAULT_TAG.id ? basePageKey : `${basePageKey}&tagId=${tagId}`;
 };

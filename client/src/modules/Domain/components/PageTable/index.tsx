@@ -37,6 +37,7 @@ const PageTable: FC<PageTableProps> = (props) => {
     setSize(size + 1);
   };
 
+
   return (
     <CustomTable
       data={pages}

@@ -1,6 +1,7 @@
 import Breadcrumb from "@components/shared/Breadcrumb";
 import Button from "@components/shared/Form/Button";
 import useDomain from "@hooks/useDomain";
+import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import InfoCardContainer from "./components/InfoCardContainer";
@@ -13,7 +14,8 @@ const Domain: FC = () => {
   const router = useRouter();
   const { domainId } = router.query;
   const { domain } = useDomain(domainId as string);
-  
+  const { t } = useTranslation("domain");
+
   const handleShowDomainSettingsModal = () => {
     setShowDomainSettingsModal(true);
   };
@@ -30,7 +32,7 @@ const Domain: FC = () => {
           <h3 className="text-md">{domain?.url}</h3>
         </div>
         <Button className="mt-3" onClick={handleShowDomainSettingsModal}>
-          Settings
+          {t("settings")}
         </Button>
       </div>
       <InfoCardContainer />

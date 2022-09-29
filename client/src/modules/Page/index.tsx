@@ -1,11 +1,15 @@
-import { FC, useState } from "react";
-import { useRouter } from "next/router";
-import Button from "@components/shared/Form/Button";
-import PageSettingsModal from "./PageSettingsModal";
 import Breadcrumb from "@components/shared/Breadcrumb";
+import Button from "@components/shared/Form/Button";
+import useDomain from "@hooks/useDomain";
+import { useRouter } from "next/router";
+import { FC, useState } from "react";
+import PageSettingsModal from "./PageSettingsModal";
 
 const Page: FC = () => {
   const router = useRouter();
+  const { domainId } = router.query;
+  const { domain } = useDomain(domainId as string);
+
   const [showPageSettingsModal, setShowPageSettingsModal] = useState(false);
 
   const handleShowPageSettingsModal = () => {
@@ -19,10 +23,11 @@ const Page: FC = () => {
   return (
     <div>
       <div className="flex justify-between items-top">
-        <div className="mb-10">
+        <div className="flex flex-col gap-2 mb-10">
           <Breadcrumb />
-          <h3 className="text-md">Example</h3>
-        </div>
+          <h3 className="text-md">
+              <a href={domain?.url}>{domain?.url}</a>
+            </h3>        </div>
         <Button className="mt-3" onClick={handleShowPageSettingsModal}>
           Settings
         </Button>

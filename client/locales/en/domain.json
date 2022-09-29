@@ -8,6 +8,7 @@
   "update_domain": "Update Domain",
   "success": "Success",
   "error": "Error",
+  "settings": "Settings",
   "domain_settings": "Domain Settings",
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete this domain?",
