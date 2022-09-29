@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { FC, ReactNode } from "react";
 import { AutoSizer, Column, InfiniteLoader, Table } from "react-virtualized";
@@ -12,7 +12,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
   const noRowsRenderer = () => {
     return (
       <div
-        className={clsx("flex justify-center items-center w-full h-full rounded-b-lg bg-gray-100 text-displaySm text-gray-500", {
+        className={classnames("flex justify-center items-center w-full h-full rounded-b-lg bg-gray-100 text-displaySm text-gray-500", {
           "animate-pulse-slow": isLoading,
         })}
       >
@@ -42,7 +42,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               className="bg-white rounded-lg text-xs"
               headerClassName="text-sm font-normal text-gray-400 flex !shrink-0 items-center normal-case justify-center first:justify-start"
               rowClassName={({ index }: { index: number }) =>
-                clsx("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")
+                classnames("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")
               }
               onRowsRendered={onRowsRendered}
               ref={registerChild}

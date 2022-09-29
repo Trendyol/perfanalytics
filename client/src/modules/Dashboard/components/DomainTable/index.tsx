@@ -6,7 +6,7 @@ import { getBadgeType } from "@components/shared/ScoreBadge/utils";
 import { DEFAULT_TAG } from "@constants";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import { getFavicon } from "@utils/common";
-import clsx from "clsx";
+import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -19,7 +19,7 @@ const columnData = [
     label: "Name",
     cellRenderer: (name: string, { url }: { url: string }) => (
       <div className="flex items-center gap-2">
-        <Image className={clsx("w-5 h-5 bg-white rounded-full")} src={getFavicon(url)} width={20} height={20} />
+        <Image className={classnames("w-5 h-5 bg-white rounded-full")} src={getFavicon(url)} width={20} height={20} />
         <div> {name}</div>
       </div>
     ),
@@ -63,7 +63,7 @@ const DomainTable: FC<DomainTableProps> = (props) => {
 
   return (
     <>
-      <div className={clsx("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md", "text-xl font-semibold")}>
+      <div className={classnames("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md", "text-xl font-semibold")}>
         <div className="flex justify-between items-center">
           <h3 className="text-displayXs">{t("domains")}</h3>
           <Button onClick={() => setShowDomainModal(true)} className="flex gap-1 px-3 py-2">

@@ -1,6 +1,6 @@
 import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
-import clsx from "clsx";
+import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { FC, useState } from "react";
 import PageModal from "../PageModal";
@@ -20,7 +20,7 @@ const PageContainer: FC = ({}) => {
 
   return (
     <>
-      <div className={clsx("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md text-xl font-semibold")}>
+      <div className={classnames("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md text-xl font-semibold")}>
         <div className="flex justify-between items-center">
           <h3 className="text-displayXs">{t("paths")}</h3>
           <Button onClick={handleShowPageModal} className="flex gap-1 px-3 py-2">

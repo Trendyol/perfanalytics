@@ -6,9 +6,8 @@ import classnames from "classnames";
 
 const Breadcrumb: FC = () => {
   const router = useRouter();
-  const { domain } = useDomain(router.query.domainId + "");
+  const { domain } = useDomain(router.query.domainId as string);
 
-  console.log(router.query.domainId, domain);
   const appRoutes = [
     { name: "Dashboard", query: "dashboard", link: "/dashboard" },
     { name: domain?.name, query: "domainId", link: `/dashboard/${router.query.domainId}` },

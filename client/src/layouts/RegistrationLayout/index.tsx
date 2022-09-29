@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import classnames from "classnames";
 import React, { FC } from "react";
 import styles from "./style.module.scss";
 
@@ -11,7 +11,7 @@ const RegistrationLayout: FC<RegistrationLayoutProps> = (props) => {
 
   return (
     <main className="flex flex-row h-screen bg-center bg-cover">
-      <div className={clsx(styles.logo, "flex w-[680px] bg-primary lg:hidden h-full items-center justify-center")} />
+      <div className={classnames(styles.logo, "flex w-[680px] bg-primary lg:hidden h-full items-center justify-center")} />
       <div className="flex-1 flex justify-center items-center">{children}</div>
     </main>
   );

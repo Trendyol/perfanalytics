@@ -16,14 +16,7 @@ const InfoCardContainer: FC = () => {
 
   return (
     <div className="grid grid-cols-4 w-full gap-6 mb-8">
-      {isLoading && (
-        <>
-          <InfoCard />
-          <InfoCard />
-          <InfoCard />
-          <InfoCard />
-        </>
-      )}
+      {isLoading && new Array(4).fill(<InfoCard />)}
       {dashboardMetrics && Object.entries(dashboardMetrics).map(([key, value]) => <InfoCard title={t(key)} value={value.toString()} />)}
     </div>
   );

@@ -15,7 +15,6 @@
     "husky": "^8.0.1"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
     "concurrently": "^7.3.0"
   }
 }
