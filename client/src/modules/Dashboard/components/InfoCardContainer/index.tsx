@@ -13,6 +13,7 @@ const InfoCardContainer: FC = () => {
         <>
           <InfoCard className="w-1/4" />
           <InfoCard className="w-1/4" />
+          <InfoCard className="w-1/4" />
         </>
       )}
       {dashboardMetrics && Object.entries(dashboardMetrics).map(([key, value]) => <InfoCard title={t(key)} value={value.toString()} className="w-1/4" />)}

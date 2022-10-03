@@ -18,5 +18,6 @@
   "general": "General Configuration",
   "domains": "Domains",
   "pageCount": "Sayfası Sayısı",
-  "domainCount": "Alanadı Sayısı"
+  "domainCount": "Alanadı Sayısı",
+  "lighthouseCount": "Rapor Sayısı"
 }

@@ -42,4 +42,5 @@ export interface Tag {
 export interface DashboardMetrics {
   pageCount?: number;
   domainCount?: number;
+  lighthouseCount?: number;
 }
