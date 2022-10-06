@@ -7,14 +7,14 @@ export const loginSchema = (t: any) => {
   });
 };
 
-export const registerSchema = (t: any) => {
+export const signupSchema = (t: any) => {
   return Yup.object().shape({
     name: Yup.string().required(t("field_required")),
     email: Yup.string().email(t("invalid_email")).required(t("field_required")),
     password: Yup.string().min(8, t("password_short")).max(50, t("password_long")).required(t("field_required")),
-    verifyPassword:  Yup.string()
-    .oneOf([Yup.ref("password"), null], t("password_mismatch"))
-    .required(t("field_required")),
+    verifyPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], t("password_mismatch"))
+      .required(t("field_required")),
   });
 };
 
@@ -22,8 +22,9 @@ export const recoverSchema = (t: any) => {
   return Yup.object().shape({
     email: Yup.string().email(t("invalid_email")).required(t("field_required")),
     emailVerify: Yup.string()
-    .oneOf([Yup.ref("email"), null], t("email_mismatch"))
-    .email(t("invalid_email")).required(t("field_required")),
+      .oneOf([Yup.ref("email"), null], t("email_mismatch"))
+      .email(t("invalid_email"))
+      .required(t("field_required")),
   });
 };
 
@@ -75,7 +76,7 @@ export const updateDomainSchema = (t: any) => {
 
 export const addPageSchema = (t: any) => {
   return Yup.object().shape({
-    url: Yup.string().url(t("url_invalid")).required(t("field_required")),
+    url: Yup.string().required(t("field_required")),
     device: Yup.string().required(t("field_required")),
   });
 };

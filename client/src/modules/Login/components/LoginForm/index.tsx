@@ -11,10 +11,11 @@ import { loginSchema } from "@schemas";
 import { createSession } from "@services/userService";
 import useUser from "@hooks/useUser";
 import { FcGoogle } from "react-icons/fc";
+import PasswordField from "@components/shared/Form/TextField/PasswordField";
 
 const LoginForm: FC = () => {
   const { mutateUser } = useUser();
-  const { t } = useTranslation("login");
+  const { t } = useTranslation("registration");
   const router = useRouter();
 
   const handleSession = async (values: { email: string; password: string }) => {
@@ -31,7 +32,6 @@ const LoginForm: FC = () => {
     initialValues: {
       email: "",
       password: "",
-      remember: false,
     },
     validateOnChange: false,
     validationSchema: () => loginSchema(t),
@@ -41,56 +41,54 @@ const LoginForm: FC = () => {
   });
 
   return (
-    <form
-      id="container"
-      className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-4 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]"
-      onSubmit={formik.handleSubmit}
-    >
-      <div id="header">
-        <h1 className="text-5xl sm:text-3xl mb-4 sm:mb-2 text-center">{t("hello_again")}</h1>
-        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("welcome_to_dashboard")}</p>
-        <p className="text-sm sm:text-xs text-gray-500 text-center px-8 sm:px-1">{t("please_login")}</p>
+    <form className="py-16 px-14 rounded-3xl flex flex-col min-w-[600px]" onSubmit={formik.handleSubmit}>
+      <div>
+        <h1 className="text-displayLg sm:text-displaySm font-semibold mb-8 sm:mb-2 text-center">{t("login")}</h1>
+        <p className="text-md mb-8 sm:text-xs text-gray-400 text-center px-8 sm:px-1 whitespace-nowrap">
+          {t("signup_redirection_part_1")}
+          <Link href="/signup">
+            <a className="font-semibold text-primary hover:text-orange-600">{t("signup")}</a>
+          </Link>
+          {t("signup_redirection_part_2")}
+        </p>
       </div>
-      <div id="content" className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mb-5">
         <TextField
           name="email"
           type="email"
           placeholder={t("email")}
+          rightIcon="email"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
           error={formik.touched.email && formik.errors.email}
         />
-        <TextField
+        <PasswordField
           name="password"
-          type="password"
           placeholder={t("password")}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
           error={formik.touched.password && formik.errors.password}
         />
-        <div className="flex justify-between sm:text-sm items-center">
-          <span className="flex items-center">
-            <Checkbox name="remember" label={t("remember_me")} onChange={formik.handleChange} />
-          </span>
-          <Link href="/recover">
-            <span className="text-primary cursor-pointer text-sm sm:text-xs">{t("recover_password")}</span>
-          </Link>
-        </div>
       </div>
-      <div id="actions">
-        <Button fluid type="submit" size="large">
+      <div className="mb-8 flex ml-auto justify-between sm:text-sm items-center">
+        <Link href="/recover">
+          <span className="text-gray-400 hover:text-gray-600 cursor-pointer text-sm sm:text-xs select-none">{t("forgot_password")}</span>
+        </Link>
+      </div>
+      <div className="flex flex-col gap-6">
+        <Button type="submit" size="large" fluid>
           {t("login")}
         </Button>
+        <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
+        <Button size="large" color="light" fluid>
+          <FcGoogle fontSize={18} />
+          <Link href={"http://localhost:4000/session/google/callback"}>
+            <span className="pl-2 text-lg">{t("Continue with Google")}</span>
+          </Link>
+        </Button>
       </div>
-      <div className="divider mt-0 mb-0 text-slate-300">OR</div>
-      <Button size="large" color="light">
-        <FcGoogle fontSize={18} />
-        <Link href={"http://localhost:4000/session/google/callback"}>
-          <span className="pl-2 text-xs">{t("Continue with Google")}</span>
-        </Link>
-      </Button>
     </form>
   );
 };

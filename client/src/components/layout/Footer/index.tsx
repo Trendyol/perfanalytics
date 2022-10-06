@@ -16,8 +16,8 @@ const Footer = () => {
       </div>
       <ul className="flex items-center gap-2 text-sm list-disc list-inside">
         {FOOTER_ROUTES.map((route, index) => (
-          <li key={route.title} className={`${index === 0 ? "list-none" : ""} marker:mr-0"`}>
-            <a href={route.url} className="-ml-2">
+          <li key={route.title} className={`marker:mr-0" ${index === 0 ? " list-none" : ""}`}>
+            <a href={route.url} className="-ml-2 hover:text-[#000]">
               {route.title}
             </a>
           </li>

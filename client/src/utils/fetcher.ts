@@ -15,4 +15,6 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const fetcher = (url: any, config?: AxiosRequestConfig) => axiosInstance.get(url, config).then((res) => res.data);
+export const fetcher = (url: any, config?: AxiosRequestConfig) => {
+  return axiosInstance.get(url, config).then((res) => res.data);
+};

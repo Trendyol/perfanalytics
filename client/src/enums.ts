@@ -24,3 +24,9 @@ export enum TagAction {
   EDIT,
   DELETE,
 }
+
+export const StatusCode: Record<0 | 1 | 2, string> = {
+  0: "Pending",
+  1: "Success",
+  2: "Failed",
+};

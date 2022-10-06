@@ -8,7 +8,7 @@ import useDomain from "@hooks/useDomain";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 
-const DangerForm = () => {
+const DangerSection = () => {
   const router = useRouter();
   const [showVerifyDeleteModal, setShowVerifyDeleteModal] = useState(false);
   const [deletingDomain, setDeletingDomain] = useState(false);
@@ -33,17 +33,14 @@ const DangerForm = () => {
 
   return (
     <>
-      <div className="mb-3 font-semibold text-sm">{t("danger")}</div>
-      <div className="w-full">
-        <Button color="danger" className="ml-auto" onClick={() => setShowVerifyDeleteModal(true)}>
-          {t("delete")}
-        </Button>
-      </div>
-      <Modal show={showVerifyDeleteModal} onClose={handleCloseVerifyDeleteModal}>
+      <Button className="mr-auto" color="danger" onClick={() => setShowVerifyDeleteModal(true)}>
+        {t("delete")}
+      </Button>
+      <Modal title={t("danger")} show={showVerifyDeleteModal} onClose={() => setShowVerifyDeleteModal(false)}>
         <div>{t("verify_delete")}</div>
         <div className="w-full flex mt-4">
-          <div className="ml-auto">
-            <Button onClick={handleCloseVerifyDeleteModal} className="mr-2" color="secondary">
+          <div className="flex ml-auto">
+            <Button onClick={handleCloseVerifyDeleteModal} className="mr-2" color="transparent">
               {t("cancel")}
             </Button>
             <Button loading={deletingDomain} color="danger" onClick={handleDeleteDomain}>
@@ -56,4 +53,4 @@ const DangerForm = () => {
   );
 };
 
-export default DangerForm;
+export default DangerSection;

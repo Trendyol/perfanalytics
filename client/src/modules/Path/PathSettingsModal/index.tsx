@@ -1,28 +1,27 @@
-import { FC, useState } from "react";
-import Divider from "@components/shared/Divider";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
-import useTranslation from "next-translate/useTranslation";
 import usePage from "@hooks/usePage";
-import DangerSection from "../DangerForm";
-import UpdateSection from "../GeneralForm";
 import usePageInfinite from "@hooks/usePageInfinite";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { updatePage } from "@services/pageService";
-import { toast } from "react-toastify";
 import { updatePageSchema } from "@schemas";
-import { PageSettings } from "src/interfaces";
+import { updatePage } from "@services/pageService";
+import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
+import { PathSettings } from "src/interfaces";
+import DangerSection from "../DangerSection";
+import UpdateSection from "../GeneralForm";
 
-interface PageSettingsModalProps {
+interface PathSettingsModalProps {
   show: boolean;
   onClose: () => void;
 }
 
-const PageSettingsModal: FC<PageSettingsModalProps> = ({ show, onClose }) => {
+const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
   const [updatingPage, setUpdatingPage] = useState(false);
   const router = useRouter();
-  const { t } = useTranslation("page");
+  const { t } = useTranslation("path");
   const { pageId, domainId } = router.query;
   const { page, mutatePage } = usePage(pageId as string);
   const { mutatePages } = usePageInfinite(domainId as string);
@@ -38,7 +37,7 @@ const PageSettingsModal: FC<PageSettingsModalProps> = ({ show, onClose }) => {
     },
   });
 
-  const handlePageUpdate = async (values: PageSettings) => {
+  const handlePageUpdate = async (values: PathSettings) => {
     if (!page) return;
     setUpdatingPage(true);
 
@@ -57,27 +56,19 @@ const PageSettingsModal: FC<PageSettingsModalProps> = ({ show, onClose }) => {
   };
 
   return (
-    <Modal
-      show={show}
-      onClose={onClose}
-      title={t("Page_settings")}
-      footer={
-        <div className="float-right">
-          <Button color="transparent" className="mr-2">
-            {t("cancel")}
-          </Button>
-          <Button onClick={() => formik.submitForm()} loading={updatingPage} color="secondary">
-            {t("update")}
-          </Button>
-        </div>
-      }
-    >
-      <Divider />
+    <Modal show={show} onClose={onClose} title={t("path_settings")}>
       <UpdateSection formik={formik} />
-      <Divider />
-      <DangerSection />
+      <div className="flex">
+        <DangerSection />
+        <Button color="transparent" className="mr-2">
+          {t("cancel")}
+        </Button>
+        <Button onClick={() => formik.submitForm()} loading={updatingPage} color="primary">
+          {t("update")}
+        </Button>
+      </div>
     </Modal>
   );
 };
 
-export default PageSettingsModal;
+export default PathSettingsModal;

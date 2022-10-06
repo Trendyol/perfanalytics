@@ -11,15 +11,15 @@ export class DashboardService {
   ) {}
 
   async getMetrics(user: User) {
-    const pageCount = await this.pageService.getCount(user);
+    const pathCount = await this.pageService.getCount(user);
     const domainCount = await this.domainService.getCount(user);
 
-    return { pageCount, domainCount };
+    return { pathCount, domainCount };
   }
 
   async getMetricsByDomain(user: User, domainId: string) {
-    const pageCount = await this.pageService.getCount(user, domainId);
+    const pathCount = await this.pageService.getCount(user, domainId);
 
-    return { pageCount };
+    return { pathCount };
   }
 }

@@ -1,0 +1,13 @@
+{
+  "update": "Update",
+  "cancel": "Cancel",
+  "path_settings": "Path Settings",
+  "delete": "Delete",
+  "verify_delete": "Are you sure want to delete this page?",
+  "danger": "Danger!",
+  "path_url": "Path URL",
+  "device": "Device",
+  "field_required": "Required",
+  "report_table_title": "Reports",
+  "new_report": "New Report"
+}

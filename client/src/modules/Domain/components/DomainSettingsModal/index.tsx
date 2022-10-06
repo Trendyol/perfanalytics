@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useTranslation from "next-translate/useTranslation";
-import DangerSection from "../DangerForm";
+import DangerSection from "../DangerSection";
 import UpdateSection from "../GeneralForm";
 import useDomain from "@hooks/useDomain";
 import useDomainInfinite from "@hooks/useDomainInfinite";
@@ -56,23 +56,18 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
   };
 
   return (
-    <Modal
-      show={show}
-      onClose={onClose}
-      title={t("domain_settings")}
-      footer={
-        <div className="flex justify-end">
-          <Button color="transparent" className="mr-2" onClick={onClose}>
-            {t("cancel")}
-          </Button>
-          <Button onClick={() => formik.submitForm()} loading={updatingDomain} color="primary">
-            {t("update")}
-          </Button>
-        </div>
-      }
-    >
+    <Modal show={show} onClose={onClose} title={t("domain_settings")}>
       <UpdateSection formik={formik} />
-      <DangerSection />
+
+      <div className="flex justify-end">
+        <DangerSection />
+        <Button color="transparent" className="mr-2">
+          {t("cancel")}
+        </Button>
+        <Button onClick={() => formik.submitForm()} loading={updatingDomain} color="primary">
+          {t("update")}
+        </Button>
+      </div>
     </Modal>
   );
 };
