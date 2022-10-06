@@ -1,17 +1,16 @@
-import { FC } from "react";
 import Button from "@components/shared/Form/Button";
-import Checkbox from "@components/shared/Form/Checkbox";
 import TextField from "@components/shared/Form/TextField";
+import PasswordField from "@components/shared/Form/TextField/PasswordField";
+import useUser from "@hooks/useUser";
+import { loginSchema } from "@schemas";
+import { createSession } from "@services/userService";
+import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { loginSchema } from "@schemas";
-import { createSession } from "@services/userService";
-import useUser from "@hooks/useUser";
+import { FC } from "react";
 import { FcGoogle } from "react-icons/fc";
-import PasswordField from "@components/shared/Form/TextField/PasswordField";
+import { toast } from "react-toastify";
 
 const LoginForm: FC = () => {
   const { mutateUser } = useUser();
@@ -74,7 +73,9 @@ const LoginForm: FC = () => {
       </div>
       <div className="mb-8 flex ml-auto justify-between sm:text-sm items-center">
         <Link href="/recover">
-          <span className="text-gray-400 hover:text-gray-600 cursor-pointer text-sm sm:text-xs select-none">{t("forgot_password")}</span>
+          <span className="text-gray-400 hover:text-gray-600 cursor-pointer text-sm sm:text-xs select-none">
+            {t("forgot_password")}
+          </span>
         </Link>
       </div>
       <div className="flex flex-col gap-6">
@@ -82,10 +83,10 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
-        <Button size="large" color="light" fluid>
-          <FcGoogle fontSize={18} />
+        <Button size="large" color="light" className="flex gap-2" fluid>
+          <FcGoogle fontSize={22} />
           <Link href={"http://localhost:4000/session/google/callback"}>
-            <span className="pl-2 text-lg">{t("Continue with Google")}</span>
+            <span>{t("Continue with Google")}</span>
           </Link>
         </Button>
       </div>

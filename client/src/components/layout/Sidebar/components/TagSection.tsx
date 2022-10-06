@@ -2,7 +2,7 @@ import Button from "@components/shared/Form/Button";
 import useTags from "@hooks/useTag";
 import { Tag } from "@interfaces";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { RiHashtag } from "react-icons/ri";
 import TagItem from "./TagItem";
@@ -29,18 +29,24 @@ const TagSection = () => {
       <div className="flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md">
         <RiHashtag fontSize={24} />
         <span className="mr-auto">Tags</span>
-        <Button color="transparent" size="small" className="absolute right-0 text-gray-500" onClick={handleTagEditClick}>
+        <Button
+          color="transparent"
+          size="small"
+          className="absolute right-0 text-gray-500"
+          onClick={handleTagEditClick}
+        >
           <MdAdd fontSize={18} />
         </Button>
         <TagModal type="add" show={showTag} onClose={() => setShowTag(false)} />
       </div>
-      <ul className="ml-5 flex flex-col">
+      <ul className="ml-5 flex flex-col gap-1">
         {allTags.map((tag: Tag) => (
-          <TagItem key={tag.name} 
-            id={tag.id} 
+          <TagItem
+            key={tag.name}
+            id={tag.id}
             name={tag.name}
-            color={tag.color} 
-            isDefaultTag= {tag.isDefaultTag || false} 
+            color={tag.color}
+            isDefaultTag={tag.isDefaultTag || false}
           />
         ))}
       </ul>

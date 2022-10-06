@@ -1,16 +1,18 @@
-import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
+import Select from "@components/shared/Form/Select";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
+import { DeviceTypes } from "@enums";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 import useDomain from "@hooks/useDomain";
 import usePageInfinite from "@hooks/usePageInfinite";
 import { addPageSchema } from "@schemas";
+import { createPage } from "@services/pageService";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
-import { toast } from "react-toastify";
-import { createPage } from "@services/pageService";
 import { useRouter } from "next/router";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
 
 interface PageModalProps {
   show: boolean;
@@ -70,8 +72,10 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
         </div>
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("device")}</h5>
-          <TextField
+          <Select
             name="device"
+            defaultText="Select device type"
+            options={Object.keys(DeviceTypes)}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.device}

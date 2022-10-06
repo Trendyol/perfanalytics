@@ -9,6 +9,6 @@ export const deleteTag = (id: string) => {
   return axiosInstance.delete(`/tag/${id}`);
 };
 
-export const editTag = ({ id, name, color }: Partial<Tag>) => {
+export const updateTag = ({ id, name, color }: Partial<Tag>) => {
   return axiosInstance.put(`/tag/${id}`, { name, color });
 };

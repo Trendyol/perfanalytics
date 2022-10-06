@@ -6,7 +6,7 @@ const RecoverPage: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Recover Your Account</title>
+        <title>Recover Your Account | Perfanalytics</title>
         <meta name="description" content="Recover password to continue." />
       </Head>
 

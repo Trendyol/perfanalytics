@@ -8,7 +8,6 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Dashboard</title>
         <meta name="description" content="..." />
       </Head>
 

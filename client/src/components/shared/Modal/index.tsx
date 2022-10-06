@@ -1,3 +1,4 @@
+import useScrollControl from "@hooks/useScrollControl";
 import { FC, ReactNode } from "react";
 import { IoMdClose } from "react-icons/io";
 import Button from "../Form/Button";
@@ -10,6 +11,8 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ title, show, onClose, children }) => {
+  useScrollControl(show ? false : true);
+
   return (
     <>
       {show && (

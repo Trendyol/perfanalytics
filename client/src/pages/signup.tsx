@@ -6,7 +6,7 @@ const SignupPage: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Signup</title>
+        <title>Signup | Perfanalytics</title>
         <meta name="description" content="Signup to continue." />
       </Head>
 

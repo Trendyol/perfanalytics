@@ -25,3 +25,33 @@ export const DEFAULT_TAG = {
   name: "All",
   color: "bg-primary",
 };
+export const METRIC_DATA: Record<string, { title: string; infoLink: string }> = {
+  "cumulative-layout-shift": {
+    title: "CLS",
+    infoLink: "https://web.dev/cls/",
+  },
+  "first-contentful-paint": {
+    title: "FCP",
+    infoLink: "https://web.dev/fcp/",
+  },
+  "first-meaningful-paint": {
+    title: "FMP",
+    infoLink: "https://web.dev/fmp/",
+  },
+  interactive: {
+    title: "TTI",
+    infoLink: "https://web.dev/tti/",
+  },
+  "largest-contentful-paint": {
+    title: "LCP",
+    infoLink: "https://web.dev/lcp/",
+  },
+  "speed-index": {
+    title: "SI",
+    infoLink: "https://web.dev/si/",
+  },
+  "total-blocking-time": {
+    title: "TBT",
+    infoLink: "https://web.dev/tbt/",
+  },
+};

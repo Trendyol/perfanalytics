@@ -1,11 +1,11 @@
-import React, { FC } from "react";
 import CustomTable from "@components/shared/CustomTable";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
+import usePageInfinite from "@hooks/usePageInfinite";
 import { getFavicon } from "@utils/common";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import usePageInfinite from "@hooks/usePageInfinite";
+import { FC } from "react";
 
 const columnData = [
   {
@@ -19,9 +19,14 @@ const columnData = [
     ),
   },
   {
+    dataKey: "overallScore",
+    label: "Overall Score",
+    cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
+  },
+  {
     dataKey: "lastReportDate",
     label: "Last Report Date",
-    columnWidth: 200,
+    cellRenderer: (date: string) => date || "-",
   },
 ];
 

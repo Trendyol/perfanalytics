@@ -12,7 +12,7 @@ const PageLayout: FC<PageLayoutProps> = (props) => {
   const { children } = props;
 
   return (
-    <div className="min-w-[1600px] flex min-h-screen bg-background overflow-hidden bg-gray-50 isolate">
+    <div className="min-w-full flex min-h-screen bg-background overflow-hidden bg-gray-50 isolate">
       <Head>
         <title>Perfanalytics</title>
         <meta name="description" content="..." />
@@ -22,7 +22,7 @@ const PageLayout: FC<PageLayoutProps> = (props) => {
       <Sidebar />
       <div className="flex flex-grow flex-col justify-between items-center px-12 overflow-y-auto">
         <Header />
-        <main className="flex-1 w-full mt-5 mb-14">{children}</main>
+        <main className="flex-1 w-full">{children}</main>
         <Footer />
       </div>
     </div>
