@@ -18,5 +18,6 @@
   "error": "Error",
   "domains": "Domains",
   "pathCount": "Path Count",
-  "domainCount": "Domain Count"
+  "domainCount": "Domain Count",
+  "lighthouseCount": "Report Count"
 }

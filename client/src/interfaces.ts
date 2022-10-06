@@ -74,4 +74,5 @@ export interface Tag {
 export interface DashboardMetrics {
   pathCount?: number;
   domainCount?: number;
+  lighthouseCount?: number;
 }

@@ -97,4 +97,11 @@ export class LighthouseService {
 
     return result;
   }
+
+  getCount(user: User, domainId?: string) {
+    return this.lighthouseModel.countDocuments({
+      owner: user,
+      ...(domainId && { domain: domainId }),
+    });
+  }
 }

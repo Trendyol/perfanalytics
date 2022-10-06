@@ -18,6 +18,7 @@ import { LighthouseSchema } from './etc/lighthouse.schema';
   ],
   controllers: [LighthouseController],
   providers: [LighthouseService, KafkaProducerProvider],
+  exports: [LighthouseService],
 })
 export class LighthouseModule implements OnModuleDestroy {
   constructor(
