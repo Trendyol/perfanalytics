@@ -26,6 +26,10 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     validateOnChange: false,
     validationSchema: () => addDomainSchema(t),
     onSubmit: (values, { resetForm }) => {
+      if(!values.url.endsWith("/")) {
+        values.url += "/";
+      }
+      
       handleDomainAdd(values);
       resetForm();
     },

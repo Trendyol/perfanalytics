@@ -29,6 +29,7 @@ const PageTable: FC<PageTableProps> = (props) => {
   const router = useRouter();
   const { domainId, tagId } = router.query;
   const { pages, length, size, setSize, isLoading } = usePageInfinite(domainId as string, tagId as string);
+
   const handlePageClick = ({ _id }: { _id: string }) => {
     router.push(`/dashboard/${domainId}/${_id}`);
   };
@@ -36,7 +37,6 @@ const PageTable: FC<PageTableProps> = (props) => {
   const handleNextPage = () => {
     setSize(size + 1);
   };
-
 
   return (
     <CustomTable

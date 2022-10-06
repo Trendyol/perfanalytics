@@ -1,11 +1,11 @@
-import classnames from "classnames";
+import { default as classNames, default as classnames } from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { FC, ReactNode } from "react";
 import { AutoSizer, Column, InfiniteLoader, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const { data, length, isLoading, columnData, rowHeight = 35, headerHeight = 40, onRowClick, onNextPage } = props;
+  const { data, length, isLoading, hasTextCenterOnFirstColumn = false, columnData, rowHeight = 35, headerHeight = 40, onRowClick, onNextPage } = props;
 
   const { t } = useTranslation("common");
 
@@ -40,7 +40,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               rowCount={data.length}
               rowGetter={({ index }) => data[index]}
               className="bg-white rounded-lg text-xs"
-              headerClassName="text-sm font-normal text-gray-400 flex !shrink-0 items-center normal-case justify-center first:justify-start"
+              headerClassName={classNames("text-sm font-normal text-gray-400 flex !shrink-0 items-center normal-case justify-center", {
+                "first:justify-start": !hasTextCenterOnFirstColumn,
+              })}
               rowClassName={({ index }: { index: number }) =>
                 classnames("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")
               }
@@ -84,6 +86,7 @@ interface CustomTableProps {
   isLoading?: boolean;
   onNextPage: () => void;
   onRowClick?: (rowData: any) => void;
+  hasTextCenterOnFirstColumn?: boolean;
 }
 
 export default CustomTable;

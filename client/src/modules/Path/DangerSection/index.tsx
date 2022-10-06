@@ -1,12 +1,12 @@
-import { useState } from "react";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
-import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
+import useDashboardMetric from "@hooks/useDashboardMetric";
 import usePage from "@hooks/usePage";
 import usePageInfinite from "@hooks/usePageInfinite";
 import { deletePage } from "@services/pageService";
-import useDashboardMetric from "@hooks/useDashboardMetric";
+import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const DangerForm = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const DangerForm = () => {
   const { page } = usePage(pageId as string);
   const { mutatePages } = usePageInfinite(domainId as string);
   const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
-  const { t } = useTranslation("page");
+  const { t } = useTranslation("path");
 
   const handleCloseVerifyDeleteModal = () => {
     setShowVerifyDeleteModal(false);

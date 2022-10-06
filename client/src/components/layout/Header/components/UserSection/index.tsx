@@ -28,6 +28,7 @@ const UserSection: FC<UserSectionProps> = () => {
   const handleLogout = async () => {
     await deleteSession();
     mutateUser(null);
+    router.push('/login');
   };
 
   const handleLogin = async () => {

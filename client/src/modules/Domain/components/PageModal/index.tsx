@@ -10,9 +10,7 @@ import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { toast } from "react-toastify";
 import { createPage } from "@services/pageService";
-import usePageInfinite from "@hooks/usePageInfinite";
 import { useRouter } from "next/router";
-import useDashboardMetric from "@hooks/useDashboardMetric";
 
 interface PageModalProps {
   show: boolean;
@@ -26,7 +24,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const { domainId, tagId } = router.query;
   const { domain } = useDomain(domainId as string);
 
-  const { pages, mutatePages, length } = usePageInfinite(domainId as string, tagId  as string);
+  const { pages, mutatePages, length } = usePageInfinite(domainId as string, tagId as string);
   const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
 
   const formik = useFormik({
@@ -42,7 +40,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const handlePageAdd = async (values: { domainId: string; url: string; device: string }) => {
     setAddingPage(true);
 
-    values.url = domain?.url + values.url
+    values.url = domain?.url + values.url;
 
     try {
       const result = await createPage(values);
@@ -60,7 +58,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
     <Modal show={show} onClose={onClose} title={t("add_path")}>
       <form className="w-full flex flex-col gap-3">
         <div className="flex flex-col gap-2">
-          <h5 className="text-[14px] font-medium text-gray-500">{t("page_url")}</h5>
+          <h5 className="text-[14px] font-medium text-gray-500">{t("path_url")}</h5>
           <TextField
             name="url"
             onChange={formik.handleChange}

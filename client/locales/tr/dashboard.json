@@ -17,6 +17,6 @@
   "success": "Success",
   "error": "Error",
   "domains": "Domains",
-  "pageCount": "Sayfası Sayısı",
-  "domainCount": "Alanadı Sayısı"
+  "pathCount": "Path Count",
+  "domainCount": "Domain Count"
 }

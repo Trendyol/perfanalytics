@@ -17,6 +17,6 @@
   "success": "Success",
   "error": "Error",
   "domains": "Domains",
-  "pageCount": "Page Count",
+  "pathCount": "Path Count",
   "domainCount": "Domain Count"
 }

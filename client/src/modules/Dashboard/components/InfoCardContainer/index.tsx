@@ -5,7 +5,7 @@ import { FC } from "react";
 
 const InfoCardContainer: FC = () => {
   const { t } = useTranslation("dashboard");
-  const { dashboardMetrics, isLoading } = useDashboardMetric();
+  const { dashboardMetrics, isLoading, isError } = useDashboardMetric();
 
   if (isError) {
     return <>Loading dashboard metrics failed!</>;
@@ -13,8 +13,11 @@ const InfoCardContainer: FC = () => {
 
   return (
     <div className="grid grid-cols-4 w-full gap-6 mb-8">
-      {isLoading && new Array(4).fill(<InfoCard />)}
-      {dashboardMetrics && Object.entries(dashboardMetrics).map(([key, value]) => <InfoCard title={t(key)} value={String(value)} />)}
+      {isLoading && <InfoCard />}
+      {dashboardMetrics &&
+        Object.entries(dashboardMetrics)
+          .slice(0, 4)
+          .map(([key, value]) => <InfoCard key={value} title={t(key)} value={String(value)} />)}
     </div>
   );
 };

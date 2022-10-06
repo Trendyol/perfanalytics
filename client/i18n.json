@@ -5,7 +5,7 @@
     "*": ["common", "layout", "dashboard"],
     "/": ["dashboard"],
     "/dashboard/[domainId]": ["domain"],
-    "/dashboard/[domainId]/[pageId]": ["page"],
+    "/dashboard/[domainId]/[pageId]": ["path"],
     "/login": ["registration"],
     "/signup": ["registration"],
     "/recover": ["registration"],

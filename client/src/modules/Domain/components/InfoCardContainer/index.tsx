@@ -9,15 +9,15 @@ const InfoCardContainer: FC = () => {
   const router = useRouter();
   const { domainId } = router.query;
   const { dashboardMetrics, isLoading, isError } = useDashboardMetric(domainId as string);
-  
+
   if (isError) {
     return <>Loading domain metrics failed</>;
   }
 
   return (
-    <div className="grid grid-cols-4 w-full gap-6 mb-8">
-      {isLoading && new Array(4).fill(<InfoCard />)}
-      {dashboardMetrics && Object.entries(dashboardMetrics).map(([key, value]) => <InfoCard title={t(key)} value={value.toString()} />)}
+    <div className="grid grid-cols-4 w-full min-h-[135px] gap-6 mb-8">
+      {isLoading && <InfoCard />}
+      {dashboardMetrics && Object.entries(dashboardMetrics).map(([key, value]) => <InfoCard key={value} title={t(key)} value={value.toString()} />)}
     </div>
   );
 };

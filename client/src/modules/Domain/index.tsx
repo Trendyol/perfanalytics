@@ -26,8 +26,8 @@ const Domain: FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-top">
-        <div className="mb-10">
+      <div className="flex justify-between items-top mb-10">
+        <div className="flex flex-col gap-2">
           <Breadcrumb />
           <h3 className="text-md">{domain?.url}</h3>
         </div>
