@@ -17,7 +17,7 @@
   "success": "Success",
   "error": "Error",
   "domains": "Domains",
-  "pathCount": "Page Count",
+  "pathCount": "Path Count",
   "domainCount": "Domain Count",
   "lighthouseCount": "Report Count"
 }

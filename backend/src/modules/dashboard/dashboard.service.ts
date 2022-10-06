@@ -16,7 +16,7 @@ export class DashboardService {
     const pathCount = await this.pageService.getCount(user);
     const domainCount = await this.domainService.getCount(user);
     const lighthouseCount = await this.lighthouseService.getCount(user);
-    return { pageCount, domainCount, lighthouseCount };
+    return { pathCount, domainCount, lighthouseCount };
   }
 
   async getMetricsByDomain(user: User, domainId: string) {
