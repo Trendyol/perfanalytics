@@ -13,19 +13,19 @@ export class DashboardService {
   ) {}
 
   async getMetrics(user: User) {
-    const pageCount = await this.pageService.getCount(user);
+    const pathCount = await this.pageService.getCount(user);
     const domainCount = await this.domainService.getCount(user);
     const lighthouseCount = await this.lighthouseService.getCount(user);
     return { pageCount, domainCount, lighthouseCount };
   }
 
   async getMetricsByDomain(user: User, domainId: string) {
-    const pageCount = await this.pageService.getCount(user, domainId);
+    const pathCount = await this.pageService.getCount(user, domainId);
     const lighthouseCount = await this.lighthouseService.getCount(
       user,
       domainId,
     );
 
-    return { pageCount, lighthouseCount };
+    return { pathCount, lighthouseCount };
   }
 }

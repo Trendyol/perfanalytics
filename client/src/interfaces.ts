@@ -9,18 +9,50 @@ export interface DomainData {
   totalDocs: number;
 }
 
+export enum ReportStatus {
+  PENDING = 0,
+  DONE = 1,
+  ERROR = 2,
+}
+
+export interface Audits {
+  "first-contentful-paint": number;
+  "largest-contentful-paint": number;
+  "first-meaningful-paint": number;
+  "speed-index": number;
+  "total-blocking-time": number;
+  "cumulative-layout-shift": number;
+  interactive: number;
+}
+
+export interface Report {
+  _id: string;
+  url: string;
+  status: ReportStatus;
+  device: string;
+  owner: string;
+  domain: string;
+  page: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  audits: Audits;
+}
+
+export type ReportData = Array<Report>;
+
 export interface DomainSettings {
   name: string;
   url: string;
 }
 
-export interface Page {
+export interface Path {
   device: string;
   url: string;
   _id: string;
 }
 
-export interface PageSettings {
+export interface PathSettings {
   device: string;
   url: string;
 }
@@ -40,7 +72,7 @@ export interface Tag {
 }
 
 export interface DashboardMetrics {
-  pageCount?: number;
+  pathCount?: number;
   domainCount?: number;
   lighthouseCount?: number;
 }

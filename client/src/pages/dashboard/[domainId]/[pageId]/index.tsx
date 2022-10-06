@@ -1,17 +1,17 @@
-import Page from "@modules/Page";
+import Path from "@modules/Path";
 import { NextPage } from "next";
 import Head from "next/head";
 
-const PagePage: NextPage = () => {
+const PathPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Page</title>
+        <title>Path</title>
       </Head>
 
-      <Page />
+      <Path />
     </>
   );
-}
+};
 
-export default PagePage;
+export default PathPage;

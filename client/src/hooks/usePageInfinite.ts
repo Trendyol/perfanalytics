@@ -3,8 +3,8 @@ import { flattenNestedProperty } from "@utils/common";
 import { fetcher } from "@utils/fetcher";
 import { getPageKey } from "@utils/swr";
 
-const usePageInfinite = (domainId: string, tagId: string) => {
-  const { data, error, size, setSize, mutate } = useSWRInfinite<any>((index, prev) => getPageKey(domainId, tagId, index, prev), fetcher, {
+const usePageInfinite = (domainId: string, tagId?: string) => {
+  const { data, error, size, setSize, mutate } = useSWRInfinite<any>((index, prev) => getPageKey(domainId, index, tagId, prev), fetcher, {
     revalidateFirstPage: false,
     revalidateAll: false,
     revalidateOnFocus: false,

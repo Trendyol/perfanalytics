@@ -8,6 +8,19 @@ module.exports = {
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontSize: {
+      xs: ["0.75rem", "1.125rem"],
+      sm: ["0.875rem", "1.25rem"],
+      md: ["1rem", "1.5rem"],
+      lg: ["1.125rem", "1.75rem"],
+      xl: ["1.25rem", "1.875rem"],
+      displayXs: ["1.5rem", "2rem"],
+      displaySm: ["1.875rem", "2.375rem"],
+      displayMd: ["2.25rem", "2.75rem"],
+      displayLg: ["3rem", "3.75rem"],
+      displayXl: ["3.75rem", "4.5rem"],
+      display2Xl: ["4.5rem", "5.625rem"],
+    },
     extend: {
       height: {
         header: "70px",

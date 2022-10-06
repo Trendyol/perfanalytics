@@ -1,7 +1,7 @@
-import React, { FC } from "react";
 import CustomTable from "@components/shared/CustomTable";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
+import { FC } from "react";
 
 const columnData = [
   {
@@ -19,9 +19,10 @@ const columnData = [
     columnWidth: 150,
   },
   {
-    dataKey: "slackChannel",
-    label: "Slack Channel",
-    columnWidth: 200,
+    dataKey: "overallScore",
+    label: "Overall Score",
+    columnWidth: 150,
+    cellRenderer: (cellData: number) => <ScoreBadge type={getBadgeType(cellData)} score={cellData} />,
   },
   {
     dataKey: "lastReportDate",

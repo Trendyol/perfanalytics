@@ -11,10 +11,11 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@types/nodemailer": "^6.4.5",
     "husky": "^8.0.1"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
-    "concurrently": "^7.3.0"
+    "concurrently": "^7.3.0",
+    "date-fns": "^2.29.3"
   }
 }

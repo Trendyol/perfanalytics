@@ -2,6 +2,7 @@
   "dashboard": "dashboard module en",
   "add_domain": "ADD DOMAIN",
   "add_tag": "Add Tag",
+  "new_url": "New URL",
   "edit_tag": "Edit Tag",
   "name": "Name",
   "default_tag_can_not_be_deleted": "This tag can not be deleted",
@@ -15,9 +16,8 @@
   "url_invalid": "Url is not valid",
   "success": "Success",
   "error": "Error",
-  "general": "General Configuration",
   "domains": "Domains",
-  "pageCount": "Page Count",
+  "pathCount": "Page Count",
   "domainCount": "Domain Count",
   "lighthouseCount": "Report Count"
 }

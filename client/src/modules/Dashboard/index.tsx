@@ -1,10 +1,8 @@
-import React, { FC, useState } from "react";
-import DomainTable from "./components/DomainTable";
-import Button from "@components/shared/Form/Button";
-import DomainModal from "./components/DomainModal";
-import InfoCardContainer from "./components/InfoCardContainer";
 import useTranslation from "next-translate/useTranslation";
-import Breadcrumb from "@components/shared/Breadcrumb";
+import { FC, useState } from "react";
+import DomainModal from "./components/DomainModal";
+import DomainTable from "./components/DomainTable";
+import InfoCardContainer from "./components/InfoCardContainer";
 
 interface HomeProps {}
 
@@ -21,12 +19,11 @@ const Home: FC<HomeProps> = () => {
   };
 
   return (
-    <div className="min-h-full">
-      <Breadcrumb />
-      <div className="flex flex-col">
+    <div className="flex flex-col items-center min-h-full">
+      <div className="flex flex-col w-full">
         <InfoCardContainer />
-        <DomainModal show={showDomainModal} onClose={handleCloseDomainModal} />
         <DomainTable />
+        <DomainModal show={showDomainModal} onClose={handleCloseDomainModal} />
       </div>
     </div>
   );

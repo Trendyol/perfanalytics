@@ -2,10 +2,12 @@ import { SidebarHeader, SidebarNavigation, SidebarFooter } from "./components";
 
 const Sidebar = () => {
   return (
-    <aside className="flex flex-col w-64 h-screen bg-white shrink-0 px-4">
-      <SidebarHeader />
-      <SidebarNavigation />
-      <SidebarFooter />
+    <aside className="w-64">
+      <div className="fixed flex flex-col bg-white h-screen shrink-0 px-4 w-64">
+        <SidebarHeader />
+        <SidebarNavigation />
+        <SidebarFooter />
+      </div>
     </aside>
   );
 };

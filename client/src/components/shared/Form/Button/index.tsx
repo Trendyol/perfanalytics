@@ -6,12 +6,12 @@ const COLORS = {
   secondary: "bg-secondary text-white",
   transparent: "bg-transparent border-none text-gray-500 hover:bg-gray-200",
   danger: "btn-error text-white",
-  light: "text-gray-400 hover:bg-gray-100  border border-gray-300"
+  light: "text-gray-400 hover:bg-gray-100  border border-gray-300",
 };
 
 const SIZES = {
   large: "btn-md h-[45px]",
-  medium: "btn-sm h-[36px]",
+  medium: "btn-sm h-[32px]",
   small: "btn-sm text-xs",
 };
 
@@ -27,7 +27,7 @@ const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium",
   return (
     <button
       className={classnames(
-        "btn no-animation rounded-[5px]",
+        "flex justify-center items-center text-sm font-semibold rounded-[5px] px-4",
         COLORS[color],
         SIZES[size],
         {
@@ -39,7 +39,7 @@ const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium",
       )}
       {...rest}
     >
-      {!loading && children}
+      {children}
     </button>
   );
 };

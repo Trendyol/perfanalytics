@@ -26,9 +26,9 @@ const sidebarFooterItems = [
 const SidebarFooter: FC<SidebarFooterProps> = (props) => {
   return (
     <footer className="mt-auto mb-6">
-      <ul className="flex flex-col gap-1">
+      <ul className="flex flex-col gap-2">
         {sidebarFooterItems.map(({ name, LeftIcon, link }) => (
-          <li className="flex flex-col items-stretch justify-between font-medium">
+          <li key={name} className="flex flex-col items-stretch justify-between font-medium">
             <Link href={link}>
               <a className={classNames("flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md cursor-pointer hover:bg-gray-200")}>
                 <LeftIcon fontSize={24} />

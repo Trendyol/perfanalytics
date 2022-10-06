@@ -5,11 +5,11 @@
     "*": ["common", "layout", "dashboard"],
     "/": ["dashboard"],
     "/dashboard/[domainId]": ["domain"],
-    "/dashboard/[domainId]/[pageId]": ["page"],
-    "/login": ["login"],
-    "/register": ["register"],
-    "/recover": ["recover"],
-    "/reset-password": ["reset-password"]
+    "/dashboard/[domainId]/[pageId]": ["path"],
+    "/login": ["registration"],
+    "/signup": ["registration"],
+    "/recover": ["registration"],
+    "/reset-password": ["registration"]
   },
   "defaultNS": "common",
   "logBuild": false

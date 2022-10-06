@@ -8,16 +8,16 @@
   "update_domain": "Update Domain",
   "success": "Success",
   "error": "Error",
+  "settings": "Settings",
   "domain_settings": "Domain Settings",
-  "settings": "SETTINGS",
-  "general": "General Configuration",
-  "danger": "Danger Zone",
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete this domain?",
   "cancel": "Cancel",
-  "new_url": "+ New Url",
+  "add_path": "Add Path",
+  "new_url": "New URL",
   "add": "Add",
-  "page_url": "Page URL",
+  "path_url": "Path URL",
   "device": "Device",
-  "paths": "Paths"
+  "paths": "Paths",
+  "danger": "Danger!"
 }

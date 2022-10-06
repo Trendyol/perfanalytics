@@ -14,7 +14,7 @@ const App = (props: AppProps) => {
   if (LAYOUT_EXCLUDED_PAGES.includes(router.route)) {
     return (
       <>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
         <Toast />
       </>
     );

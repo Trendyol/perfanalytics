@@ -14,3 +14,13 @@ export class GetLighthouseQuery {
   @IsMongoId()
   pageId?: string;
 }
+
+export class GetLighthouseAnalyticsQuery {
+  @ApiProperty()
+  @IsDateString()
+  startDate: string;
+
+  @ApiProperty()
+  @IsDateString()
+  endDate: string;
+}

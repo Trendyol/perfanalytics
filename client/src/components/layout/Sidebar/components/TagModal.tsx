@@ -88,39 +88,14 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
   };
 
   return (
-    <Modal
-      show={show}
-      onClose={onClose}
-      title={t(`${type}_tag`)}
-      footer={
-        <div className="flex justify-end">
-          {type === "edit" && (
-            <Button onClick={() => handleTagActionClick(TagAction.DELETE)} type="submit" color="danger" size="small">
-              {t("delete")}
-            </Button>
-          )}
-          <Button onClick={onClose} type="submit" color="transparent" size="small" className="ml-auto mr-2">
-            {t("cancel")}
-          </Button>
-          <Button
-            onClick={() => handleTagActionClick(type === "add" ? TagAction.ADD : TagAction.EDIT)}
-            loading={isProcessContinue}
-            type="submit"
-            color="primary"
-            size="small"
-          >
-            {t(type)}
-          </Button>
-        </div>
-      }
-    >
-      <form className="section w-full flex flex-col gap-3 text-xl">
-        <div className="flex flex-col gap-1">
-          <h5 className="text-[14px]">{t("color")}</h5>
+    <Modal show={show} onClose={onClose} title={t(`${type}_tag`)}>
+      <form className="section w-full flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
+          <h5 className="text-[14px] font-medium text-gray-500">{t("color")}</h5>
           <ColorPicker checkedColor={formik.values.checkedColor} onChange={(x) => formik.setFieldValue("checkedColor", x)} />
         </div>
-        <div className="flex flex-col gap-1">
-          <h5 className="text-[14px]">{t("name")}</h5>
+        <div className="flex flex-col gap-2">
+          <h5 className="text-[14px] font-medium text-gray-500">{t("name")}</h5>
           <TextField
             name="name"
             onChange={formik.handleChange}
@@ -130,6 +105,25 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           />
         </div>
       </form>
+      <div className="flex justify-end">
+        {type === "edit" && (
+          <Button onClick={() => handleTagActionClick(TagAction.DELETE)} type="submit" color="danger" size="medium">
+            {t("delete")}
+          </Button>
+        )}
+        <Button onClick={onClose} type="submit" color="transparent" size="medium" className="ml-auto mr-2">
+          {t("cancel")}
+        </Button>
+        <Button
+          onClick={() => handleTagActionClick(type === "add" ? TagAction.ADD : TagAction.EDIT)}
+          loading={isProcessContinue}
+          type="submit"
+          color="primary"
+          size="medium"
+        >
+          {t(type)}
+        </Button>
+      </div>
     </Modal>
   );
 };
