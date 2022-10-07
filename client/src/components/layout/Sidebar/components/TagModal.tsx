@@ -1,20 +1,20 @@
-import { FC, useState } from "react";
+import ColorPicker from "@components/shared/ColorPicker";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
+import { HttpCodes, TagAction } from "@enums";
+import useTags from "@hooks/useTag";
+import { Tag } from "@interfaces";
 import { tagSchema } from "@schemas";
+import { createTag, deleteTag, updateTag } from "@services/tagService";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
-import { toast } from "react-toastify";
-import ColorPicker from "@components/shared/ColorPicker";
-import { HttpCodes, TagAction } from "@enums";
-import { createTag, deleteTag, editTag } from "@services/tagService";
-import { Tag } from "@interfaces";
 import { useRouter } from "next/router";
-import useTags from "@hooks/useTag";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
 
 interface TagModalProps {
-  type: "add" | "edit";
+  type: "add" | "update";
   show: boolean;
   tag?: Tag;
   onClose: () => void;
@@ -28,7 +28,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
   const { mutateTag } = useTags(domainId as string);
 
   const formik = useFormik({
-    initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "" , isDefaultTag: tag?.isDefaultTag },
+    initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "", isDefaultTag: tag?.isDefaultTag },
     validateOnChange: false,
     enableReinitialize: true,
     validationSchema: () => tagSchema(t),
@@ -41,7 +41,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
     toast.error(t("default_tag_can_not_be_deleted"));
     onClose();
     setIsProcessContinue(false);
-  }
+  };
 
   const handleTagActionClick = async (submitAction: TagAction) => {
     setIsProcessContinue(true);
@@ -57,15 +57,15 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
             isDefaultTag: false,
           });
           break;
-          case TagAction.EDIT:
-          result = await editTag({
+        case TagAction.UPDATE:
+          result = await updateTag({
             id: tag!.id,
             name: formik.values.name,
             color: formik.values.checkedColor,
           });
           break;
         case TagAction.DELETE:
-          if(formik.values.isDefaultTag) return handleDefaultTagDeleteAction();
+          if (formik.values.isDefaultTag) return handleDefaultTagDeleteAction();
           result = await deleteTag(tag!.id);
           break;
         default:
@@ -92,7 +92,10 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
       <form className="section w-full flex flex-col gap-3">
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("color")}</h5>
-          <ColorPicker checkedColor={formik.values.checkedColor} onChange={(x) => formik.setFieldValue("checkedColor", x)} />
+          <ColorPicker
+            checkedColor={formik.values.checkedColor}
+            onChange={(x) => formik.setFieldValue("checkedColor", x)}
+          />
         </div>
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("name")}</h5>
@@ -106,7 +109,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
         </div>
       </form>
       <div className="flex justify-end">
-        {type === "edit" && (
+        {type === "update" && (
           <Button onClick={() => handleTagActionClick(TagAction.DELETE)} type="submit" color="danger" size="medium">
             {t("delete")}
           </Button>
@@ -115,7 +118,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           {t("cancel")}
         </Button>
         <Button
-          onClick={() => handleTagActionClick(type === "add" ? TagAction.ADD : TagAction.EDIT)}
+          onClick={() => handleTagActionClick(type === "add" ? TagAction.ADD : TagAction.UPDATE)}
           loading={isProcessContinue}
           type="submit"
           color="primary"

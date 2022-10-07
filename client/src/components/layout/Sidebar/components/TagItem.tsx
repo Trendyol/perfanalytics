@@ -1,9 +1,9 @@
 import Button from "@components/shared/Form/Button";
+import Icon from "@components/shared/Icon";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
-import { MdModeEditOutline } from "react-icons/md";
 import TagModal from "./TagModal";
 
 const TagItem: FC<SidebarSubItemProps> = (props) => {
@@ -30,28 +30,26 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
       >
         <a
           key={name}
-          className={classNames("flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer", {
-            "bg-gray-200": isActive,
-          })}
+          className={classNames(
+            "flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer",
+            {
+              "bg-gray-200": isActive,
+            }
+          )}
         >
           <div className={`w-6 h-6 rounded-full ${color}`}></div>
           <div>{name}</div>
           <Button
             color="transparent"
             size="small"
-            className="absolute h-full right-0 px-2 text-gray-500 hover:text-gray-200 hidden group-hover:block hover:bg-gray-400 rounded-l-none"
+            className="absolute right-2 w-8 px-2 hidden hover:flex justify-center items-center text-gray-500 hover:text-gray-200 group-hover:flex hover:bg-gray-400 rounded-l"
             onClick={handleTagEditClick}
           >
-            <MdModeEditOutline fontSize={14} />
+            <Icon name="edit" className="w-4 h-4" />
           </Button>
         </a>
       </Link>
-      <TagModal
-        type="edit"
-        show={showTag}
-        tag={{ id, name, color, isDefaultTag }}
-        onClose={() => setShowTag(false)}
-      />
+      <TagModal type="update" show={showTag} tag={{ id, name, color, isDefaultTag }} onClose={() => setShowTag(false)} />
     </>
   );
 };

@@ -6,7 +6,7 @@ const LoginPage: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Login</title>
+        <title>Login | Perfanalytics</title>
         <meta name="description" content="Login to continue." />
       </Head>
 

@@ -6,7 +6,7 @@ const ResetPasswordPage: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Reset Password</title>
+        <title>Reset Password | Perfanalytics</title>
         <meta name="description" content="Reset password to continue." />
       </Head>
 

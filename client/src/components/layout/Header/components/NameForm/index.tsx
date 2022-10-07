@@ -1,12 +1,12 @@
-import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
-import useTranslation from "next-translate/useTranslation";
-import { updateUsername } from "@services/userService";
-import { toast } from "react-toastify";
 import useUser from "@hooks/useUser";
-import { useFormik } from "formik";
 import { nameUpdateSchema } from "@schemas";
+import { updateUsername } from "@services/userService";
+import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
 
 interface NameFormProps {}
 

@@ -9,62 +9,57 @@ import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { FC, useRef } from "react";
 
+const getIconByDevice: Record<string, JSX.Element> = {
+  desktop: <Icon name="desktop" className="w-5 h-5" />,
+  mobile: <Icon name="mobile" className="w-5 h-5" />,
+};
+
 const columnData = [
   {
     dataKey: "createdAt",
+    columnWidth: 150,
     label: "Report Date",
-    columnWidth: 1,
   },
-
   {
     dataKey: "device",
     label: "Device",
+    columnWidth: 70,
+    cellRenderer: (deviceType: string) => getIconByDevice[deviceType],
   },
   {
     dataKey: "first-contentful-paint",
     label: "First Contentful Paint",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "speed-index",
     label: "Speed Index",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "largest-contentful-paint",
     label: "Largest Contentful Paint",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "interactive",
     label: "Time to Interactive",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "total-blocking-time",
     label: "Total Blocking Time",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "cumulative-layout-shift",
     label: "Cumulative Layout Shift",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "first-meaningful-paint",
     label: "First Meaningful Paint",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
-  },
-  {
-    dataKey: "status",
-    label: "Status",
   },
 ];
 
@@ -79,13 +74,19 @@ const ReportTable: FC<ReportTableProps> = () => {
   const handleReportClick = ({ _id }: { _id: string }) => {
     // router.push(`/dashboard/${_id}?tagId=${DEFAULT_TAG.id}`);
     // TODO: report sayfasinin linkini sor
+
+    alert("Not implemented yet.");
   };
 
   const handleNextPage = () => {
-    setSize(size + 1);
+    if (size && setSize) {
+      setSize(size + 1);
+    }
   };
 
-  const generateReport = () => {};
+  const generateReport = () => {
+    alert("Not implemented yet.");
+  };
 
   if (!reports) {
     return null;
@@ -93,7 +94,12 @@ const ReportTable: FC<ReportTableProps> = () => {
 
   return (
     <>
-      <div className={classnames("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md", "text-xl font-semibold")}>
+      <div
+        className={classnames(
+          "flex flex-col gap-7 bg-white px-7 pt-6 pb-0 w-full rounded-lg drop-shadow-md",
+          "text-xl font-semibold"
+        )}
+      >
         <div className="flex justify-between items-center">
           <h3 className="text-displayXs">{t("report_table_title")}</h3>
           <Button onClick={() => generateReport()} className="flex gap-1 px-3 py-2">

@@ -6,7 +6,7 @@ const PathPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Path</title>
+        <title>Perfanalytics</title>
       </Head>
 
       <Path />

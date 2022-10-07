@@ -21,7 +21,7 @@ export enum HttpCodes {
 
 export enum TagAction {
   ADD,
-  EDIT,
+  UPDATE,
   DELETE,
 }
 
@@ -30,3 +30,9 @@ export const StatusCode: Record<0 | 1 | 2, string> = {
   1: "Success",
   2: "Failed",
 };
+
+export enum DeviceTypes {
+  Desktop = "desktop", 
+  Mobile ="mobile"
+}
+

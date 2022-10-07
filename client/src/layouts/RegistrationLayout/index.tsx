@@ -11,7 +11,9 @@ const RegistrationLayout: FC<RegistrationLayoutProps> = (props) => {
 
   return (
     <main className="flex flex-row h-screen bg-center bg-cover">
-      <div className={classnames(styles.logo, "flex w-[680px] bg-primary lg:hidden h-full items-center justify-center")} />
+      <div
+        className={classnames(styles.logo, "flex w-[680px] bg-primary lg:hidden h-full items-center justify-center")}
+      />
       <div className="flex-1 flex justify-center items-center">{children}</div>
     </main>
   );

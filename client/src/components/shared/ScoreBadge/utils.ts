@@ -7,7 +7,7 @@ import { SCORE_BADGE_TYPE } from "./enums";
 
 const getBadgeColorClass = (type: SCORE_BADGE_TYPE): string => {
   const scoreBadgeColorClass = {
-    [SCORE_BADGE_TYPE.UNKNOWN]: "text-gray-700 bg-gray-100",
+    [SCORE_BADGE_TYPE.UNKNOWN]: "text-gray-700 bg-gray-200",
     [SCORE_BADGE_TYPE.POOR]: "text-red-700 bg-red-100",
     [SCORE_BADGE_TYPE.NEEDSIMPROVEMENT]: "text-yellow-700 bg-yellow-100",
     [SCORE_BADGE_TYPE.GOOD]: "text-green-700 bg-green-100",

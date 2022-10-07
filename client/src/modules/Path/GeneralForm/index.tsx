@@ -1,4 +1,6 @@
+import Select from "@components/shared/Form/Select";
 import TextField from "@components/shared/Form/TextField";
+import { DeviceTypes } from "@enums";
 import { FormikProps } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { FC } from "react";
@@ -25,8 +27,10 @@ const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
       </div>
       <div className="flex flex-col gap-2">
         <h5 className="text-[14px] font-medium text-gray-500">{t("device")}</h5>
-        <TextField
+        <Select
           name="device"
+          defaultText="Select device type"
+          options={Object.keys(DeviceTypes)}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.device}

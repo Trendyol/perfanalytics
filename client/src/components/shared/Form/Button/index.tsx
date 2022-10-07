@@ -1,5 +1,5 @@
-import { FC } from "react";
 import classnames from "classnames";
+import { FC } from "react";
 
 const COLORS = {
   primary: "btn-primary text-white hover:bg-[#F16B00]",
@@ -23,7 +23,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fluid?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium", loading = false, circle = false, fluid = false, className, ...rest }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  color = "primary",
+  size = "medium",
+  loading = false,
+  circle = false,
+  fluid = false,
+  className,
+  ...rest
+}) => {
   return (
     <button
       className={classnames(

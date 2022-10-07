@@ -3,7 +3,6 @@ import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
-import { DEFAULT_TAG } from "@constants";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import { getFavicon } from "@utils/common";
 import classnames from "classnames";
@@ -26,24 +25,22 @@ const columnData = [
   },
   {
     dataKey: "url",
-    label: "# of Url",
-    columnWidth: 1,
-  },
-  {
-    dataKey: "countOfTotalReport",
-    label: "# of Total Report",
-    columnWidth: 1,
+    label: "Url",
   },
   {
     dataKey: "overallScore",
     label: "Overall Score",
-    columnWidth: 1,
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
+  },
+  {
+    dataKey: "countOfTotalReport",
+    label: "# of Total Report",
+    cellRenderer: (text: string) => text || "-",
   },
   {
     dataKey: "lastReportDate",
     label: "Last Report Date",
-    columnWidth: 1,
+    cellRenderer: (date: string) => date || "-",
   },
 ];
 
@@ -63,7 +60,12 @@ const DomainTable: FC<DomainTableProps> = (props) => {
 
   return (
     <>
-      <div className={classnames("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md", "text-xl font-semibold")}>
+      <div
+        className={classnames(
+          "flex flex-col gap-7 bg-white px-7 pt-6 pb-0 w-full rounded-lg drop-shadow-md",
+          "text-xl font-semibold"
+        )}
+      >
         <div className="flex justify-between items-center">
           <h3 className="text-displayXs">{t("domains")}</h3>
           <Button onClick={() => setShowDomainModal(true)} className="flex gap-1 px-3 py-2">

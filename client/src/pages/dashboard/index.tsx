@@ -8,7 +8,7 @@ const DashboardPage: NextPage<any> = () => {
   return (
     <>
       <Head>
-        <title>Dashboard</title>
+        <title>Dashboard | Perfanalytics</title>
         <meta name="description" content="..." />
       </Head>
       <Dashboard />

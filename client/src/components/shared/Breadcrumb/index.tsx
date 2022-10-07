@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
-import Link from "next/link";
 import classnames from "classnames";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FC } from "react";
 
 const Breadcrumb: FC = () => {
   const router = useRouter();

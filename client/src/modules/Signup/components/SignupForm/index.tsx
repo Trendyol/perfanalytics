@@ -1,16 +1,16 @@
-import { FC } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
-import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { signupSchema } from "@schemas";
-import { toast } from "react-toastify";
-import useUser from "@hooks/useUser";
-import { createSession, createUser } from "@services/userService";
-import { FcGoogle } from "react-icons/fc";
-import Link from "next/link";
 import PasswordField from "@components/shared/Form/TextField/PasswordField";
+import useUser from "@hooks/useUser";
+import { signupSchema } from "@schemas";
+import { createSession, createUser } from "@services/userService";
+import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FC } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 const SignupForm: FC = () => {
   const { mutateUser } = useUser();
@@ -103,10 +103,10 @@ const SignupForm: FC = () => {
           {t("signup")}
         </Button>
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
-        <Button size="large" color="light" fluid>
-          <FcGoogle fontSize={18} />
+        <Button size="large" color="light" className="flex gap-2" fluid>
+          <FcGoogle fontSize={22} />
           <Link href={"http://localhost:4000/session/google/callback"}>
-            <span className="pl-2 text-lg">{t("Continue with Google")}</span>
+            <span>{t("Continue with Google")}</span>
           </Link>
         </Button>
       </div>
