@@ -100,7 +100,6 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
         </div>
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("name")}</h5>
-          kjwbfwehkjfbweh
           <TextField
             name="name"
             onChange={formik.handleChange}
