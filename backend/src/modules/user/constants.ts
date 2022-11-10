@@ -3,7 +3,7 @@ import config from '@config';
 export const mailinator = {
   sender: config.email.address,
   password: config.email.password,
-  host: 'smtp.gmail.com',
+  host: 'smtp.mailgun.org',
   subject: {
     en: 'Password help is arrived!',
     tr: 'Şifre yardımı geldi!',
