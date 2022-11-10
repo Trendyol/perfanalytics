@@ -6,6 +6,8 @@
   "name": "Name",
   "registration_error": "Registration failed",
   "recover_account": "Recover Account",
+  "password_reset_failed": "Password Reset Request Failed",
+	"password_reset_token_verify_error": "Your password reset request could not be made. Please turn back to recovery page and try again.",
   "error": "Something went wrong",
   "dont_have_account": "Don't have an account yet?",
   "credential_error": "Error while validating credentials",
