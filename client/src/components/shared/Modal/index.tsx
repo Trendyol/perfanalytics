@@ -16,8 +16,8 @@ const Modal: FC<ModalProps> = ({ title, show, onClose, children }) => {
   return (
     <>
       {show && (
-        <div className="modal modal-open" onClick={onClose}>
-          <div className="modal-box rounded-lg p-0" onClick={(e) => e.stopPropagation()}>
+        <div className="modal modal-open" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-box rounded-lg p-0">
             <header className="flex justify-between items-center py-3 pl-5 pr-3 border-b border-b-gray-200">
               <div className="text-md font-semibold text-gray-700">{title}</div>
               <Button size="small" color="transparent" className="px-2" onClick={onClose}>
