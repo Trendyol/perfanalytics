@@ -19,6 +19,7 @@ const TextField: FC<TextFieldProps> = ({ error, title, className, rightIcon, pre
           "text-md text-gray-500 h-full w-full mr-3 bg-transparent border-none outline-none",
           className
         )}
+        onPaste={e => e.preventDefault()} 
         {...rest}
       />
       {rightIcon && (
