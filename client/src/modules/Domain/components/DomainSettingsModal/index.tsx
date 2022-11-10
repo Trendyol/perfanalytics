@@ -58,10 +58,9 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
   return (
     <Modal show={show} onClose={onClose} title={t("domain_settings")}>
       <UpdateSection formik={formik} />
-
       <div className="flex justify-end">
         <DangerSection />
-        <Button color="transparent" className="mr-2">
+        <Button color="transparent" onClick={onClose} className="mr-2">
           {t("cancel")}
         </Button>
         <Button onClick={() => formik.submitForm()} loading={updatingDomain} color="primary">
