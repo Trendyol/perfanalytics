@@ -1,4 +1,8 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { PaginateModel, PaginateResult } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Page } from './etc/page.schema';
@@ -6,6 +10,7 @@ import { User } from '@modules/user/etc/user.schema';
 import { CreatePageDTO } from './etc/create-page.dto';
 import { UpdatePageDTO } from './etc/update-page.dto';
 import { TagService } from '@modules/tag/tag.service';
+import { checkPublicAddress } from '../../core/utils/address';
 
 @Injectable()
 export class PageService {
@@ -16,6 +21,12 @@ export class PageService {
 
   async create(user: User, createPageDTO: CreatePageDTO) {
     const { domainId, tagId, url, device } = createPageDTO;
+
+    const isAddressPublic = await checkPublicAddress(url);
+    if (!isAddressPublic) {
+      throw new BadRequestException('Address can not be private');
+    }
+
     if (tagId) {
       const tag = await this.tagService.get(user, tagId);
       if (!tag) {
@@ -89,6 +100,13 @@ export class PageService {
 
   async update(user: User, id: string, updatePageDTO: UpdatePageDTO) {
     const page = await this.pageModel.findById({ _id: id });
+
+    if (updatePageDTO.url) {
+      const isAddressPublic = await checkPublicAddress(updatePageDTO.url);
+      if (!isAddressPublic) {
+        throw new BadRequestException('Address can not be private');
+      }
+    }
 
     if (!page) {
       throw new UnprocessableEntityException('Page not found');

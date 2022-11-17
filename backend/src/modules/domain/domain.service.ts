@@ -1,4 +1,8 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { PaginateModel, PaginateResult } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateDomainDTO } from './etc/create-domain.dto';
@@ -7,6 +11,7 @@ import { User } from '@modules/user/etc/user.schema';
 import { UpdateDomainDTO } from './etc/update.domain.dto';
 import { TagService } from '@modules/tag/tag.service';
 import { DEFAULT_TAG } from './constants';
+import { checkPublicAddress } from '@core/utils/address';
 
 @Injectable()
 export class DomainService {
@@ -17,6 +22,11 @@ export class DomainService {
 
   async create(user: User, createDomainDTO: CreateDomainDTO) {
     const { name, url } = createDomainDTO;
+
+    const isAddressPublic = await checkPublicAddress(url);
+    if (!isAddressPublic) {
+      throw new BadRequestException('Address can not be private');
+    }
 
     const domainModel = new this.domainModel({
       name: name,
@@ -87,6 +97,13 @@ export class DomainService {
 
     if (!domain) {
       throw new UnprocessableEntityException('Domain not found');
+    }
+
+    if (updateDomainDTO.url) {
+      const isAddressPublic = await checkPublicAddress(updateDomainDTO.url);
+      if (!isAddressPublic) {
+        throw new BadRequestException('Address can not be private');
+      }
     }
 
     if (String(domain.owner) !== String(user._id)) {
