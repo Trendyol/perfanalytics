@@ -72,9 +72,6 @@ const ReportTable: FC<ReportTableProps> = () => {
   const { reports, length, size, setSize, isLoading } = useReportsInfinite(pageId as string, initialDate.current, 10);
 
   const handleReportClick = ({ _id }: { _id: string }) => {
-    // router.push(`/dashboard/${_id}?tagId=${DEFAULT_TAG.id}`);
-    // TODO: report sayfasinin linkini sor
-
     alert("Not implemented yet.");
   };
 
