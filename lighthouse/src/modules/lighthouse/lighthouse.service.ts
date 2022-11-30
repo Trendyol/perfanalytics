@@ -46,7 +46,7 @@ export class LighthouseService {
       const runnerResult = await lighthouseRunner(
         lighthouse.url,
         options,
-        deviceConfig[lighthouse.device] || Device.DESKTOP,
+        deviceConfig[lighthouse.device] || deviceConfig[Device.DESKTOP],
       );
 
       lighthouse.audits.performance =
@@ -69,7 +69,8 @@ export class LighthouseService {
 
       lighthouse.audits = audits;
       lighthouse.status = Status.DONE;
-    } catch {
+    } catch (e) {
+      console.log('error', e);
       lighthouse.status = Status.ERROR;
     }
 

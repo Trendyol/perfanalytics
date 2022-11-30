@@ -17,7 +17,7 @@ export class LighthouseService {
     private readonly lighthouseModel: PaginateModel<Lighthouse>,
   ) {}
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  // @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
     const pages = await this.getPages();
     pages.forEach((page) => {

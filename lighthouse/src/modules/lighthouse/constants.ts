@@ -12,7 +12,6 @@ export const usefulAudits = [
 ];
 
 export const defaultChromeFlags = [
-  '--headless',
   '--no-sandbox',
   '--disable-gpu',
   '--disable-dev-shm-usage',

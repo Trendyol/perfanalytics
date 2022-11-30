@@ -1,6 +1,6 @@
 export enum Device {
-  DESKTOP = 'desktop',
-  MOBILE = 'mobile',
+  DESKTOP = 'Desktop',
+  MOBILE = 'Mobile',
 }
 
 export enum Status {
