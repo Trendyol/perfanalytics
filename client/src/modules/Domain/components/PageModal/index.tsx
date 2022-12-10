@@ -30,7 +30,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
 
   const formik = useFormik({
-    initialValues: { domainId: domainId as string, url: "", device: "" },
+    initialValues: { domainId: domainId as string, url: "", device: "", tagId: tagId as string },
     validateOnChange: false,
     validationSchema: () => addPageSchema(t),
     onSubmit: (values, { resetForm }) => {
@@ -39,7 +39,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
     },
   });
 
-  const handlePageAdd = async (values: { domainId: string; url: string; device: string }) => {
+  const handlePageAdd = async (values: { domainId: string; url: string; device: string; tagId: string }) => {
     setAddingPage(true);
 
     values.url = domain?.url + values.url;
@@ -80,6 +80,16 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
             onBlur={formik.handleBlur}
             value={formik.values.device}
             error={formik.touched.device && formik.errors.device}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <h5 className="text-[14px] font-medium text-gray-500">{t("tagId")}</h5>
+          <TextField
+            name="tagId"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.tagId}
+            error={formik.touched.tagId && formik.errors.tagId}
           />
         </div>
       </form>

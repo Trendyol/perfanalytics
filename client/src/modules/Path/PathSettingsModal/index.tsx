@@ -27,7 +27,7 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
   const { mutatePages } = usePageInfinite(domainId as string);
 
   const formik = useFormik({
-    initialValues: { url: page?.url || "", device: page?.device || "" },
+    initialValues: { url: page?.url || "", device: page?.device || "", tagId: page?.tagId || "" },
     validateOnChange: false,
     enableReinitialize: true,
     validationSchema: () => updatePageSchema(t),
@@ -72,3 +72,7 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
 };
 
 export default PathSettingsModal;
+function useTag(arg0: string): { tag: any; } {
+  throw new Error("Function not implemented.");
+}
+

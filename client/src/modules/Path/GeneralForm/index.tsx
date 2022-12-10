@@ -37,6 +37,16 @@ const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
           error={formik.touched.device && formik.errors.device}
         />
       </div>
+      <div className="flex flex-col gap-2">
+        <h5 className="text-[14px] font-medium text-gray-500">{t("tagId")}</h5>
+        <TextField
+          name="tagId"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.tagId}
+          error={formik.touched.tagId && formik.errors.tagId}
+        />
+      </div>
     </form>
   );
 };

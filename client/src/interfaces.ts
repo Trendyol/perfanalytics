@@ -30,6 +30,7 @@ export interface Report {
   url: string;
   status: ReportStatus;
   device: string;
+  tagId: string;
   owner: string;
   domain: string;
   page: string;
@@ -49,10 +50,12 @@ export interface DomainSettings {
 export interface Path {
   device: string;
   url: string;
+  tagId: string;
   _id: string;
 }
 
 export interface PathSettings {
+  tagId: string;
   device: string;
   url: string;
 }
