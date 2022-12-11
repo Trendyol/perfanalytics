@@ -5,31 +5,18 @@ import { AutoSizer, Column, InfiniteLoader, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const {
-    data,
-    length,
-    isLoading,
-    columnData,
-    rowHeight = 35,
-    headerHeight = 40,
-    hasTextCenterOnFirstColumn = false,
-    onRowClick,
-    onNextPage,
-  } = props;
+  const { data, length, isLoading, columnData, rowHeight = 40, headerHeight = 40, hasTextCenterOnFirstColumn = false, onRowClick, onNextPage } = props;
 
   const { t } = useTranslation("common");
 
   const noRowsRenderer = () => {
     return (
       <div
-        className={classnames(
-          "flex justify-center items-center w-full h-full bg-gray-100 text-displaySm text-gray-500",
-          {
-            "animate-pulse-slow": isLoading,
-          }
-        )}
+        className={classnames("flex justify-center items-center w-full h-full bg-gray-100 text-displaySm text-gray-500", {
+          "rounded-b-xl animate-pulse-slow": isLoading,
+        })}
       >
-        {isLoading ? t("fetching_data_placeholder") : t("no_data")}
+        {isLoading || !data ? t("fetching_data_placeholder") : t("no_data")}
       </div>
     );
   };
@@ -50,15 +37,12 @@ const CustomTable: FC<CustomTableProps> = (props) => {
               height={340}
               headerHeight={headerHeight}
               rowHeight={rowHeight}
-              rowCount={data.length}
+              rowCount={data?.length || 0}
               rowGetter={({ index }) => data[index]}
               className="bg-white rounded-lg text-xs"
-              headerClassName={classNames(
-                "!m-0 text-sm font-normal text-gray-400 flex items-center normal-case justify-center",
-                {
-                  "first:justify-start": !hasTextCenterOnFirstColumn,
-                }
-              )}
+              headerClassName={classNames("!m-0 text-sm font-normal text-gray-400 flex items-center normal-case justify-center", {
+                "first:justify-start": !hasTextCenterOnFirstColumn,
+              })}
               rowClassName={({ index }: { index: number }) =>
                 classnames("border-b border-gray-200", "text-center", index !== -1 && "hover:bg-gray-50 cursor-pointer")
               }
@@ -77,9 +61,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
                   className={classNames("!m-0 text-gray-400 !font-normal", {
                     "flex justify-center": hasTextCenterOnFirstColumn && index !== 0,
                   })}
-                  cellRenderer={({ cellData, rowData }) =>
-                    data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData
-                  }
+                  cellRenderer={({ cellData, rowData }) => (data.cellRenderer ? data.cellRenderer(cellData, rowData) : cellData)}
                 />
               ))}
             </Table>

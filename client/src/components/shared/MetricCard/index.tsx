@@ -1,6 +1,6 @@
 import { getScoreOverHundred } from "@utils/common";
 import classNames from "classnames";
-import { FC } from "react";
+import { FC, memo } from "react";
 import Icon from "../Icon";
 
 const MetricCard: FC<MetricCardProps> = ({ title, infoLink, score, percentage }) => {
@@ -14,14 +14,13 @@ const MetricCard: FC<MetricCardProps> = ({ title, infoLink, score, percentage })
       </div>
       <div
         className={classNames("flex text-center", {
-          "text-red-500": 0 <= score && score < 0.5,
+          "text-gray-300": score === 0,
+          "text-red-500": 0 < score && score < 0.5,
           "text-yellow-500": 0.5 <= score && score < 0.9,
           "text-green-500": 0.9 <= score && score <= 1,
         })}
       >
-        <div className="flex-1 px-3 py-2 border-r border-r-gray-200 text-displayXs font-normal">
-          {getScoreOverHundred(score)}
-        </div>
+        <div className="flex-1 px-3 py-2 border-r border-r-gray-200 text-displayXs font-normal">{getScoreOverHundred(score)}</div>
         <div className="flex-1 px-3 py-2 text-displayXs text-gray-300 font-normal">{percentage}%</div>
       </div>
     </div>
@@ -35,4 +34,4 @@ interface MetricCardProps {
   percentage: number;
 }
 
-export default MetricCard;
+export default memo(MetricCard);

@@ -58,7 +58,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           });
           break;
         case TagAction.UPDATE:
-          if(!formik.values.name) return;
+          if (!formik.values.name) return;
           result = await updateTag({
             id: tag!.id,
             name: formik.values.name,
@@ -75,7 +75,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
 
       if ([HttpCodes.OK, HttpCodes.CREATED].includes(result?.status!)) {
         toast.success(t("success"));
-        mutateTag();
+        mutateTag && mutateTag();
         formik.resetForm();
         onClose();
       } else {
@@ -93,10 +93,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
       <form className="section w-full flex flex-col gap-3">
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("color")}</h5>
-          <ColorPicker
-            checkedColor={formik.values.checkedColor}
-            onChange={(x) => formik.setFieldValue("checkedColor", x)}
-          />
+          <ColorPicker checkedColor={formik.values.checkedColor} onChange={(x) => formik.setFieldValue("checkedColor", x)} />
         </div>
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("name")}</h5>

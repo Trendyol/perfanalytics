@@ -1,3 +1,5 @@
+import { Metric } from "@interfaces";
+
 export const DEFAULT_SCORE_BADGE_TEXT = "?";
 export const LIGHTHOUSE_METRIC_POOR_THRESHOLD = 0;
 export const LIGHTHOUSE_METRIC_NEEDSIMPROVEMENT_THRESHOLD = 50;
@@ -20,12 +22,14 @@ export const FOOTER_ROUTES = [
     url: "#",
   },
 ];
+
 export const DEFAULT_TAG = {
   id: "all",
   name: "All",
   color: "bg-primary",
 };
-export const METRIC_DATA: Record<string, { title: string; infoLink: string }> = {
+
+export const METRIC_DATA: Record<string, Metric> = {
   "cumulative-layout-shift": {
     title: "CLS",
     infoLink: "https://web.dev/cls/",

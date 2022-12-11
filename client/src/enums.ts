@@ -32,7 +32,15 @@ export const StatusCode: Record<0 | 1 | 2, string> = {
 };
 
 export enum DeviceTypes {
-  Desktop = "desktop", 
-  Mobile ="mobile"
+  Desktop = "desktop",
+  Mobile = "mobile",
 }
 
+export enum FilterTimeRange {
+  ONE_DAY = 1,
+  ONE_WEEK = 7,
+  ONE_MONTH = 30,
+  SIX_MONTH = 180,
+  ONE_YEAR = 365,
+  ALL = 3500,
+}

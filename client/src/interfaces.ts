@@ -79,3 +79,8 @@ export interface DashboardMetrics {
   domainCount?: number;
   lighthouseCount?: number;
 }
+
+export interface Metric {
+  title: string;
+  infoLink: string;
+}

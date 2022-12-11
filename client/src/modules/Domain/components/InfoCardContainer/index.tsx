@@ -1,4 +1,4 @@
-import InfoCard from "@components/shared/InfoCard";
+import InfoCard, { InfoCardPlaceholder } from "@components/shared/InfoCard";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
@@ -14,9 +14,19 @@ const InfoCardContainer: FC = () => {
     return <>Loading domain metrics failed</>;
   }
 
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-4 w-full gap-6 mb-8">
+        <InfoCardPlaceholder />
+        <InfoCardPlaceholder />
+        <InfoCardPlaceholder />
+        <InfoCardPlaceholder />
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-4 w-full min-h-[135px] gap-6 mb-8">
-      {isLoading && <InfoCard />}
+    <div className="grid grid-cols-4 w-full gap-6 mb-8">
       {dashboardMetrics && Object.entries(dashboardMetrics).map(([key, value]) => <InfoCard key={value} title={t(key)} value={value.toString()} />)}
     </div>
   );

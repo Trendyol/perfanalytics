@@ -6,13 +6,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   overflow-x: hidden;
-}
-
-.ReactVirtualized__Table__row {
-  width: 100% !important;
 }
 
 * {
@@ -40,4 +35,41 @@ input:-webkit-autofill:active {
   color: #667085;
   -webkit-text-fill-color: #667085;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.vertical-seperator {
+  @apply w-px h-9 bg-gradient-to-t from-transparent via-gray-500 to-transparent border-none;
+}
+
+.ReactVirtualized__Table__row {
+  width: 100% !important;
+}
+
+// React Apexchart Styles
+
+.apexcharts-tooltip {
+  display: flex !important;
+  flex-direction: column !important;
+  line-height: 1 !important;
+  padding: 5px;
+  align-items: center;
+
+  .apexcharts-tooltip-title {
+    background-color: transparent !important;
+    font-size: 12px !important;
+  }
+
+  .apexcharts-tooltip-series-group {
+    padding: 0 !important;
+
+    .apexcharts-tooltip-marker {
+      display: none !important;
+    }
+
+    .apexcharts-tooltip-text {
+      line-height: 5px !important;
+      height: fit-content;
+      font-size: 16px !important;
+    }
+  }
 }

@@ -19,5 +19,6 @@
   "path_url": "Path URL",
   "device": "Device",
   "paths": "Paths",
-  "danger": "Danger!"
+  "danger": "Danger!",
+  "tagId": "Tag ID"
 }

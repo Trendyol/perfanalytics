@@ -17,12 +17,12 @@ const Breadcrumb: FC = () => {
 
   return (
     <nav className="flex" aria-label="Breadcrumb">
-      <ol className="inline-flex space-x-2 md:space-x-3">
+      <ol className="inline-flex space-x-3 md:space-x-3">
         {filteredRoutes.map((item, i) => {
           const isLast = i === filteredRoutes.length - 1;
           return (
-            <li className="flex items-center">
-              <div className="flex items-center">
+            <li key={item.link} className="flex items-center">
+              <div className="flex items-center space-x-3">
                 <Link href={item.link}>
                   <a
                     className={classnames("capitalize text-displaySm", {
@@ -33,7 +33,7 @@ const Breadcrumb: FC = () => {
                     {item.name}
                   </a>
                 </Link>
-                {!isLast && <div className="ml-2 w-[2px] h-8 bg-gray-500"></div>}
+                {!isLast && <hr className="vertical-seperator" />}
               </div>
             </li>
           );

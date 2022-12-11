@@ -1,8 +1,10 @@
 import CustomTable from "@components/shared/CustomTable";
 import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
+import LineChart from "@components/shared/LineChart";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
+import { FilterTimeRange } from "@enums";
 import useReportsInfinite from "@hooks/useReportsInfinite";
 import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";
@@ -28,50 +30,50 @@ const columnData = [
   },
   {
     dataKey: "first-contentful-paint",
-    label: "First Contentful Paint",
+    label: "FCP",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "speed-index",
-    label: "Speed Index",
+    label: "SI",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "largest-contentful-paint",
-    label: "Largest Contentful Paint",
+    label: "LCP",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "interactive",
-    label: "Time to Interactive",
+    label: "TTI",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "total-blocking-time",
-    label: "Total Blocking Time",
+    label: "TBT",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "cumulative-layout-shift",
-    label: "Cumulative Layout Shift",
+    label: "CLS",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
   {
     dataKey: "first-meaningful-paint",
-    label: "First Meaningful Paint",
+    label: "FMP",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
   },
 ];
 
-const ReportTable: FC<ReportTableProps> = () => {
+const ReportTable: FC<ReportTableProps> = ({ reportResultPeriod, setReportResultPeriod }) => {
   const { t } = useTranslation("path");
   const router = useRouter();
   const { pageId } = router.query;
   const initialDate = useRef(new Date());
 
-  const { reports, length, size, setSize, isLoading } = useReportsInfinite(pageId as string, initialDate.current, 10);
+  const { reports, length, size, setSize, isLoading } = useReportsInfinite(pageId as string, initialDate.current, reportResultPeriod);
 
-  const handleReportClick = ({ _id }: { _id: string }) => {
+  const handleReportClick = () => {
     alert("Not implemented yet.");
   };
 
@@ -85,18 +87,23 @@ const ReportTable: FC<ReportTableProps> = () => {
     alert("Not implemented yet.");
   };
 
-  if (!reports) {
-    return null;
-  }
+  const chartMetricLabels = columnData.slice(2).map((column: any) => ({ name: column.label, key: column.dataKey }));
+
+  const series = chartMetricLabels.map((label) => ({
+    name: label.name,
+    data: reports
+      ? reports
+          .map((x: any, i: number) => {
+            return [new Date(x.updatedAt).getTime(), x[label.key]];
+          })
+          .sort((x: number[], y: number[]) => x[0] - y[0])
+      : [],
+  }));
 
   return (
     <>
-      <div
-        className={classnames(
-          "flex flex-col gap-7 bg-white px-7 pt-6 pb-0 w-full rounded-lg drop-shadow-md",
-          "text-xl font-semibold"
-        )}
-      >
+      <LineChart key="report-chart" title="Change Over Time" series={series} loadChartData={() => {}} setReportResultPeriod={setReportResultPeriod} />
+      <div className={classnames("flex flex-col gap-7 bg-white p-7 w-full rounded-lg drop-shadow-md", "text-xl font-semibold")}>
         <div className="flex justify-between items-center">
           <h3 className="text-displayXs">{t("report_table_title")}</h3>
           <Button onClick={() => generateReport()} className="flex gap-1 px-3 py-2">
@@ -105,19 +112,22 @@ const ReportTable: FC<ReportTableProps> = () => {
           </Button>
         </div>
         <CustomTable
-          data={reports!}
+          data={reports}
           length={length}
           isLoading={isLoading}
           hasTextCenterOnFirstColumn={true}
           columnData={columnData}
           onNextPage={handleNextPage}
-          onRowClick={({ rowData }) => handleReportClick(rowData)}
+          onRowClick={() => handleReportClick()}
         />
       </div>
     </>
   );
 };
 
-interface ReportTableProps {}
+interface ReportTableProps {
+  reportResultPeriod: FilterTimeRange;
+  setReportResultPeriod: (value: FilterTimeRange) => void;
+}
 
 export default ReportTable;

@@ -41,7 +41,6 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
 
   const handlePageAdd = async (values: { domainId: string; url: string; device: string; tagId: string }) => {
     setAddingPage(true);
-
     values.url = domain?.url + values.url;
 
     try {
@@ -97,7 +96,14 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
         <Button onClick={onClose} type="submit" color="transparent" className="mr-2">
           {t("cancel")}
         </Button>
-        <Button onClick={() => formik.handleSubmit()} loading={addingPage} type="submit" color="primary">
+        <Button
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+          loading={addingPage}
+          type="submit"
+          color="primary"
+        >
           {t("add")}
         </Button>
       </div>
