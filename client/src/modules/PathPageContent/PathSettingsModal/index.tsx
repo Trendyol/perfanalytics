@@ -46,10 +46,10 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
       await mutatePage();
       await mutatePages();
 
-      toast.success(t("success"));
+      toast.success(t("success") as string);
       onClose();
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
 
     setUpdatingPage(false);
@@ -72,7 +72,6 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
 };
 
 export default PathSettingsModal;
-function useTag(arg0: string): { tag: any; } {
+function useTag(arg0: string): { tag: any } {
   throw new Error("Function not implemented.");
 }
-

@@ -1,17 +1,17 @@
-import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
-import useTranslation from "next-translate/useTranslation";
-import DangerSection from "../DangerSection";
-import UpdateSection from "../GeneralForm";
 import useDomain from "@hooks/useDomain";
 import useDomainInfinite from "@hooks/useDomainInfinite";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { updateDomain } from "@services/domainService";
-import { toast } from "react-toastify";
 import { updateDomainSchema } from "@schemas";
+import { updateDomain } from "@services/domainService";
+import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
 import { DomainSettings } from "src/interfaces";
+import DangerSection from "../DangerSection";
+import UpdateSection from "../GeneralForm";
 
 interface DomainSettingsModalProps {
   show: boolean;
@@ -46,10 +46,10 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
       await mutateDomain();
       await mutateDomains();
 
-      toast.success(t("success"));
+      toast.success(t("success") as string);
       onClose();
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
 
     setUpdatingDomain(false);

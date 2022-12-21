@@ -1,3 +1,4 @@
+import { MetricKey } from "@enums";
 import { Metric } from "@interfaces";
 
 export const DEFAULT_SCORE_BADGE_TEXT = "?";
@@ -29,33 +30,64 @@ export const DEFAULT_TAG = {
   color: "bg-primary",
 };
 
-export const METRIC_DATA: Record<string, Metric> = {
+export const METRICS: Record<MetricKey, Metric> = {
   "cumulative-layout-shift": {
-    title: "CLS",
+    label: "CLS",
     infoLink: "https://web.dev/cls/",
   },
   "first-contentful-paint": {
-    title: "FCP",
+    label: "FCP",
     infoLink: "https://web.dev/fcp/",
   },
   "first-meaningful-paint": {
-    title: "FMP",
+    label: "FMP",
     infoLink: "https://web.dev/fmp/",
   },
   interactive: {
-    title: "TTI",
+    label: "TTI",
     infoLink: "https://web.dev/tti/",
   },
   "largest-contentful-paint": {
-    title: "LCP",
+    label: "LCP",
     infoLink: "https://web.dev/lcp/",
   },
   "speed-index": {
-    title: "SI",
+    label: "SI",
     infoLink: "https://web.dev/si/",
   },
   "total-blocking-time": {
-    title: "TBT",
+    label: "TBT",
     infoLink: "https://web.dev/tbt/",
   },
 };
+
+export const chartLegends = [
+  {
+    dataKey: "first-contentful-paint",
+    label: "FCP",
+  },
+  {
+    dataKey: "speed-index",
+    label: "SI",
+  },
+  {
+    dataKey: "largest-contentful-paint",
+    label: "LCP",
+  },
+  {
+    dataKey: "interactive",
+    label: "TTI",
+  },
+  {
+    dataKey: "total-blocking-time",
+    label: "TBT",
+  },
+  {
+    dataKey: "cumulative-layout-shift",
+    label: "CLS",
+  },
+  {
+    dataKey: "first-meaningful-paint",
+    label: "FMP",
+  },
+];

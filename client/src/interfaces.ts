@@ -1,3 +1,5 @@
+import { MetricKey, MetricLabels } from "@enums";
+
 export interface Domain {
   name: string;
   url: string;
@@ -66,6 +68,13 @@ export interface TagResponse {
   isDefaultTag: boolean;
 }
 
+export interface MetricAveragesResponse extends Record<MetricKey, number> {
+  _id: {
+    page: string;
+  };
+  count: 16;
+}
+
 export interface Tag {
   id: string;
   name: string;
@@ -81,6 +90,12 @@ export interface DashboardMetrics {
 }
 
 export interface Metric {
-  title: string;
+  label: MetricLabels;
   infoLink: string;
+}
+
+export interface TimePeriod {
+  start?: number;
+  end: number;
+  interval?: number;
 }

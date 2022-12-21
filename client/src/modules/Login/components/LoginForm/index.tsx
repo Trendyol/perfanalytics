@@ -23,7 +23,7 @@ const LoginForm: FC = () => {
       mutateUser();
       router.push("/");
     } catch (error) {
-      toast.error(t("credential_error"));
+      toast.error(t("credential_error") as string);
     }
   };
 
@@ -73,9 +73,7 @@ const LoginForm: FC = () => {
       </div>
       <div className="mb-8 flex ml-auto justify-between sm:text-sm items-center">
         <Link href="/recover">
-          <span className="text-gray-400 hover:text-gray-600 cursor-pointer text-sm sm:text-xs select-none">
-            {t("forgot_password")}
-          </span>
+          <span className="text-gray-400 hover:text-gray-600 cursor-pointer text-sm sm:text-xs select-none">{t("forgot_password")}</span>
         </Link>
       </div>
       <div className="flex flex-col gap-6">

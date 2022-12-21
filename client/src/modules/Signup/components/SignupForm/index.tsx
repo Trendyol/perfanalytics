@@ -25,10 +25,10 @@ const SignupForm: FC = () => {
         await mutateUser();
         router.push("/");
       } catch (error) {
-        toast.error(t("registration_error"));
+        toast.error(t("registration_error") as string);
       }
     } catch (error) {
-      toast.error(t("registration_error"));
+      toast.error(t("registration_error") as string);
     }
   };
 

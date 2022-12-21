@@ -1,5 +1,4 @@
 import { DEFAULT_TAG, USER_KEY } from "@constants";
-import { getStartDate } from "./common";
 import { fetcher } from "./fetcher";
 
 export const getUserData = async (context: any) => {
@@ -29,12 +28,10 @@ export const getPageKey = (domainId: string, pageIndex: number, tagId?: string, 
   return !tagId || tagId === DEFAULT_TAG.id ? basePageKey : `${basePageKey}&tagId=${tagId}`;
 };
 
-export const getReportKey = (pageId: string, initialDate: Date, periodAsDay: number, previousPageData?: any) => {
+export const getReportKey = (pageId: string, startDate: number, endDate: number, previousPageData?: any) => {
   if (previousPageData && !previousPageData?.hasNextPage) {
     return null;
   }
 
-  const { startDate, endDate } = getStartDate(initialDate, periodAsDay);
-
-  return `/lighthouse?pageId=${pageId}&startDate=${startDate}&endDate=${endDate}`;
+  return `/lighthouse?pageId=${pageId}&startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
 };

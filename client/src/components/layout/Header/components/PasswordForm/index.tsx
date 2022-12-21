@@ -1,11 +1,11 @@
-import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
-import useTranslation from "next-translate/useTranslation";
-import { updatePassword } from "@services/userService";
-import { toast } from "react-toastify";
-import { useFormik } from "formik";
 import { passwordUpdateSchema } from "@schemas";
+import { updatePassword } from "@services/userService";
+import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
 
 interface PasswordFormProps {}
 
@@ -17,9 +17,9 @@ const PasswordForm: FC<PasswordFormProps> = () => {
     setUpdatingPassword(true);
     try {
       await updatePassword(values);
-      toast.success(t("success"));
+      toast.success(t("success") as string);
     } catch {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
     setUpdatingPassword(false);
   };

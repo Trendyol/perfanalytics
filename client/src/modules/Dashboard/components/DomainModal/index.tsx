@@ -1,14 +1,14 @@
-import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
+import useDashboardMetric from "@hooks/useDashboardMetric";
 import useDomainInfinite from "@hooks/useDomainInfinite";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
+import { FC, useState } from "react";
 import { toast } from "react-toastify";
-import useDashboardMetric from "@hooks/useDashboardMetric";
 
 interface DomainModalProps {
   show: boolean;
@@ -26,10 +26,10 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     validateOnChange: false,
     validationSchema: () => addDomainSchema(t),
     onSubmit: (values, { resetForm }) => {
-      if(!values.url.endsWith("/")) {
+      if (!values.url.endsWith("/")) {
         values.url += "/";
       }
-      
+
       handleDomainAdd(values);
       resetForm();
     },
@@ -42,10 +42,10 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
       const result = await createDomain(values);
       mutateDomains([{ docs: [result.data, ...domains], totalDocs: length + 1 }], false);
       mutateDashboardMetrics();
-      toast.success(t("success"));
+      toast.success(t("success") as string);
       onClose();
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
 
     setAddingDomain(false);

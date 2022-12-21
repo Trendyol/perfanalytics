@@ -26,10 +26,10 @@ export const getFavicon = (url: string) => {
   return `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=64`;
 };
 
-export const getStartDate = (initialDate: Date, periodAsDay: number) => {
-  const startDate = subDays(initialDate, periodAsDay);
+export const getStartDateByInterval = (endDate: number, periodAsDay: number): number => {
+  const startDate = subDays(new Date(endDate), periodAsDay);
 
-  return { startDate: startDate.toISOString(), endDate: initialDate.toISOString() };
+  return startDate.valueOf();
 };
 
 export const getScoreOverHundred = (value: number, hasPercentage: boolean = true) => {

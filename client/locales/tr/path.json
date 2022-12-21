@@ -1,7 +1,7 @@
 {
   "update": "Update",
   "cancel": "Cancel",
-  "path_settings": "Path Settings",
+  "settings": "Settings",
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete?",
   "danger": "Danger!",
@@ -10,5 +10,7 @@
   "field_required": "Required",
   "report_table_title": "Reports",
   "new_report": "New Report",
-  "tagId": "Tag ID"
+  "tagId": "Tag ID",
+  "success": "Success",
+  "error": "Error"
 }

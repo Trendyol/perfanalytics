@@ -1,13 +1,12 @@
-import { FC, useEffect, useState } from "react";
 import Button from "@components/shared/Form/Button";
-import TextField from "@components/shared/Form/TextField";
-import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
+import PasswordField from "@components/shared/Form/TextField/PasswordField";
+import { resetPasswordSchema } from "@schemas";
 import { changeUserPassword, verifyMailChangeToken } from "@services/userService";
 import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { resetPasswordSchema } from "@schemas";
-import PasswordField from "@components/shared/Form/TextField/PasswordField";
 
 const ResetPasswordForm: FC = () => {
   const { t } = useTranslation("registration");
@@ -20,7 +19,7 @@ const ResetPasswordForm: FC = () => {
     if (token) {
       callVerifyMailChangeToken();
     }
-  }, [token])
+  }, [token]);
 
   const callVerifyMailChangeToken = async () => {
     try {
@@ -36,10 +35,10 @@ const ResetPasswordForm: FC = () => {
         await changeUserPassword(token as string, values.newPassword);
         setPasswordChange(true);
       } else {
-        toast.error(t("error"));
+        toast.error(t("error") as string);
       }
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
   };
 
@@ -96,7 +95,7 @@ const ResetPasswordForm: FC = () => {
 
   const redirectRecover = () => {
     router.push("/recover");
-  }
+  };
 
   const renderPasswordSetCompleted = () => {
     return (
@@ -114,8 +113,10 @@ const ResetPasswordForm: FC = () => {
 
   const renderTokenInvalid = () => {
     return (
-      <div id="container"
-        className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-12 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]">
+      <div
+        id="container"
+        className="bg-white max-w-xl lg:backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden p-16 px-24 sm:px-12 sm:py-8 flex flex-col gap-12 sm:gap-10 min-w-[320px] w-[500px] sm:w-[400px]"
+      >
         <div id="header">
           <h1 className="text-4xl sm:text-3xl mb-4 sm:mb-2 text-center">{t("password_reset_failed")}</h1>
         </div>
@@ -124,8 +125,8 @@ const ResetPasswordForm: FC = () => {
           {t("recover_account")}
         </Button>
       </div>
-    )
-  }
+    );
+  };
 
   if (!isTokenValid) return renderTokenInvalid();
 

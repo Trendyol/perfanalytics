@@ -38,7 +38,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
   });
 
   const handleDefaultTagDeleteAction = () => {
-    toast.error(t("default_tag_can_not_be_deleted"));
+    toast.error(t("default_tag_can_not_be_deleted") as string);
     onClose();
     setIsProcessContinue(false);
   };
@@ -74,15 +74,15 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
       }
 
       if ([HttpCodes.OK, HttpCodes.CREATED].includes(result?.status!)) {
-        toast.success(t("success"));
+        toast.success(t("success") as string);
         mutateTag && mutateTag();
         formik.resetForm();
         onClose();
       } else {
-        toast.error(t("error"));
+        toast.error(t("error") as string);
       }
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
 
     setIsProcessContinue(false);

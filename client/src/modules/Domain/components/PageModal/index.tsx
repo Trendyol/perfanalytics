@@ -47,10 +47,10 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
       const result = await createPage(values);
       mutatePages([{ docs: [result.data, ...pages], totalDocs: length + 1 }], false);
       mutateDashboardMetrics();
-      toast.success(t("success"));
+      toast.success(t("success") as string);
       onClose();
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
     setAddingPage(false);
   };
