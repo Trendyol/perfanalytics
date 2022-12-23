@@ -1,15 +1,17 @@
 import CustomTable from "@components/shared/CustomTable";
 import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
-import LineChart from "@components/shared/LineChart";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
 import { FilterTimeRange } from "@enums";
 import useReportsInfinite from "@hooks/useReportsInfinite";
 import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { FC, useRef } from "react";
+
+const LineChart = dynamic(() => import("@components/shared/LineChart"), { ssr: false });
 
 const getIconByDevice: Record<string, JSX.Element> = {
   desktop: <Icon name="desktop" className="w-5 h-5" />,

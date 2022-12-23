@@ -1,11 +1,14 @@
 import { FilterTimeRange } from "@enums";
 import dynamic from "next/dynamic";
-import React, { useId } from "react";
+import React from "react";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const LineChart: React.FC<LineChartProps> = ({ title, series, loadChartData, setReportResultPeriod }) => {
-  const chartId = useId();
+  const chartId = "123";
+  // const [lastClickedLegendIndex, setLastClickedLegendIndex] = useState(0);
+
+  let { current: lastClickedLegendIndex } = React.useRef(0);
 
   const options = {
     chart: {
@@ -43,16 +46,16 @@ const LineChart: React.FC<LineChartProps> = ({ title, series, loadChartData, set
           const chart = ApexCharts.getChartByID(chartId);
 
           if (chart) {
-            series.map((e: any, i: number) => (i !== 0 ? chart.hideSeries(e.name) : null));
+            series.map((e: any, i: number) => (i !== lastClickedLegendIndex ? chart.hideSeries(e.name) : chart.showSeries(e.name)));
           }
         },
         legendClick(chartContext: any, seriesIndex: number) {
           const chart = ApexCharts.getChartByID(chartId);
+          lastClickedLegendIndex = seriesIndex;
 
           if (chart) {
             const { name } = series[seriesIndex];
-            chart.showSeries(name);
-            series.map((e: any) => e.name !== name && chart.hideSeries(e.name));
+            series.map((e: any) => (e.name !== name ? chart.hideSeries(e.name) : chart.showSeries(name)));
           }
         },
       },
