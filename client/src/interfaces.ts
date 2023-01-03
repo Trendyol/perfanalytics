@@ -60,6 +60,7 @@ export interface PathSettings {
   url: string;
 }
 export interface TagResponse {
+  id: string;
   _id: string;
   name: string;
   color: string;

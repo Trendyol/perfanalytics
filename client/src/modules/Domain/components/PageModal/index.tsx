@@ -6,6 +6,8 @@ import { DeviceTypes } from "@enums";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 import useDomain from "@hooks/useDomain";
 import usePageInfinite from "@hooks/usePageInfinite";
+import useTags from "@hooks/useTag";
+import { TagResponse } from "src/interfaces";
 import { addPageSchema } from "@schemas";
 import { createPage } from "@services/pageService";
 import { useFormik } from "formik";
@@ -25,12 +27,12 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const router = useRouter();
   const { domainId, tagId } = router.query;
   const { domain } = useDomain(domainId as string);
-
+  const { tags } = useTags(domainId as string);
   const { pages, mutatePages, length } = usePageInfinite(domainId as string, tagId as string);
   const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
 
   const formik = useFormik({
-    initialValues: { domainId: domainId as string, url: "", device: "", tagId: tagId as string },
+    initialValues: { domainId: domainId as string, url: "", device: "", tagId: "" },
     validateOnChange: false,
     validationSchema: () => addPageSchema(t),
     onSubmit: (values, { resetForm }) => {
@@ -84,13 +86,17 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
         </div>
         <div className="flex flex-col gap-2">
           <h5 className="text-[14px] font-medium text-gray-500">{t("tagId")}</h5>
-          <TextField
-            name="tagId"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.tagId}
-            error={formik.touched.tagId && formik.errors.tagId}
-          />
+          <select
+            className="relative w-full h-14 bg-gray-100 rounded-lg pl-4 pr-5 flex justify-between items-center text-gray-500"
+            {...formik.getFieldProps("tagId")}
+          >
+            <option disabled selected>
+              Select tag
+            </option>
+            {tags?.map((tag: TagResponse) => (
+              <option value={tag.id}>{tag.name}</option>
+            ))}
+          </select>
         </div>
       </form>
       <div className="flex ml-auto">
