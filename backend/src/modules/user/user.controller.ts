@@ -10,6 +10,7 @@ import { Role } from '@decorators/role.decorator';
 import { ApiTags } from '@nestjs/swagger';
 import { UserDTO } from './etc/user.dto';
 import mapToInstance from '@core/utils/mapper';
+import { RecoverPasswordDTO } from './etc/recover-password.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -17,11 +18,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('recover-password')
-  async recoverPassword(@Body() createDTO) {
-    return await this.userService.recoverPassword(
-      createDTO.email,
-      createDTO.language,
-    );
+  async recoverPassword(@Body() recoverPasswordDto: RecoverPasswordDTO) {
+  
+    return await this.userService.recoverPassword(recoverPasswordDto.email, recoverPasswordDto.language);
   }
 
   @Post('password-change')
