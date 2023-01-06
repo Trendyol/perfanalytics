@@ -7,7 +7,7 @@ export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   prefix?: string;
   rightIcon?: IconName;
-  onRightIconClick?: (e: Event) => void;
+  onRightIconClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const TextField: FC<TextFieldProps> = ({ error, title, className, rightIcon, prefix, onRightIconClick, ...rest }) => {
@@ -20,7 +20,11 @@ const TextField: FC<TextFieldProps> = ({ error, title, className, rightIcon, pre
         {...rest}
       />
       {rightIcon && (
-        <Icon name={rightIcon} className="text-gray-300 w-8 h-8 p-1.5 cursor-pointer" onClick={(e: any) => onRightIconClick && onRightIconClick(e)} />
+        <Icon
+          name={rightIcon}
+          className="text-gray-300 w-8 h-8 p-1.5 cursor-pointer"
+          onClick={(e: React.MouseEvent<HTMLElement>) => onRightIconClick && onRightIconClick(e)}
+        />
       )}
       {error && <div className="absolute right-2 -top-2 text-sm text-red-600">{error}</div>}
     </div>

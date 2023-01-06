@@ -23,7 +23,10 @@ export const FOOTER_ROUTES = [
     url: "#",
   },
 ];
-
+export const DEFAULT_TABLE_HEIGHTS = {
+  row: 40,
+  header: 40,
+};
 export const DEFAULT_TAG = {
   id: "all",
   name: "All",

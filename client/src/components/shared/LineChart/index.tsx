@@ -3,14 +3,12 @@ import React from "react";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const LineChart: React.FC<LineChartProps> = ({ title, series, setReportTimePeriod }) => {
-  const chartId = "123";
-
+const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimePeriod }) => {
   let { current: lastClickedLegendIndex } = React.useRef(0);
 
   const options = {
     chart: {
-      id: chartId,
+      id,
       animations: {
         enabled: false,
       },
@@ -36,21 +34,21 @@ const LineChart: React.FC<LineChartProps> = ({ title, series, setReportTimePerio
           return { xaxis };
         },
         mounted() {
-          const chart = ApexCharts.getChartByID(chartId);
+          const chart = ApexCharts.getChartByID(id);
 
           if (chart) {
             series.map((e: any) => (e.name !== "FCP" ? chart.hideSeries(e.name) : null));
           }
         },
         updated() {
-          const chart = ApexCharts.getChartByID(chartId);
+          const chart = ApexCharts.getChartByID(id);
 
           if (chart) {
             series.map((e: any, i: number) => (i !== lastClickedLegendIndex ? chart.hideSeries(e.name) : chart.showSeries(e.name)));
           }
         },
         legendClick(chartContext: any, seriesIndex: number) {
-          const chart = ApexCharts.getChartByID(chartId);
+          const chart = ApexCharts.getChartByID(id);
           lastClickedLegendIndex = seriesIndex;
 
           if (chart) {
@@ -144,6 +142,7 @@ const LineChart: React.FC<LineChartProps> = ({ title, series, setReportTimePerio
 };
 
 interface LineChartProps {
+  id: string;
   title: string;
   series: any;
   setReportTimePeriod: (value: { start: number; end: number }) => void;

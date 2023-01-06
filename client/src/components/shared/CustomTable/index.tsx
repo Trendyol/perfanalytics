@@ -1,3 +1,4 @@
+import { DEFAULT_TABLE_HEIGHTS } from "@constants";
 import { default as classNames, default as classnames } from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { FC, ReactNode } from "react";
@@ -5,7 +6,17 @@ import { AutoSizer, Column, InfiniteLoader, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const { data, length, isLoading, columnData, rowHeight = 40, headerHeight = 40, hasTextCenterOnFirstColumn = false, onRowClick, onNextPage } = props;
+  const {
+    data,
+    length,
+    isLoading,
+    columnData,
+    rowHeight = DEFAULT_TABLE_HEIGHTS.row,
+    headerHeight = DEFAULT_TABLE_HEIGHTS.header,
+    hasTextCenterOnFirstColumn = false,
+    onRowClick,
+    onNextPage,
+  } = props;
 
   const { t } = useTranslation("common");
 

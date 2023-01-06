@@ -17,7 +17,7 @@ const ReportTimeChart: FC<ReportTimeChartProps> = ({ reports, setReportTimePerio
       : [],
   }));
 
-  return <LineChart key="report-chart" title="Change Over Time" series={series} setReportTimePeriod={setReportTimePeriod} />;
+  return <LineChart key="report-chart" id="report-chart" title="Change Over Time" series={series} setReportTimePeriod={setReportTimePeriod} />;
 };
 
 interface ReportTimeChartProps {
