@@ -54,7 +54,7 @@ const SignupForm: FC = () => {
           <span className="block">{t("see_what_capable_of")}</span>
           {t("login_redirection_part_1")}
           <Link href="/login">
-            <a className="font-semibold text-primary hover:text-orange-600">{t("login")}</a>
+            <span className="font-semibold text-primary hover:text-orange-600">{t("login")}</span>
           </Link>
           {t("login_redirection_part_2")}
         </p>

@@ -46,7 +46,7 @@ const RecoverForm: FC = () => {
           <p className="text-md mb-8 sm:text-xs text-gray-400 text-center px-8 sm:px-1 whitespace-nowrap">
             {t("login_redirection_part_1")}
             <Link href="/login">
-              <a className="font-semibold text-primary hover:text-orange-600">{t("login")}</a>
+              <span className="font-semibold text-primary hover:text-orange-600">{t("login")}</span>
             </Link>
             {t("login_redirection_part_2")}
           </p>

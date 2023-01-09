@@ -24,14 +24,14 @@ const Breadcrumb: FC = () => {
             <li key={item.link} className="flex items-center">
               <div className="flex items-center space-x-3">
                 <Link href={item.link}>
-                  <a
+                  <span
                     className={classnames("capitalize text-displaySm", {
                       "text-gray-700 font-normal": !isLast,
                       "text-black font-bold": isLast,
                     })}
                   >
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
                 {!isLast && <hr className="vertical-seperator" />}
               </div>

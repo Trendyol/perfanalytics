@@ -46,7 +46,7 @@ const LoginForm: FC = () => {
         <p className="text-md mb-8 sm:text-xs text-gray-400 text-center px-8 sm:px-1 whitespace-nowrap">
           {t("signup_redirection_part_1")}
           <Link href="/signup">
-            <a className="font-semibold text-primary hover:text-orange-600">{t("signup")}</a>
+            <span className="font-semibold text-primary hover:text-orange-600">{t("signup")}</span>
           </Link>
           {t("signup_redirection_part_2")}
         </p>
