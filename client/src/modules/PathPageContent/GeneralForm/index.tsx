@@ -5,12 +5,18 @@ import { FormikProps } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import { FC } from "react";
 import { PathSettings } from "src/interfaces";
+import { useRouter } from "next/router";
+import useTags from "@hooks/useTag";
+import { TagResponse } from "src/interfaces";
 
 interface GeneralFormProps {
   formik: FormikProps<PathSettings>;
 }
 
 const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
+  const router = useRouter();
+  const { domainId } = router.query;
+  const { tags } = useTags(domainId as string);
   const { t } = useTranslation("path");
 
   return (
@@ -38,15 +44,19 @@ const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <h5 className="text-[14px] font-medium text-gray-500">{t("tagId")}</h5>
-        <TextField
-          name="tagId"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.tagId}
-          error={formik.touched.tagId && formik.errors.tagId}
-        />
-      </div>
+          <h5 className="text-[14px] font-medium text-gray-500">{t("tagId")}</h5>
+          <select
+            className="relative w-full h-14 bg-gray-100 rounded-lg pl-4 pr-5 flex justify-between items-center text-gray-500"
+            {...formik.getFieldProps("tagId")}
+          >
+            <option disabled selected>
+              Select tag
+            </option>
+            {tags?.map((tag: TagResponse) => (
+              <option value={tag.id}>{tag.name}</option>
+            ))}
+          </select>
+        </div>
     </form>
   );
 };
