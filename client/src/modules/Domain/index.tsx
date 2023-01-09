@@ -29,8 +29,10 @@ const Domain: FC = () => {
       <div className="flex justify-between items-top mb-10">
         <div className="flex flex-col gap-2">
           <Breadcrumb />
-          <h3 className="text-md">
-            <a href={domain?.url} target="_blank">{domain?.url}</a>
+          <h3 className="text-md h-6">
+            <a href={domain?.url} target="_blank">
+              {domain?.url}
+            </a>
           </h3>
         </div>
         <Button className="mt-3" onClick={handleShowDomainSettingsModal}>

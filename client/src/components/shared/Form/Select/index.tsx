@@ -14,17 +14,11 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 const Select: FC<SelectProps> = ({ defaultText, options, ...otherProps }) => {
   return (
     <select
-      className={cn(
-        styles.customSelect,
-        "relative w-full h-14 bg-gray-100 rounded-lg pl-4 pr-5 flex justify-between items-center text-gray-500"
-      )}
+      className={cn(styles.customSelect, "relative w-full h-14 bg-gray-100 rounded-lg pl-4 pr-5 flex justify-between items-center text-gray-500")}
       {...otherProps}
     >
-      {defaultText && (
-        <option disabled selected>
-          {defaultText}
-        </option>
-      )}
+      <option hidden>{defaultText}</option>
+      <option disabled>{defaultText}</option>
       {options.map((option) => (
         <option value={option}>{option}</option>
       ))}

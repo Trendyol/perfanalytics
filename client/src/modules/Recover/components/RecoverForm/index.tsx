@@ -1,14 +1,14 @@
-import { FC, useState } from "react";
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
-import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
-import { recoverPassword } from "@services/userService";
-import { toast } from "react-toastify";
-import { recoverSchema } from "@schemas";
 import { DEFAULT_LANGUAGE } from "@constants";
+import { recoverSchema } from "@schemas";
+import { recoverPassword } from "@services/userService";
+import { useFormik } from "formik";
+import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { FC, useState } from "react";
+import { toast } from "react-toastify";
 
 const RecoverForm: FC = () => {
   const { t } = useTranslation("registration");
@@ -21,7 +21,7 @@ const RecoverForm: FC = () => {
       await recoverPassword(values.email, lang);
       setMailSend(true);
     } catch (error) {
-      toast.error(t("error"));
+      toast.error(t("error") as string);
     }
   };
 

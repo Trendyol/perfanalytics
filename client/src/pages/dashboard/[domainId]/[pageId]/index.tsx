@@ -1,4 +1,4 @@
-import Path from "@modules/Path";
+import PathPageContent from "@modules/PathPageContent";
 import { NextPage } from "next";
 import Head from "next/head";
 
@@ -9,7 +9,7 @@ const PathPage: NextPage = () => {
         <title>Perfanalytics</title>
       </Head>
 
-      <Path />
+      <PathPageContent />
     </>
   );
 };

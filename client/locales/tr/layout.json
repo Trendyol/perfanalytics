@@ -7,7 +7,7 @@
   "blog": "Blog",
   "settings": "SETTINGS",
   "user_settings": "User Settings",
-	"login": "LOGIN",
+  "login": "LOGIN",
   "logout": "Logout",
   "error": "Something went wrong",
   "update": "Update",
@@ -23,8 +23,6 @@
   "password_mismatch": "Password mismatch",
   "success": "Success!",
   "add_button": "Add",
-  "guest_name": "Guest",
-  "guest_info_message": "What you can do is limited.",
   "member_message": "Member",
   "loading": "Loading",
   "no_result": "No Result"

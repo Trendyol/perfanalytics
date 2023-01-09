@@ -8,7 +8,7 @@ const PasswordField: FC<PasswordFieldProps> = (props) => {
     <TextField
       type={showPassword ? "text" : "password"}
       rightIcon={showPassword ? "hide" : "show"}
-      onRightIconClick={(e) => {
+      onRightIconClick={(e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         setShowPassword((prev) => !prev);
       }}

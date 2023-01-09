@@ -4,8 +4,8 @@ import { getReportKey } from "@utils/swr";
 import { ReportData } from "src/interfaces";
 import useSWRInfinite from "swr/infinite";
 
-const useReportsInfinite = (pageId: string, initialDate: Date, periodAsDay: number) => {
-  const { data, error, size, setSize, mutate } = useSWRInfinite<ReportData>((_, prev) => getReportKey(pageId, initialDate, periodAsDay, prev), fetcher, {
+const useReportsInfinite = ({ pageId, startDate, endDate }: Params) => {
+  const { data, error, size, setSize, mutate } = useSWRInfinite<ReportData>((_, prev) => getReportKey(pageId, startDate, endDate, prev), fetcher, {
     revalidateFirstPage: false,
     revalidateAll: false,
     revalidateOnFocus: false,
@@ -19,10 +19,10 @@ const useReportsInfinite = (pageId: string, initialDate: Date, periodAsDay: numb
       length: 0,
       isError: true,
       reports: null,
-    }
+    };
   }
 
-  const mappedReportsData = mapReportsData(data[0])
+  const mappedReportsData = mapReportsData(data[0]);
 
   return {
     size,
@@ -34,5 +34,11 @@ const useReportsInfinite = (pageId: string, initialDate: Date, periodAsDay: numb
     mutateReports: mutate,
   };
 };
+
+interface Params {
+  pageId: string;
+  startDate: number;
+  endDate: number;
+}
 
 export default useReportsInfinite;

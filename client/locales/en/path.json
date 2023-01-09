@@ -1,13 +1,16 @@
 {
   "update": "Update",
   "cancel": "Cancel",
-  "path_settings": "Path Settings",
+  "settings": "Settings",
   "delete": "Delete",
-  "verify_delete": "Are you sure want to delete this page?",
+  "verify_delete": "Are you sure want to delete?",
   "danger": "Danger!",
-  "path_url": "Path URL",
+  "path_url": "URL",
   "device": "Device",
   "field_required": "Required",
   "report_table_title": "Reports",
-  "new_report": "New Report"
+  "new_report": "New Report",
+  "tagId": "Tag ID",
+  "success": "Success",
+  "error": "Error"
 }
