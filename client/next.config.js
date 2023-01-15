@@ -12,22 +12,6 @@ const nextConfig = {
     domains: ["t1.gstatic.com"],
   },
   swcMinify: true,
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/login',
-        has: [
-          {
-            type: 'cookie',
-            key: 'auth-cookie',
-            value: "undefined",
-          },
-        ],
-        permanent: false,
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;
