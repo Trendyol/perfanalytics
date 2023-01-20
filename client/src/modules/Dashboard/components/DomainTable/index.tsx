@@ -3,7 +3,7 @@ import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
-import useDomainInfinite from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomainInfinite";
 import { getFavicon } from "@utils/common";
 import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";
@@ -48,14 +48,10 @@ const DomainTable: FC<DomainTableProps> = (props) => {
   const [showDomainModal, setShowDomainModal] = useState(false);
   const router = useRouter();
   const { t } = useTranslation("dashboard");
-  const { domains, length, size, setSize, isLoading } = useDomainInfinite();
+  const { domains, isLoading } = useDomains();
 
   const handleDomainClick = ({ _id }: { _id: string }) => {
     router.push(`/dashboard/${_id}`);
-  };
-
-  const handleNextPage = () => {
-    setSize(size + 1);
   };
 
   return (
@@ -70,10 +66,8 @@ const DomainTable: FC<DomainTableProps> = (props) => {
         </div>
         <CustomTable
           data={domains}
-          length={length}
           isLoading={isLoading}
           columnData={columnData}
-          onNextPage={handleNextPage}
           onRowClick={({ rowData }) => handleDomainClick(rowData)}
         />
       </div>

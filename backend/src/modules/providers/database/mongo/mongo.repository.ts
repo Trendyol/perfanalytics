@@ -10,7 +10,6 @@ export class MongoGenericRepository<T> implements IGenericRepository<T, T> {
     this._populateOnFind = populateOnFind;
   }
   findById(id: string): Promise<T> {
-    console.log('here', id);
     return this._model.findById(id).exec();
   }
   updateOneById(id: string, item: T) {
@@ -27,7 +26,7 @@ export class MongoGenericRepository<T> implements IGenericRepository<T, T> {
     return this._model.find(filter).populate(this._populateOnFind).exec();
   }
 
-  create(item: T): Promise<T> {
-    return this._model.create(item);
+  create(item: T): Promise<T & { _id: string }> {
+    return this._model.create(item) as Promise<T & { _id: string }>;
   }
 }

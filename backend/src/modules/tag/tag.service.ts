@@ -1,4 +1,5 @@
 import { TagEntity } from '@core/data/entities';
+import { BaseService } from '@core/data/services/base.service';
 import { IDataService } from '@core/data/services/data.service';
 import { JwtGuard } from '@core/guards/jwt.guard';
 import { User } from '@modules/user/etc/user.schema';
@@ -14,23 +15,18 @@ import { UpdateTagDto } from './dtos/update-tag.dto';
 
 @Injectable()
 @UseGuards(JwtGuard)
-export class TagService {
+export class TagService implements BaseService {
   constructor(private readonly dataService: IDataService) {}
-
-  async canAccess(userId: string, tag: TagEntity) {
-    if (String(tag.owner) !== String(userId)) {
-      throw new UnprocessableEntityException();
-    }
-
-    return tag;
-  }
-
-  async exists(tag: TagEntity) {
+  canAccess(userId: string, tag: TagEntity) {
     if (!tag) {
-      throw new NotFoundException();
+      return false;
     }
 
-    return tag;
+    if (String(tag.owner) !== String(userId)) {
+      return false;
+    }
+
+    return true;
   }
 
   async create(user, createTagDto: CreateTagDto) {
@@ -52,25 +48,21 @@ export class TagService {
 
   async get(user: User, id: string) {
     const tag = await this.dataService.tags.findById(id);
-
-    this.exists(tag);
-    this.canAccess(user._id, tag);
+    if (!this.canAccess(user._id, tag)) throw new NotFoundException();
 
     return tag;
   }
 
   async update(user: User, id: string, updateTagDto: UpdateTagDto) {
     const tag = await this.dataService.tags.findById(id);
-    this.exists(tag);
-    this.canAccess(user._id, tag);
+    if (!this.canAccess(user._id, tag)) throw new NotFoundException();
 
     return this.dataService.tags.updateOneById(id, updateTagDto);
   }
 
   async remove(user: User, id: string) {
     const tag = await this.dataService.tags.findById(id);
-    this.exists(tag);
-    this.canAccess(user._id, tag);
+    if (!this.canAccess(user._id, tag)) throw new NotFoundException();
 
     if (tag.readonly) {
       throw new ForbiddenException();

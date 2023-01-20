@@ -5,7 +5,7 @@ import useTranslation from "next-translate/useTranslation";
 import { deleteDomain } from "@services/domainService";
 import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
-import useDomainInfinite from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomainInfinite";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 
 const DangerSection = () => {
@@ -14,7 +14,7 @@ const DangerSection = () => {
   const [deletingDomain, setDeletingDomain] = useState(false);
   const { domainId } = router.query;
   const { domain } = useDomain(domainId as string);
-  const { mutateDomains } = useDomainInfinite();
+  const { mutateDomains } = useDomains();
   const { t } = useTranslation("domain");
   const { mutateDashboardMetrics } = useDashboardMetric();
 

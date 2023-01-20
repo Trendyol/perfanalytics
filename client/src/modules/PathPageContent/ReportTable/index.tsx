@@ -51,7 +51,6 @@ const ReportTable: FC<ReportTableProps> = ({ reports, length, setSize, isLoading
       </div>
       <CustomTable
         data={reports}
-        length={length}
         isLoading={isLoading}
         hasTextCenterOnFirstColumn={true}
         columnData={columnData}

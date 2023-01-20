@@ -1,32 +1,19 @@
-import useSWRInfinite from "swr/infinite";
-import { flattenNestedProperty } from "@utils/common";
 import { fetcher } from "@utils/fetcher";
-import { getDomainKey } from "@utils/swr";
-import { DomainData } from "src/interfaces";
+import { Domain } from "src/interfaces";
+import useSWR from "swr";
 
-const useDomainInfinite = () => {
-  const { data, error, size, setSize, mutate } = useSWRInfinite<DomainData>(
-    getDomainKey,
-    fetcher,
-    {
-      revalidateFirstPage: false,
-      revalidateAll: false,
-      revalidateOnFocus: false,
-      revalidateIfStale: false,
-      initialSize: 1,
-      persistSize: true,
-    }
-  );
+const useDomains = () => {
+  const { data, error, mutate } = useSWR<Domain[]>(`/domain`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+  });
 
   return {
-    size,
-    setSize,
-    length: data?.[0]?.totalDocs || 0,
+    domains: data,
     isLoading: !error && !data,
-    isError: error?.statusText,
-    domains: flattenNestedProperty("docs", data),
+    isError: error?.message,
     mutateDomains: mutate,
   };
 };
 
-export default useDomainInfinite;
+export default useDomains;

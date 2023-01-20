@@ -1,15 +1,10 @@
 import { Module } from '@nestjs/common';
 import { DomainController } from './domain.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { DomainSchema } from './etc/domain.schema';
-import { TagModule } from '@modules/tag/tag.module';
 import { DomainService } from './domain.service';
-import { TagService } from '@modules/tag/tag.service';
+import { DataModule } from '@modules/providers/database/data/data.module';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: 'Domain', schema: DomainSchema }]),
-  ],
+  imports: [DataModule],
   controllers: [DomainController],
   providers: [DomainService],
   exports: [DomainService],

@@ -46,7 +46,6 @@ const PageTable: FC<PageTableProps> = (props) => {
   return (
     <CustomTable
       data={pages}
-      length={length}
       isLoading={isLoading}
       columnData={columnData}
       onNextPage={handleNextPage}

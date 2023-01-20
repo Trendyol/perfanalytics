@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateDomainDTO {
+export class UpdateDomainDto {
   @ApiProperty()
   @IsString()
   readonly name: string;

@@ -13,7 +13,7 @@ import { User, UserSchema } from './schemas/user.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      // { name: Domain.name, schema: DomainSchema },
+      { name: Domain.name, schema: DomainSchema },
       // { name: Page.name, schema: PageSchema },
       // { name: User.name, schema: UserSchema },
       { name: Tag.name, schema: TagSchema },
