@@ -56,7 +56,6 @@ export class SessionService {
   createSession(user: User) {
     return this.jwtService.sign({
       iss: user._id,
-      role: user.role,
       name: user.name,
       email: user.email,
       emailVerified: user.emailVerified,

@@ -1,9 +1,11 @@
-import { Document } from 'mongoose';
+import { UserEntity } from '@core/data/entities/user.entity';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoosePaginate from 'mongoose-paginate-v2';
+import { Document } from 'mongoose';
 
-@Schema({ timestamps: true })
-export class User extends Document {
+export type UserDocument = User & Document;
+
+@Schema()
+export class User extends Document implements UserEntity {
   @Prop({ required: true })
   name: string;
 
@@ -18,13 +20,6 @@ export class User extends Document {
 
   @Prop({ required: false })
   changeMailTokenKey: string;
-
-  @Prop()
-  createdAt: number;
-
-  @Prop()
-  updatedAt: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-UserSchema.plugin(mongoosePaginate);

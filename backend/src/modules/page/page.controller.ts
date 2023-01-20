@@ -24,11 +24,11 @@ import { PageService } from './page.service';
 
 @ApiTags('Page')
 @Controller('page')
+@UseGuards(JwtGuard)
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
   @Post()
-  @UseGuards(JwtGuard)
   async create(@User() user, @Body() createPageDTO: CreatePageDTO) {
     const pageData = await this.pageService.create(user, createPageDTO);
     const pageDTO = mapToInstance(PageDTO, pageData);
@@ -36,28 +36,24 @@ export class PageController {
   }
 
   @Get()
-  @UseGuards(JwtGuard)
   async getAllByUser(@User() user, @Query() query: GetPagesQuery) {
     const { index, domainId, tagId } = query;
     return await this.pageService.getAllByUser(user, index, domainId, tagId);
   }
 
   @Get('/:id')
-  @UseGuards(JwtGuard)
   async get(@User() user, @Param() params: GetPageParam) {
     const { id } = params;
     return await this.pageService.get(user, id);
   }
 
   @Delete('/:id')
-  @UseGuards(JwtGuard)
   async remove(@User() user, @Param() param: DeletePageParam) {
     const { id } = param;
     return await this.pageService.remove(user, id);
   }
 
   @Put('/:id')
-  @UseGuards(JwtGuard)
   async update(
     @User() user,
     @Param() param: UpdatePageParam,

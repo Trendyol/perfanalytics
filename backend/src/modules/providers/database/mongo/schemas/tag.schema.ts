@@ -1,17 +1,19 @@
-import mongoose, { Document } from 'mongoose';
+import { TagEntity } from '@core/data/entities';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoosePaginate from 'mongoose-paginate-v2';
+import mongoose, { Document } from 'mongoose';
 
-@Schema({ timestamps: true })
-export class Tag extends Document {
+export type TagDocument = Tag & Document;
+
+@Schema()
+export class Tag extends Document implements TagEntity {
   @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
   color: string;
 
-  @Prop({ required: true })
-  isDefaultTag: boolean;
+  @Prop()
+  readonly: boolean;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -27,4 +29,3 @@ export class Tag extends Document {
 }
 
 export const TagSchema = SchemaFactory.createForClass(Tag);
-TagSchema.plugin(mongoosePaginate);

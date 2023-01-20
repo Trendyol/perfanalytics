@@ -1,7 +1,7 @@
 import { IsBoolean, IsMongoId, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateTagDTO {
+export class CreateTagDto {
   @ApiProperty()
   @IsString()
   readonly name: string;
@@ -16,5 +16,5 @@ export class CreateTagDTO {
 
   @ApiProperty()
   @IsBoolean()
-  readonly isDefaultTag: boolean;
+  readonly readonly: boolean;
 }

@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { SessionService } from './session.service';
 import { CreateSessionDTO } from './etc/create-session.dto';
-import { RoleGuard } from '@guards/role.guard';
 import { JwtGuard } from '@guards/jwt.guard';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '@modules/user/user.service';
@@ -64,7 +63,7 @@ export class SessionController {
     return;
   }
 
-  @UseGuards(JwtGuard, RoleGuard)
+  @UseGuards(JwtGuard)
   @Post(':id')
   async createSessionForUser(@Param() param: CreateSessionParam) {
     const { id } = param;

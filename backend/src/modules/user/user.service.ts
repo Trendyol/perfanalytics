@@ -10,7 +10,6 @@ import { UpdatePasswordDTO } from './etc/update-password.dto';
 import { CreateUserDTO } from './etc/create-user.dto';
 import { UpdateMeDTO } from './etc/update-me.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { RoleType } from '@enums/role.enum';
 import * as bcrypt from 'bcryptjs';
 import * as nodemailer from 'nodemailer';
 import { JwtService } from '@nestjs/jwt';
@@ -110,7 +109,6 @@ export class UserService {
     const userModel = new this.userModel({
       name: name,
       email: email,
-      role: RoleType.USER,
       ...(password && { password: await bcrypt.hash(password, 10) }),
     });
 

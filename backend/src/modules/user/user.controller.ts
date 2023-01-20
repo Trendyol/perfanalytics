@@ -3,10 +3,8 @@ import { UpdatePasswordDTO } from './etc/update-password.dto';
 import { CreateUserDTO } from './etc/create-user.dto';
 import { User } from '@decorators/user.decorator';
 import { UpdateMeDTO } from './etc/update-me.dto';
-import { RoleType } from '@enums/role.enum';
 import { UserService } from './user.service';
 import { JwtGuard } from '@guards/jwt.guard';
-import { Role } from '@decorators/role.decorator';
 import { ApiTags } from '@nestjs/swagger';
 import { UserDTO } from './etc/user.dto';
 import mapToInstance from '@core/utils/mapper';
@@ -19,8 +17,10 @@ export class UserController {
 
   @Post('recover-password')
   async recoverPassword(@Body() recoverPasswordDto: RecoverPasswordDTO) {
-  
-    return await this.userService.recoverPassword(recoverPasswordDto.email, recoverPasswordDto.language);
+    return await this.userService.recoverPassword(
+      recoverPasswordDto.email,
+      recoverPasswordDto.language,
+    );
   }
 
   @Post('password-change')
@@ -47,14 +47,12 @@ export class UserController {
   }
 
   @UseGuards(JwtGuard)
-  @Role(RoleType.USER)
   @Put('@me')
   async updateMe(@User() user, @Body() updateDTO: UpdateMeDTO) {
     return await this.userService.updateMe(user._id, updateDTO);
   }
 
   @UseGuards(JwtGuard)
-  @Role(RoleType.USER)
   @Put('@me/password')
   async updateMyPassword(@User() user, @Body() updateDTO: UpdatePasswordDTO) {
     return await this.userService.updateMyPassword(user, updateDTO);

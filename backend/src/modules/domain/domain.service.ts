@@ -17,7 +17,6 @@ import { checkPublicAddress } from '@core/utils/address';
 export class DomainService {
   constructor(
     @InjectModel('Domain') private readonly domainModel: PaginateModel<Domain>,
-    private readonly tagService: TagService,
   ) {}
 
   async create(user: User, createDomainDTO: CreateDomainDTO) {
@@ -36,12 +35,12 @@ export class DomainService {
 
     const result = await domainModel.save();
 
-    await this.tagService.create(user, {
-      name: DEFAULT_TAG.name,
-      color: DEFAULT_TAG.color,
-      domainId: result._id,
-      isDefaultTag: DEFAULT_TAG.isDefault,
-    });
+    // await this.tagService.create(user, {
+    //   name: DEFAULT_TAG.name,
+    //   color: DEFAULT_TAG.color,
+    //   domainId: result._id,
+    //   isDefaultTag: DEFAULT_TAG.isDefault,
+    // });
 
     return result;
   }

@@ -7,7 +7,7 @@ import { FC, useState } from "react";
 import TagModal from "./TagModal";
 
 const TagItem: FC<SidebarSubItemProps> = (props) => {
-  const { id, name, color, isDefaultTag } = props;
+  const { id, name, color, readonly } = props;
   const router = useRouter();
   const { domainId } = router.query;
 
@@ -18,7 +18,7 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
     setShowTag(true);
   };
 
-  const isActive = router.query.tagId ? router.query.tagId === id : isDefaultTag;
+  const isActive = router.query.tagId ? router.query.tagId === id : readonly;
 
   return (
     <>
@@ -30,12 +30,9 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
       >
         <a
           key={name}
-          className={classNames(
-            "flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer",
-            {
-              "bg-gray-200": isActive,
-            }
-          )}
+          className={classNames("flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer", {
+            "bg-gray-200": isActive,
+          })}
         >
           <div className={`w-6 h-6 rounded-full ${color}`}></div>
           <div>{name}</div>
@@ -49,7 +46,7 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
           </Button>
         </a>
       </Link>
-      <TagModal type="update" show={showTag} tag={{ id, name, color, isDefaultTag }} onClose={() => setShowTag(false)} />
+      <TagModal type="update" show={showTag} tag={{ id, name, color, readonly }} onClose={() => setShowTag(false)} />
     </>
   );
 };
@@ -58,7 +55,7 @@ interface SidebarSubItemProps {
   id: string;
   name: string;
   color: string;
-  isDefaultTag: boolean;
+  readonly: boolean;
 }
 
 export default TagItem;

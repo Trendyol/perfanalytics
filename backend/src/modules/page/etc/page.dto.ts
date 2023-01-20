@@ -1,5 +1,5 @@
 import { ExposeId } from '@core/decorators/expose-id.decorator';
-import { TagDTO } from '@modules/tag/etc/tag.dto';
+import { TagDTO } from '@modules/tag/dtos/tag.dto';
 import { UserDTO } from '@modules/user/etc/user.dto';
 import { Expose, Type } from 'class-transformer';
 import { Types } from 'mongoose';

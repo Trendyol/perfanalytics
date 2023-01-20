@@ -29,9 +29,9 @@ export class PageService {
 
     if (tagId) {
       const tag = await this.tagService.get(user, tagId);
-      if (!tag) {
-        throw new UnprocessableEntityException('Tag not found');
-      }
+      // if (!tag) {
+      //   throw new UnprocessableEntityException('Tag not found');
+      // }
     }
     const pageModel = new this.pageModel({
       url: url,
@@ -57,7 +57,7 @@ export class PageService {
     const query = {
       owner: user,
       ...(domainId && { domain: domainId }),
-      ...(tagId && !tag.isDefaultTag && { tag: tagId }),
+      // ...(tagId && !tag.isDefaultTag && { tag: tagId }),
     };
 
     return this.pageModel.paginate(query, {

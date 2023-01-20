@@ -66,7 +66,7 @@ export interface TagResponse {
   _id: string;
   name: string;
   color: string;
-  isDefaultTag: boolean;
+  readonly: boolean;
 }
 
 export interface MetricAveragesResponse extends Record<MetricKey, number> {
@@ -81,7 +81,7 @@ export interface Tag {
   name: string;
   color: string;
   domainId?: string;
-  isDefaultTag?: boolean;
+  readonly?: boolean;
 }
 
 export interface DashboardMetrics {

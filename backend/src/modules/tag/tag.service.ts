@@ -1,97 +1,81 @@
+import { TagEntity } from '@core/data/entities';
+import { IDataService } from '@core/data/services/data.service';
+import { JwtGuard } from '@core/guards/jwt.guard';
 import { User } from '@modules/user/etc/user.schema';
 import {
-  BadRequestException,
+  NotFoundException,
   Injectable,
   UnprocessableEntityException,
+  UseGuards,
+  ForbiddenException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
-import { CreateTagDTO } from './etc/create-tag.dto';
-import { Tag } from './etc/tag.schema';
-import { UpdateTagDTO } from './etc/update-tag.dto';
+import { CreateTagDto } from './dtos/create-tag.dto';
+import { UpdateTagDto } from './dtos/update-tag.dto';
 
 @Injectable()
+@UseGuards(JwtGuard)
 export class TagService {
-  constructor(
-    @InjectModel('Tag') private readonly tagModel: PaginateModel<Tag>,
-  ) {}
+  constructor(private readonly dataService: IDataService) {}
 
-  async create(user: User, createTagDTO: CreateTagDTO) {
-    const { name, color, domainId, isDefaultTag } = createTagDTO;
-
-    const tagModel = new this.tagModel({
-      name: name,
-      color: color,
-      owner: user,
-      domain: domainId,
-      isDefaultTag: isDefaultTag,
-    });
-
-    const result = await tagModel.save();
-
-    return result;
-  }
-
-  async getAllByUser(user: User, index: number, domainId: string) {
-    return this.tagModel.paginate(
-      { owner: user, domain: domainId },
-      {
-        sort: { createdAt: -1 },
-        domain: Number(index) + 1,
-        projection: { password: 0 },
-      },
-    );
-  }
-
-  async get(user: User, id: string) {
-    const tag = await this.tagModel.findById({ _id: id });
-
-    if (!tag) {
-      throw new UnprocessableEntityException('Tag not found');
-    }
-
-    if (String(tag.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this tag',
-      );
+  async canAccess(userId: string, tag: TagEntity) {
+    if (String(tag.owner) !== String(userId)) {
+      throw new UnprocessableEntityException();
     }
 
     return tag;
   }
 
-  async update(user: User, id: string, updateTagDTO: UpdateTagDTO) {
-    const tag = await this.tagModel.findById({ _id: id });
-
+  async exists(tag: TagEntity) {
     if (!tag) {
-      throw new UnprocessableEntityException('Tag not found');
+      throw new NotFoundException();
     }
 
-    if (String(tag.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this tag',
-      );
-    }
+    return tag;
+  }
 
-    return this.tagModel.updateOne({ _id: id }, updateTagDTO);
+  async create(user, createTagDto: CreateTagDto) {
+    const { name, color, domainId, readonly } = createTagDto;
+    const tag = await this.dataService.tags.create({
+      name,
+      color,
+      readonly,
+      owner: user._id,
+      domain: domainId,
+    });
+
+    return tag;
+  }
+
+  async getAllByUser(user: User, domainId: string) {
+    return this.dataService.tags.find({ owner: user, domain: domainId });
+  }
+
+  async get(user: User, id: string) {
+    const tag = await this.dataService.tags.findById(id);
+
+    this.exists(tag);
+    this.canAccess(user._id, tag);
+
+    return tag;
+  }
+
+  async update(user: User, id: string, updateTagDto: UpdateTagDto) {
+    const tag = await this.dataService.tags.findById(id);
+    this.exists(tag);
+    this.canAccess(user._id, tag);
+
+    return this.dataService.tags.updateOneById(id, updateTagDto);
   }
 
   async remove(user: User, id: string) {
-    const tag = await this.tagModel.findById({ _id: id });
+    const tag = await this.dataService.tags.findById(id);
+    this.exists(tag);
+    this.canAccess(user._id, tag);
 
-    if (!tag) {
-      throw new UnprocessableEntityException('Tag not found');
+    if (tag.readonly) {
+      throw new ForbiddenException();
     }
 
-    if (tag.isDefaultTag) {
-      throw new BadRequestException('Default tag can not be deleted');
-    }
-
-    if (String(tag.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this tag',
-      );
-    }
-
-    return this.tagModel.findByIdAndDelete(id);
+    return this.dataService.tags.deleteOneById(id);
   }
 }

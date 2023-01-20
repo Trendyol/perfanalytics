@@ -13,6 +13,7 @@ import { PageModule } from '@modules/page/page.module';
 import { TagModule } from './modules/tag/tag.module';
 import { LighthouseModule } from '@modules/lighthouse/lighthouse.module';
 import { DashboardModule } from '@modules/dashboard/dashboard.module';
+import { DataModule } from './modules/providers/database/data/data.module';
 
 @Module({
   imports: [
@@ -31,8 +32,7 @@ import { DashboardModule } from '@modules/dashboard/dashboard.module';
     DomainModule,
     PageModule,
     TagModule,
-    LighthouseModule,
-    DashboardModule,
+    DataModule,
   ],
   controllers: [AppController],
   providers: [
