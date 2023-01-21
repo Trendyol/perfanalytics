@@ -12,9 +12,9 @@ import { UpdatePageDto } from './dtos/update-page.dto';
 import { TagService } from '@modules/tag/tag.service';
 import { checkPublicAddress } from '../../core/utils/address';
 import { IDataService } from '@core/data/services/data.service';
-import { PageEntity } from '@core/data/entities';
 import { BaseService } from '@core/data/services/base.service';
 import { UserDto } from '@modules/user/dtos/user.dto';
+import { PageDto } from './dtos/page.dto';
 
 @Injectable()
 export class PageService implements BaseService {
@@ -23,7 +23,7 @@ export class PageService implements BaseService {
     private readonly tagService: TagService,
   ) {}
 
-  canAccess(userId: string, page: PageEntity) {
+  canAccess(userId: string, page: PageDto) {
     if (!page) {
       return false;
     }
@@ -56,7 +56,7 @@ export class PageService implements BaseService {
     user: UserDto,
     domainId?: string,
     tagId?: string,
-  ): Promise<PageEntity[]> {
+  ): Promise<PageDto[]> {
     const tag = tagId && (await this.tagService.get(user, tagId));
 
     const query = {
@@ -68,7 +68,7 @@ export class PageService implements BaseService {
     return this.dataService.pages.find(query);
   }
 
-  async get(user: UserDto, id: string): Promise<PageEntity> {
+  async get(user: UserDto, id: string): Promise<PageDto> {
     const page = await this.dataService.pages.findById(id);
     if (!this.canAccess(user._id, page)) throw new NotFoundException();
 

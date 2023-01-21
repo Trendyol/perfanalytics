@@ -27,7 +27,7 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async getByID(id: string): Promise<UserEntity> {
+  async getByID(id: string): Promise<UserDto> {
     const user = await this.dataService.users.findById(id);
 
     if (!user) throw new NotFoundException();
@@ -86,7 +86,7 @@ export class UserService {
     return this.sendEmailToRecoverAccount(token, user, language);
   }
 
-  async getByEmail(email: string): Promise<UserEntity> {
+  async getByEmail(email: string): Promise<UserDto> {
     return this.dataService.users.findOne({ email });
   }
 
@@ -141,7 +141,7 @@ export class UserService {
   async updateMyPassword(
     user: UserDto,
     updatePasswordDto: UpdatePasswordDto,
-  ): Promise<UserEntity> {
+  ): Promise<UserDto> {
     const userExist = await this.dataService.users.findById(user._id);
     if (!userExist) throw new NotFoundException();
 

@@ -12,12 +12,13 @@ import { DEFAULT_TAG } from './constants';
 import { BaseService } from '@core/data/services/base.service';
 import { UpdateDomainDto } from './dtos/update.domain.dto';
 import { UserDto } from '@modules/user/dtos/user.dto';
+import { DomainDto } from './dtos/domain.dto';
 
 @Injectable()
 export class DomainService implements BaseService {
   constructor(private readonly dataService: IDataService) {}
 
-  canAccess(userId: string, domain: DomainEntity) {
+  canAccess(userId: string, domain: DomainDto) {
     if (!domain) {
       return false;
     }
@@ -54,11 +55,11 @@ export class DomainService implements BaseService {
     return domain;
   }
 
-  async getAllByUser(user: UserDto): Promise<DomainEntity[]> {
+  async getAllByUser(user: UserDto): Promise<DomainDto[]> {
     return this.dataService.domains.find({ owner: user });
   }
 
-  async get(user: UserDto, id: string): Promise<DomainEntity> {
+  async get(user: UserDto, id: string): Promise<DomainDto> {
     try {
       const domain = await this.dataService.domains.findById(id);
       if (!this.canAccess(user._id, domain)) throw new NotFoundException();

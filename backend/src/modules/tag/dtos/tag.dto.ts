@@ -1,12 +1,11 @@
 import { ExposeId } from '@core/decorators/expose-id.decorator';
 import { UserDto } from '@modules/user/dtos/user.dto';
 import { Expose, Type } from 'class-transformer';
-import { Types } from 'mongoose';
 
-export class TagDTO {
+export class TagDto {
   @ExposeId()
   @Expose()
-  readonly _id: Types.ObjectId;
+  readonly _id?: string;
 
   @Expose()
   readonly name: string;
@@ -19,5 +18,5 @@ export class TagDTO {
 
   @Expose()
   @Type(() => UserDto)
-  readonly owner: UserDto;
+  readonly owner?: string;
 }

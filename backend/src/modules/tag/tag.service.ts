@@ -11,13 +11,14 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { CreateTagDto } from './dtos/create-tag.dto';
+import { TagDto } from './dtos/tag.dto';
 import { UpdateTagDto } from './dtos/update-tag.dto';
 
 @Injectable()
 @UseGuards(JwtGuard)
 export class TagService implements BaseService {
   constructor(private readonly dataService: IDataService) {}
-  canAccess(userId: string, tag: TagEntity) {
+  canAccess(userId: string, tag: TagDto) {
     if (!tag) {
       return false;
     }
