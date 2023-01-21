@@ -4,9 +4,9 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PaginateModel, PaginateResult } from 'mongoose';
+
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from '@modules/user/etc/user.schema';
+
 import { CreatePageDto } from './dtos/create-page.dto';
 import { UpdatePageDto } from './dtos/update-page.dto';
 import { TagService } from '@modules/tag/tag.service';
@@ -14,6 +14,7 @@ import { checkPublicAddress } from '../../core/utils/address';
 import { IDataService } from '@core/data/services/data.service';
 import { PageEntity } from '@core/data/entities';
 import { BaseService } from '@core/data/services/base.service';
+import { UserDto } from '@modules/user/dtos/user.dto';
 
 @Injectable()
 export class PageService implements BaseService {
@@ -34,7 +35,7 @@ export class PageService implements BaseService {
     return true;
   }
 
-  async create(user: User, createPageDto: CreatePageDto) {
+  async create(user: UserDto, createPageDto: CreatePageDto) {
     const { domainId, tagId, url, device } = createPageDto;
 
     const isAddressPublic = await checkPublicAddress(url);
@@ -52,7 +53,7 @@ export class PageService implements BaseService {
   }
 
   async getAllByUser(
-    user: User,
+    user: UserDto,
     domainId?: string,
     tagId?: string,
   ): Promise<PageEntity[]> {
@@ -67,21 +68,21 @@ export class PageService implements BaseService {
     return this.dataService.pages.find(query);
   }
 
-  async get(user: User, id: string): Promise<PageEntity> {
+  async get(user: UserDto, id: string): Promise<PageEntity> {
     const page = await this.dataService.pages.findById(id);
     if (!this.canAccess(user._id, page)) throw new NotFoundException();
 
     return page;
   }
 
-  async remove(user: User, id: string) {
+  async remove(user: UserDto, id: string) {
     const page = await this.dataService.pages.findById(id);
     if (!this.canAccess(user._id, page)) throw new NotFoundException();
 
     return this.dataService.pages.deleteOneById(id);
   }
 
-  async update(user: User, id: string, updatePageDto: UpdatePageDto) {
+  async update(user: UserDto, id: string, updatePageDto: UpdatePageDto) {
     const page = await this.dataService.pages.findById(id);
     if (!this.canAccess(user._id, page)) throw new NotFoundException();
 

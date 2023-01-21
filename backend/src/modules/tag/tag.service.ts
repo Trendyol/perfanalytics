@@ -2,7 +2,7 @@ import { TagEntity } from '@core/data/entities';
 import { BaseService } from '@core/data/services/base.service';
 import { IDataService } from '@core/data/services/data.service';
 import { JwtGuard } from '@core/guards/jwt.guard';
-import { User } from '@modules/user/etc/user.schema';
+import { UserDto } from '@modules/user/dtos/user.dto';
 import {
   NotFoundException,
   Injectable,
@@ -42,25 +42,25 @@ export class TagService implements BaseService {
     return tag;
   }
 
-  async getAllByUser(user: User, domainId: string) {
+  async getAllByUser(user: UserDto, domainId: string) {
     return this.dataService.tags.find({ owner: user, domain: domainId });
   }
 
-  async get(user: User, id: string) {
+  async get(user: UserDto, id: string) {
     const tag = await this.dataService.tags.findById(id);
     if (!this.canAccess(user._id, tag)) throw new NotFoundException();
 
     return tag;
   }
 
-  async update(user: User, id: string, updateTagDto: UpdateTagDto) {
+  async update(user: UserDto, id: string, updateTagDto: UpdateTagDto) {
     const tag = await this.dataService.tags.findById(id);
     if (!this.canAccess(user._id, tag)) throw new NotFoundException();
 
     return this.dataService.tags.updateOneById(id, updateTagDto);
   }
 
-  async remove(user: User, id: string) {
+  async remove(user: UserDto, id: string) {
     const tag = await this.dataService.tags.findById(id);
     if (!this.canAccess(user._id, tag)) throw new NotFoundException();
 

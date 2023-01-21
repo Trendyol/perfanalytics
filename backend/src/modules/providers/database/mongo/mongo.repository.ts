@@ -16,7 +16,7 @@ export class MongoGenericRepository<T> implements IGenericRepository<T, T> {
     return this._model.updateOne({ _id: id }, item).exec();
   }
   findOne(filter: Partial<T>): Promise<T> {
-    throw new Error('Method not implemented.');
+    return this._model.findOne(filter).exec();
   }
   deleteOneById(id: string): Promise<any> {
     return this._model.findByIdAndDelete(id).exec();

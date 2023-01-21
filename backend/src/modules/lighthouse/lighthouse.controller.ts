@@ -14,28 +14,28 @@ import { LighthouseService } from './lighthouse.service';
 export class LighthouseController {
   constructor(private readonly lighthouseService: LighthouseService) {}
 
-  @Get()
-  @UseGuards(JwtGuard)
-  async get(@User() user, @Query() query: GetLighthouseQuery) {
-    const { startDate, endDate, pageId } = query;
-    return await this.lighthouseService.get(user, startDate, endDate, pageId);
-  }
+  // @Get()
+  // @UseGuards(JwtGuard)
+  // async get(@User() user, @Query() query: GetLighthouseQuery) {
+  //   const { startDate, endDate, pageId } = query;
+  //   return await this.lighthouseService.get(user, startDate, endDate, pageId);
+  // }
 
-  @Get('/analytics/:pageId')
-  @UseGuards(JwtGuard)
-  async getAnalytics(
-    @User() user,
-    @Query() query: GetLighthouseAnalyticsQuery,
-    @Param() param: GetAnalyticsParam,
-  ) {
-    const { startDate, endDate } = query;
-    const { pageId } = param;
+  // @Get('/analytics/:pageId')
+  // @UseGuards(JwtGuard)
+  // async getAnalytics(
+  //   @User() user,
+  //   @Query() query: GetLighthouseAnalyticsQuery,
+  //   @Param() param: GetAnalyticsParam,
+  // ) {
+  //   const { startDate, endDate } = query;
+  //   const { pageId } = param;
 
-    return await this.lighthouseService.getAnalytics(
-      user,
-      startDate,
-      endDate,
-      pageId,
-    );
-  }
+  //   return await this.lighthouseService.getAnalytics(
+  //     user,
+  //     startDate,
+  //     endDate,
+  //     pageId,
+  //   );
+  // }
 }

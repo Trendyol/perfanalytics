@@ -1,7 +1,7 @@
 import { IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdatePasswordDTO {
+export class UpdatePasswordDto {
   @ApiProperty()
   @IsString()
   readonly oldPassword: string;

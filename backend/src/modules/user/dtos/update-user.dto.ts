@@ -1,7 +1,7 @@
 import { IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateMeDTO {
+export class UpdateUserDto {
   @ApiProperty()
   @IsString()
   @MaxLength(50)

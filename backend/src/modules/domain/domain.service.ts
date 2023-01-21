@@ -5,13 +5,13 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateDomainDto } from './dtos/create-domain.dto';
-import { User } from '@modules/user/etc/user.schema';
 import { checkPublicAddress } from '@core/utils/address';
 import { IDataService } from '@core/data/services/data.service';
 import { DomainEntity } from '@core/data/entities';
 import { DEFAULT_TAG } from './constants';
 import { BaseService } from '@core/data/services/base.service';
 import { UpdateDomainDto } from './dtos/update.domain.dto';
+import { UserDto } from '@modules/user/dtos/user.dto';
 
 @Injectable()
 export class DomainService implements BaseService {
@@ -54,11 +54,11 @@ export class DomainService implements BaseService {
     return domain;
   }
 
-  async getAllByUser(user: User): Promise<DomainEntity[]> {
+  async getAllByUser(user: UserDto): Promise<DomainEntity[]> {
     return this.dataService.domains.find({ owner: user });
   }
 
-  async get(user: User, id: string): Promise<DomainEntity> {
+  async get(user: UserDto, id: string): Promise<DomainEntity> {
     try {
       const domain = await this.dataService.domains.findById(id);
       if (!this.canAccess(user._id, domain)) throw new NotFoundException();
@@ -69,14 +69,14 @@ export class DomainService implements BaseService {
     }
   }
 
-  async remove(user: User, id: string) {
+  async remove(user: UserDto, id: string) {
     const domain = await this.dataService.domains.findById(id);
     if (!this.canAccess(user._id, domain)) throw new NotFoundException();
 
     return this.dataService.domains.deleteOneById(id);
   }
 
-  async update(user: User, id: string, UpdateDomainDto: UpdateDomainDto) {
+  async update(user: UserDto, id: string, UpdateDomainDto: UpdateDomainDto) {
     const domain = await this.dataService.domains.findById(id);
     console.log('update domain', domain);
     if (!this.canAccess(user._id, domain)) throw new NotFoundException();

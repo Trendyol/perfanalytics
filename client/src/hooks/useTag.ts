@@ -3,7 +3,7 @@ import { TagResponse } from "src/interfaces";
 import useSWR from "swr";
 
 const useTags = (domainId: string, index: number = 0) => {
-  const { data, error, mutate } = useSWR(`/tag?domainId=${domainId}`, fetcher, {
+  const { data, error, mutate } = useSWR(domainId ? `/tag?domainId=${domainId}` : null, fetcher, {
     revalidateOnFocus: false,
   });
   return {

@@ -10,13 +10,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { SessionService } from './session.service';
-import { CreateSessionDTO } from './etc/create-session.dto';
+import { CreateSessionDto } from './dtos/create-session.dto';
 import { JwtGuard } from '@guards/jwt.guard';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '@modules/user/user.service';
 import { GoogleGuard } from '@core/guards/google.guard';
 import config from '@config';
-import { CreateSessionParam } from './etc/create-session.param';
 @ApiTags('Session')
 @Controller('session')
 export class SessionController {
@@ -49,10 +48,10 @@ export class SessionController {
 
   @Post()
   async createSession(
-    @Body() createDTO: CreateSessionDTO,
+    @Body() createSessionDto: CreateSessionDto,
     @Res({ passthrough: true }) response,
   ) {
-    const token = await this.sessionService.create(createDTO);
+    const token = await this.sessionService.create(createSessionDto);
     response.cookie('auth-cookie', token, { httpOnly: true });
     return;
   }
@@ -65,8 +64,7 @@ export class SessionController {
 
   @UseGuards(JwtGuard)
   @Post(':id')
-  async createSessionForUser(@Param() param: CreateSessionParam) {
-    const { id } = param;
+  async createSessionForUser(@Param('id') id: string) {
     return await this.sessionService.createSessionForUser(id);
   }
 }

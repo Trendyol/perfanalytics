@@ -1,47 +1,38 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { isValidObjectId, PaginateModel, PaginateResult } from 'mongoose';
-import { UpdatePasswordDTO } from './etc/update-password.dto';
-import { CreateUserDTO } from './etc/create-user.dto';
-import { UpdateMeDTO } from './etc/update-me.dto';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import * as nodemailer from 'nodemailer';
 import { JwtService } from '@nestjs/jwt';
 import config from '@config';
-import { User } from '@user/etc/user.schema';
 import { renderMailContent } from './helpers/mailHelper';
 import { mailinator } from './constants';
+import { IDataService } from '@core/data/services/data.service';
+import { UserEntity } from '@core/data/entities';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserDto } from './dtos/user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
+    private readonly dataService: IDataService,
     private readonly jwtService: JwtService,
-    @InjectModel('User') private readonly userModel: PaginateModel<User>,
   ) {}
 
-  async getAll(index: number): Promise<PaginateResult<User>> {
-    return this.userModel.paginate(
-      {},
-      {
-        sort: { createdAt: -1 },
-        domain: Number(index) + 1,
-        projection: { password: 0 },
-      },
-    );
-  }
+  async getByID(id: string): Promise<UserEntity> {
+    const user = await this.dataService.users.findById(id);
 
-  async getByID(id: string): Promise<User> {
-    const exist = await this.userModel.findOne({ _id: id });
+    if (!user) throw new NotFoundException();
 
-    if (!exist) throw new NotFoundException();
-
-    return exist;
+    return user;
   }
 
   async sendEmailToRecoverAccount(token, user, language) {
@@ -77,15 +68,14 @@ export class UserService {
   }
 
   async recoverPassword(email: string, language: string) {
-    const user = await this.getByEmail(email);
+    const user = (await this.getByEmail(email)) as unknown as UserDto;
     const currentTimeHash = await bcrypt.hash(new Date().toLocaleString(), 10);
 
     if (!user) throw new InternalServerErrorException();
 
-    await this.userModel.updateOne(
-      { _id: user.id },
-      { changeMailTokenKey: currentTimeHash },
-    );
+    await this.dataService.users.updateOneById(user._id, {
+      changeMailTokenKey: currentTimeHash,
+    });
 
     const token = this.jwtService.sign({
       iss: user._id,
@@ -96,36 +86,29 @@ export class UserService {
     return this.sendEmailToRecoverAccount(token, user, language);
   }
 
-  async getByEmail(email: string): Promise<User> {
-    return this.userModel.findOne({ email });
+  async getByEmail(email: string): Promise<UserEntity> {
+    return this.dataService.users.findOne({ email });
   }
 
-  async create(createUserDTO: CreateUserDTO): Promise<any> {
-    const { email, password, name } = createUserDTO;
+  async create(createUserDto: CreateUserDto): Promise<any> {
+    const { email, password, name } = createUserDto;
 
-    const exist = await this.userModel.exists({ email });
-    if (exist) throw new UnprocessableEntityException('Email already exists.');
+    const userExists = await this.dataService.users.findOne({ email });
+    if (userExists) throw new BadRequestException('Email already exists.');
 
-    const userModel = new this.userModel({
+    const user = await this.dataService.users.create({
       name: name,
       email: email,
+      emailVerified: false,
+      changeMailTokenKey: '',
       ...(password && { password: await bcrypt.hash(password, 10) }),
     });
 
-    await userModel.save();
-
-    return userModel;
+    return user;
   }
 
-  async updateMe(id: string, updateDTO: UpdateMeDTO): Promise<boolean> {
-    if (!isValidObjectId(id)) throw new BadRequestException();
-
-    await this.userModel.updateOne(
-      { _id: id },
-      {
-        name: updateDTO.name,
-      },
-    );
+  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<boolean> {
+    this.dataService.users.updateOneById(id, updateUserDto);
 
     return true;
   }
@@ -135,11 +118,10 @@ export class UserService {
     const currentTimeHash = await bcrypt.hash(new Date().toLocaleString(), 10);
 
     const newPassword = await bcrypt.hash(password, 10);
-    await this.userModel.updateOne(
-      { _id: (verifiedToken as any).iss },
-      { password: newPassword, changeMailTokenKey: currentTimeHash },
-      { new: true },
-    );
+    await this.dataService.users.updateOneById((verifiedToken as any).iss, {
+      password: newPassword,
+      changeMailTokenKey: currentTimeHash,
+    });
   }
 
   async verifyMailChangeToken(token) {
@@ -157,31 +139,24 @@ export class UserService {
   }
 
   async updateMyPassword(
-    user: User,
-    updateDTO: UpdatePasswordDTO,
-  ): Promise<User> {
-    const exist = await this.userModel.findOne({ _id: user._id });
+    user: UserDto,
+    updatePasswordDto: UpdatePasswordDto,
+  ): Promise<UserEntity> {
+    const userExist = await this.dataService.users.findById(user._id);
+    if (!userExist) throw new NotFoundException();
 
-    if (!exist) throw new NotFoundException();
-
-    if (!(await bcrypt.compare(updateDTO.oldPassword, user.password)))
+    if (!(await bcrypt.compare(updatePasswordDto.oldPassword, user.password)))
       throw new UnprocessableEntityException('Wrong password.');
 
-    const newPassword = await bcrypt.hash(updateDTO.newPassword, 10);
-    if (bcrypt.compare(updateDTO.oldPassword, exist.password)) {
-      await this.userModel.updateOne(
-        { _id: user._id },
-        { password: newPassword },
-        { new: true },
-      );
-      return this.userModel.findOne({ _id: user._id }, { password: 0 });
-    } else
-      throw new UnprocessableEntityException(
-        'New password is same as old password.',
-      );
+    const newPassword = await bcrypt.hash(updatePasswordDto.newPassword, 10);
+    this.dataService.users.updateOneById(user._id, {
+      password: newPassword,
+    });
+
+    return userExist;
   }
 
-  async getMe(user: User) {
+  async getMe(user: UserDto) {
     return user;
   }
 }

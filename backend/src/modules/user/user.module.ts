@@ -2,13 +2,14 @@ import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserController } from './user.controller';
-import { UserSchema } from './etc/user.schema';
+
 import { JwtModule } from '@nestjs/jwt';
 import config from '@config';
+import { DataModule } from '@modules/providers/database/data/data.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    DataModule,
     JwtModule.register({
       secret: config.jwtForPasswordRecovery.secret,
       signOptions: {
