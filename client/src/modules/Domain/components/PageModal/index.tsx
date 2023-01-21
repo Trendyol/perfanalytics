@@ -2,7 +2,7 @@ import Button from "@components/shared/Form/Button";
 import Select from "@components/shared/Form/Select";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
-import { DeviceOptions, DeviceTypes } from "@enums";
+import { DeviceOptions } from "@constants";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 import useDomain from "@hooks/useDomain";
 import usePages from "@hooks/usePages";

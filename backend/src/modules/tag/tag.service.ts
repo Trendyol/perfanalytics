@@ -44,7 +44,7 @@ export class TagService implements BaseService {
   }
 
   async getAllByUser(user: UserDto, domainId: string) {
-    return this.dataService.tags.find({ owner: user, domain: domainId });
+    return this.dataService.tags.find({ owner: user._id, domain: domainId });
   }
 
   async get(user: UserDto, id: string) {

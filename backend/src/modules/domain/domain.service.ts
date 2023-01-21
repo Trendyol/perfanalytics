@@ -56,7 +56,7 @@ export class DomainService implements BaseService {
   }
 
   async getAllByUser(user: UserDto): Promise<DomainDto[]> {
-    return this.dataService.domains.find({ owner: user });
+    return this.dataService.domains.find({ owner: user._id });
   }
 
   async get(user: UserDto, id: string): Promise<DomainDto> {
@@ -79,7 +79,6 @@ export class DomainService implements BaseService {
 
   async update(user: UserDto, id: string, UpdateDomainDto: UpdateDomainDto) {
     const domain = await this.dataService.domains.findById(id);
-    console.log('update domain', domain);
     if (!this.canAccess(user._id, domain)) throw new NotFoundException();
 
     if (UpdateDomainDto.url) {

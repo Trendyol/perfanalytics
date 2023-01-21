@@ -11,7 +11,7 @@ export class CreateTagDto {
   readonly color: string;
 
   @ApiProperty()
-  @IsMongoId()
+  @IsString()
   readonly domainId: string;
 
   @ApiProperty()

@@ -6,6 +6,7 @@ const useTags = (domainId: string, index: number = 0) => {
   const { data, error, mutate } = useSWR(domainId ? `/tag?domainId=${domainId}` : null, fetcher, {
     revalidateOnFocus: false,
   });
+
   return {
     tags: data
       ?.map((tag: TagResponse) => ({

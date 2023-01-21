@@ -3,30 +3,28 @@ import { Model } from 'mongoose';
 
 export class MongoGenericRepository<T> implements IGenericRepository<T, T> {
   private _model: Model<T>;
-  private _populateOnFind: string[];
 
-  constructor(_model: Model<T>, populateOnFind: string[] = []) {
+  constructor(_model: Model<T>) {
     this._model = _model;
-    this._populateOnFind = populateOnFind;
   }
-  findById(id: string): Promise<T> {
-    return this._model.findById(id).exec();
+  async findById(id: string): Promise<T> {
+    return await this._model.findById(id).exec();
   }
-  updateOneById(id: string, item: T) {
-    return this._model.updateOne({ _id: id }, item).exec();
+  async updateOneById(id: string, item: T) {
+    return await this._model.updateOne({ _id: id }, item).exec();
   }
-  findOne(filter: Partial<T>): Promise<T> {
-    return this._model.findOne(filter).exec();
+  async findOne(filter: Partial<T>): Promise<T> {
+    return await this._model.findOne(filter).exec();
   }
-  deleteOneById(id: string): Promise<any> {
-    return this._model.findByIdAndDelete(id).exec();
-  }
-
-  find(filter: any): Promise<T[]> {
-    return this._model.find(filter).populate(this._populateOnFind).exec();
+  async deleteOneById(id: string): Promise<any> {
+    return await this._model.findByIdAndDelete(id).exec();
   }
 
-  create(item: T): Promise<T & { _id: string }> {
-    return this._model.create(item) as Promise<T & { _id: string }>;
+  async find(filter: any): Promise<T[]> {
+    return await this._model.find(filter).exec();
+  }
+
+  async create(item: T): Promise<T> {
+    return await this._model.create(item);
   }
 }

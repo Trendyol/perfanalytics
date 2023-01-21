@@ -26,6 +26,13 @@ export interface Config {
     clientSecret: string;
     clientId: string;
   };
+  couchbase: {
+    connectionString: string;
+    bucketName: string;
+    username: string;
+    password: string;
+  };
+  database: string;
   clientUrl: string;
 }
 
@@ -54,6 +61,13 @@ export const config = {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     clientId: process.env.GOOGLE_CLIENT_ID,
   },
+  couchbase: {
+    connectionString: process.env.CB_CONNECTION_STRING,
+    bucketName: process.env.CB_BUCKET_NAME,
+    username: process.env.CB_USERNAME,
+    password: process.env.CB_PASSWORD,
+  },
+  database: process.env.DATABASE,
   clientUrl: process.env.CLIENT_URL,
 };
 

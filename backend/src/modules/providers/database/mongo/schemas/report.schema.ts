@@ -7,7 +7,6 @@ export type ReportDocument = Report & Document;
 @Schema()
 export class Report extends Document implements ReportEntity {
   @Prop()
-  @Prop()
   url: string;
 
   @Prop({ required: true })

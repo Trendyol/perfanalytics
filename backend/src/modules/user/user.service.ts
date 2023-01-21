@@ -27,9 +27,8 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async getByID(id: string): Promise<UserDto> {
+  async getByID(id: string): Promise<any> {
     const user = await this.dataService.users.findById(id);
-
     if (!user) throw new NotFoundException();
 
     return user;
@@ -90,7 +89,7 @@ export class UserService {
     return this.dataService.users.findOne({ email });
   }
 
-  async create(createUserDto: CreateUserDto): Promise<any> {
+  async create(createUserDto: CreateUserDto): Promise<UserDto> {
     const { email, password, name } = createUserDto;
 
     const userExists = await this.dataService.users.findOne({ email });

@@ -29,7 +29,7 @@ export class DomainController {
 
   @Get()
   async getAllByUser(@User() user) {
-    return await this.domainService.getAllByUser(user);
+    return this.domainService.getAllByUser(user);
   }
 
   @Get('/:id')

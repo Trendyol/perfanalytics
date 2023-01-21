@@ -60,7 +60,7 @@ export class PageService implements BaseService {
     const tag = tagId && (await this.tagService.get(user, tagId));
 
     const query = {
-      owner: user,
+      owner: user._id,
       ...(domainId && { domain: domainId }),
       ...(tagId && !tag.readonly && { tag: tagId }),
     };
@@ -90,7 +90,6 @@ export class PageService implements BaseService {
       const isAddressPublic = await checkPublicAddress(updatePageDto.url);
       if (!isAddressPublic) throw new BadRequestException('Can not be private');
     }
-    console.log('page update', page);
 
     return this.dataService.pages.updateOneById(id, updatePageDto);
   }

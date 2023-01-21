@@ -25,7 +25,7 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
   const { pageId, domainId } = router.query;
   const { page, mutatePage } = usePage(pageId as string);
   const { mutatePages } = usePages(domainId as string);
-  console.log(page);
+
   const formik = useFormik({
     initialValues: { url: page?.url || "", device: page?.device || "", tagId: page?.tag || "" },
     validateOnChange: false,
@@ -72,6 +72,3 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
 };
 
 export default PathSettingsModal;
-function useTag(arg0: string): { tag: any } {
-  throw new Error("Function not implemented.");
-}
