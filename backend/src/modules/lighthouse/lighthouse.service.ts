@@ -1,10 +1,9 @@
-import { Page } from '@modules/page/etc/page.schema';
 import { Inject, Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectModel } from '@nestjs/mongoose';
 import { Producer } from 'kafkajs';
 import { Model, PaginateModel } from 'mongoose';
-import { Domain } from '@modules/domain/etc/domain.schema';
+// import { Domain } from '@modules/domain/etc/domain.schema';
 import { Lighthouse } from './etc/lighthouse.schema';
 import { User } from '@modules/user/etc/user.schema';
 import { usefulAudits } from './constants';
@@ -12,34 +11,33 @@ import { usefulAudits } from './constants';
 export class LighthouseService {
   constructor(
     @Inject('KafkaProducer') private readonly kafkaProducer: Producer,
-    @InjectModel('Page') private readonly pageModel: Model<Page>,
     @InjectModel('Lighthouse')
     private readonly lighthouseModel: PaginateModel<Lighthouse>,
   ) {}
 
   // @Cron(CronExpression.EVERY_MINUTE)
-  async handleCron() {
-    const pages = await this.getPages();
-    pages.forEach((page) => {
-      const lighthousePayload = {
-        url: page?.url,
-        owner: page.owner,
-        domainId: page.domain._id,
-        pageId: page._id,
-        device: page.device,
-      };
+  // async handleCron() {
+  //   const pages = await this.getPages();
+  //   pages.forEach((page) => {
+  //     const lighthousePayload = {
+  //       url: page?.url,
+  //       owner: page.owner,
+  //       domainId: page.domain._id,
+  //       pageId: page._id,
+  //       device: page.device,
+  //     };
 
-      this.sendMessage(lighthousePayload);
-    });
-  }
+  //     this.sendMessage(lighthousePayload);
+  //   });
+  // }
 
-  async getPages() {
-    const pages = await this.pageModel
-      .find({})
-      .populate<{ domain: Domain }>('domain');
+  // async getPages() {
+  //   const pages = await this.pageModel
+  //     .find({})
+  //     .populate<{ domain: Domain }>('domain');
 
-    return pages;
-  }
+  //   return pages;
+  // }
 
   async sendMessage(message: unknown) {
     return this.kafkaProducer.send({

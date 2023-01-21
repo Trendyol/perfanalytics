@@ -14,7 +14,6 @@ const CustomTable: FC<CustomTableProps> = (props) => {
     headerHeight = DEFAULT_TABLE_HEIGHTS.header,
     hasTextCenterOnFirstColumn = false,
     onRowClick,
-    onNextPage,
   } = props;
 
   const { t } = useTranslation("common");
@@ -40,7 +39,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
           headerHeight={headerHeight}
           rowHeight={rowHeight}
           rowCount={data?.length || 0}
-          rowGetter={({ index }) => data[index]}
+          rowGetter={({ index }) => data?.[index]}
           className="bg-white rounded-lg text-xs"
           headerClassName={classNames("!m-0 text-sm font-normal text-gray-400 flex items-center normal-case justify-center", {
             "first:justify-start": !hasTextCenterOnFirstColumn,
@@ -75,7 +74,7 @@ interface CustomTableProps {
   height?: number;
   headerHeight?: number;
   rowHeight?: number;
-  data: any[];
+  data?: any[];
   columnData: Array<{
     dataKey: string;
     label: string;
@@ -83,7 +82,6 @@ interface CustomTableProps {
     cellRenderer?: (cellData: any, rowData: any) => ReactNode;
   }>;
   isLoading?: boolean;
-  onNextPage: () => void;
   onRowClick?: (rowData: any) => void;
   hasTextCenterOnFirstColumn?: boolean;
 }

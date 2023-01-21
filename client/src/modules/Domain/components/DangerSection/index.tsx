@@ -5,7 +5,7 @@ import useTranslation from "next-translate/useTranslation";
 import { deleteDomain } from "@services/domainService";
 import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
-import useDomains from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomains";
 import useDashboardMetric from "@hooks/useDashboardMetric";
 
 const DangerSection = () => {

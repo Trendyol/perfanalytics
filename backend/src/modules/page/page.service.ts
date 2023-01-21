@@ -1,130 +1,103 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { PaginateModel, PaginateResult } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Page } from './etc/page.schema';
 import { User } from '@modules/user/etc/user.schema';
-import { CreatePageDTO } from './etc/create-page.dto';
-import { UpdatePageDTO } from './etc/update-page.dto';
+import { CreatePageDto } from './dtos/create-page.dto';
+import { UpdatePageDto } from './dtos/update-page.dto';
 import { TagService } from '@modules/tag/tag.service';
 import { checkPublicAddress } from '../../core/utils/address';
+import { IDataService } from '@core/data/services/data.service';
+import { PageEntity } from '@core/data/entities';
+import { BaseService } from '@core/data/services/base.service';
 
 @Injectable()
-export class PageService {
+export class PageService implements BaseService {
   constructor(
+    private readonly dataService: IDataService,
     private readonly tagService: TagService,
-    @InjectModel('Page') private readonly pageModel: PaginateModel<Page>,
   ) {}
 
-  async create(user: User, createPageDTO: CreatePageDTO) {
-    const { domainId, tagId, url, device } = createPageDTO;
+  canAccess(userId: string, page: PageEntity) {
+    if (!page) {
+      return false;
+    }
+
+    if (String(page.owner) !== String(userId)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  async create(user: User, createPageDto: CreatePageDto) {
+    const { domainId, tagId, url, device } = createPageDto;
 
     const isAddressPublic = await checkPublicAddress(url);
-    if (!isAddressPublic) {
-      throw new BadRequestException('Address can not be private');
-    }
+    if (!isAddressPublic) throw new BadRequestException('Can not be private');
 
-    if (tagId) {
-      const tag = await this.tagService.get(user, tagId);
-      // if (!tag) {
-      //   throw new UnprocessableEntityException('Tag not found');
-      // }
-    }
-    const pageModel = new this.pageModel({
+    const page = await this.dataService.pages.create({
       url: url,
-      owner: user,
+      owner: user._id,
       domain: domainId,
       device: device,
       ...(tagId && { tag: tagId }),
     });
 
-    const result = await pageModel.save();
-
-    return result;
+    return page;
   }
 
   async getAllByUser(
     user: User,
-    index: number,
     domainId?: string,
     tagId?: string,
-  ): Promise<PaginateResult<Page>> {
+  ): Promise<PageEntity[]> {
     const tag = tagId && (await this.tagService.get(user, tagId));
 
     const query = {
       owner: user,
       ...(domainId && { domain: domainId }),
-      // ...(tagId && !tag.isDefaultTag && { tag: tagId }),
+      ...(tagId && !tag.readonly && { tag: tagId }),
     };
 
-    return this.pageModel.paginate(query, {
-      sort: { createdAt: -1 },
-      page: Number(index) + 1,
-    });
+    return this.dataService.pages.find(query);
   }
 
-  async get(user: User, id: string): Promise<Page> {
-    const page = await this.pageModel.findById({ _id: id });
-
-    if (!page) {
-      throw new UnprocessableEntityException('Page not found');
-    }
-
-    if (String(page.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this page',
-      );
-    }
+  async get(user: User, id: string): Promise<PageEntity> {
+    const page = await this.dataService.pages.findById(id);
+    if (!this.canAccess(user._id, page)) throw new NotFoundException();
 
     return page;
   }
 
   async remove(user: User, id: string) {
-    const page = await this.pageModel.findById({ _id: id });
+    const page = await this.dataService.pages.findById(id);
+    if (!this.canAccess(user._id, page)) throw new NotFoundException();
 
-    if (!page) {
-      throw new UnprocessableEntityException('Page not found');
-    }
-
-    if (String(page.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this page',
-      );
-    }
-
-    return this.pageModel.findByIdAndDelete(id);
+    return this.dataService.pages.deleteOneById(id);
   }
 
-  async update(user: User, id: string, updatePageDTO: UpdatePageDTO) {
-    const page = await this.pageModel.findById({ _id: id });
+  async update(user: User, id: string, updatePageDto: UpdatePageDto) {
+    const page = await this.dataService.pages.findById(id);
+    if (!this.canAccess(user._id, page)) throw new NotFoundException();
 
-    if (updatePageDTO.url) {
-      const isAddressPublic = await checkPublicAddress(updatePageDTO.url);
-      if (!isAddressPublic) {
-        throw new BadRequestException('Address can not be private');
-      }
+    if (updatePageDto.url) {
+      const isAddressPublic = await checkPublicAddress(updatePageDto.url);
+      if (!isAddressPublic) throw new BadRequestException('Can not be private');
     }
+    console.log('page update', page);
 
-    if (!page) {
-      throw new UnprocessableEntityException('Page not found');
-    }
-
-    if (String(page.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this page',
-      );
-    }
-
-    return this.pageModel.updateOne({ _id: id }, updatePageDTO);
+    return this.dataService.pages.updateOneById(id, updatePageDto);
   }
 
-  getCount(user: User, domainId?: string) {
-    return this.pageModel.countDocuments({
-      owner: user,
-      ...(domainId && { domain: domainId }),
-    });
-  }
+  // getCount(user: User, domainId?: string) {
+  //   return this.pageModel.countDocuments({
+  //     owner: user,
+  //     ...(domainId && { domain: domainId }),
+  //   });
+  // }
 }

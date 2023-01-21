@@ -1,5 +1,5 @@
+import { Domain } from "@interfaces";
 import { fetcher } from "@utils/fetcher";
-import { Domain } from "src/interfaces";
 import useSWR from "swr";
 
 const useDomains = () => {

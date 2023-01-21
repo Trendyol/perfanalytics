@@ -2,7 +2,7 @@ import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
 import useDashboardMetric from "@hooks/useDashboardMetric";
-import useDomains from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomains";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
 import { useFormik } from "formik";

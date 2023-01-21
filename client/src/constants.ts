@@ -27,11 +27,17 @@ export const DEFAULT_TABLE_HEIGHTS = {
   row: 40,
   header: 40,
 };
-export const DEFAULT_TAG = {
-  id: "all",
-  name: "All",
-  color: "bg-primary",
-};
+
+export const DeviceOptions = [
+  {
+    label: "Desktop",
+    value: "desktop",
+  },
+  {
+    label: "Mobile",
+    value: "mobile",
+  },
+];
 
 export const METRICS: Record<MetricKey, Metric> = {
   "cumulative-layout-shift": {

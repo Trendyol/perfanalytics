@@ -15,6 +15,8 @@ const useUser = () => {
         mutate(null, false);
       }
     },
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
   });
 
   return {

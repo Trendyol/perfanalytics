@@ -31,6 +31,7 @@ export const StatusCode: Record<0 | 1 | 2, string> = {
   2: "Failed",
 };
 
+
 export enum DeviceTypes {
   Desktop = "desktop",
   Mobile = "mobile",

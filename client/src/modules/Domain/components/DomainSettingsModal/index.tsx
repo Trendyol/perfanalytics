@@ -1,7 +1,7 @@
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useDomain from "@hooks/useDomain";
-import useDomains from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomains";
 import { updateDomainSchema } from "@schemas";
 import { updateDomain } from "@services/domainService";
 import { useFormik } from "formik";

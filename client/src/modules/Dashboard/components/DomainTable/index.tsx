@@ -3,7 +3,7 @@ import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
-import useDomains from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomains";
 import { getFavicon } from "@utils/common";
 import classnames from "classnames";
 import useTranslation from "next-translate/useTranslation";

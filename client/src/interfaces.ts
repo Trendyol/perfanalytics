@@ -6,6 +6,12 @@ export interface Domain {
   _id: string;
 }
 
+export interface Page {
+  name: string;
+  url: string;
+  _id: string;
+}
+
 export interface DomainData {
   docs: Domain[];
   totalDocs: number;
@@ -49,10 +55,10 @@ export interface DomainSettings {
   url: string;
 }
 
-export interface Path {
+export interface Page {
   device: string;
   url: string;
-  tagId: string;
+  tag: string;
   _id: string;
 }
 

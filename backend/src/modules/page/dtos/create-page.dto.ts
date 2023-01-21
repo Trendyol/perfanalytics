@@ -1,14 +1,13 @@
-import { IsOptional, IsString, IsMongoId, IsUrl } from 'class-validator';
+import { IsOptional, IsString, IsUrl } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Device } from '../enums';
 
-export class CreatePageDTO {
+export class CreatePageDto {
   @ApiProperty()
-  @IsMongoId()
+  @IsString()
   readonly domainId: string;
 
   @ApiProperty()
-  @IsMongoId()
   @IsOptional()
   readonly tagId: string;
 

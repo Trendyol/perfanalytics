@@ -78,6 +78,7 @@ export class DomainService implements BaseService {
 
   async update(user: User, id: string, UpdateDomainDto: UpdateDomainDto) {
     const domain = await this.dataService.domains.findById(id);
+    console.log('update domain', domain);
     if (!this.canAccess(user._id, domain)) throw new NotFoundException();
 
     if (UpdateDomainDto.url) {

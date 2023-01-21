@@ -15,7 +15,7 @@ export class DashboardController {
   async getDashboard(@User() user, @Query() query: GetMetricsQuery) {
     const { domainId } = query;
     if (domainId) {
-      return await this.dashboardService.getMetricsByDomain(user, domainId);
+      // return await this.dashboardService.getMetricsByDomain(user, domainId);
     }
     return await this.dashboardService.getMetrics(user);
   }

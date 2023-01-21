@@ -19,13 +19,13 @@ export class DashboardService {
     // return { domainCount, pathCount, lighthouseCount };
   }
 
-  async getMetricsByDomain(user: User, domainId: string) {
-    const pathCount = await this.pageService.getCount(user, domainId);
-    const lighthouseCount = await this.lighthouseService.getCount(
-      user,
-      domainId,
-    );
+  // async getMetricsByDomain(user: User, domainId: string) {
+  //   const pathCount = await this.pageService.getCount(user, domainId);
+  //   const lighthouseCount = await this.lighthouseService.getCount(
+  //     user,
+  //     domainId,
+  //   );
 
-    return { pathCount, lighthouseCount };
-  }
+  //   return { pathCount, lighthouseCount };
+  // }
 }

@@ -3,4 +3,5 @@ export class PageEntity {
   device: string;
   tag: string;
   owner: string;
+  domain: string;
 }

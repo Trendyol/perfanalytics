@@ -1,7 +1,7 @@
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import usePage from "@hooks/usePage";
-import usePageInfinite from "@hooks/usePageInfinite";
+import usePages from "@hooks/usePages";
 import { updatePageSchema } from "@schemas";
 import { updatePage } from "@services/pageService";
 import { useFormik } from "formik";
@@ -24,10 +24,10 @@ const PathSettingsModal: FC<PathSettingsModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("path");
   const { pageId, domainId } = router.query;
   const { page, mutatePage } = usePage(pageId as string);
-  const { mutatePages } = usePageInfinite(domainId as string);
-
+  const { mutatePages } = usePages(domainId as string);
+  console.log(page);
   const formik = useFormik({
-    initialValues: { url: page?.url || "", device: page?.device || "", tagId: page?.tagId || "" },
+    initialValues: { url: page?.url || "", device: page?.device || "", tagId: page?.tag || "" },
     validateOnChange: false,
     enableReinitialize: true,
     validationSchema: () => updatePageSchema(t),
