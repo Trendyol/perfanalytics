@@ -29,14 +29,8 @@ const columnData = [
   })),
 ];
 
-const ReportTable: FC<ReportTableProps> = ({ reports, length, setSize, isLoading }) => {
+const ReportTable: FC<ReportTableProps> = ({ reports, length, isLoading }) => {
   const { t } = useTranslation("path");
-
-  const handleNextPage = () => {
-    if (setSize) {
-      setSize((previousSize: number) => previousSize + 1);
-    }
-  };
 
   return (
     <div
@@ -51,11 +45,9 @@ const ReportTable: FC<ReportTableProps> = ({ reports, length, setSize, isLoading
       </div>
       <CustomTable
         data={reports}
-        length={length}
         isLoading={isLoading}
         hasTextCenterOnFirstColumn={true}
         columnData={columnData}
-        onNextPage={handleNextPage}
         onRowClick={() => {
           alert("Not implemented yet.");
         }}
@@ -67,7 +59,6 @@ const ReportTable: FC<ReportTableProps> = ({ reports, length, setSize, isLoading
 interface ReportTableProps {
   reports: any;
   length: number;
-  setSize: (cb: (value: number) => number) => void;
   isLoading: boolean | undefined;
 }
 

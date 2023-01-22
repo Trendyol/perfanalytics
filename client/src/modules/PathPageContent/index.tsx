@@ -1,6 +1,6 @@
 import { ReportTimePeriod } from "@enums";
 import useMetricAverages from "@hooks/useMetricAverages";
-import useReportsInfinite from "@hooks/useReportsInfinite";
+import useReports from "@hooks/useReportsInfinite";
 import { getStartDateByInterval } from "@utils/common";
 import { useRouter } from "next/router";
 import { FC, useRef, useState } from "react";
@@ -26,7 +26,7 @@ const PathPageContent: FC = () => {
     startDate = getStartDateByInterval(reportTimePeriod.end, reportTimePeriod.interval!);
   }
 
-  const { reports, length, setSize, isLoading } = useReportsInfinite({
+  const { reports, length, isLoading } = useReports({
     pageId: query.pageId as string,
     startDate,
     endDate: reportTimePeriod.end,
@@ -57,8 +57,8 @@ const PathPageContent: FC = () => {
           }
         >
           {Object.entries(filterTimeRangeButtonsTexts).map(([key, value]) => (
-            <label>
-              <input type="radio" key={key} value={key} checked={String(reportTimePeriod.interval) === key} name="group2" className="hidden peer" />
+            <label key={key}>
+              <input type="radio" key={key} value={key} defaultChecked={String(reportTimePeriod.interval) === key} name="group2" className="hidden peer" />
               <div className="text-xs font-semibold py-1 px-3 border-2 rounded-md cursor-pointer bg-gray-100 hover:bg-gray-100 hover:border-gray-300 peer-checked:bg-gray-300 peer-checked:border-gray-500">
                 {value}
               </div>
@@ -68,7 +68,7 @@ const PathPageContent: FC = () => {
       </div>
       <MetricCards metrics={metricAverages} />
       <ReportTimeChart reports={reports} setReportTimePeriod={setReportTimePeriod} />
-      <ReportTable reports={reports} length={length} setSize={setSize as any} isLoading={isLoading} />
+      <ReportTable reports={reports} length={length} isLoading={isLoading} />
     </div>
   );
 };

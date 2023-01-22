@@ -2,6 +2,7 @@ import Breadcrumb from "@components/shared/Breadcrumb";
 import Button from "@components/shared/Form/Button";
 import Icon from "@components/shared/Icon";
 import usePage from "@hooks/usePage";
+import { createReport } from "@services/reportService";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
@@ -15,7 +16,8 @@ const PathPageHeader: FC<PathPageHeaderProps> = () => {
   const { page } = usePage(query.pageId as string);
 
   const generateReport = () => {
-    alert("Not implemented yet.");
+    if (!page) return;
+    createReport(page?._id);
   };
 
   return (
@@ -29,10 +31,10 @@ const PathPageHeader: FC<PathPageHeaderProps> = () => {
         </h3>
       </div>
       <div className="mt-2 flex gap-3">
-        <Button onClick={generateReport} className="flex gap-1 px-3 py-2">
+        <Button onClick={generateReport} className="flex gap-1 px-3 py-2 whitespace-nowrap">
           <Icon name="plus" />
           {t("new_report")}
-        </Button>{" "}
+        </Button>
         <Button onClick={() => setShowPathSettingsModal(true)}>{t("settings")}</Button>
       </div>
       <PathSettingsModal show={showPathSettingsModal} onClose={() => setShowPathSettingsModal(false)} />

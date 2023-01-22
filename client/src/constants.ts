@@ -27,13 +27,23 @@ export const DEFAULT_TABLE_HEIGHTS = {
   row: 40,
   header: 40,
 };
-export const DEFAULT_TAG = {
-  id: "all",
-  name: "All",
-  color: "bg-primary",
-};
+
+export const DeviceOptions = [
+  {
+    label: "Desktop",
+    value: "desktop",
+  },
+  {
+    label: "Mobile",
+    value: "mobile",
+  },
+];
 
 export const METRICS: Record<MetricKey, Metric> = {
+  performance: {
+    label: "PERF",
+    infoLink: "https://web.dev/metrics/",
+  },
   "cumulative-layout-shift": {
     label: "CLS",
     infoLink: "https://web.dev/cls/",
@@ -62,9 +72,17 @@ export const METRICS: Record<MetricKey, Metric> = {
     label: "TBT",
     infoLink: "https://web.dev/tbt/",
   },
+  performance: {
+    label: "PERF",
+    infoLink: "https://web.dev/metrics/",
+  },
 };
 
 export const chartLegends = [
+  {
+    dataKey: "performance",
+    label: "PERF",
+  },
   {
     dataKey: "first-contentful-paint",
     label: "FCP",

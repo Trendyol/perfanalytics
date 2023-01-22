@@ -7,7 +7,7 @@
   "registration_error": "Registration failed",
   "recover_account": "Recover Account",
   "password_reset_failed": "Password Reset Request Failed",
-	"password_reset_token_verify_error": "Your password reset request could not be made. Please turn back to recovery page and try again.",
+  "password_reset_token_verify_error": "Your password reset request could not be made. Please turn back to recovery page and try again.",
   "error": "Something went wrong",
   "dont_have_account": "Don't have an account yet?",
   "credential_error": "Error while validating credentials",
@@ -38,5 +38,6 @@
   "mail_not_sent": "If you did not receive the password reset email:",
   "mail_not_sent_reason_1": "It may take up to 10 minutes for the password reset email to arrive.",
   "mail_not_sent_reason_2": "Check your spam and other e-mail boxes.",
-  "mail_not_sent_reason_3": "Check that the e-mail address you entered is correct."
+  "mail_not_sent_reason_3": "Check that the e-mail address you entered is correct.",
+  "continue_with_google": "Continue with Google"
 }

@@ -1,7 +1,7 @@
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
 import useDomain from "@hooks/useDomain";
-import useDomainInfinite from "@hooks/useDomainInfinite";
+import useDomains from "@hooks/useDomains";
 import { updateDomainSchema } from "@schemas";
 import { updateDomain } from "@services/domainService";
 import { useFormik } from "formik";
@@ -24,7 +24,7 @@ const DomainSettingsModal: FC<DomainSettingsModalProps> = ({ show, onClose }) =>
   const { t } = useTranslation("domain");
   const { domainId } = router.query;
   const { domain, mutateDomain } = useDomain(domainId as string);
-  const { mutateDomains } = useDomainInfinite();
+  const { mutateDomains } = useDomains();
 
   const formik = useFormik({
     initialValues: { name: domain?.name || "", url: domain?.url || "" },

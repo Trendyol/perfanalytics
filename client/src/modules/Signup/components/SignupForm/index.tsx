@@ -21,9 +21,8 @@ const SignupForm: FC = () => {
     try {
       await createUser(values);
       try {
-        await createSession(values);
         await mutateUser();
-        router.push("/");
+        router.push("/login");
       } catch (error) {
         toast.error(t("registration_error") as string);
       }

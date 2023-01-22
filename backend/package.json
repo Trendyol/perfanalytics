@@ -45,6 +45,7 @@
     "mongoose": "6.3.4",
     "mongoose-paginate-v2": "^1.6.3",
     "morgan": "^1.10.0",
+    "ottoman": "^2.3.0",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",

@@ -11,7 +11,9 @@ import { SessionModule } from '@session/session.module';
 import { DomainModule } from '@domain/domain.module';
 import { PageModule } from '@modules/page/page.module';
 import { TagModule } from './modules/tag/tag.module';
-import { LighthouseModule } from '@modules/lighthouse/lighthouse.module';
+import { DataModule } from './modules/providers/database/data/data.module';
+import { KafkaModule } from './modules/providers/kafka/kafka.module';
+import { ReportModule } from '@modules/report/report.module';
 import { DashboardModule } from '@modules/dashboard/dashboard.module';
 
 @Module({
@@ -31,7 +33,9 @@ import { DashboardModule } from '@modules/dashboard/dashboard.module';
     DomainModule,
     PageModule,
     TagModule,
-    LighthouseModule,
+    DataModule,
+    KafkaModule,
+    ReportModule,
     DashboardModule,
   ],
   controllers: [AppController],

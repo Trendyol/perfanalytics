@@ -1,125 +1,99 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PaginateModel, PaginateResult } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { CreateDomainDTO } from './etc/create-domain.dto';
-import { Domain } from './etc/domain.schema';
-import { User } from '@modules/user/etc/user.schema';
-import { UpdateDomainDTO } from './etc/update.domain.dto';
-import { TagService } from '@modules/tag/tag.service';
-import { DEFAULT_TAG } from './constants';
+import { CreateDomainDto } from './dtos/create-domain.dto';
 import { checkPublicAddress } from '@core/utils/address';
+import { IDataService } from '@core/data/services/data.service';
+import { DomainEntity } from '@core/data/entities';
+import { DEFAULT_TAG } from './constants';
+import { BaseService } from '@core/data/services/base.service';
+import { UpdateDomainDto } from './dtos/update.domain.dto';
+import { UserDto } from '@modules/user/dtos/user.dto';
+import { DomainDto } from './dtos/domain.dto';
 
 @Injectable()
-export class DomainService {
-  constructor(
-    @InjectModel('Domain') private readonly domainModel: PaginateModel<Domain>,
-    private readonly tagService: TagService,
-  ) {}
+export class DomainService implements BaseService {
+  constructor(private readonly dataService: IDataService) {}
 
-  async create(user: User, createDomainDTO: CreateDomainDTO) {
-    const { name, url } = createDomainDTO;
+  canAccess(userId: string, domain: DomainDto) {
+    if (!domain) {
+      return false;
+    }
+
+    if (String(domain.owner) !== String(userId)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  async create(user, CreateDomainDto: CreateDomainDto) {
+    const { name, url } = CreateDomainDto;
 
     const isAddressPublic = await checkPublicAddress(url);
     if (!isAddressPublic) {
       throw new BadRequestException('Address can not be private');
     }
 
-    const domainModel = new this.domainModel({
+    const domain = await this.dataService.domains.create({
       name: name,
       url: url,
-      owner: user,
+      owner: user._id,
     });
 
-    const result = await domainModel.save();
-
-    await this.tagService.create(user, {
+    await this.dataService.tags.create({
+      owner: user._id,
       name: DEFAULT_TAG.name,
       color: DEFAULT_TAG.color,
-      domainId: result._id,
-      isDefaultTag: DEFAULT_TAG.isDefault,
+      domain: domain._id,
+      readonly: DEFAULT_TAG.readonly,
     });
-
-    return result;
-  }
-
-  async getAllByUser(
-    user: User,
-    index: number,
-  ): Promise<PaginateResult<Domain>> {
-    return this.domainModel.paginate(
-      { owner: user },
-      {
-        sort: { createdAt: -1 },
-        domain: Number(index) + 1,
-        projection: { password: 0 },
-      },
-    );
-  }
-
-  async get(user: User, id: string): Promise<Domain> {
-    const domain = await this.domainModel.findById({ _id: id });
-
-    if (!domain) {
-      throw new UnprocessableEntityException('Domain not found');
-    }
-
-    if (String(domain.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this domain',
-      );
-    }
 
     return domain;
   }
 
-  async remove(user: User, id: string) {
-    const domain = await this.domainModel.findById({ _id: id });
-
-    if (!domain) {
-      throw new UnprocessableEntityException('Domain not found');
-    }
-
-    if (String(domain.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this domain',
-      );
-    }
-
-    return this.domainModel.findByIdAndDelete(id);
+  async getAllByUser(user: UserDto): Promise<DomainDto[]> {
+    return this.dataService.domains.find({ owner: user._id });
   }
 
-  async update(user: User, id: string, updateDomainDTO: UpdateDomainDTO) {
-    const domain = await this.domainModel.findById({ _id: id });
+  async get(user: UserDto, id: string): Promise<DomainDto> {
+    try {
+      const domain = await this.dataService.domains.findById(id);
+      if (!this.canAccess(user._id, domain)) throw new NotFoundException();
 
-    if (!domain) {
-      throw new UnprocessableEntityException('Domain not found');
+      return domain;
+    } catch (error) {
+      return error;
     }
+  }
 
-    if (updateDomainDTO.url) {
-      const isAddressPublic = await checkPublicAddress(updateDomainDTO.url);
+  async remove(user: UserDto, id: string) {
+    const domain = await this.dataService.domains.findById(id);
+    if (!this.canAccess(user._id, domain)) throw new NotFoundException();
+
+    return this.dataService.domains.deleteOneById(id);
+  }
+
+  async update(user: UserDto, id: string, UpdateDomainDto: UpdateDomainDto) {
+    const domain = await this.dataService.domains.findById(id);
+    if (!this.canAccess(user._id, domain)) throw new NotFoundException();
+
+    if (UpdateDomainDto.url) {
+      const isAddressPublic = await checkPublicAddress(UpdateDomainDto.url);
       if (!isAddressPublic) {
         throw new BadRequestException('Address can not be private');
       }
     }
 
-    if (String(domain.owner) !== String(user._id)) {
-      throw new UnprocessableEntityException(
-        'You are not the owner of this domain',
-      );
-    }
-
-    return this.domainModel.updateOne({ _id: id }, updateDomainDTO);
+    return this.dataService.domains.updateOneById(id, UpdateDomainDto);
   }
 
-  async getCount(user: User) {
-    const count = await this.domainModel.countDocuments({
-      owner: user,
+  count(user: UserDto) {
+    return this.dataService.domains.count({
+      owner: user._id,
     });
-
-    return count;
   }
 }

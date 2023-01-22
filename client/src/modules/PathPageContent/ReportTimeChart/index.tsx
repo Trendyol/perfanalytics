@@ -11,7 +11,7 @@ const ReportTimeChart: FC<ReportTimeChartProps> = ({ reports, setReportTimePerio
     data: reports
       ? reports
           .map((report: any) => {
-            return [new Date(report.updatedAt).getTime(), report[label.key]];
+            return [new Date(report.createdAt).getTime(), report[label.key]];
           })
           .sort((report: number[], y: number[]) => report[0] - y[0])
       : [],

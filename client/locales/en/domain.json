@@ -10,6 +10,7 @@
   "error": "Error",
   "settings": "Settings",
   "domain_settings": "Domain Settings",
+  "path_settings": "Path Settings",
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete this domain?",
   "cancel": "Cancel",

@@ -1,4 +1,4 @@
-import { DEFAULT_TAG, USER_KEY } from "@constants";
+import { USER_KEY } from "@constants";
 import { fetcher } from "./fetcher";
 
 export const getUserData = async (context: any) => {
@@ -17,21 +17,15 @@ export const getUserData = async (context: any) => {
   return data;
 };
 
-export const getDomainKey = (pageIndex: number, previousPageData?: any) => {
-  if (previousPageData && !previousPageData?.hasNextPage) return null;
-  return `/domain?index=${pageIndex}`;
-};
+export const getPageKey = (domainId: string, tagId?: string) => {
+  let key = `/page?domainId=${domainId}`;
+  if (tagId) {
+    key += `&tagId=${tagId}`;
+  }
 
-export const getPageKey = (domainId: string, pageIndex: number, tagId?: string, previousPageData?: any) => {
-  if (previousPageData && !previousPageData?.hasNextPage) return null;
-  const basePageKey = `/page?index=${pageIndex}&domainId=${domainId}`;
-  return !tagId || tagId === DEFAULT_TAG.id ? basePageKey : `${basePageKey}&tagId=${tagId}`;
+  return key;
 };
 
 export const getReportKey = (pageId: string, startDate: number, endDate: number, previousPageData?: any) => {
-  if (previousPageData && !previousPageData?.hasNextPage) {
-    return null;
-  }
-
-  return `/lighthouse?pageId=${pageId}&startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
+  return `/report?pageId=${pageId}&startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
 };

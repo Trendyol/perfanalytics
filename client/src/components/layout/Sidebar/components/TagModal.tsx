@@ -28,7 +28,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
   const { mutateTag } = useTags(domainId as string);
 
   const formik = useFormik({
-    initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "", isDefaultTag: tag?.isDefaultTag },
+    initialValues: { name: tag?.name ?? "", checkedColor: tag?.color ?? "", readonly: tag?.readonly },
     validateOnChange: false,
     enableReinitialize: true,
     validationSchema: () => tagSchema(t),
@@ -54,7 +54,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
             name: formik.values.name,
             color: formik.values.checkedColor,
             domainId: domainId as string,
-            isDefaultTag: false,
+            readonly: false,
           });
           break;
         case TagAction.UPDATE:
@@ -66,7 +66,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
           });
           break;
         case TagAction.DELETE:
-          if (formik.values.isDefaultTag) return handleDefaultTagDeleteAction();
+          if (formik.values.readonly) return handleDefaultTagDeleteAction();
           result = await deleteTag(tag!.id);
           break;
         default:

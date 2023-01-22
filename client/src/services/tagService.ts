@@ -1,8 +1,8 @@
 import { Tag } from "@interfaces";
 import { axiosInstance } from "@utils/fetcher";
 
-export const createTag = ({ name, color, domainId, isDefaultTag }: Partial<Tag>) => {
-  return axiosInstance.post("/tag", { name, color, domainId, isDefaultTag });
+export const createTag = ({ name, color, domainId, readonly }: Partial<Tag>) => {
+  return axiosInstance.post("/tag", { name, color, domainId, readonly });
 };
 
 export const deleteTag = (id: string) => {

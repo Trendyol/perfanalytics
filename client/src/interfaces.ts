@@ -6,6 +6,12 @@ export interface Domain {
   _id: string;
 }
 
+export interface Page {
+  name: string;
+  url: string;
+  _id: string;
+}
+
 export interface DomainData {
   docs: Domain[];
   totalDocs: number;
@@ -49,10 +55,10 @@ export interface DomainSettings {
   url: string;
 }
 
-export interface Path {
+export interface Page {
   device: string;
   url: string;
-  tagId: string;
+  tag: string;
   _id: string;
 }
 
@@ -66,7 +72,7 @@ export interface TagResponse {
   _id: string;
   name: string;
   color: string;
-  isDefaultTag: boolean;
+  readonly: boolean;
 }
 
 export interface MetricAveragesResponse extends Record<MetricKey, number> {
@@ -81,7 +87,7 @@ export interface Tag {
   name: string;
   color: string;
   domainId?: string;
-  isDefaultTag?: boolean;
+  readonly?: boolean;
 }
 
 export interface DashboardMetrics {

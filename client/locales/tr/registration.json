@@ -38,5 +38,6 @@
   "mail_not_sent": "If you did not receive the password reset email:",
   "mail_not_sent_reason_1": "It may take up to 10 minutes for the password reset email to arrive.",
   "mail_not_sent_reason_2": "Check your spam and other e-mail boxes.",
-  "mail_not_sent_reason_3": "Check that the e-mail address you entered is correct."
+  "mail_not_sent_reason_3": "Check that the e-mail address you entered is correct.",
+  "continue_with_google": "Continue with Google"
 }

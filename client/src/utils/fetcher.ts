@@ -7,7 +7,6 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   function (response) {
-    // Do something with response data
     return response;
   },
   function (error) {

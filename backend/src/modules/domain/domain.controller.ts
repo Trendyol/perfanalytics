@@ -4,66 +4,50 @@ import {
   Delete,
   Get,
   Post,
-  Query,
   Param,
   UseGuards,
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@core/decorators/user.decorator';
-import { CreateDomainDTO } from './etc/create-domain.dto';
+import { CreateDomainDto } from './dtos/create-domain.dto';
 import { JwtGuard } from '@core/guards/jwt.guard';
 import { DomainService } from './domain.service';
-import { UpdateDomainDTO } from './etc/update.domain.dto';
-import { DomainDTO } from './etc/domain.dto';
-import mapToInstance from '@core/utils/mapper';
-import { DeleteDomainParam } from './etc/delete-domain.param';
-import { UpdateDomainParam } from './etc/update-domain.param';
-import { GetDomainParam } from './etc/get-domain.param';
-import { GetDomainsQuery } from './etc/get-domains.query';
+import { UpdateDomainDto } from './dtos/update.domain.dto';
 
 @ApiTags('Domain')
 @Controller('domain')
+@UseGuards(JwtGuard)
 export class DomainController {
   constructor(private readonly domainService: DomainService) {}
 
-  @UseGuards(JwtGuard)
   @Post()
-  async create(@User() user, @Body() createDomainDTO: CreateDomainDTO) {
-    const domainData = await this.domainService.create(user, createDomainDTO);
-    const domainDTO = mapToInstance(DomainDTO, domainData);
-    return domainDTO;
+  async create(@User() user, @Body() createDomainDto: CreateDomainDto) {
+    const domain = await this.domainService.create(user, createDomainDto);
+    return domain;
   }
 
   @Get()
-  @UseGuards(JwtGuard)
-  async getAllByUser(@User() user, @Query() query: GetDomainsQuery) {
-    const { index } = query;
-    return await this.domainService.getAllByUser(user, index);
+  async getAllByUser(@User() user) {
+    return this.domainService.getAllByUser(user);
   }
 
   @Get('/:id')
-  @UseGuards(JwtGuard)
-  async get(@User() user, @Param() param: GetDomainParam) {
-    const { id } = param;
+  async get(@User() user, @Param('id') id: string) {
     return await this.domainService.get(user, id);
   }
 
   @Delete('/:id')
-  @UseGuards(JwtGuard)
-  async remove(@User() user, @Param() param: DeleteDomainParam) {
-    const { id } = param;
+  async remove(@User() user, @Param('id') id: string) {
     return await this.domainService.remove(user, id);
   }
 
   @Put('/:id')
-  @UseGuards(JwtGuard)
   async update(
     @User() user,
-    @Param() param: UpdateDomainParam,
-    @Body() updateDomainDTO: UpdateDomainDTO,
+    @Param('id') id: string,
+    @Body() updateDomainDto: UpdateDomainDto,
   ) {
-    const { id } = param;
-    return await this.domainService.update(user, id, updateDomainDTO);
+    return await this.domainService.update(user, id, updateDomainDto);
   }
 }

@@ -5,8 +5,8 @@ import useTranslation from "next-translate/useTranslation";
 import { deleteDomain } from "@services/domainService";
 import { useRouter } from "next/router";
 import useDomain from "@hooks/useDomain";
-import useDomainInfinite from "@hooks/useDomainInfinite";
-import useDashboardMetric from "@hooks/useDashboardMetric";
+import useDomains from "@hooks/useDomains";
+import useDashboardCount from "@hooks/useDashboardCount";
 
 const DangerSection = () => {
   const router = useRouter();
@@ -14,9 +14,9 @@ const DangerSection = () => {
   const [deletingDomain, setDeletingDomain] = useState(false);
   const { domainId } = router.query;
   const { domain } = useDomain(domainId as string);
-  const { mutateDomains } = useDomainInfinite();
+  const { mutateDomains } = useDomains();
   const { t } = useTranslation("domain");
-  const { mutateDashboardMetrics } = useDashboardMetric();
+  const { mutateDashboardCount } = useDashboardCount();
 
   const handleCloseVerifyDeleteModal = () => {
     setShowVerifyDeleteModal(false);
@@ -27,7 +27,7 @@ const DangerSection = () => {
     setDeletingDomain(true);
     await deleteDomain(domain._id);
     await mutateDomains();
-    await mutateDashboardMetrics();
+    await mutateDashboardCount();
     router.push("/");
   };
 

@@ -1,10 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { User } from '@modules/user/etc/user.schema';
+
 import { UserService } from '@user/user.service';
-import { CreateSessionDTO } from './etc/create-session.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import * as luxon from 'luxon';
+import { UserEntity } from '@core/data/entities';
+import { CreateSessionDto } from './dtos/create-session.dto';
 
 interface JwtPayload {
   iss: string;
@@ -18,13 +19,13 @@ export class SessionService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async create(createDTO: CreateSessionDTO): Promise<string> {
-    const user = await this.userService.getByEmail(createDTO.email);
-
-    if (!user) throw new UnauthorizedException('Email and password mismatch!');
+  async create(createSessionDto: CreateSessionDto): Promise<string> {
+    const user = await this.userService.getByEmail(createSessionDto.email);
+    if (!user || !user.password)
+      throw new UnauthorizedException('Email and password mismatch!');
 
     const isPasswordMatched = await bcrypt.compare(
-      createDTO.password,
+      createSessionDto.password,
       user.password,
     );
 
@@ -34,14 +35,11 @@ export class SessionService {
     return this.createSession(user);
   }
 
-  async verifyPayload({ exp, iss }: JwtPayload): Promise<User> {
+  async verifyPayload({ exp, iss }: JwtPayload) {
     const timeDiff = exp - luxon.DateTime.local().toSeconds();
-
     if (timeDiff <= 0) throw new UnauthorizedException();
 
-    // We might consider removing this for verification
     const user = await this.userService.getByID(iss);
-
     if (!user) throw new UnauthorizedException();
 
     return user;
@@ -53,10 +51,9 @@ export class SessionService {
     this.createSession(user);
   }
 
-  createSession(user: User) {
+  createSession(user) {
     return this.jwtService.sign({
       iss: user._id,
-      role: user.role,
       name: user.name,
       email: user.email,
       emailVerified: user.emailVerified,

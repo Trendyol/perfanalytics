@@ -13,9 +13,6 @@ class Config {
   VERSION: string;
 
   @IsString()
-  MONGO_URL: string;
-
-  @IsString()
   JWT_SECRET: string;
 
   @IsString()

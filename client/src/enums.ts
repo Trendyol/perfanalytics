@@ -31,6 +31,7 @@ export const StatusCode: Record<0 | 1 | 2, string> = {
   2: "Failed",
 };
 
+
 export enum DeviceTypes {
   Desktop = "desktop",
   Mobile = "mobile",
@@ -51,6 +52,7 @@ export type MetricKey =
   | "interactive"
   | "largest-contentful-paint"
   | "speed-index"
-  | "total-blocking-time";
+  | "total-blocking-time"
+  | "performance";
 
 export type MetricLabel = "CLS" | "FCP" | "FMP" | "TTI" | "LCP" | "SI" | "TBT";

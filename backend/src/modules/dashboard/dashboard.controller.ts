@@ -3,7 +3,6 @@ import { JwtGuard } from '@core/guards/jwt.guard';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DashboardService } from './dashboard.service';
-import { GetMetricsQuery } from './etc/get-metrics-query';
 
 @ApiTags('Dashboard')
 @Controller('dashboard')
@@ -12,11 +11,10 @@ export class DashboardController {
 
   @Get()
   @UseGuards(JwtGuard)
-  async getDashboard(@User() user, @Query() query: GetMetricsQuery) {
-    const { domainId } = query;
+  async getCounts(@User() user, @Query('domainId') domainId: string) {
     if (domainId) {
-      return await this.dashboardService.getMetricsByDomain(user, domainId);
+      return await this.dashboardService.getDomainCounts(user, domainId);
     }
-    return await this.dashboardService.getMetrics(user);
+    return await this.dashboardService.getCounts(user);
   }
 }

@@ -23,7 +23,7 @@ const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
           error={formik.touched.name && formik.errors.name}
         />
       </div>
-      <div className="flex flex-col gap-2">
+      {/* <div className="flex flex-col gap-2">
         <h5 className="text-[14px] font-medium text-gray-500">{t("domain_url")}</h5>
         <TextField
           name="url"
@@ -32,7 +32,7 @@ const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
           value={formik.values.url}
           error={formik.touched.url && formik.errors.url}
         />
-      </div>
+      </div> */}
     </form>
   );
 };
