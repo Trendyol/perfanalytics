@@ -1,18 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { config } from '@config';
-import { LighthouseModule } from './modules/lighthouse/lighthouse.module';
+import { DataModule } from './modules/providers/database/data/data.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(config.mongo.uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      family: 4,
-    }),
-    LighthouseModule,
-  ],
-  controllers: [AppController],
+  imports: [DataModule, ReportModule],
 })
 export class AppModule {}

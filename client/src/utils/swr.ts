@@ -27,9 +27,5 @@ export const getPageKey = (domainId: string, tagId?: string) => {
 };
 
 export const getReportKey = (pageId: string, startDate: number, endDate: number, previousPageData?: any) => {
-  if (previousPageData && !previousPageData?.hasNextPage) {
-    return null;
-  }
-
-  return `/lighthouse?pageId=${pageId}&startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
+  return `/report?pageId=${pageId}&startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
 };

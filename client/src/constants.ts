@@ -40,6 +40,10 @@ export const DeviceOptions = [
 ];
 
 export const METRICS: Record<MetricKey, Metric> = {
+  performance: {
+    label: "PERF",
+    infoLink: "https://web.dev/metrics/",
+  },
   "cumulative-layout-shift": {
     label: "CLS",
     infoLink: "https://web.dev/cls/",
@@ -68,9 +72,17 @@ export const METRICS: Record<MetricKey, Metric> = {
     label: "TBT",
     infoLink: "https://web.dev/tbt/",
   },
+  performance: {
+    label: "PERF",
+    infoLink: "https://web.dev/metrics/",
+  },
 };
 
 export const chartLegends = [
+  {
+    dataKey: "performance",
+    label: "PERF",
+  },
   {
     dataKey: "first-contentful-paint",
     label: "FCP",

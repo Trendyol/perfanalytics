@@ -52,6 +52,7 @@ export type MetricKey =
   | "interactive"
   | "largest-contentful-paint"
   | "speed-index"
-  | "total-blocking-time";
+  | "total-blocking-time"
+  | "performance";
 
 export type MetricLabel = "CLS" | "FCP" | "FMP" | "TTI" | "LCP" | "SI" | "TBT";

@@ -1,17 +1,19 @@
-import mongoose, { Document } from 'mongoose';
+import { ReportEntity } from '@core/data/entities';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Status, Device } from '../enums';
+import mongoose, { Document, now } from 'mongoose';
 
-@Schema({ timestamps: true })
-export class Lighthouse extends Document {
+export type ReportDocument = Report & Document;
+
+@Schema()
+export class Report extends Document implements ReportEntity {
   @Prop()
   url: string;
 
   @Prop({ required: true })
-  status: Status;
+  status: number;
 
   @Prop({ required: true })
-  device: Device;
+  device: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +35,9 @@ export class Lighthouse extends Document {
 
   @Prop({ type: Object })
   audits: Record<string, number>;
+
+  @Prop({ default: new Date() })
+  createdAt: Date;
 }
 
-export const LighthouseSchema = SchemaFactory.createForClass(Lighthouse);
+export const ReportSchema = SchemaFactory.createForClass(Report);

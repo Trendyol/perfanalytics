@@ -9,10 +9,12 @@ async function bootstrap() {
       transport: Transport.KAFKA,
       options: {
         client: {
-          brokers: ['localhost:29092'],
+          brokers: ['localhost:9090'],
+        },
+        consumer: {
+          groupId: 'perfanalytics-consumer',
         },
       },
-      bufferLogs: true,
     },
   );
   await app.listen();

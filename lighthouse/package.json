@@ -33,6 +33,7 @@
     "kafkajs": "^2.1.0",
     "lighthouse": "^9.6.5",
     "mongoose": "^6.5.2",
+    "ottoman": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"

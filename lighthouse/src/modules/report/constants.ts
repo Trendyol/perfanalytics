@@ -9,6 +9,7 @@ export const usefulAudits = [
   'total-blocking-time',
   'cumulative-layout-shift',
   'interactive',
+  'performance',
 ];
 
 export const defaultChromeFlags = [

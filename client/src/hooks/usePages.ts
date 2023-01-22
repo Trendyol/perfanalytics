@@ -1,5 +1,3 @@
-import useSWRInfinite from "swr/infinite";
-import { flattenNestedProperty } from "@utils/common";
 import { fetcher } from "@utils/fetcher";
 import { getPageKey } from "@utils/swr";
 import { Page } from "@interfaces";
