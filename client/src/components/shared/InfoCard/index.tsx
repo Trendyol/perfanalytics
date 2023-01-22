@@ -4,7 +4,7 @@ import { FC } from "react";
 const InfoCard: FC<InfoCardProps> = ({ title, value, percentValue, className }) => {
   return (
     <div className={cn("place-items-center box-border bg-white shadow-md rounded-lg flex flex-col justify-center p-6", className)}>
-      <div className="text-lg items-center text-black">{title}</div>
+      <div className="text-lg items-center text-black whitespace-nowrap">{title}</div>
       <div className={cn(`text-displayLg leading-[1] font-bold items-center text-black`, { "animate-pulse": !value })}>{value}</div>
       {percentValue && <div className="mt-2 text-base items-center text-black">{percentValue}</div>}
     </div>

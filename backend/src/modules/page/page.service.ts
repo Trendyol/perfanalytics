@@ -94,10 +94,10 @@ export class PageService implements BaseService {
     return this.dataService.pages.updateOneById(id, updatePageDto);
   }
 
-  // getCount(user: User, domainId?: string) {
-  //   return this.pageModel.countDocuments({
-  //     owner: user,
-  //     ...(domainId && { domain: domainId }),
-  //   });
-  // }
+  count(user: UserDto, domainId?: string) {
+    return this.dataService.pages.count({
+      owner: user._id,
+      ...(domainId && { domain: domainId }),
+    });
+  }
 }

@@ -136,7 +136,6 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
       <div className="flex justify-between items-center">
         <h3 className="ml-3 text-displayXs">{title}</h3>
       </div>
-      {console.log(series)}
       <Chart options={options as any} series={series} type="area" height={350} />
     </div>
   );

@@ -91,11 +91,9 @@ export class DomainService implements BaseService {
     return this.dataService.domains.updateOneById(id, UpdateDomainDto);
   }
 
-  // async getCount(user: User) {
-  //   const count = await this.domainModel.countDocuments({
-  //     owner: user,
-  //   });
-
-  //   return count;
-  // }
+  count(user: UserDto) {
+    return this.dataService.domains.count({
+      owner: user._id,
+    });
+  }
 }

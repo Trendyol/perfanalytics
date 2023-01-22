@@ -27,4 +27,8 @@ export class MongoGenericRepository<T> implements IGenericRepository<T, T> {
   async create(item: T): Promise<T> {
     return await this._model.create(item);
   }
+
+  async count(filter: any): Promise<number> {
+    return await this._model.countDocuments(filter).exec();
+  }
 }

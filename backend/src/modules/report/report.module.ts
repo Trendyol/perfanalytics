@@ -10,5 +10,6 @@ import { ReportService } from './report.service';
   imports: [ScheduleModule.forRoot(), KafkaModule, DataModule, PageModule],
   providers: [ReportService],
   controllers: [ReportController],
+  exports: [ReportService],
 })
 export class ReportModule {}

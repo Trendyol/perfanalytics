@@ -1,6 +1,6 @@
 import Button from "@components/shared/Form/Button";
 import Modal from "@components/shared/Modal";
-import useDashboardMetric from "@hooks/useDashboardMetric";
+import useDashboardCount from "@hooks/useDashboardCount";
 import usePage from "@hooks/usePage";
 import usePages from "@hooks/usePages";
 import { deletePage } from "@services/pageService";
@@ -15,7 +15,7 @@ const DangerForm = () => {
   const { pageId, domainId } = router.query;
   const { page } = usePage(pageId as string);
   const { mutatePages } = usePages(domainId as string);
-  const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
+  const { mutateDashboardCount } = useDashboardCount(domainId as string);
   const { t } = useTranslation("path");
 
   const handleCloseVerifyDeleteModal = () => {
@@ -27,7 +27,7 @@ const DangerForm = () => {
     setDeletingPage(true);
     await deletePage(page._id);
     await mutatePages();
-    await mutateDashboardMetrics();
+    await mutateDashboardCount();
     router.push(`/dashboard/${domainId}`);
   };
 

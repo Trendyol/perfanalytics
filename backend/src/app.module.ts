@@ -14,6 +14,7 @@ import { TagModule } from './modules/tag/tag.module';
 import { DataModule } from './modules/providers/database/data/data.module';
 import { KafkaModule } from './modules/providers/kafka/kafka.module';
 import { ReportModule } from '@modules/report/report.module';
+import { DashboardModule } from '@modules/dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ReportModule } from '@modules/report/report.module';
     DataModule,
     KafkaModule,
     ReportModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [

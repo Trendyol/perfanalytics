@@ -1,7 +1,7 @@
 import Button from "@components/shared/Form/Button";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
-import useDashboardMetric from "@hooks/useDashboardMetric";
+import useDashboardCount from "@hooks/useDashboardCount";
 import useDomains from "@hooks/useDomains";
 import { addDomainSchema } from "@schemas";
 import { createDomain } from "@services/domainService";
@@ -19,7 +19,7 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
   const { t } = useTranslation("dashboard");
   const [addingDomain, setAddingDomain] = useState(false);
   const { domains, mutateDomains } = useDomains();
-  const { mutateDashboardMetrics } = useDashboardMetric();
+  const { mutateDashboardCount } = useDashboardCount();
 
   const formik = useFormik({
     initialValues: { name: "", url: "" },
@@ -41,7 +41,7 @@ const DomainModal: FC<DomainModalProps> = ({ show, onClose }) => {
     try {
       const result = await createDomain(values);
       mutateDomains();
-      mutateDashboardMetrics();
+      mutateDashboardCount();
       toast.success(t("success") as string);
       onClose();
     } catch (error) {

@@ -3,7 +3,7 @@ import Select from "@components/shared/Form/Select";
 import TextField from "@components/shared/Form/TextField";
 import Modal from "@components/shared/Modal";
 import { DeviceOptions } from "@constants";
-import useDashboardMetric from "@hooks/useDashboardMetric";
+import useDashboardCount from "@hooks/useDashboardCount";
 import useDomain from "@hooks/useDomain";
 import usePages from "@hooks/usePages";
 import useTags from "@hooks/useTag";
@@ -29,7 +29,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
   const { domain } = useDomain(domainId as string);
   const { tags } = useTags(domainId as string);
   const { mutatePages } = usePages(domainId as string, tagId as string);
-  const { mutateDashboardMetrics } = useDashboardMetric(domainId as string);
+  const { mutateDashboardCount } = useDashboardCount(domainId as string);
 
   const formik = useFormik({
     initialValues: { domainId: domainId as string, url: "", device: "", tagId: "" },
@@ -48,7 +48,7 @@ const PageModal: FC<PageModalProps> = ({ show, onClose }) => {
     try {
       await createPage(values);
       mutatePages();
-      mutateDashboardMetrics();
+      mutateDashboardCount();
       toast.success(t("success") as string);
       onClose();
     } catch (error) {

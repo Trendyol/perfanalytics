@@ -1,6 +1,6 @@
 import { DomainService } from '@modules/domain/domain.service';
-import { LighthouseService } from '@modules/lighthouse/lighthouse.service';
 import { PageService } from '@modules/page/page.service';
+import { ReportService } from '@modules/report/report.service';
 import { UserDto } from '@modules/user/dtos/user.dto';
 
 import { Injectable } from '@nestjs/common';
@@ -10,23 +10,21 @@ export class DashboardService {
   constructor(
     private readonly pageService: PageService,
     private readonly domainService: DomainService,
-    private readonly lighthouseService: LighthouseService,
+    private readonly reportService: ReportService,
   ) {}
 
-  async getMetrics(user: UserDto) {
-    // const pathCount = await this.pageService.getCount(user);
-    // // const domainCount = await this.domainService.getCount(user);
-    // const lighthouseCount = await this.lighthouseService.getCount(user);
-    // return { domainCount, pathCount, lighthouseCount };
+  async getCounts(user: UserDto) {
+    const pageCount = await this.pageService.count(user);
+    const domainCount = await this.domainService.count(user);
+    const reportCount = await this.reportService.count(user);
+
+    return { pageCount, domainCount, reportCount };
   }
 
-  // async getMetricsByDomain(user: User, domainId: string) {
-  //   const pathCount = await this.pageService.getCount(user, domainId);
-  //   const lighthouseCount = await this.lighthouseService.getCount(
-  //     user,
-  //     domainId,
-  //   );
+  async getDomainCounts(user: UserDto, domainId: string) {
+    const pageCount = await this.pageService.count(user, domainId);
+    const reportCount = await this.reportService.count(user);
 
-  //   return { pathCount, lighthouseCount };
-  // }
+    return { pageCount, reportCount };
+  }
 }

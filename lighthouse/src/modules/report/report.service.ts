@@ -27,7 +27,6 @@ export class ReportService {
       audits: {},
       createdAt: new Date(),
     });
-    console.log(report);
     await this.runLighthouse(report);
   }
 

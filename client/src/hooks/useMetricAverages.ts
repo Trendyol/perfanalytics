@@ -3,7 +3,6 @@ import { MetricAveragesResponse } from "src/interfaces";
 import useSWR from "swr";
 
 const useMetricAverages = ({ pathId, startDate, endDate }: Params) => {
-  console.log(startDate);
   const metricAveragesUrl = `/report/analytics/${pathId}?startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
 
   const { data, error, mutate } = useSWR<Array<MetricAveragesResponse>>(metricAveragesUrl, fetcher);

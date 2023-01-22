@@ -5,6 +5,7 @@ import { KafkaService } from '@modules/providers/kafka/kafka.service';
 import { ReportEvent } from './events/report.event';
 import { PageService } from '@modules/page/page.service';
 import { CreateReportDto } from './dtos/create-report.dto';
+import { UserDto } from '@modules/user/dtos/user.dto';
 
 @Injectable()
 export class ReportService {
@@ -47,10 +48,10 @@ export class ReportService {
     return this.dataService.reports.find(query);
   }
 
-  // getCount(user: User, domainId?: string) {
-  //   return this.lighthouseModel.countDocuments({
-  //     owner: user,
-  //     ...(domainId && { domain: domainId }),
-  //   });
-  // }
+  count(user: UserDto, domainId?: string) {
+    return this.dataService.reports.count({
+      owner: user._id,
+      ...(domainId && { domain: domainId }),
+    });
+  }
 }
