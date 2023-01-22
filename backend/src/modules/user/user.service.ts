@@ -107,7 +107,7 @@ export class UserService {
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<boolean> {
-    this.dataService.users.updateOneById(id, updateUserDto);
+    await this.dataService.users.updateOneById(id, updateUserDto);
 
     return true;
   }

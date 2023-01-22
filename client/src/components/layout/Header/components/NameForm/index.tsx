@@ -19,11 +19,11 @@ const NameForm: FC<NameFormProps> = () => {
     setUpdatingName(true);
     try {
       await updateUsername(values);
-      mutateUser();
       toast.success(t("success") as string);
     } catch {
       toast.error(t("error") as string);
     }
+    await mutateUser();
     setUpdatingName(false);
   };
 

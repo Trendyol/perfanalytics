@@ -81,12 +81,13 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
-        <Button size="large" color="light" className="flex gap-2" fluid>
-          <FcGoogle fontSize={22} />
-          <Link href={"http://localhost:4000/session/google/callback"}>
+        <Link href={"http://localhost:4000/session/google/callback"}>
+          <Button size="large" color="light" className="flex gap-2" fluid>
+            <FcGoogle fontSize={22} />
+
             <span>{t("Continue with Google")}</span>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
     </form>
   );

@@ -57,7 +57,7 @@ const PathPageContent: FC = () => {
           }
         >
           {Object.entries(filterTimeRangeButtonsTexts).map(([key, value]) => (
-            <label>
+            <label key={key}>
               <input type="radio" key={key} value={key} defaultChecked={String(reportTimePeriod.interval) === key} name="group2" className="hidden peer" />
               <div className="text-xs font-semibold py-1 px-3 border-2 rounded-md cursor-pointer bg-gray-100 hover:bg-gray-100 hover:border-gray-300 peer-checked:bg-gray-300 peer-checked:border-gray-500">
                 {value}
