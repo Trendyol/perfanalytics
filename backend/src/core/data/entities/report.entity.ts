@@ -1,9 +1,10 @@
 export class ReportEntity {
   url: string;
-  status: number;
+  status?: number;
   device: string;
   owner: string;
   domain: string;
   page: string;
   audits: object;
+  createdAt: Date;
 }

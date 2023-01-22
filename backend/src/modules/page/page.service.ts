@@ -52,15 +52,15 @@ export class PageService implements BaseService {
     return page;
   }
 
-  async getAllByUser(
-    user: UserDto,
+  async getAll(
+    user?: UserDto,
     domainId?: string,
     tagId?: string,
   ): Promise<PageDto[]> {
     const tag = tagId && (await this.tagService.get(user, tagId));
 
     const query = {
-      owner: user._id,
+      ...(user && { owner: user._id }),
       ...(domainId && { domain: domainId }),
       ...(tagId && !tag.readonly && { tag: tagId }),
     };

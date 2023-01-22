@@ -29,12 +29,12 @@ export class PageController {
   }
 
   @Get()
-  async getAllByUser(
+  async getAll(
     @User() user,
     @Query('domainId') domainId: string,
     @Query('tagId') tagId: string,
   ) {
-    return await this.pageService.getAllByUser(user, domainId, tagId);
+    return await this.pageService.getAll(user, domainId, tagId);
   }
 
   @Get('/:id')

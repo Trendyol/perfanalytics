@@ -8,4 +8,5 @@ export const reportSchema = new Schema({
   domain: { type: String },
   page: { type: String },
   audits: { type: Object },
+  createdAt: { type: Date },
 });

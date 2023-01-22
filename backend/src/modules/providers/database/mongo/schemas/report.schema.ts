@@ -35,6 +35,9 @@ export class Report extends Document implements ReportEntity {
 
   @Prop({ type: Object })
   audits: Record<string, number>;
+
+  @Prop()
+  createdAt: Date;
 }
 
 export const ReportSchema = SchemaFactory.createForClass(Report);

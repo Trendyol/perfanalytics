@@ -1,6 +1,6 @@
 import { Transport, ClientProxyFactory } from '@nestjs/microservices';
 import { Producer } from 'kafkajs';
-const brokerURLs = ['localhost:29092'];
+const brokerURLs = ['localhost:29090'];
 
 export const KafkaProducerProvider = {
   provide: 'KafkaProducer',

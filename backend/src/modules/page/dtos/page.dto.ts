@@ -5,6 +5,9 @@ import { PageEntity } from '@core/data/entities';
 export class PageDto extends PageEntity {
   @ApiProperty()
   @IsString()
+  _id?: string;
+  @ApiProperty()
+  @IsString()
   url: string;
   @ApiProperty()
   @IsString()

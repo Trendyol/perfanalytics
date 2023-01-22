@@ -16,7 +16,7 @@ import { User, UserSchema } from './schemas/user.schema';
       { name: Page.name, schema: PageSchema },
       { name: User.name, schema: UserSchema },
       { name: Tag.name, schema: TagSchema },
-      // { name: Report.name, schema: ReportSchema },
+      { name: Report.name, schema: ReportSchema },
     ]),
     MongooseModule.forRoot(config.mongo.uri),
   ],
