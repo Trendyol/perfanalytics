@@ -39,7 +39,7 @@ export class PageController {
 
   @Get('/:id')
   async get(@User() user, @Param('id') id: string) {
-    return await this.pageService.get(user, id);
+    return await this.pageService.get(user._id, id);
   }
 
   @Delete('/:id')

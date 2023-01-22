@@ -5,7 +5,7 @@ import React, { memo } from "react";
 
 const MetricCards: React.FC<MetricCardsProps> = ({ metrics }) => {
   return (
-    <div className="flex gap-6 overflow-scroll pb-3 px-px">
+    <div className="gap-6 overflow-scroll pb-3 px-px grid grid-cols-4 lg:grid-cols-2">
       {Object.keys(METRICS).map((key) => {
         const metricData = METRICS[key as MetricKey];
         return (

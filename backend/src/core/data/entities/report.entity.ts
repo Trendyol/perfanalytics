@@ -7,4 +7,5 @@ export class ReportEntity {
   page: string;
   audits: object;
   createdAt: Date;
+  payload?: object;
 }

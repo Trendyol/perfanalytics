@@ -8,7 +8,7 @@ const Footer = () => {
   const { t } = useTranslation("layout");
 
   return (
-    <footer className="flex justify-between py-6 w-full text-sm">
+    <footer className="flex justify-between py-6 w-full text-sm lg:flex-col">
       <div className="flex items-center gap-1 text-sm">
         <span className="mb-px">{t("copyright_before")}</span>
         <Image width={83} height={16} src={trendyolLogo} alt="Trendyol logo" />
@@ -17,7 +17,7 @@ const Footer = () => {
       <ul className="flex items-center gap-2 text-sm list-disc list-inside">
         {FOOTER_ROUTES.map((route, index) => (
           <li key={route.title} className={`marker:mr-0" ${index === 0 ? " list-none" : ""}`}>
-            <a href={route.url} className="-ml-2 hover:text-[#000]">
+            <a href={route.url} className=" hover:text-[#000]">
               {route.title}
             </a>
           </li>

@@ -21,10 +21,10 @@ const PathPageHeader: FC<PathPageHeaderProps> = () => {
   };
 
   return (
-    <div className="flex justify-between items-top">
+    <div className="flex justify-between items-top lg:flex-col">
       <div className="flex flex-col gap-2">
         <Breadcrumb />
-        <h3 className="text-md h-6">
+        <h3 className="text-md h-6 whitespace-nowrap truncate max-w-[36rem]">
           <a href={page?.url} target="_blank">
             {page?.url}
           </a>

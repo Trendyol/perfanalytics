@@ -5,7 +5,10 @@ import useSWR from "swr";
 const useMetricAverages = ({ pathId, startDate, endDate }: Params) => {
   const metricAveragesUrl = `/report/analytics/${pathId}?startDate=${new Date(startDate).toISOString()}&endDate=${new Date(endDate).toISOString()}`;
 
-  const { data, error, mutate } = useSWR<Array<MetricAveragesResponse>>(metricAveragesUrl, fetcher);
+  const { data, error, mutate } = useSWR<Array<MetricAveragesResponse>>(metricAveragesUrl, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+  });
 
   return {
     metricAverages: data ? data[0] : null,

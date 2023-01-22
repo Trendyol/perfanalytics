@@ -37,7 +37,7 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
           const chart = ApexCharts.getChartByID(id);
 
           if (chart) {
-            series.map((e: any) => (e.name !== "FCP" ? chart.hideSeries(e.name) : null));
+            series.map((e: any) => (e.name !== "PERF" ? chart.hideSeries(e.name) : null));
           }
         },
         updated() {

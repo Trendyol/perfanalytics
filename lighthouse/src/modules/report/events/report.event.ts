@@ -5,6 +5,7 @@ export class ReportEvent {
     public readonly domain: string,
     public readonly device: string,
     public readonly url: string,
+    public readonly payload?: object,
   ) {}
 
   toString() {
@@ -14,6 +15,7 @@ export class ReportEvent {
       domain: this.domain,
       device: this.device,
       url: this.url,
+      payload: this.payload,
     });
   }
 }

@@ -46,9 +46,9 @@ const PathPageContent: FC = () => {
     <div className="flex flex-col gap-8">
       <PathPageHeader />
       <div className="flex gap-4 items-center bg-white drop-shadow-md px-5 py-3 rounded-md">
-        <div className="text-sm">Select report time period:</div>
+        <div className="text-sm min-w-[6rem]">Select report time period:</div>
         <fieldset
-          className="flex gap-2"
+          className="flex gap-2 flex-wrap"
           onChange={(e: any) =>
             setReportTimePeriod({
               end: initialDate,

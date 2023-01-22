@@ -34,12 +34,14 @@ export interface Config {
   };
   database: string;
   clientUrl: string;
+  reportTokenSecret: string;
 }
 
 export const config = {
   port: parseInt(process.env.PORT, 10) || 3000,
   origin: process.env.ORIGIN,
   version: process.env.VERSION,
+  reportTokenSecret: process.env.REPORT_TOKEN_SECRET,
   mongo: {
     uri: process.env.MONGO_URL,
   },

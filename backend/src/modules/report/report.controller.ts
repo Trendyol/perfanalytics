@@ -9,8 +9,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateReportDto } from './dtos/create-report.dto';
+import { Payload } from './dtos/payload.dto';
 import { ReportEvent } from './events/report.event';
 import { ReportService } from './report.service';
 
@@ -21,8 +23,8 @@ export class ReportController {
 
   @UseGuards(JwtGuard)
   @Get('run/:pageId')
-  async create(@User() user, @Param('pageId') pageId: string) {
-    return this.reportService.create(user, pageId);
+  async run(@User() user, @Param('pageId') pageId: string) {
+    return this.reportService.create(user._id, pageId);
   }
 
   @Get()
@@ -34,5 +36,20 @@ export class ReportController {
     @Query('endDate') endDate: string,
   ) {
     return await this.reportService.getAll(user, startDate, endDate, pageId);
+  }
+
+  @Get('token')
+  @UseGuards(JwtGuard)
+  async getRunToken(@User() user, @Query('pageId') pageId: string) {
+    return this.reportService.createReportToken(user, pageId);
+  }
+
+  @Get('run/token/:token')
+  async runToken(
+    @Query('name') name: string,
+    @Query('link') link: string,
+    @Param('token') token: string,
+  ) {
+    return this.reportService.verifyReportToken(token, { name, link });
   }
 }

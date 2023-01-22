@@ -24,9 +24,11 @@ export class ReportService {
       url: reportEvent.url,
       device: reportEvent.device,
       owner: reportEvent.owner,
+      payload: reportEvent.payload,
       audits: {},
       createdAt: new Date(),
     });
+
     await this.runLighthouse(report);
   }
 

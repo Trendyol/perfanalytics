@@ -68,9 +68,9 @@ export class PageService implements BaseService {
     return this.dataService.pages.find(query);
   }
 
-  async get(user: UserDto, id: string): Promise<PageDto> {
+  async get(userId: string, id: string): Promise<PageDto> {
     const page = await this.dataService.pages.findById(id);
-    if (!this.canAccess(user._id, page)) throw new NotFoundException();
+    if (!this.canAccess(userId, page)) throw new NotFoundException();
 
     return page;
   }

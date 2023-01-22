@@ -10,6 +10,7 @@ export const reportSchema = new Schema(
     page: { type: String },
     audits: { type: Object },
     createdAt: { type: Date },
+    payload: { type: Object },
   },
   { timestamps: true },
 );

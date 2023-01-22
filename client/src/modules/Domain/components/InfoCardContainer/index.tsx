@@ -16,7 +16,7 @@ const InfoCardContainer: FC = () => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-4 w-full gap-6 mb-8">
+      <div className="grid grid-cols-4 lg:grid-cols-2 w-full gap-6 mb-8">
         <InfoCardPlaceholder />
         <InfoCardPlaceholder />
         <InfoCardPlaceholder />
@@ -25,7 +25,7 @@ const InfoCardContainer: FC = () => {
     );
   }
   return (
-    <div className="grid grid-cols-4 w-full gap-6 mb-8">
+    <div className="grid grid-cols-4 lg:grid-cols-2 w-full gap-6 mb-8">
       {dashboardCounts && Object.entries(dashboardCounts).map(([key, value]) => <InfoCard key={value} title={t(key)} value={value.toString()} />)}
     </div>
   );
