@@ -12,10 +12,10 @@ const SidebarTagSection: FC<SidebarNavigationProps> = (props) => {
       <ul className="flex flex-col gap-2">
         <li className="flex flex-col items-stretch justify-between font-medium">
           <Link href="/dashboard">
-            <a className="flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md cursor-pointer hover:bg-gray-200">
+            <span className="flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md cursor-pointer hover:bg-gray-200">
               <MdOutlineSpaceDashboard fontSize={24} />
               <span className="mr-auto">{t("dashboard")}</span>
-            </a>
+            </span>
           </Link>
         </li>
         <TagSection />

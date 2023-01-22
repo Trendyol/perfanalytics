@@ -28,7 +28,7 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
           query: { tagId: id },
         }}
       >
-        <a
+        <span
           key={name}
           className={classNames("flex items-center relative group gap-3 p-3 rounded-md text-sm font-normal text-gray-500 hover:bg-gray-200 cursor-pointer", {
             "bg-gray-200": isActive,
@@ -44,7 +44,7 @@ const TagItem: FC<SidebarSubItemProps> = (props) => {
           >
             <Icon name="edit" className="w-4 h-4" />
           </Button>
-        </a>
+        </span>
       </Link>
       <TagModal type="update" show={showTag} tag={{ id, name, color, readonly }} onClose={() => setShowTag(false)} />
     </>

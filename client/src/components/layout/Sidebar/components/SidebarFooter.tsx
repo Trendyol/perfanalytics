@@ -30,10 +30,10 @@ const SidebarFooter: FC<SidebarFooterProps> = (props) => {
         {sidebarFooterItems.map(({ name, LeftIcon, link }) => (
           <li key={name} className="flex flex-col items-stretch justify-between font-medium">
             <Link href={link}>
-              <a className={classNames("flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md cursor-pointer hover:bg-gray-200")}>
+              <span className={classNames("flex items-center gap-2 text-gray-500 w-full p-3 relative rounded-md cursor-pointer hover:bg-gray-200")}>
                 <LeftIcon fontSize={24} />
                 <span className="mr-auto">{name}</span>
-              </a>
+              </span>
             </Link>
           </li>
         ))}

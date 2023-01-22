@@ -1,4 +1,4 @@
-import { MetricKey, MetricLabels } from "@enums";
+import { MetricKey, MetricLabel } from "@enums";
 
 export interface Domain {
   name: string;
@@ -97,7 +97,7 @@ export interface DashboardMetrics {
 }
 
 export interface Metric {
-  label: MetricLabels;
+  label: MetricLabel;
   infoLink: string;
 }
 

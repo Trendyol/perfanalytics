@@ -18,7 +18,7 @@ const columnData = [
     label: "Name",
     cellRenderer: (name: string, { url }: { url: string }) => (
       <div className="flex items-center gap-2">
-        <Image className={classnames("w-5 h-5 bg-white rounded-full")} src={getFavicon(url)} width={20} height={20} />
+        <Image alt="Name" className={classnames("w-5 h-5 bg-white rounded-full")} src={getFavicon(url)} width={20} height={20} />
         <div> {name}</div>
       </div>
     ),
