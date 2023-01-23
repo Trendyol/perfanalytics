@@ -26,6 +26,7 @@
     "@nestjs/microservices": "^9.0.9",
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@trendyol-js/cdn": "^1.5.1",
     "chrome-launcher": "^0.15.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",

@@ -11,10 +11,14 @@ import {
 import { IDataService } from '@core/data/services/data.service';
 import { ReportEvent } from './events/report.event';
 import { Report } from './dto/report';
+import { IStorageService } from '@core/data/services/storage.service';
 
 @Injectable()
 export class ReportService {
-  constructor(private readonly dataService: IDataService) {}
+  constructor(
+    private readonly dataService: IDataService,
+    private readonly storageService: IStorageService,
+  ) {}
 
   async createReport(reportEvent: ReportEvent) {
     const report = await this.dataService.reports.create({
@@ -67,6 +71,11 @@ export class ReportService {
       if (hasRuntimeError) throw runnerResult.lhr.runtimeError.code;
 
       reportObj.audits = audits;
+      const html = await this.storageService.upload(
+        runnerResult.report,
+        report._id,
+      );
+      reportObj.html = html;
       reportObj.status = Status.DONE;
     } catch (e) {
       console.error('Error: ', e);

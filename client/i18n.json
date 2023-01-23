@@ -9,7 +9,8 @@
     "/login": ["registration"],
     "/signup": ["registration"],
     "/recover": ["registration"],
-    "/reset-password": ["registration"]
+    "/reset-password": ["registration"],
+    "/dashboard/[domainId]/[pageId]/[reportId]": ["html"]
   },
   "defaultNS": "common",
   "logBuild": false

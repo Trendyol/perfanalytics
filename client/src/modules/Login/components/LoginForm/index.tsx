@@ -84,8 +84,7 @@ const LoginForm: FC = () => {
         <Link href={"http://localhost:4000/session/google/callback"}>
           <Button size="large" color="light" className="flex gap-2" fluid>
             <FcGoogle fontSize={22} />
-
-            <span>{t("Continue with Google")}</span>
+            <span>{t("continue_with_google")}</span>
           </Button>
         </Link>
       </div>

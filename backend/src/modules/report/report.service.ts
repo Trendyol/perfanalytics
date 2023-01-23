@@ -8,15 +8,29 @@ import { CreateReportDto } from './dtos/create-report.dto';
 import { UserDto } from '@modules/user/dtos/user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Payload } from './dtos/payload.dto';
+import { BaseService } from '@core/data/services/base.service';
 
 @Injectable()
-export class ReportService {
+export class ReportService implements BaseService {
   constructor(
     private readonly dataService: IDataService,
     private readonly pageService: PageService,
     private readonly kafkaService: KafkaService,
     private readonly jwtService: JwtService,
   ) {}
+
+  canAccess(userId: string, report) {
+    if (!report) {
+      return false;
+    }
+
+    if (String(report.owner) !== String(userId)) {
+      return false;
+    }
+
+    return true;
+  }
+
   emitReportEvent(reportEvent: ReportEvent) {
     this.kafkaService.emit('report', reportEvent);
   }
@@ -42,6 +56,7 @@ export class ReportService {
     );
     return this.emitReportEvent(reportEvent);
   }
+
   async getAll(user, startDate: string, endDate: string, pageId: string) {
     const query = {
       owner: user._id,
@@ -50,6 +65,13 @@ export class ReportService {
     };
 
     return this.dataService.reports.find(query);
+  }
+
+  async get(userId: string, reportId: string) {
+    const report = await this.dataService.reports.findById(reportId);
+    if (!this.canAccess(userId, report)) throw new BadRequestException();
+
+    return report;
   }
 
   count(user: UserDto, domainId?: string) {

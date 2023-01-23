@@ -4,8 +4,6 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { validate } from '@core/config/validation';
 import { ConfigModule } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
-import { config } from '@config';
 import { UserModule } from '@user/user.module';
 import { SessionModule } from '@session/session.module';
 import { DomainModule } from '@domain/domain.module';
@@ -23,11 +21,6 @@ import { DashboardModule } from '@modules/dashboard/dashboard.module';
       limit: 30,
     }),
     ConfigModule.forRoot({ validate }),
-    MongooseModule.forRoot(config.mongo.uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      family: 4,
-    }),
     UserModule,
     SessionModule,
     DomainModule,

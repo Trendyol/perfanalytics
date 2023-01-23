@@ -105,7 +105,7 @@ const SignupForm: FC = () => {
         <Button size="large" color="light" className="flex gap-2" fluid>
           <FcGoogle fontSize={22} />
           <Link href={"http://localhost:4000/session/google/callback"}>
-            <span>{t("Continue with Google")}</span>
+            <span>{t("continue_with_google")}</span>
           </Link>
         </Button>
       </div>
