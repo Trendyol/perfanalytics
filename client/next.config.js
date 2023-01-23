@@ -12,6 +12,7 @@ const nextConfig = {
     domains: ["t1.gstatic.com"],
   },
   swcMinify: true,
+  reactStrictMode: false,
   async redirects() {
     return [
       {
