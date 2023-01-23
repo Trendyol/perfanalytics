@@ -6,6 +6,10 @@ export interface Domain {
   _id: string;
 }
 
+export interface Report {
+  html: string;
+}
+
 export interface Page {
   name: string;
   url: string;

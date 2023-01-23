@@ -8,4 +8,5 @@ export class ReportEntity {
   audits: object;
   createdAt: Date;
   payload?: object;
+  html?: string;
 }

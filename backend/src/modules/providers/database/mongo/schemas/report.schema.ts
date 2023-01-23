@@ -41,6 +41,9 @@ export class Report extends Document implements ReportEntity {
 
   @Prop({ type: Object })
   payload?: Record<string, any>;
+
+  @Prop()
+  html: string;
 }
 
 export const ReportSchema = SchemaFactory.createForClass(Report);

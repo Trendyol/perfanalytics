@@ -11,6 +11,7 @@ export const reportSchema = new Schema(
     audits: { type: Object },
     createdAt: { type: Date },
     payload: { type: Object },
+    html: { type: String },
   },
   { timestamps: true },
 );

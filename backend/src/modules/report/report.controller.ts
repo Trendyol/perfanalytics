@@ -22,6 +22,12 @@ export class ReportController {
   constructor(private readonly reportService: ReportService) {}
 
   @UseGuards(JwtGuard)
+  @Get(':reportId')
+  async get(@User() user, @Param('reportId') reportId: string) {
+    return this.reportService.get(user._id, reportId);
+  }
+
+  @UseGuards(JwtGuard)
   @Get('run/:pageId')
   async run(@User() user, @Param('pageId') pageId: string) {
     return this.reportService.create(user._id, pageId);

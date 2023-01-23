@@ -5,6 +5,7 @@ import { getBadgeType } from "@components/shared/ScoreBadge/utils";
 import { MetricKey } from "@enums";
 import classNames from "classnames";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import { METRICS } from "src/constants";
 
@@ -31,6 +32,8 @@ const columnData = [
 
 const ReportTable: FC<ReportTableProps> = ({ reports, length, isLoading }) => {
   const { t } = useTranslation("path");
+  const router = useRouter();
+  const { domainId, pageId } = router.query;
 
   return (
     <div
@@ -48,8 +51,8 @@ const ReportTable: FC<ReportTableProps> = ({ reports, length, isLoading }) => {
         isLoading={isLoading}
         hasTextCenterOnFirstColumn={true}
         columnData={columnData}
-        onRowClick={() => {
-          alert("Not implemented yet.");
+        onRowClick={({ rowData }) => {
+          router.push(`/dashboard/${domainId}/${pageId}/${rowData._id}`);
         }}
       />
     </div>

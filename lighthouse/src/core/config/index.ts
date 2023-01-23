@@ -13,6 +13,14 @@ export interface Config {
     password: string;
   };
   database: string;
+  storage: {
+    cdn: {
+      environment: string;
+      team: string;
+      secret: string;
+      basePath: string;
+    };
+  };
 }
 
 export const config = {
@@ -24,6 +32,14 @@ export const config = {
     bucketName: process.env.CB_BUCKET_NAME,
     username: process.env.CB_USERNAME,
     password: process.env.CB_PASSWORD,
+  },
+  storage: {
+    cdn: {
+      environment: process.env.STORAGE_CDN_ENVIRONMENT,
+      team: process.env.STORAGE_CDN_TEAM,
+      secret: process.env.STORAGE_CDN_SECRET,
+      basePath: process.env.STORAGE_CDN_BASE_PATH,
+    },
   },
   database: process.env.DATABASE,
 };
