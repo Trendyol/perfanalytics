@@ -1,8 +1,5 @@
 version: '2'
 
-volumes:
-  postgres:
-
 networks:
   runner-net:
     name: runner-net
@@ -32,18 +29,5 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_INTERNAL:PLAINTEXT,LISTENER_EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    networks:
-      - runner-net
-
-  postgres:
-    image: postgres:13.5
-    restart: always
-    environment:
-      - POSTGRES_USER=myuser
-      - POSTGRES_PASSWORD=mypassword
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
     networks:
       - runner-net
