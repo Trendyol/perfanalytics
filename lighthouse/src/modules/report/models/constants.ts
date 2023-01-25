@@ -1,7 +1,7 @@
 import * as defaultConstants from './defaultConstants';
 import { Device } from './enums';
 
-export const REPEAT_COUNT = 2;
+export const REPEAT_COUNT = 3;
 
 export const usefulAudits = [
   'first-contentful-paint',
