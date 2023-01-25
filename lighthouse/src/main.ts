@@ -13,6 +13,7 @@ async function bootstrap() {
         },
         consumer: {
           groupId: 'perfanalytics-consumer',
+          sessionTimeout: 90000,
         },
       },
     },

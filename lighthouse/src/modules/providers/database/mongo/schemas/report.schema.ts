@@ -43,7 +43,7 @@ export class Report extends Document implements ReportEntity {
   payload?: Record<string, any>;
 
   @Prop()
-  html?: string;
+  html?: Array<string>;
 }
 
 export const ReportSchema = SchemaFactory.createForClass(Report);

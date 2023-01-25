@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import * as chromeLauncher from 'chrome-launcher';
 import * as lighthouseRunner from 'lighthouse';
-import { Status, Device } from './enums';
+import { Status, Device } from './models/enums';
 import {
   defaultChromeFlags,
   defaultOptions,
   usefulAudits,
   deviceConfig,
-} from './constants';
+  REPEAT_COUNT,
+  allAudits,
+} from './models/constants';
 import { IDataService } from '@core/data/services/data.service';
 import { ReportEvent } from './events/report.event';
 import { Report } from './dto/report';
 import { IStorageService } from '@core/data/services/storage.service';
+import { Audits } from './models/types';
 
 @Injectable()
 export class ReportService {
@@ -32,12 +35,40 @@ export class ReportService {
       audits: {},
       createdAt: new Date(),
     });
+    await this.calculateAudits(report);
+  }
 
-    await this.runLighthouse(report);
+  async calculateAudits(report: Report) {
+    let repeat = 0;
+    const reportObj: Partial<Report> = {
+      audits: {},
+      html: [],
+      status: Status.PENDING,
+    };
+    const auditsResult: Audits[] = [];
+
+    while (repeat < REPEAT_COUNT) {
+      const { status, audits, html } = await this.runLighthouse(report);
+      auditsResult[repeat] = audits;
+      reportObj.html.push(html);
+      reportObj.status |= status;
+
+      repeat += 1;
+    }
+
+    allAudits.forEach((audit) => {
+      let total = 0;
+      auditsResult.forEach((res) => (total += res[audit]));
+      reportObj.audits[audit] = total / REPEAT_COUNT;
+    });
+
+    this.dataService.reports.updateOneById(report._id, reportObj);
   }
 
   async runLighthouse(report: Report) {
-    const reportObj: Partial<Report> = {};
+    let status = Status.PENDING;
+    const audits: Audits = {};
+    let html: string;
 
     const chrome = await chromeLauncher.launch({
       chromeFlags: defaultChromeFlags,
@@ -56,33 +87,30 @@ export class ReportService {
           deviceConfig[Device.DESKTOP],
       );
 
-      const audits = {};
-      Object.keys(runnerResult.lhr.audits).map((auditKey) => {
-        if (usefulAudits.includes(auditKey)) {
-          audits[runnerResult.lhr.audits[auditKey]?.id] =
-            runnerResult.lhr.audits[auditKey]?.score;
-        }
-      });
-      audits['performance'] = runnerResult.lhr.categories.performance.score;
-
       const hasRuntimeError =
         typeof runnerResult.lhr.runtimeError !== 'undefined';
 
-      if (hasRuntimeError) throw runnerResult.lhr.runtimeError.code;
+      if (hasRuntimeError || !runnerResult.lhr || !runnerResult.lhr.audits)
+        throw runnerResult.lhr.runtimeError.code;
 
-      reportObj.audits = audits;
-      const html = await this.storageService.upload(
-        runnerResult.report,
-        report._id,
-      );
-      reportObj.html = html;
-      reportObj.status = Status.DONE;
+      usefulAudits.map((audit) => {
+        audits[audit] = runnerResult.lhr.audits[audit]?.score;
+      });
+
+      audits.performance = runnerResult.lhr.categories.performance.score;
+      html = await this.storageService.upload(runnerResult.report, report._id);
+      status = Status.DONE;
     } catch (e) {
       console.error('Error: ', e);
-      reportObj.status = Status.ERROR;
+      status = Status.ERROR;
     }
-    this.dataService.reports.updateOneById(report._id, reportObj);
 
     chrome.kill();
+
+    return {
+      status,
+      audits,
+      html,
+    };
   }
 }

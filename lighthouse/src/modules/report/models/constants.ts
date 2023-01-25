@@ -1,6 +1,8 @@
 import * as defaultConstants from './defaultConstants';
 import { Device } from './enums';
 
+export const REPEAT_COUNT = 2;
+
 export const usefulAudits = [
   'first-contentful-paint',
   'speed-index',
@@ -9,8 +11,9 @@ export const usefulAudits = [
   'total-blocking-time',
   'cumulative-layout-shift',
   'interactive',
-  'performance',
-];
+] as const;
+
+export const allAudits = [...usefulAudits, 'performance'] as const;
 
 export const defaultChromeFlags = [
   '--no-sandbox',

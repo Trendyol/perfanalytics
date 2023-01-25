@@ -9,5 +9,5 @@ export class Report implements ReportEntity {
   domain: string;
   page: string;
   audits: object;
-  html: string;
+  html: Array<string>;
 }
