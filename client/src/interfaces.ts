@@ -7,7 +7,7 @@ export interface Domain {
 }
 
 export interface Report {
-  html: string;
+  html: string[];
 }
 
 export interface Page {

@@ -53,7 +53,6 @@ export class OttomanGenericRepository<T>
   }
 
   async count(filter: any): Promise<number> {
-    console.log(filter);
     return await this._model.count(filter);
   }
 }

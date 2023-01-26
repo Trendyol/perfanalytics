@@ -17,7 +17,7 @@ const Html: FC = () => {
   return (
     <div className="h-full">
       <Breadcrumb />
-      <iframe className="mt-3" height="100%" width="100%" src={report.html}></iframe>
+      <iframe className="mt-3" height="100%" width="100%" src={report.html[0]}></iframe>
     </div>
   );
 };

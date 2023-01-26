@@ -99,7 +99,7 @@ export class ReportService {
 
       audits.performance = runnerResult.lhr.categories.performance.score;
       html = await this.storageService.upload(runnerResult.report, report._id);
-      console.log(html);
+
       status = Status.DONE;
     } catch (e) {
       console.error('Error: ', e);

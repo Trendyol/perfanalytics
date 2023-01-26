@@ -81,14 +81,10 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
-        <Link href={"http://localhost:4000/session/google/callback"}>
-          <div>
-            <Button size="large" color="light" className="flex gap-2" fluid>
-              <FcGoogle fontSize={22} />
-              <span>{t("continue_with_google")}</span>
-            </Button>
-          </div>
-        </Link>
+        <Button onClick={() => router.push("http://localhost:4000/session/google/callback")} size="large" color="light" className="flex gap-2" fluid>
+          <FcGoogle fontSize={22} />
+          <span>{t("continue_with_google")}</span>
+        </Button>
       </div>
     </form>
   );
