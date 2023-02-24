@@ -1,14 +1,13 @@
-import { TagEntity } from '@core/data/entities';
 import { BaseService } from '@core/data/services/base.service';
 import { IDataService } from '@core/data/services/data.service';
 import { JwtGuard } from '@core/guards/jwt.guard';
 import { UserDto } from '@modules/user/dtos/user.dto';
 import {
-  NotFoundException,
-  Injectable,
-  UnprocessableEntityException,
-  UseGuards,
+  BadRequestException,
   ForbiddenException,
+  Injectable,
+  NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateTagDto } from './dtos/create-tag.dto';
 import { TagDto } from './dtos/tag.dto';
@@ -32,6 +31,19 @@ export class TagService implements BaseService {
 
   async create(user, createTagDto: CreateTagDto) {
     const { name, color, domainId, readonly } = createTagDto;
+
+    if (!color && !name) {
+      throw new BadRequestException('Please fill in the required fields.');
+    }
+
+    if (!color) {
+      throw new BadRequestException('Please select a color.');
+    }
+
+    if (!name) {
+      throw new BadRequestException('Please select a name.');
+    }
+
     const tag = await this.dataService.tags.create({
       name,
       color,

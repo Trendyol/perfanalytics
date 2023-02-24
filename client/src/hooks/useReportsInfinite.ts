@@ -1,7 +1,8 @@
 import { mapReportsData } from "@utils/common";
 import { fetcher } from "@utils/fetcher";
 import { getReportKey } from "@utils/swr";
-import { ReportData } from "src/interfaces";
+import { differenceInMilliseconds } from "date-fns";
+import { Report, ReportData } from "src/interfaces";
 import useSWR from "swr";
 
 const useReports = ({ pageId, startDate, endDate }: Params) => {
@@ -18,13 +19,16 @@ const useReports = ({ pageId, startDate, endDate }: Params) => {
     };
   }
 
-  const mappedReportsData = mapReportsData(data);
+  const mappedReportsData: Array<Report> = mapReportsData(data);
+  const sortedReportsData: Array<Report> = mappedReportsData.sort((prevPeport: Report, currReport: Report) =>
+    differenceInMilliseconds(new Date(currReport.createdAt), new Date(prevPeport.createdAt))
+  );
 
   return {
-    length: data?.length || 0,
+    length: mappedReportsData?.length || 0,
     isLoading: !error && !data,
     isError: error?.statusText,
-    reports: mappedReportsData,
+    reports: sortedReportsData,
     mutateReports: mutate,
   };
 };

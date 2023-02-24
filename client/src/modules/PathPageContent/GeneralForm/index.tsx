@@ -1,13 +1,14 @@
 import Select from "@components/shared/Form/Select";
 import TextField from "@components/shared/Form/TextField";
+import { DeviceOptions } from "@constants";
+import useTags from "@hooks/useTag";
+import useWebhookToken from "@hooks/useWebhookToken";
+import { getFullUrlWithPath } from "@utils/common";
 import { FormikProps } from "formik";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import { PathSettings } from "src/interfaces";
-import { useRouter } from "next/router";
-import useTags from "@hooks/useTag";
-import { TagResponse } from "src/interfaces";
-import { DeviceOptions } from "@constants";
 
 interface GeneralFormProps {
   formik: FormikProps<PathSettings>;
@@ -15,12 +16,32 @@ interface GeneralFormProps {
 
 const GeneralForm: FC<GeneralFormProps> = ({ formik }) => {
   const router = useRouter();
-  const { domainId } = router.query;
+  const { pageId, domainId } = router.query;
   const { tags } = useTags(domainId as string);
+  const { webhookToken } = useWebhookToken(pageId as string);
   const { t } = useTranslation("path");
+
+  const webhookUrl = getFullUrlWithPath(`/report/run/token/${webhookToken}?name=ReportPointName&link=ReportPointRedirectUrl`);
+
+  const copyToClipboard = (text: any) => {
+    if (text) {
+      navigator.clipboard.writeText(text);
+    }
+  };
 
   return (
     <form className="section w-full flex flex-col gap-3" onSubmit={formik.handleSubmit}>
+      <div className="flex flex-col gap-2">
+        <h5 className="text-[14px] font-medium text-gray-500">{t("webhook_title")}</h5>
+        <TextField
+          disabled
+          name="url"
+          value={webhookUrl}
+          rightIcon="clipboard"
+          rightIconClassName="text-gray-500 w-5 h-5 cursor-pointer hover:text-green-700 hover:fill-black hover:stroke-white"
+          onRightIconClick={() => copyToClipboard(webhookUrl)}
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <h5 className="text-[14px] font-medium text-gray-500">{t("path_url")}</h5>
         <TextField

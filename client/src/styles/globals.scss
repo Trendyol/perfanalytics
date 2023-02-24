@@ -37,10 +37,6 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.vertical-seperator {
-  @apply w-px h-9 bg-gradient-to-t from-transparent via-gray-500 to-transparent border-none;
-}
-
 .ReactVirtualized__Table__row {
   width: 100% !important;
 }
@@ -89,4 +85,9 @@ input:-webkit-autofill:active {
   border-radius: 6px !important;
   padding: 5px 7px !important;
   line-height: 1.4 !important;
+
+  &-text {
+    width: fit-content !important;
+    min-width: auto !important;
+  }
 }

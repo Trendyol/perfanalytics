@@ -3,6 +3,7 @@ import Icon, { IconName } from "@components/shared/Icon";
 import ScoreBadge from "@components/shared/ScoreBadge";
 import { getBadgeType } from "@components/shared/ScoreBadge/utils";
 import { MetricKey } from "@enums";
+import { Report } from "@interfaces";
 import classNames from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
@@ -14,6 +15,7 @@ const columnData = [
     dataKey: "createdAt",
     columnWidth: 150,
     label: "Report Date",
+    cellRenderer: (text: string) => <span className="px-2">{text}</span>,
   },
   {
     dataKey: "device",
@@ -30,7 +32,7 @@ const columnData = [
   })),
 ];
 
-const ReportTable: FC<ReportTableProps> = ({ reports, length, isLoading }) => {
+const ReportTable: FC<ReportTableProps> = ({ reports, isLoading }) => {
   const { t } = useTranslation("path");
   const router = useRouter();
   const { domainId, pageId } = router.query;
@@ -38,12 +40,12 @@ const ReportTable: FC<ReportTableProps> = ({ reports, length, isLoading }) => {
   return (
     <div
       className={classNames("flex flex-col gap-7 bg-white pt-7 px-7 w-full drop-shadow-md rounded-lg text-xl font-semibold", {
-        "pb-7": isLoading || reports?.length === 0,
+        "pb-7": isLoading || !reports || reports?.length === 0,
       })}
     >
       <div className="flex justify-between items-center">
         <h3 className="text-displayXs">
-          {t("report_table_title")} ({reports?.length})
+          {t("report_table_title")} ({reports?.length || 0})
         </h3>
       </div>
       <CustomTable
@@ -60,7 +62,7 @@ const ReportTable: FC<ReportTableProps> = ({ reports, length, isLoading }) => {
 };
 
 interface ReportTableProps {
-  reports: any;
+  reports: Array<Report> | null;
   length: number;
   isLoading: boolean | undefined;
 }

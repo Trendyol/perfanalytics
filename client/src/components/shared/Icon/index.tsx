@@ -3,6 +3,8 @@ import { BiCheck, BiHide, BiShow } from "react-icons/bi";
 import { FiInfo } from "react-icons/fi";
 import { HiDesktopComputer, HiPlus } from "react-icons/hi";
 import { MdEdit, MdOutlineAlternateEmail, MdOutlinePhoneAndroid } from "react-icons/md";
+import { FiClipboard } from "react-icons/fi";
+import { FaClipboardCheck } from "react-icons/fa";
 import { TiSortAlphabetically } from "react-icons/ti";
 
 const iconsByName = {
@@ -16,6 +18,8 @@ const iconsByName = {
   edit: MdEdit,
   mobile: MdOutlinePhoneAndroid,
   desktop: HiDesktopComputer,
+  clipboard: FiClipboard,
+  clipboardSuccess: FaClipboardCheck
 };
 
 export type IconName = keyof typeof iconsByName;

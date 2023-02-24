@@ -23,20 +23,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fluid?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({
-  children,
-  color = "primary",
-  size = "medium",
-  loading = false,
-  circle = false,
-  fluid = false,
-  className,
-  ...rest
-}) => {
+const Button: FC<ButtonProps> = ({ children, color = "primary", size = "medium", loading = false, circle = false, fluid = false, className, ...rest }) => {
   return (
     <button
       className={classnames(
-        "flex justify-center items-center text-sm font-semibold rounded-[5px] px-4",
+        "flex justify-center items-center text-sm font-semibold rounded-[5px] px-3",
         COLORS[color],
         SIZES[size],
         {

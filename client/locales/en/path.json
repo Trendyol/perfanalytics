@@ -13,5 +13,6 @@
   "tagId": "Tag",
   "success": "Success",
   "error": "Error",
-  "path_settings": "Path Settings"
+  "path_settings": "Path Settings",
+  "webhook_title": "Webhook Token"
 }

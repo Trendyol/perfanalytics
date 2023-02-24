@@ -7,15 +7,15 @@ const useTags = (domainId: string, index: number = 0) => {
     revalidateOnFocus: false,
   });
 
+  const safeData = data ?? [];
+
   return {
-    tags: data
-      ?.map((tag: TagResponse) => ({
-        id: tag._id,
-        name: tag.name,
-        color: tag.color,
-        readonly: tag.readonly,
-      }))
-      .reverse(),
+    tags: safeData.map((tag: TagResponse) => ({
+      id: tag._id,
+      name: tag.name,
+      color: tag.color,
+      readonly: tag.readonly,
+    })),
     isLoading: !error && !data,
     isError: error?.message,
     mutateTag: mutate,

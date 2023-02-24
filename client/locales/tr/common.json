@@ -1,4 +1,6 @@
 {
   "fetching_data_placeholder": "FETCHING DATA...",
-  "no_data": "NO DATA"
+  "no_data": "NO DATA",
+  "url_invalid": "Url is not valid",
+  "loading": "LOADING..."
 }

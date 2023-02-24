@@ -1,10 +1,8 @@
 import { ReportTimePeriod } from "@enums";
-import useMetricAverages from "@hooks/useMetricAverages";
 import useReports from "@hooks/useReportsInfinite";
 import { getStartDateByInterval } from "@utils/common";
 import { useRouter } from "next/router";
 import { FC, useRef, useState } from "react";
-import MetricCards from "./MetricCards";
 import PathPageHeader from "./PathPageHeader";
 import ReportTable from "./ReportTable";
 import ReportTimeChart from "./ReportTimeChart";
@@ -32,7 +30,7 @@ const PathPageContent: FC = () => {
     endDate: reportTimePeriod.end,
   });
 
-  const { metricAverages } = useMetricAverages({ pathId: query.pageId as string, startDate, endDate: reportTimePeriod.end });
+  // const { metricAverages } = useMetricAverages({ pathId: query.pageId as string, startDate, endDate: reportTimePeriod.end });
 
   const filterTimeRangeButtonsTexts = {
     [ReportTimePeriod.ONE_DAY]: "Last Day",
@@ -66,7 +64,7 @@ const PathPageContent: FC = () => {
           ))}
         </fieldset>
       </div>
-      <MetricCards metrics={metricAverages} />
+      {/* <MetricCards metrics={metricAverages} /> */}
       <ReportTimeChart reports={reports} setReportTimePeriod={setReportTimePeriod} />
       <ReportTable reports={reports} length={length} isLoading={isLoading} />
     </div>
