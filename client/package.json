@@ -1,0 +1,53 @@
+{
+  "name": "perfanalytics",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "apexcharts": "^3.36.3",
+    "axios": "^0.27.2",
+    "classnames": "^2.3.1",
+    "daisyui": "^2.17.0",
+    "formik": "^2.2.9",
+    "next": "^13.1.1",
+    "next-translate": "^1.4.0",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-toastify": "^9.0.5",
+    "react-virtualized": "^9.22.3",
+    "react-window": "^1.8.7",
+    "swr": "^1.2.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@types/jest": "^28.1.1",
+    "@types/node": "17.0.40",
+    "@types/react": "18.0.12",
+    "@types/react-dom": "18.0.5",
+    "@types/react-virtualized": "^9.21.21",
+    "@types/react-window": "^1.8.5",
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.17.0",
+    "eslint-config-next": "^13.1.1",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "postcss-import": "^14.1.0",
+    "sass": "^1.52.2",
+    "tailwindcss": "^3.1.4",
+    "typescript": "4.7.3"
+  },
+  "resolutions": {
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.6"
+  }
+}

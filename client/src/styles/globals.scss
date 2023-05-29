@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#__next {
+  height: 100%;
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn.loading:before {
+  margin-right: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  color: #667085;
+  -webkit-text-fill-color: #667085;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.vertical-seperator {
+  @apply w-px h-9 bg-gradient-to-t from-transparent via-gray-500 to-transparent border-none;
+}
+
+.ReactVirtualized__Table__row {
+  width: 100% !important;
+}
+
+// React Apexchart Styles
+
+.apexcharts-tooltip {
+  display: flex !important;
+  flex-direction: column !important;
+  line-height: 1 !important;
+  padding: 5px !important;
+  align-items: center;
+  justify-items: center;
+  text-align: center !important;
+  margin-top: 20px !important;
+  margin-left: -5px !important;
+
+  .apexcharts-tooltip-title {
+    background-color: transparent !important;
+    font-size: 10px !important;
+    display: none;
+    text-align: center !important;
+  }
+
+  .apexcharts-tooltip-series-group {
+    text-align: center !important;
+    padding: 0 3px 1px 0 !important;
+
+    .apexcharts-tooltip-marker {
+      display: none !important;
+      text-align: center !important;
+    }
+
+    .apexcharts-tooltip-text {
+      line-height: 1px !important;
+      height: fit-content;
+      font-size: 13px !important;
+      text-align: center !important;
+    }
+  }
+}
+
+.apexcharts-xaxistooltip {
+  background-color: white !important;
+  border-color: #e6e6e6 !important;
+  border-radius: 6px !important;
+  padding: 5px 7px !important;
+  line-height: 1.4 !important;
+}

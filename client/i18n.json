@@ -1,0 +1,17 @@
+{
+  "locales": ["en", "tr"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common", "layout", "dashboard"],
+    "/": ["dashboard"],
+    "/dashboard/[domainId]": ["domain"],
+    "/dashboard/[domainId]/[pageId]": ["path"],
+    "/login": ["registration"],
+    "/signup": ["registration"],
+    "/recover": ["registration"],
+    "/reset-password": ["registration"],
+    "/dashboard/[domainId]/[pageId]/[reportId]": ["html"]
+  },
+  "defaultNS": "common",
+  "logBuild": false
+}

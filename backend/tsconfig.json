@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      // Core
+      "@core/*": [
+        "src/core/*"
+      ],
+      "@config": [
+        "src/core/config"
+      ],
+      "@guards/*": [
+        "src/core/guards/*"
+      ],
+      "@enums/*": [
+        "src/core/enums/*"
+      ],
+      "@decorators/*": [
+        "src/core/decorators/*"
+      ],
+      "@strategies/*": [
+        "src/core/strategies/*"
+      ],
+
+      // Modules
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@session/*": [
+        "src/modules/session/*"
+      ],
+      "@user/*": [
+        "src/modules/user/*"
+      ],
+      "@domain/*": [
+        "src/modules/domain/*"
+      ]
+    }
+  }
+}

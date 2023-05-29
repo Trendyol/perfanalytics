@@ -1,0 +1,17 @@
+{
+  "update": "Update",
+  "cancel": "Cancel",
+  "settings": "Settings",
+  "delete": "Delete",
+  "verify_delete": "Are you sure want to delete?",
+  "danger": "Danger!",
+  "path_url": "URL",
+  "device": "Device",
+  "field_required": "Required",
+  "report_table_title": "Reports",
+  "new_report": "New Report",
+  "tagId": "Tag",
+  "success": "Success",
+  "error": "Error",
+  "path_settings": "Path Settings"
+}
