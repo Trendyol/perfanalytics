@@ -25,7 +25,7 @@ const PathPageHeader: FC<PathPageHeaderProps> = () => {
       <div className="flex flex-col gap-2">
         <Breadcrumb />
         <h3 className="text-md h-6 whitespace-nowrap truncate max-w-[36rem]">
-          <a href={page?.url} target="_blank">
+          <a href={page?.url} target="_blank" rel="noreferrer">
             {page?.url}
           </a>
         </h3>

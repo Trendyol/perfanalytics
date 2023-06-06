@@ -8,7 +8,7 @@ const MetricCard: FC<MetricCardProps> = ({ title, infoLink, score, percentage })
     <div className="flex-1 bg-white rounded-lg shadow-md">
       <div className="flex justify-between items-center px-3 py-2 border-b border-b-gray-200">
         <div className="font-semibold">{title}</div>
-        <a href={infoLink} target="_blank" className="tooltip tooltip-left" data-tip="Click for info.">
+        <a href={infoLink} target="_blank" rel="noreferrer" className="tooltip tooltip-left" data-tip="Click for info.">
           <Icon name="info" className="text-gray-500" />
         </a>
       </div>

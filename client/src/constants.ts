@@ -71,11 +71,7 @@ export const METRICS: Record<MetricKey, Metric> = {
   "total-blocking-time": {
     label: "TBT",
     infoLink: "https://web.dev/tbt/",
-  },
-  performance: {
-    label: "PERF",
-    infoLink: "https://web.dev/metrics/",
-  },
+  }
 };
 
 export const chartLegends = [

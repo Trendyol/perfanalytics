@@ -30,7 +30,7 @@ const Domain: FC = () => {
         <div className="flex flex-col gap-2 ">
           <Breadcrumb />
           <h3 className="text-md h-6">
-            <a href={domain?.url} target="_blank">
+            <a href={domain?.url} target="_blank" rel="noreferrer">
               {domain?.url}
             </a>
           </h3>

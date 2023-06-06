@@ -55,4 +55,4 @@ export type MetricKey =
   | "total-blocking-time"
   | "performance";
 
-export type MetricLabel = "CLS" | "FCP" | "FMP" | "TTI" | "LCP" | "SI" | "TBT";
+export type MetricLabel = "PERF" | "CLS" | "FCP" | "FMP" | "TTI" | "LCP" | "SI" | "TBT";

@@ -21,8 +21,8 @@ const Select: FC<SelectProps> = ({ defaultText, options, labelProperty, valuePro
     >
       <option hidden>{defaultText}</option>
       <option disabled>{defaultText}</option>
-      {options.map((option) => (
-        <option value={option[valueProperty]}>{option[labelProperty]}</option>
+      {options.map((option, index) => (
+        <option key={index} value={option[valueProperty]}>{option[labelProperty]}</option>
       ))}
     </select>
   );
