@@ -25,7 +25,8 @@
     "react-virtualized": "^9.22.3",
     "react-window": "^1.8.7",
     "swr": "^1.2.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "date-fns": "^2.29.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
