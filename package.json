@@ -5,7 +5,7 @@
   "repository": "https://github.com/Trendyol/perfanalytics.git",
   "scripts": {
     "install": "concurrently \"cd backend && yarn\" \"cd client &&  yarn\"",
-    "dev": "concurrently \"cd backend && yarn start:dev\" \"cd client && yarn dev\""
+    "dev": "concurrently \"cd backend && yarn dev\" \"cd client && yarn dev\""
   },
   "license": "MIT",
   "devDependencies": {
