@@ -19,7 +19,7 @@ const Home: FC<HomeProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-full">
+    <div data-testid="home-dashboard" className="flex flex-col items-center min-h-full">
       <div className="flex flex-col w-full">
         <InfoCardContainer />
         <DomainTable />
