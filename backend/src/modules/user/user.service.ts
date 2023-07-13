@@ -16,7 +16,6 @@ import config from '@config';
 import { renderMailContent } from './helpers/mailHelper';
 import { mailinator } from './constants';
 import { IDataService } from '@core/data/services/data.service';
-import { UserEntity } from '@core/data/entities';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 
@@ -25,7 +24,7 @@ export class UserService {
   constructor(
     private readonly dataService: IDataService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async getByID(id: string): Promise<any> {
     const user = await this.dataService.users.findById(id);
@@ -116,25 +115,31 @@ export class UserService {
     const verifiedToken = this.jwtService.verify(token);
     const currentTimeHash = await bcrypt.hash(new Date().toLocaleString(), 10);
 
-    const newPassword = await bcrypt.hash(password, 10);
-    await this.dataService.users.updateOneById((verifiedToken as any).iss, {
-      password: newPassword,
-      changeMailTokenKey: currentTimeHash,
-    });
+    if (this.verifyMailChangeToken(token)) {
+      const newPassword = await bcrypt.hash(password, 10);
+      this.dataService.users.updateOneById((verifiedToken as any).iss, {
+        password: newPassword,
+        changeMailTokenKey: currentTimeHash,
+      });
+    }
   }
 
   async verifyMailChangeToken(token) {
     const verifiedToken = this.jwtService.verify(token);
 
     const user = await this.getByEmail(verifiedToken.email);
-    if (!user) throw new InternalServerErrorException();
+    if (!user || user.changeMailTokenKey)
+      throw new InternalServerErrorException();
 
     if (
-      !verifiedToken ||
-      !Object.keys(verifiedToken).length ||
-      verifiedToken.key !== user.changeMailTokenKey
-    )
+      verifiedToken &&
+      Object.keys(verifiedToken).length &&
+      verifiedToken.key === user.changeMailTokenKey
+    ) {
+      return true;
+    } else {
       throw new UnprocessableEntityException('Token verify failed');
+    }
   }
 
   async updateMyPassword(
