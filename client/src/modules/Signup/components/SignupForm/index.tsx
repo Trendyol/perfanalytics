@@ -104,7 +104,7 @@ const SignupForm: FC = () => {
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
         <Button size="large" color="light" className="flex gap-2" fluid>
           <FcGoogle fontSize={22} />
-          <Link href={"http://localhost:4000/session/google/callback"}>
+          <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/session/google/callback`}>
             <span>{t("continue_with_google")}</span>
           </Link>
         </Button>
