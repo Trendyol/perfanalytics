@@ -12,6 +12,15 @@ const nextConfig = {
     domains: ["t1.gstatic.com"],
   },
   swcMinify: true,
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.devServer = {
+        hot: true,
+        liveReload: false,
+      };
+    }
+    return config;
+  },
 };
 
 module.exports = nextConfig;

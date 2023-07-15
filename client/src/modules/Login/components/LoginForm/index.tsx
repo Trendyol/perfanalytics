@@ -51,7 +51,7 @@ const LoginForm: FC = () => {
           {t("signup_redirection_part_2")}
         </p>
       </div>
-      <div className="flex flex-col gap-4 mb-5">
+      <div id="login-inputs" className="flex flex-col gap-4 mb-5">
         <TextField
           name="email"
           type="email"
@@ -77,7 +77,7 @@ const LoginForm: FC = () => {
         </Link>
       </div>
       <div className="flex flex-col gap-6">
-        <Button type="submit" size="large" fluid>
+        <Button id="login-btn" type="submit" size="large" fluid>
           {t("login")}
         </Button>
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
