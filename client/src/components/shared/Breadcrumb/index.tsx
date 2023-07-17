@@ -33,7 +33,7 @@ const Breadcrumb: FC = () => {
                     {item.name}
                   </span>
                 </Link>
-                {!isLast && <hr className="vertical-seperator" />}
+                {!isLast && <span className="text-displaySm">/</span>}
               </div>
             </li>
           );

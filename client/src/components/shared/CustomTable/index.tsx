@@ -2,7 +2,7 @@ import { DEFAULT_TABLE_HEIGHTS } from "@constants";
 import { default as classNames, default as classnames } from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { FC, ReactNode } from "react";
-import { AutoSizer, Column, InfiniteLoader, Table } from "react-virtualized";
+import { AutoSizer, Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 const CustomTable: FC<CustomTableProps> = (props) => {
@@ -19,13 +19,16 @@ const CustomTable: FC<CustomTableProps> = (props) => {
   const { t } = useTranslation("common");
 
   const noRowsRenderer = () => {
+    const isFetched = data;
+
     return (
       <div
-        className={classnames("flex justify-center items-center w-full h-full bg-gray-100 text-displaySm text-gray-500", {
-          "rounded-b-xl animate-pulse-slow": isLoading,
+        className={classNames("flex flex-col gap-4 justify-center items-center w-full h-full bg-gray-100 text-displaySm text-gray-500", {
+          "rounded-b-xl": !isFetched,
         })}
       >
-        {isLoading || !data ? t("fetching_data_placeholder") : t("no_data")}
+        <span className={classNames(!isFetched && "animate-pulse-slow")}>{!isFetched ? t("loading") : t("no_data")}</span>
+        {isFetched && <span className="text-sm font-normal text-gray-400">Please change time period or generate a report.</span>}
       </div>
     );
   };
@@ -74,7 +77,7 @@ interface CustomTableProps {
   height?: number;
   headerHeight?: number;
   rowHeight?: number;
-  data?: any[];
+  data?: any[] | null;
   columnData: Array<{
     dataKey: string;
     label: string;

@@ -15,17 +15,17 @@ const PathPageHeader: FC<PathPageHeaderProps> = () => {
 
   const { page } = usePage(query.pageId as string);
 
-  const generateReport = () => {
+  const generateReport = async () => {
     if (!page) return;
-    createReport(page?._id);
+    await createReport(page?._id);
   };
 
   return (
-    <div className="flex justify-between items-top lg:flex-col">
-      <div className="flex flex-col gap-2">
+    <div className="flex justify-between items-top lg:flex-col gap-4">
+      <div className="flex flex-col gap-2 flex-1">
         <Breadcrumb />
-        <h3 className="text-md h-6 whitespace-nowrap truncate max-w-[36rem]">
-          <a href={page?.url} target="_blank">
+        <h3 className="text-md h-6 whitespace-nowrap truncate max-w-[36rem] relative">
+          <a href={page?.url} target="_blank" rel="noreferrer">
             {page?.url}
           </a>
         </h3>

@@ -11,6 +11,7 @@
   "settings": "Settings",
   "domain_settings": "Domain Settings",
   "path_settings": "Path Settings",
+  "webhook_title": "Webhook Token",
   "delete": "Delete",
   "verify_delete": "Are you sure want to delete this domain?",
   "cancel": "Cancel",

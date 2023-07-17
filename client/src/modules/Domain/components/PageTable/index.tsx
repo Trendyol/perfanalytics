@@ -10,11 +10,11 @@ import { FC } from "react";
 const columnData = [
   {
     dataKey: "url",
-    label: "Name",
-    cellRenderer: (name: string, { url }: { url: string }) => (
-      <div className="flex items-center gap-2">
+    label: "",
+    cellRenderer: (name: string, { url, pathname }: { url: string; pathname: string }) => (
+      <div className="flex items-center gap-2 px-2">
         <Image alt="Url" className="bg-white rounded-full" src={getFavicon(url)} width={28} height={28} />
-        <div>{name}</div>
+        <div>{pathname}</div>
       </div>
     ),
   },
@@ -22,11 +22,13 @@ const columnData = [
     dataKey: "overallScore",
     label: "Overall Score",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
+    columnWidth: 200,
   },
   {
     dataKey: "lastReportDate",
     label: "Last Report Date",
     cellRenderer: (date: string) => date || "-",
+    columnWidth: 200,
   },
 ];
 
@@ -39,14 +41,7 @@ const PageTable: FC<PageTableProps> = (props) => {
     router.push(`/dashboard/${domainId}/${_id}`);
   };
 
-  return (
-    <CustomTable
-      data={pages}
-      isLoading={isLoading}
-      columnData={columnData}
-      onRowClick={({ rowData }) => handlePageClick(rowData)}
-    />
-  );
+  return <CustomTable data={pages} isLoading={isLoading} columnData={columnData} onRowClick={({ rowData }) => handlePageClick(rowData)} />;
 };
 
 interface PageTableProps {}

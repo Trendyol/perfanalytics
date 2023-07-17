@@ -1,10 +1,11 @@
+import { openUrlInNewTab } from "@utils/common";
 import dynamic from "next/dynamic";
 import React from "react";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimePeriod }) => {
-  let { current: lastClickedLegendIndex } = React.useRef(0);
+const LineChart: React.FC<LineChartProps> = ({ id, annotations, series, setReportTimePeriod }) => {
+  let lastClickedLegendIndex = React.useRef(0);
 
   const options = {
     chart: {
@@ -21,7 +22,7 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
         blur: 5,
         opacity: 0.06,
       },
-      height: 350,
+      height: 340,
       zoom: {
         enabled: true,
       },
@@ -44,12 +45,14 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
           const chart = ApexCharts.getChartByID(id);
 
           if (chart) {
-            series.map((e: any, i: number) => (i !== lastClickedLegendIndex ? chart.hideSeries(e.name) : chart.showSeries(e.name)));
+            series.map((serie: any, i: number) => {
+              return i !== lastClickedLegendIndex.current ? chart.hideSeries(serie.name) : chart.showSeries(serie.name);
+            });
           }
         },
         legendClick(chartContext: any, seriesIndex: number) {
           const chart = ApexCharts.getChartByID(id);
-          lastClickedLegendIndex = seriesIndex;
+          lastClickedLegendIndex.current = seriesIndex;
 
           if (chart) {
             const { name } = series[seriesIndex];
@@ -91,6 +94,34 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
         highlightDataSeries: false,
       },
     },
+    annotations: {
+      position: "front",
+      xaxis: [
+        ...(annotations?.map((annotation) => ({
+          x: new Date(annotation.date).getTime(),
+          borderColor: "#666",
+          strokeDashArray: 0,
+          label: {
+            borderWidth: 1,
+            position: "top",
+            offsetY: -27,
+            offsetX: 1,
+            style: {
+              color: "#fff",
+              background: "#666",
+              cssClass: "cursor-pointer",
+            },
+            text: annotation.name ?? "Deployment",
+            mouseEnter: (data: any, event: any) => {
+              event.target.style.cursor = "pointer";
+            },
+            click: () => {
+              openUrlInNewTab(annotation.url);
+            },
+          },
+        })) || []),
+      ],
+    },
     fill: {
       type: "gradient",
       gradient: {
@@ -100,7 +131,7 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
     },
     tooltip: {
       x: {
-        format: "dd.MM.yyyy - HH:mm",
+        format: "dd.MM.yyyy<br />HH:mm",
       },
       y: {
         title: {
@@ -109,7 +140,7 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
       },
     },
     animations: {
-      enabled: true,
+      enabled: false,
     },
     dataLabels: {
       enabled: false,
@@ -119,32 +150,29 @@ const LineChart: React.FC<LineChartProps> = ({ id, title, series, setReportTimeP
       width: 3,
     },
     markers: {
-      size: 6,
+      size: 4,
       strokeColor: "#fff",
-      strokeWidth: 3,
+      strokeWidth: 2,
       strokeOpacity: 1,
       fillOpacity: 1,
       hover: {
-        size: 8,
+        size: 5,
       },
     },
     colors: ["#2E93fA", "#66DA26", "#546E7A", "#FFC0CB", "#E91E63", "#FF9800", "#800080"],
   };
 
-  return (
-    <div className="flex flex-col gap-7 bg-white py-7 px-4 w-full rounded-lg drop-shadow-md text-xl font-semibold  h-[480px]">
-      <div className="flex justify-between items-center">
-        <h3 className="ml-3 text-displayXs">{title}</h3>
-      </div>
-      <Chart options={options as any} series={series} type="area" height={350} />
-    </div>
-  );
+  return <Chart options={options as any} series={series} type="area" height={350} width="100%" />;
 };
 
 interface LineChartProps {
   id: string;
-  title: string;
   series: any;
+  annotations?: Array<{
+    name: string;
+    date: string;
+    url: string;
+  }>;
   setReportTimePeriod: (value: { start: number; end: number }) => void;
 }
 

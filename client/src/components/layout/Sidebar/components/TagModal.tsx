@@ -56,6 +56,7 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
             domainId: domainId as string,
             readonly: false,
           });
+
           break;
         case TagAction.UPDATE:
           if (!formik.values.name) return;
@@ -81,8 +82,8 @@ const TagModal: FC<TagModalProps> = ({ type, show, tag, onClose }) => {
       } else {
         toast.error(t("error") as string);
       }
-    } catch (error) {
-      toast.error(t("error") as string);
+    } catch (error: any) {
+      toast.error(error.message);
     }
 
     setIsProcessContinue(false);

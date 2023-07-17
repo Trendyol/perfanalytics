@@ -1,6 +1,6 @@
+import { Page } from "@interfaces";
 import { fetcher } from "@utils/fetcher";
 import { getPageKey } from "@utils/swr";
-import { Page } from "@interfaces";
 import useSWR from "swr";
 
 const usePages = (domainId: string, tagId?: string) => {
@@ -10,8 +10,13 @@ const usePages = (domainId: string, tagId?: string) => {
     revalidateOnFocus: false,
   });
 
+  const mappedData = data?.map((x) => {
+    const urlObject = new URL(x.url);
+    return { ...x, pathname: urlObject.pathname };
+  });
+
   return {
-    pages: data,
+    pages: mappedData,
     isLoading: !error && !data,
     isError: error?.message,
     mutatePages: mutate,

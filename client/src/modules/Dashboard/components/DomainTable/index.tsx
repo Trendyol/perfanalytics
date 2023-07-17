@@ -15,13 +15,14 @@ import DomainModal from "../DomainModal";
 const columnData = [
   {
     dataKey: "name",
-    label: "Name",
-    cellRenderer: (name: string, { url }: { url: string }) => (
-      <div className="flex items-center gap-2">
-        <Image alt="Name" className={classnames("w-5 h-5 bg-white rounded-full")} src={getFavicon(url)} width={20} height={20} />
-        <div> {name}</div>
+    label: "",
+    cellRenderer: (name: string, { url }: { url: string; pathname: string }) => (
+      <div className="flex items-center gap-2 px-2">
+        <Image alt="Site logo" className={classnames("bg-white rounded-full")} src={getFavicon(url)} width={20} height={20} />
+        <div>{name}</div>
       </div>
     ),
+    columnWidth: 200,
   },
   {
     dataKey: "url",
@@ -31,16 +32,19 @@ const columnData = [
     dataKey: "overallScore",
     label: "Overall Score",
     cellRenderer: (score: number) => <ScoreBadge type={getBadgeType(score)} score={score} />,
+    columnWidth: 200,
   },
   {
     dataKey: "countOfTotalReport",
     label: "# of Total Report",
     cellRenderer: (text: string) => text || "-",
+    columnWidth: 200,
   },
   {
     dataKey: "lastReportDate",
     label: "Last Report Date",
     cellRenderer: (date: string) => date || "-",
+    columnWidth: 200,
   },
 ];
 
@@ -64,12 +68,7 @@ const DomainTable: FC<DomainTableProps> = (props) => {
             {t("new_url")}
           </Button>
         </div>
-        <CustomTable
-          data={domains}
-          isLoading={isLoading}
-          columnData={columnData}
-          onRowClick={({ rowData }) => handleDomainClick(rowData)}
-        />
+        <CustomTable data={domains} isLoading={isLoading} columnData={columnData} onRowClick={({ rowData }) => handleDomainClick(rowData)} />
       </div>
       <DomainModal show={showDomainModal} onClose={() => setShowDomainModal(false)} />
     </>

@@ -1,3 +1,4 @@
 {
-  "extends": ["next"]
+  "extends": ["next"],
+  "ignorePatterns": ["*.json"]
 }

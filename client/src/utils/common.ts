@@ -7,6 +7,12 @@ export const deepCopy = (obj: Object) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
+export const openUrlInNewTab = (url: string) => {
+  const newWindow = window.open(url, "_blank");
+
+  newWindow?.focus();
+};
+
 export const flattenNestedProperty = (property: any, array?: any[]) => {
   let flattenArray = [] as any;
 
@@ -23,7 +29,6 @@ export const flattenNestedProperty = (property: any, array?: any[]) => {
 };
 
 export const getFavicon = (url: string) => {
-
   return `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=64`;
 };
 
@@ -56,4 +61,14 @@ export const mapReportsData = (data: any) => {
 
     return { ...x, ...audits };
   });
+};
+
+export const getFullUrlWithPath = (path: string) => {
+  let origin = typeof window !== "undefined" && window.location.origin ? window.location.origin : "";
+
+  if (process.env.NODE_ENV === "development") {
+    origin = "http://localhost:4000";
+  }
+
+  return `${origin}${path}`;
 };
