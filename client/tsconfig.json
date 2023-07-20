@@ -28,6 +28,7 @@
       "@enums": ["src/enums.ts"],
       "@schemas": ["src/schemas.ts"],
       "@interfaces": ["src/interfaces.ts"],
+      "@contexts/*": ["src/contexts/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js"],

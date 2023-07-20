@@ -110,3 +110,7 @@ export interface TimePeriod {
   end: number;
   interval?: number;
 }
+
+export interface Config {
+  baseUrl: string;
+}

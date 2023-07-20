@@ -11,11 +11,13 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import { useConfig } from '@contexts/ConfigContext';
 
 const LoginForm: FC = () => {
   const { mutateUser } = useUser();
   const { t } = useTranslation("registration");
   const router = useRouter();
+  const config = useConfig();
 
   const handleSession = async (values: { email: string; password: string }) => {
     try {
@@ -81,7 +83,7 @@ const LoginForm: FC = () => {
           {t("login")}
         </Button>
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
-        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/session/google/callback`}>
+        <Link href={`${config.baseUrl}/session/google/callback`}>
           <Button size="large" color="light" className="flex gap-2" fluid>
             <FcGoogle fontSize={22} />
             <span>{t("continue_with_google")}</span>

@@ -12,6 +12,9 @@ const nextConfig = {
     domains: ["t1.gstatic.com"],
   },
   swcMinify: true,
+  publicRuntimeConfig: {
+    baseUrl: process.env.BASE_URL,
+  }
 };
 
 module.exports = nextConfig;
