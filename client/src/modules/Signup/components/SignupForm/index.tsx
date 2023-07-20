@@ -3,7 +3,7 @@ import TextField from "@components/shared/Form/TextField";
 import PasswordField from "@components/shared/Form/TextField/PasswordField";
 import useUser from "@hooks/useUser";
 import { signupSchema } from "@schemas";
-import { createSession, createUser } from "@services/userService";
+import { createUser } from "@services/userService";
 import { useFormik } from "formik";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
@@ -11,11 +11,13 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import { useConfig } from '@contexts/ConfigContext';
 
 const SignupForm: FC = () => {
   const { mutateUser } = useUser();
   const { t } = useTranslation("registration");
   const router = useRouter();
+  const config = useConfig();
 
   const handleSignUp = async (values: { name: string; email: string; password: string }) => {
     try {
@@ -104,7 +106,7 @@ const SignupForm: FC = () => {
         <div className="divider mt-0 mb-0 text-slate-300 select-none">OR</div>
         <Button size="large" color="light" className="flex gap-2" fluid>
           <FcGoogle fontSize={22} />
-          <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/session/google/callback`}>
+          <Link href={`${config.baseUrl}/session/google/callback`}>
             <span>{t("continue_with_google")}</span>
           </Link>
         </Button>

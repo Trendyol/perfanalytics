@@ -1,19 +1,12 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { getConfigWithTypes } from "@contexts/ConfigContext";
 
-export const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  withCredentials: true,
-});
+const configs = getConfigWithTypes();
 
-axiosInstance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    return Promise.reject(error.response.data);
-  }
-);
+axios.defaults.baseURL = configs.baseUrl;
+axios.defaults.withCredentials = true;
 
-export const fetcher = (url: any, config?: AxiosRequestConfig) => {
-  return axiosInstance.get(url, config).then((res) => res.data);
+export const fetcher = async (url: any, config?: AxiosRequestConfig) => {
+  const res = await axios.get(url, config);
+  return res.data;
 };

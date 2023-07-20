@@ -6,6 +6,7 @@ import PageLayout from "@layouts/PageLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "@styles/globals.scss";
 import { SWRConfig } from "swr";
+import ConfigProvider from "@contexts/ConfigContext";
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -22,10 +23,12 @@ const App = (props: AppProps) => {
 
   return (
     <SWRConfig value={pageProps.fallback && { fallback: pageProps.fallback }}>
-      <PageLayout>
-        <Component {...pageProps} />
-        <Toast />
-      </PageLayout>
+      <ConfigProvider>
+        <PageLayout>
+          <Component {...pageProps} />
+          <Toast />
+        </PageLayout>
+      </ConfigProvider>
     </SWRConfig>
   );
 };

@@ -1,5 +1,5 @@
-import { axiosInstance } from "@utils/fetcher";
+import axios from "axios";
 
 export const createReport = (pageId: string) => {
-  return axiosInstance.get(`/report/run/${pageId}`);
+  return axios.get(`/report/run/${pageId}`);
 };

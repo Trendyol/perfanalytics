@@ -1,4 +1,4 @@
-import { axiosInstance } from "@utils/fetcher";
+import axios from "axios";
 
 interface CreatePage {
   url: string;
@@ -14,7 +14,7 @@ interface UpdatePage {
 }
 
 export const createPage = ({ domainId, url, device, tagId }: CreatePage) => {
-  return axiosInstance.post("/page", {
+  return axios.post("/page", {
     domainId: domainId,
     url: url,
     device: device,
@@ -23,7 +23,7 @@ export const createPage = ({ domainId, url, device, tagId }: CreatePage) => {
 };
 
 export const updatePage = (id: string, { url, device, tagId }: UpdatePage) => {
-  return axiosInstance.put(`/page/${id}`, {
+  return axios.put(`/page/${id}`, {
     url: url,
     device: device,
     tag: tagId
@@ -31,5 +31,5 @@ export const updatePage = (id: string, { url, device, tagId }: UpdatePage) => {
 };
 
 export const deletePage = (id: string) => {
-  return axiosInstance.delete(`/page/${id}`);
+  return axios.delete(`/page/${id}`);
 };
