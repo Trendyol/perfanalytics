@@ -1,4 +1,4 @@
-import { axiosInstance } from "@utils/fetcher";
+import axios from 'axios';
 
 interface CreateDomain {
   name: string;
@@ -10,19 +10,19 @@ interface UpdateDomain {
 }
 
 export const createDomain = ({ name, url }: CreateDomain) => {
-  return axiosInstance.post("/domain", {
+  return axios.post("/domain", {
     name: name,
     url: url,
   });
 };
 
 export const updateDomain = (id: string, { name, url }: UpdateDomain) => {
-  return axiosInstance.put(`/domain/${id}`, {
+  return axios.put(`/domain/${id}`, {
     name: name,
     url: url,
   }); 
 };
 
 export const deleteDomain = (id: string) => {
-  return axiosInstance.delete(`/domain/${id}`);
+  return axios.delete(`/domain/${id}`);
 };

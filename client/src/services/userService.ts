@@ -1,4 +1,4 @@
-import { axiosInstance } from "@utils/fetcher";
+import axios from "axios";
 
 interface CreateSession {
   email: string;
@@ -21,26 +21,26 @@ interface UpdatePassword {
 }
 
 export const createSession = ({ email, password }: CreateSession) => {
-  return axiosInstance.post("/session", {
+  return axios.post("/session", {
     email: email,
     password: password,
   });
 };
 
 export const recoverPassword = (email: string, language: string) => {
-  return axiosInstance.post("user/recover-password", { email, language });
+  return axios.post("user/recover-password", { email, language });
 }
 
 export const changeUserPassword = (token: string, password: string) => {
-  return axiosInstance.post("user/password-change", { token, password });
+  return axios.post("user/password-change", { token, password });
 }
 
 export const verifyMailChangeToken = (token: string) => {
-  return axiosInstance.post("user/password-token-verify", { token });
+  return axios.post("user/password-token-verify", { token });
 }
 
 export const createUser = ({ name, email, password }: CreateUser) => {
-  return axiosInstance.post("/user", {
+  return axios.post("/user", {
     name: name,
     email: email,
     password: password,
@@ -48,16 +48,16 @@ export const createUser = ({ name, email, password }: CreateUser) => {
 };
 
 export const deleteSession = () => {
-  return axiosInstance.delete("/session");
+  return axios.delete("/session");
 };
 
 export const updateUsername = ({ name }: UpdateName) => {
-  return axiosInstance.put("/user/@me", { name });
+  return axios.put("/user/@me", { name });
 };
 
 export const updatePassword = ({
   oldPassword,
   newPassword,
 }: UpdatePassword) => {
-  return axiosInstance.put("/user/@me/password", { oldPassword, newPassword });
+  return axios.put("/user/@me/password", { oldPassword, newPassword });
 };
