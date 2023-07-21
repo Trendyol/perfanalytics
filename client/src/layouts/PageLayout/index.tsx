@@ -3,6 +3,8 @@ import Header from "@components/layout/Header";
 import Sidebar from "@components/layout/Sidebar";
 import Head from "next/head";
 import React, { FC } from "react";
+import { useConfig } from "@contexts/ConfigContext";
+import axios from "axios";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -10,6 +12,8 @@ interface PageLayoutProps {
 
 const PageLayout: FC<PageLayoutProps> = (props) => {
   const { children } = props;
+  const config = useConfig();
+  console.log('baseUrl', config?.baseUrl, axios?.defaults?.baseURL);
 
   return (
     <div className="min-w-full flex min-h-screen bg-background overflow-hidden bg-gray-50 isolate">
