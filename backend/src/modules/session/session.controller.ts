@@ -16,6 +16,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '@modules/user/user.service';
 import { GoogleGuard } from '@core/guards/google.guard';
 import config from '@config';
+import { Throttle } from '@nestjs/throttler';
+
 @ApiTags('Session')
 @Controller('session')
 export class SessionController {
@@ -24,6 +26,7 @@ export class SessionController {
     private readonly userService: UserService,
   ) {}
 
+  @Throttle(3, 60)
   @Get('google/callback')
   @UseGuards(GoogleGuard)
   async googleAuthCallback(
@@ -46,6 +49,7 @@ export class SessionController {
     return response.redirect(config.clientUrl);
   }
 
+  @Throttle(3, 60)
   @Post()
   async createSession(
     @Body() createSessionDto: CreateSessionDto,
@@ -62,6 +66,7 @@ export class SessionController {
     return;
   }
 
+  @Throttle(3, 60)
   @UseGuards(JwtGuard)
   @Post(':id')
   async createSessionForUser(@Param('id') id: string) {
