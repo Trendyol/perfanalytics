@@ -15,4 +15,8 @@ const ResetPasswordPage: NextPage = () => {
   );
 };
 
+export async function getServerSideProps() {
+  return { props: {} };
+}
+
 export default ResetPasswordPage;

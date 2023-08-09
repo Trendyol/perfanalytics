@@ -15,4 +15,8 @@ const RecoverPage: NextPage = () => {
   );
 };
 
+export async function getServerSideProps() {
+  return { props: {} };
+}
+
 export default RecoverPage;
