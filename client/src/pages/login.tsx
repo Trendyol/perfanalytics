@@ -15,4 +15,8 @@ const LoginPage: NextPage = () => {
   );
 };
 
+export async function getServerSideProps() {
+  return { props: {} };
+}
+
 export default LoginPage;

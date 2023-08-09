@@ -15,4 +15,8 @@ const SignupPage: NextPage = () => {
   );
 };
 
+export async function getServerSideProps(){
+  return { props: {} };
+}
+
 export default SignupPage;
