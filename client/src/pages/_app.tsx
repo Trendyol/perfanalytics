@@ -14,10 +14,10 @@ const App = (props: AppProps) => {
 
   if (LAYOUT_EXCLUDED_PAGES.includes(router.route)) {
     return (
-      <>
+      <ConfigProvider>
         <Component {...pageProps} />
         <Toast />
-      </>
+      </ConfigProvider>
     );
   }
 
