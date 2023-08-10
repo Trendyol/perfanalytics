@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export interface Config {
+  clientUrl: string;
   origin: string;
   port: number;
   version: string;
@@ -32,13 +33,16 @@ export interface Config {
     username: string;
     password: string;
   };
+  cookie: {
+    domain: string;
+  };
   database: string;
-  clientUrl: string;
   reportTokenSecret: string;
 }
 
 export const config = {
   port: parseInt(process.env.PORT, 10) || 3000,
+  clientUrl: process.env.CLIENT_URL,
   origin: process.env.ORIGIN,
   version: process.env.VERSION,
   reportTokenSecret: process.env.REPORT_TOKEN_SECRET,
@@ -69,8 +73,10 @@ export const config = {
     username: process.env.CB_USERNAME,
     password: process.env.CB_PASSWORD,
   },
+  cookie: {
+    domain: process.env.COOKIE_DOMAIN,
+  },
   database: process.env.DATABASE,
-  clientUrl: process.env.CLIENT_URL,
 };
 
 export default config as Config;

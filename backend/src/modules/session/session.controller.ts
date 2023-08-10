@@ -44,7 +44,10 @@ export class SessionController {
     }
 
     const token = this.sessionService.createSession(user);
-    response.cookie('auth-cookie', token, { httpOnly: true });
+    response.cookie('auth-cookie', token, {
+      httpOnly: true,
+      domain: config.cookie.domain,
+    });
 
     return response.redirect(config.clientUrl);
   }
@@ -56,7 +59,10 @@ export class SessionController {
     @Res({ passthrough: true }) response,
   ) {
     const token = await this.sessionService.create(createSessionDto);
-    response.cookie('auth-cookie', token, { httpOnly: true });
+    response.cookie('auth-cookie', token, {
+      httpOnly: true,
+      domain: config.cookie.domain,
+    });
     return;
   }
 
