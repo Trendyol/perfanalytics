@@ -1,3 +1,5 @@
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Trendyol/perfanalytics/badge)](https://scorecard.dev/viewer/?uri=github.com/Trendyol/perfanalytics)
 # PerfAnalytics
 PerfAnalytics is an open-source project aimed at measuring and analyzing performance metrics. It provides a comprehensive solution for gathering performance data, visualizing insights, and making informed optimizations. The project is built using NestJS for the backend, Kafka for data streaming, and Next.js for the client-side interface.
 
